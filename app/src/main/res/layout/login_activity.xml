@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/splash_logo_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="150dp"/>
+
+    <TextView
+        android:id="@+id/splash_text1_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="헬스 시간 도우미"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splash_logo_iv"
+        />
+
+    <TextView
+        android:id="@+id/splash_text2_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HEALTHPER"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splash_text1_tv"
+        />
+
+    <TextView
+        android:id="@+id/kakao_login_tv"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@color/yellow"
+        android:text="카카오 로그인 -> 나중에 디자인 나오면 제대로 구현"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splash_text2_tv"
+        android:layout_marginTop="150dp"
+        />
+
+    <TextView
+        android:id="@+id/google_login_tv"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background = "#CACACACA"
+        android:text="google 로그인 -> 나중에 디자인 나오면 제대로 구현"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kakao_login_tv"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="150dp"
+        />
+
+    <TextView
+        android:id="@+id/login_explain_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그인 약관 설명"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/google_login_tv"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
