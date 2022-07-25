@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 오늘의 루틴 고르기 페이지-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ImageView>
+<!--    설정버튼-->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+<!--    타이틀-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+<!--    루틴생성버튼-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+<!--    루틴목록-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+<!--    흐릿한 배경-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ImageView>
+<!--        닫기버튼-->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </EditText>
+<!--        수정가능한 제목-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ImageView>
+<!--        수정버튼-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+<!--        들어간 부위-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </TextView>
+<!--        분할선-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+<!--        빠질 부위-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </TextView>
+<!--        수정완료 버튼-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    팝업느낌-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
