@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--달력의 각 주의 하나의 날짜에 대한 아이템-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.google.android.material.imageview.ShapeableImageView>
+<!--    선택했을때 동그랗게 처리되는 뒷배경-->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+<!--    날짜-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+<!--날짜아래 색상들-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

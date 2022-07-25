@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--메인 캘린더에서 운동하러가기 누르면 나오는 프래그먼트-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+</TextView>
+<!--    제목-->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+<!--    루틴생성버튼-->
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+<!--    존재하는 루틴들 나타냄-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
