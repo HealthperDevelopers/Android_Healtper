@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--메인상단의 유저 칸-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.google.android.material.imageview.ShapeableImageView>
+<!--    프로필 사진-->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+<!--    이름-->
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ImageView>
+<!--    설정버튼-->
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--메인화면 달력프레임 내 들어갈 내용-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ImageView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ImageView>
+<!--    좌우버튼과 년월 표시-->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+<!--요일표시-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+<!--    각 주 표시(총 6주)-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
