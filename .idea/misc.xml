@@ -4,7 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/rectangle.xml" value="0.1445" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.11096014492753623" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.23274969570878618" />
         <entry key="app/src/main/res/layout/circular_chart_fragment.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.25074310302734376" />
@@ -20,6 +20,7 @@
         <entry key="app/src/main/res/layout/part_chart_fragment.xml" value="0.28125" />
         <entry key="app/src/main/res/layout/routine_fragment.xml" value="0.23248138427734377" />
         <entry key="app/src/main/res/layout/todaydone_fragment.xml" value="0.14990942028985507" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.140625" />
       </map>
     </option>
   </component>
