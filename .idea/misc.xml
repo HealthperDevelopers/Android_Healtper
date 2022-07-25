@@ -8,13 +8,18 @@
         <entry key="app/src/main/res/layout/circular_chart_fragment.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.25074310302734376" />
+        <entry key="app/src/main/res/layout/fragment_mypage_favorites.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_mypage_music.xml" value="0.2947916666666667" />
+        <entry key="app/src/main/res/layout/fragment_mypage_relaxmusic.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_mypage_workmusic.xml" value="0.2532801310221355" />
         <entry key="app/src/main/res/layout/fragment_partchart.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_partchart_month.xml" value="0.15533905029296877" />
         <entry key="app/src/main/res/layout/fragment_partchart_week.xml" value="0.29375" />
         <entry key="app/src/main/res/layout/fragment_partchart_year.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/fragment_routine.xml" value="0.28072916666666664" />
         <entry key="app/src/main/res/layout/fragment_todaycomment.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/item_relax_music.xml" value="0.2947916666666667" />
+        <entry key="app/src/main/res/layout/item_work_music.xml" value="0.29375" />
         <entry key="app/src/main/res/layout/login_activity.xml" value="0.18565191738847373" />
         <entry key="app/src/main/res/layout/makeroutine_fragment.xml" value="0.11096014492753623" />
         <entry key="app/src/main/res/layout/part_chart_fragment.xml" value="0.28125" />
