@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.umc.Healthper.databinding.FragmentMypageWorkmusicBinding
+import com.umc.Healthper.databinding.FragmentMypageRelaxmusicBinding
 
-class WorkmusicMypageFragment : Fragment() {
+class RelaxmusicMypageFragment : Fragment() {
 
-    lateinit var binding : FragmentMypageWorkmusicBinding
+    lateinit var binding : FragmentMypageRelaxmusicBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMypageWorkmusicBinding.inflate(inflater, container, false)
+        binding = FragmentMypageRelaxmusicBinding.inflate(inflater, container, false)
         return binding.root
     }
 }
