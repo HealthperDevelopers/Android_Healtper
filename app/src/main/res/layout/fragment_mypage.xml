@@ -58,7 +58,7 @@
         android:layout_marginTop="20dp"
         />
     <TextView
-        android:id="@+id/music_tv"
+        android:id="@+id/mypage_music_tv"
         android:text="음악 파일 모음"
         android:textStyle="bold"
         android:textSize="15sp"

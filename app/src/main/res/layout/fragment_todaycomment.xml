@@ -5,112 +5,111 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/user_name_tv"
+        android:id="@+id/todaycomment_user_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="user"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/user_sir_tv"
+        app:layout_constraintEnd_toStartOf="@id/todaycomment_user_sir_tv"
         android:layout_marginStart="500dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/user_sir_tv"
+        app:layout_constraintBottom_toTopOf="@id/todaycomment_user_sir_tv"
         android:layout_marginTop="150dp"/>
     <TextView
-        android:id="@+id/user_sir_tv"
+        android:id="@+id/todaycomment_user_sir_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="님"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/user_name_tv"
+        app:layout_constraintStart_toEndOf="@id/todaycomment_user_name_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/user_name_tv"
-        app:layout_constraintBottom_toBottomOf="@id/user_name_tv"
+        app:layout_constraintTop_toTopOf="@id/todaycomment_user_name_tv"
+        app:layout_constraintBottom_toBottomOf="@id/todaycomment_user_name_tv"
         android:layout_marginEnd="500dp"/>
 
     <TextView
-        android:id="@+id/total_health_announcement_tv"
+        android:id="@+id/todaycomment_announcement_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="수고하셨습니다!"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/user_sir_tv"
+        app:layout_constraintTop_toBottomOf="@id/todaycomment_user_sir_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/total_today_time_tv"
+        android:id="@+id/todaycomment_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="총 운동 시간"
         android:textSize="15sp"
-        app:layout_constraintTop_toBottomOf="@id/total_health_announcement_tv"
+        app:layout_constraintTop_toBottomOf="@id/todaycomment_announcement_tv"
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/total_today_real_time_tv"/>
+        app:layout_constraintBottom_toTopOf="@id/todaycomment_real_time_tv"/>
 
-    <!--변수를 어떻게 해야할지 모르겟음.-->
     <TextView
-        android:id="@+id/total_today_real_time_tv"
+        android:id="@+id/todaycomment_real_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00:00:00"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/total_today_time_tv"
+        app:layout_constraintTop_toBottomOf="@id/todaycomment_time_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/total_today_volume_tv"
+        android:id="@+id/todaycomment_volume_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="총 볼륨"
         android:textSize="15sp"
-        app:layout_constraintTop_toBottomOf="@id/total_today_real_time_tv"
+        app:layout_constraintTop_toBottomOf="@id/todaycomment_real_time_tv"
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/total_today_real_volume_tv"
+        android:id="@+id/todaycomment_real_volume_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="kg"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/total_today_volume_tv"
+        app:layout_constraintTop_toBottomOf="@id/todaycomment_volume_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/today_comment_tv"
+        android:id="@+id/todaycomment_comment_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="오늘의 운동 코멘트"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/total_today_real_volume_tv"
+        app:layout_constraintTop_toBottomOf="@id/todaycomment_real_volume_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/today_comment_et"/>
+        app:layout_constraintBottom_toTopOf="@id/todaycomment_comment_et"/>
 
     <EditText
-        android:id="@+id/today_comment_et"
+        android:id="@+id/todaycomment_comment_et"
         android:layout_width="250dp"
         android:layout_height="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/today_comment_tv"
-        app:layout_constraintBottom_toTopOf="@id/check_calender_bt"
+        app:layout_constraintTop_toBottomOf="@id/todaycomment_comment_tv"
+        app:layout_constraintBottom_toTopOf="@id/todaycomment_calender_bt"
         />
 
     <Button
-        android:id="@+id/check_calender_bt"
+        android:id="@+id/todaycomment_calender_bt"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:text="캘린더 확인하기"
-        app:layout_constraintTop_toBottomOf="@id/today_comment_et"
+        app:layout_constraintTop_toBottomOf="@id/todaycomment_comment_et"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
