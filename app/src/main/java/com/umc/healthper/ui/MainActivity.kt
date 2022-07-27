@@ -2,6 +2,7 @@ package com.umc.Healthper.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import com.umc.Healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.Healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.Healthper.ui.mypage.view.MypageFragment
@@ -26,11 +27,17 @@ class MainActivity : AppCompatActivity() {
     fun changeMypageFragment(int : Int){
         val transition = supportFragmentManager.beginTransaction()
         when (int){
-            0 -> transition.replace(binding.mainFrm.id, FavoritesMypageFragment())
-            1 -> transition.replace(binding.mainFrm.id, MusicMypageFragment())
-
-            // 백스택에 저장하는 방법
+            0 -> {
+                transition.replace(binding.mainFrm.id, FavoritesMypageFragment())
+                transition.addToBackStack("favorites")
+            }
+            1 -> {
+                transition.replace(binding.mainFrm.id, MusicMypageFragment())
+                transition.addToBackStack("music")
+            }
         }
+        transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        transition.isAddToBackStackAllowed
         transition.commit()
     }
 }
