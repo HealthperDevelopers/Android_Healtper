@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.umc.Healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.Healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.Healthper.ui.mypage.view.MypageFragment
-import com.umc.Healthper.R
-import com.umc.Healthper.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
