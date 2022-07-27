@@ -6,7 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.umc.Healthper.databinding.FragmentMypageBinding
+import com.umc.healthper.databinding.FragmentMypageBinding
+import com.umc.healthper.ui.MainActivity
 
 class MypageFragment : Fragment() {
 

@@ -2,11 +2,11 @@ package com.umc.healthper.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-<<<<<<< HEAD:app/src/main/java/com/umc/healthper/ui/MainActivity.kt
 import com.umc.healthper.R
-=======
-import com.umc.Healthper.databinding.ActivityMainBinding
->>>>>>> af41f3baf952582e40ab0e51cb6fee18c350a706:app/src/main/java/com/umc/Healthper/MainActivity.kt
+import com.umc.healthper.databinding.ActivityMainBinding
+import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
+import com.umc.healthper.ui.mypage.view.MusicMypageFragment
+import com.umc.healthper.ui.mypage.view.MypageFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
