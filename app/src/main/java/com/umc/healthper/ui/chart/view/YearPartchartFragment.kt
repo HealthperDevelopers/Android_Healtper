@@ -1,4 +1,4 @@
-package com.umc.Healthper
+package com.umc.Healthper.ui.chart.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

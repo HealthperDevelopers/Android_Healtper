@@ -1,7 +1,10 @@
-package com.umc.Healthper
+package com.umc.Healthper.ui.chart.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.umc.Healthper.ui.chart.view.MonthPartchartFragment
+import com.umc.Healthper.ui.chart.view.WeekPartchartFragment
+import com.umc.Healthper.ui.chart.view.YearPartchartFragment
 
 class PartchartVPAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 3

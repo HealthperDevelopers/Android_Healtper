@@ -1,4 +1,4 @@
-package com.umc.Healthper
+package com.umc.Healthper.ui.mypage.view
 
 import android.content.Context
 import android.os.Bundle
@@ -7,15 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.umc.Healthper.databinding.FragmentMypageBinding
+import com.umc.Healthper.MainActivity
 
 class MypageFragment : Fragment() {
 
     lateinit var binding : FragmentMypageBinding
-    var mainActivity: MainActivity? = null
+    var mainActivity: com.umc.Healthper.MainActivity? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mainActivity = context as MainActivity
+        mainActivity = context as com.umc.Healthper.MainActivity
     }
     override fun onCreateView(
         inflater: LayoutInflater,

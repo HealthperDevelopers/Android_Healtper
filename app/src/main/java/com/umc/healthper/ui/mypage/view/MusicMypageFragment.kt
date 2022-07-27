@@ -1,4 +1,4 @@
-package com.umc.Healthper
+package com.umc.Healthper.ui.mypage.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.Healthper.databinding.FragmentMypageMusicBinding
+import com.umc.Healthper.ui.mypage.adapter.MusicMypageVPAdapter
 
 class MusicMypageFragment : Fragment() {
 

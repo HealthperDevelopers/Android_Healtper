@@ -1,21 +1,21 @@
-package com.umc.Healthper
+package com.umc.Healthper.ui.mypage.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.umc.Healthper.databinding.FragmentMypageFavoritesBinding
+import com.umc.Healthper.databinding.FragmentMypageRelaxmusicBinding
 
-class FavoritesMypageFragment : Fragment() {
+class RelaxmusicMypageFragment : Fragment() {
 
-    lateinit var binding : FragmentMypageFavoritesBinding
+    lateinit var binding : FragmentMypageRelaxmusicBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMypageFavoritesBinding.inflate(inflater, container, false)
+        binding = FragmentMypageRelaxmusicBinding.inflate(inflater, container, false)
         return binding.root
     }
 }

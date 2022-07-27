@@ -1,22 +1,22 @@
-package com.umc.Healthper
+package com.umc.Healthper.ui.chart.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.umc.Healthper.databinding.FragmentPartchartWeekBinding
+import com.umc.Healthper.databinding.FragmentPartchartMonthBinding
 
-class WeekPartchartFragment : Fragment(){
+class MonthPartchartFragment : Fragment(){
 
-    lateinit var binding : FragmentPartchartWeekBinding
+    lateinit var binding : FragmentPartchartMonthBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPartchartWeekBinding.inflate(inflater, container, false)
+        binding = FragmentPartchartMonthBinding.inflate(inflater, container, false)
 
         return binding.root
     }
