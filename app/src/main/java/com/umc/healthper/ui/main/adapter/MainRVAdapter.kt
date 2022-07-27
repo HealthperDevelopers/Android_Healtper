@@ -10,13 +10,9 @@ import com.umc.healthper.databinding.ItemMainUserBinding
 
 class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val data_list = ArrayList<Int>()
+    private val data_list = listOf(1, 2, 3, 4)
 
     override fun getItemViewType(position: Int): Int {
-        data_list.add(1)
-        data_list.add(2)
-        data_list.add(3)
-        data_list.add(4)
         return data_list[position]
     }
     override fun getItemCount(): Int {
@@ -31,7 +27,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             2 -> {
                     val binding = ItemMainCalendarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                    CalendarFrameHolder(binding)
+                    CalendarHolder(binding)
             }
             3 -> {
                 val binding = ItemMainDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -50,7 +46,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 (holder as MainRVAdapter.UserHolder).bind()
             }
             2-> {
-                (holder as MainRVAdapter.CalendarFrameHolder).bind()
+                (holder as MainRVAdapter.CalendarHolder).bind()
             }
             3-> {
                 (holder as MainRVAdapter.DetailHolder).bind()
@@ -67,9 +63,21 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    inner class CalendarFrameHolder(binding: ItemMainCalendarBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class CalendarHolder(private val binding: ItemMainCalendarBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-
+            val calRvList = ArrayList<DateRVAdapter>()
+            if (calRvList.size == 0) {
+                for (i in 1..6) {
+                    val tmp = DateRVAdapter()
+                    calRvList.add(tmp)
+                }
+            }
+            binding.itemMainCalW1Rv.adapter = calRvList[0]
+            binding.itemMainCalW2Rv.adapter = calRvList[1]
+            binding.itemMainCalW3Rv.adapter = calRvList[2]
+            binding.itemMainCalW4Rv.adapter = calRvList[3]
+            binding.itemMainCalW5Rv.adapter = calRvList[4]
+            binding.itemMainCalW6Rv.adapter = calRvList[5]
         }
     }
 
