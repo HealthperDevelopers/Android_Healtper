@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.umc.Healthper.databinding.FragmentPartchartYearBinding
+import com.umc.healthper.databinding.FragmentPartchartYearBinding
 
 class YearPartchartFragment : Fragment(){
 

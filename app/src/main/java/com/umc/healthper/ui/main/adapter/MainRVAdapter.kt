@@ -3,10 +3,10 @@ package com.umc.healthper.ui.main.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.umc.Healthper.databinding.ItemMainCalendarBinding
-import com.umc.Healthper.databinding.ItemMainDetailBinding
-import com.umc.Healthper.databinding.ItemMainNewBinding
-import com.umc.Healthper.databinding.ItemMainUserBinding
+import com.umc.healthper.databinding.ItemMainCalendarBinding
+import com.umc.healthper.databinding.ItemMainDetailBinding
+import com.umc.healthper.databinding.ItemMainNewBinding
+import com.umc.healthper.databinding.ItemMainUserBinding
 
 class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

@@ -6,17 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.umc.Healthper.databinding.FragmentMypageBinding
-import com.umc.Healthper.MainActivity
+import com.umc.healthper.databinding.FragmentMypageBinding
 
 class MypageFragment : Fragment() {
 
     lateinit var binding : FragmentMypageBinding
-    var mainActivity: com.umc.Healthper.MainActivity? = null
+    var mainActivity: com.umc.Healthper.ui.MainActivity? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mainActivity = context as com.umc.Healthper.MainActivity
+        mainActivity = context as com.umc.Healthper.ui.MainActivity
     }
     override fun onCreateView(
         inflater: LayoutInflater,

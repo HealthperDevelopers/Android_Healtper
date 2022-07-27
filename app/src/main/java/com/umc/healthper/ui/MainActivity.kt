@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.umc.Healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.Healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.Healthper.ui.mypage.view.MypageFragment
+import com.umc.healthper.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -19,15 +20,15 @@ class MainActivity : AppCompatActivity() {
 //            .commit()
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, MypageFragment())
+            .replace(binding.mainFrm.id, MypageFragment())
             .commit()
     }
 
     fun changeMypageFragment(int : Int){
         val transition = supportFragmentManager.beginTransaction()
         when (int){
-            0 -> transition.replace(R.id.main_frm, FavoritesMypageFragment())
-            1 -> transition.replace(R.id.main_frm, MusicMypageFragment())
+            0 -> transition.replace(binding.mainFrm.id, FavoritesMypageFragment())
+            1 -> transition.replace(binding.mainFrm.id, MusicMypageFragment())
 
             // 백스택에 저장하는 방법
         }
