@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Healthper"
         tools:targetApi="31">
         <activity
-            android:name="com.umc.healthper.com.umc.Healthper.ui.MainActivity"
+            android:name="com.umc.Healthper.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
