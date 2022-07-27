@@ -1,4 +1,4 @@
-package com.umc.Healthper
+package com.umc.healthper.ui.chart.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.Healthper.databinding.FragmentPartchartBinding
+import com.umc.healthper.ui.chart.adapter.PartchartVPAdapter
 
 class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding

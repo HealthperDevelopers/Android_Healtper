@@ -1,4 +1,4 @@
-package com.umc.Healthper
+package com.umc.healthper.ui.mypage.view
 
 import android.content.Context
 import android.os.Bundle

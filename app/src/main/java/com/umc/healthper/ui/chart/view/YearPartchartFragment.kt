@@ -1,21 +1,23 @@
-package com.umc.Healthper
+package com.umc.healthper.ui.chart.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.umc.Healthper.databinding.FragmentMypageFavoritesBinding
+import com.umc.healthper.databinding.FragmentPartchartYearBinding
 
-class FavoritesMypageFragment : Fragment() {
+class YearPartchartFragment : Fragment(){
 
-    lateinit var binding : FragmentMypageFavoritesBinding
+    lateinit var binding : FragmentPartchartYearBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMypageFavoritesBinding.inflate(inflater, container, false)
+        binding = FragmentPartchartYearBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 }
