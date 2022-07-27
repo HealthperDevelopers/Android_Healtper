@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/user_iv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="150dp"
+        />
+    <TextView
+        android:id="@+id/user_name_tv"
+        android:text="user_name"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/user_iv"
+        app:layout_constraintEnd_toEndOf="@id/user_iv"
+        app:layout_constraintStart_toStartOf="@id/user_iv"
+        android:layout_marginTop="10dp"/>
+
+    <ImageView
+        android:id="@+id/favorites_iv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/music_iv"
+        app:layout_constraintTop_toBottomOf="@id/user_name_tv"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/favorites_tv"
+        android:text="부위별 즐겨찾기"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/favorites_iv"
+        app:layout_constraintEnd_toEndOf="@id/favorites_iv"
+        app:layout_constraintStart_toStartOf="@id/favorites_iv"
+        android:layout_marginTop="10dp"/>
+
+    <ImageView
+        android:id="@+id/music_iv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/favorites_iv"
+        app:layout_constraintTop_toBottomOf="@id/user_name_tv"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/music_tv"
+        android:text="음악 파일 모음"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/music_iv"
+        app:layout_constraintEnd_toEndOf="@id/music_iv"
+        app:layout_constraintStart_toStartOf="@id/music_iv"
+        android:layout_marginTop="10dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
