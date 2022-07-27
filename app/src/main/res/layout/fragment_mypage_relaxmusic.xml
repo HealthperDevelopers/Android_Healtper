@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/relax_music_rv"
+        android:id="@+id/mypage_relaxmusic_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_relax_music"

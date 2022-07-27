@@ -22,8 +22,8 @@ class MusicMypageFragment : Fragment() {
         binding = FragmentMypageMusicBinding.inflate(inflater, container, false)
 
         val musicMypageAdapter = MusicMypageVPAdapter(this)
-        binding.musicContentVp.adapter = musicMypageAdapter
-        TabLayoutMediator(binding.musicContentTb, binding.musicContentVp) {
+        binding.mypagemusicContentVp.adapter = musicMypageAdapter
+        TabLayoutMediator(binding.mypagemusicContentTb, binding.mypagemusicContentVp) {
                 tab, position ->
             tab.text = information[position]
         }.attach()
