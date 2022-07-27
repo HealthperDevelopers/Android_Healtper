@@ -1,4 +1,4 @@
-package com.umc.Healthper
+package com.umc.healthper
 
 import org.junit.Test
 
