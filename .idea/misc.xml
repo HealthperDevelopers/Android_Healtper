@@ -36,7 +36,22 @@
         <entry key="..\:/Desktop/activate/Android/Healthper/app/src/main/res/layout/rvitem_main_new.xml" value="0.19895833333333332" />
         <entry key="..\:/Desktop/activate/Android/Healthper/app/src/main/res/layout/rvitem_main_user.xml" value="0.19791666666666666" />
         <entry key="..\:/Desktop/activate/Android/Healthper/app/src/main/res/layout/todaydone_fragment.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/fragment_main.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.14010416666666667" />
+        <entry key="app/src/main/res/layout/fragment_mypage_favorites.xml" value="0.14010416666666667" />
+        <entry key="app/src/main/res/layout/fragment_mypage_music.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/fragment_mypage_relaxmusic.xml" value="0.14336372847011145" />
         <entry key="app/src/main/res/layout/fragment_mypage_workmusic.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/fragment_mypagefav.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/fragment_mypagemusic.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/fragment_mypagemusic_relax.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/fragment_mypagemusic_work.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/fragment_partchart.xml" value="0.14010416666666667" />
+        <entry key="app/src/main/res/layout/fragment_partchart_month.xml" value="0.2947916666666667" />
+        <entry key="app/src/main/res/layout/fragment_partchart_week.xml" value="0.14010416666666667" />
+        <entry key="app/src/main/res/layout/fragment_partchart_year.xml" value="0.14010416666666667" />
+        <entry key="app/src/main/res/layout/item_main_detail.xml" value="0.14010416666666667" />
+        <entry key="app/src/main/res/layout/~$gin_activity.xml" value="0.14010416666666667" />
       </map>
     </option>
   </component>

@@ -2,7 +2,6 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -32,7 +31,7 @@
                 android:text="전체"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart_ct"
+            android:id="@+id/partchart_year_ct"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,33 +43,33 @@
             android:background="@color/gray"
             /><!--일단 데이터가 없어서 색칠만 해놓음-->
         <TextView
-            android:id="@+id/total_health_time_tv"
+            android:id="@+id/partchart_year_worktime_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="총 운동 시간"
-            app:layout_constraintTop_toBottomOf="@id/chart_ct"
-            app:layout_constraintEnd_toStartOf="@id/total_health_count_tv"
-            app:layout_constraintStart_toStartOf="@id/chart_ct"
+            app:layout_constraintTop_toBottomOf="@id/partchart_year_ct"
+            app:layout_constraintEnd_toStartOf="@id/partchart_year_workcount_tv"
+            app:layout_constraintStart_toStartOf="@id/partchart_year_ct"
             android:layout_marginTop="50dp"
             android:layout_marginStart="50dp"/>
         <TextView
-            android:id="@+id/total_health_count_tv"
+            android:id="@+id/partchart_year_workcount_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="총 운동 횟수"
-            app:layout_constraintTop_toBottomOf="@id/chart_ct"
-            app:layout_constraintStart_toEndOf="@id/total_health_time_tv"
-            app:layout_constraintEnd_toEndOf="@id/chart_ct"
+            app:layout_constraintTop_toBottomOf="@id/partchart_year_ct"
+            app:layout_constraintStart_toEndOf="@id/partchart_year_worktime_tv"
+            app:layout_constraintEnd_toEndOf="@id/partchart_year_ct"
             android:layout_marginTop="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="50dp"/>
 
         <TextView
-            android:id="@+id/total_health_volume_tv"
+            android:id="@+id/partchart_year_workvolume_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="총 볼륨"
-            app:layout_constraintTop_toBottomOf="@id/total_health_count_tv"
+            app:layout_constraintTop_toBottomOf="@id/partchart_year_workcount_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="50dp"
