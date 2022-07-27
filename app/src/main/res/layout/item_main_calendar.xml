@@ -4,14 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
+        android:id="@+id/item_main_cal_left_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ImageView>
     <TextView
+        android:id="@+id/item_main_cal_monyear_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </TextView>
     <ImageView
+        android:id="@+id/item_main_cal_right_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ImageView>
@@ -49,26 +52,32 @@
 <!--요일표시-->
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_main_cal_w1_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_main_cal_w2_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_main_cal_w3_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_main_cal_w4_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_main_cal_w5_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_main_cal_w6_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>

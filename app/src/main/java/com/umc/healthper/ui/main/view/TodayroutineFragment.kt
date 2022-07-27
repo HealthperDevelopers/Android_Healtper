@@ -5,24 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.umc.healthper.databinding.FragmentMainBinding
-import com.umc.healthper.ui.main.adapter.MainRVAdapter
+import com.umc.healthper.databinding.FragmentTodayroutineBinding
 
-class MainFragment: Fragment() {
+class TodayroutineFragment: Fragment() {
 
-    lateinit var binding: FragmentMainBinding
-
+    lateinit var binding: FragmentTodayroutineBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        binding = FragmentMainBinding.inflate(inflater, container, false)
-
-        val rv_adapter = binding.mainRv
-
-        rv_adapter.adapter = MainRVAdapter()
+        binding = FragmentTodayroutineBinding.inflate(inflater, container, false)
 
         return binding.root
     }
