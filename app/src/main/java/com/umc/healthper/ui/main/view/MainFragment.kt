@@ -23,7 +23,6 @@ class MainFragment: Fragment() {
         val rvAdapter = MainRVAdapter()
 
         binding.mainRv.adapter = rvAdapter
-
         return binding.root
     }
 }
