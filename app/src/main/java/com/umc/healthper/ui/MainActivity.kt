@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.umc.healthper.R
 import com.umc.healthper.databinding.ActivityMainBinding
-import com.umc.healthper.ui.chart.view.PartchartFragment
+import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.healthper.ui.mypage.view.MusicMypageFragment
@@ -13,7 +13,7 @@ import com.umc.healthper.ui.mypage.view.MypageFragment
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     var mainFragment: MainFragment? = null
-    var partchartFragment: PartchartFragment? = null
+    var ChartFragment: ChartFragment? = null
     var mypageFragment: MypageFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,33 +43,33 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
                     // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
                     if (mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-                    if (partchartFragment != null)supportFragmentManager.beginTransaction().hide(partchartFragment!!).commit()
+                    if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
 
                     true
                 }
                 "차트" -> {
-                    if (partchartFragment == null) {
-                        partchartFragment = PartchartFragment()
-                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, partchartFragment!!).commit()
+                    if (ChartFragment == null) {
+                        ChartFragment = ChartFragment()
+                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, ChartFragment!!).commit()
                     }
                     supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
                     // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
                     if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-                    supportFragmentManager.beginTransaction().show(partchartFragment!!).commit()
+                    supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
 
                     true
 
                 }
 
 //                "게시판" -> {
-//                    if (partchartFragment == null) {
-//                        partchartFragment = PartchartFragment()
-//                        supportFragmentManager.beginTransaction().replace(R.id.main_frm_fl, partchartFragment!!).commit()
+//                    if (ChartFragment == null) {
+//                        ChartFragment = ChartFragment()
+//                        supportFragmentManager.beginTransaction().replace(R.id.main_frm_fl, ChartFragment!!).commit()
 //                    }
 //                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
 //                    // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
 //                    supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-//                    supportFragmentManager.beginTransaction().hide(partchartFragment!!).commit()
+//                    supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
 //                    true
 //                }
                 else -> {
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                     if (mainFragment != null) supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
                 // supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
                 supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
-                if (partchartFragment != null) supportFragmentManager.beginTransaction().hide(partchartFragment!!).commit()
+                if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
                 true
 
             }
