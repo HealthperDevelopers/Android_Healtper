@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--루틴 시작 전 준비단계-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <TextView
+    android:id="@+id/routineready_title_tv"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 </TextView>
 <!--    타이틀-->
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/routineready_routine_list_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
 <!--    루틴 내 부위별 리스트-->
 
     <TextView
+        android:id="@+id/routineready_edit_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </TextView>
+    <TextView
+        android:id="@+id/routineready_complete_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </TextView>

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
+        android:id="@+id/todayroutine_setting_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ImageView>
@@ -11,65 +12,68 @@
 
 
     <TextView
+        android:id="@+id/todayroutine_title_tv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
     </TextView>
-<!--    타이틀-->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </TextView>
-<!--    루틴생성버튼-->
-
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/todayroutine_routine_list_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
 <!--    루틴목록-->
 
     <TextView
+        android:id="@+id/todayroutine_background_blur_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </TextView>
 <!--    흐릿한 배경-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/todayroutine_edit_cl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
+            android:id="@+id/todayroutine_edit_close_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </ImageView>
 <!--        닫기버튼-->
         <EditText
+            android:id="@+id/todayroutine_edit_title_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </EditText>
 <!--        수정가능한 제목-->
         <ImageView
+            android:id="@+id/todayroutine_edit_edit_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </ImageView>
 <!--        수정버튼-->
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/todayroutine_edit_true_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </androidx.recyclerview.widget.RecyclerView>
 <!--        들어간 부위-->
         <TextView
+            android:id="@+id/todayroutine_edit_separate_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </TextView>
 <!--        분할선-->
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/todayroutine_edit_false_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </androidx.recyclerview.widget.RecyclerView>
 <!--        빠질 부위-->
 
         <TextView
+            android:id="@+id/todayroutine_edit_complete_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </TextView>

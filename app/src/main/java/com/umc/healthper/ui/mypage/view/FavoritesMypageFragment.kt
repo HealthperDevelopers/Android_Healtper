@@ -1,8 +1,4 @@
-<<<<<<< HEAD:app/src/main/java/com/umc/healthper/ui/mypage/view/FavoritesMypageFragment.kt
 package com.umc.healthper.ui.mypage.view
-=======
-package com.umc.Healthper.ui.mypage.view
->>>>>>> caf636f1beb9a3664e34b2a50dec9bb24ee4486a:app/src/main/java/com/umc/healthper/ui/FavoritesMypageFragment.kt
 
 import android.os.Bundle
 import android.view.LayoutInflater

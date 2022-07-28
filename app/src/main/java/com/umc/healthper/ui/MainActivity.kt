@@ -1,52 +1,101 @@
-package com.umc.Healthper.ui
+package com.umc.healthper.ui
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-<<<<<<< HEAD
-import androidx.fragment.app.FragmentTransaction
 import com.umc.healthper.R
 import com.umc.healthper.databinding.ActivityMainBinding
+import com.umc.healthper.ui.chart.view.PartchartFragment
+import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
-=======
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
-import com.umc.Healthper.ui.mypage.view.FavoritesMypageFragment
-import com.umc.Healthper.ui.mypage.view.MusicMypageFragment
-import com.umc.Healthper.ui.mypage.view.MypageFragment
-import com.umc.healthper.databinding.ActivityMainBinding
->>>>>>> caf636f1beb9a3664e34b2a50dec9bb24ee4486a
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    var mainFragment: MainFragment? = null
+    var partchartFragment: PartchartFragment? = null
+    var mypageFragment: MypageFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.main_frm, PartchartFragment())
-//            .commit()
 
-        supportFragmentManager.beginTransaction()
-            .replace(binding.mainFrm.id, MypageFragment())
-            .commit()
+        if (mainFragment == null) {
+            mainFragment = MainFragment()
+        }
+
+        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mainFragment!!).commit()
+
+
+        setListener(binding)
+    }
+
+    private fun setListener(binding: ActivityMainBinding) {
+
+        binding.mainNavBnv.setOnItemSelectedListener {
+            when(it.title) {
+                "메인" -> {
+                    if (mainFragment == null) {
+                        mainFragment = MainFragment()
+                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mainFragment!!).commit()
+                    }
+                    supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
+                    // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
+                    if (mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+                    if (partchartFragment != null)supportFragmentManager.beginTransaction().hide(partchartFragment!!).commit()
+
+                    true
+                }
+                "차트" -> {
+                    if (partchartFragment == null) {
+                        partchartFragment = PartchartFragment()
+                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, partchartFragment!!).commit()
+                    }
+                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+                    // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
+                    if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+                    supportFragmentManager.beginTransaction().show(partchartFragment!!).commit()
+
+                    true
+
+                }
+
+//                "게시판" -> {
+//                    if (partchartFragment == null) {
+//                        partchartFragment = PartchartFragment()
+//                        supportFragmentManager.beginTransaction().replace(R.id.main_frm_fl, partchartFragment!!).commit()
+//                    }
+//                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+//                    // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
+//                    supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+//                    supportFragmentManager.beginTransaction().hide(partchartFragment!!).commit()
+//                    true
+//                }
+                else -> {
+                    if (mypageFragment == null) {
+                        mypageFragment = MypageFragment()
+                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mypageFragment!!).commit()
+                    }
+                    if (mainFragment != null) supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+                // supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+                supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
+                if (partchartFragment != null) supportFragmentManager.beginTransaction().hide(partchartFragment!!).commit()
+                true
+
+            }
+            }
+        }
     }
 
     fun changeMypageFragment(int : Int){
         val transition = supportFragmentManager.beginTransaction()
         when (int){
-            0 -> {
-                transition.replace(binding.mainFrm.id, FavoritesMypageFragment())
-                transition.addToBackStack("favorites")
-            }
-            1 -> {
-                transition.replace(binding.mainFrm.id, MusicMypageFragment())
-                transition.addToBackStack("music")
-            }
+            0 -> transition.replace(R.id.main_frm_fl, FavoritesMypageFragment())
+            1 -> transition.replace(R.id.main_frm_fl, MusicMypageFragment())
+            2 -> transition.replace(R.id.main_frm_fl, MainFragment())
+            // 백스택에 저장하는 방법
         }
-        transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        transition.isAddToBackStackAllowed
         transition.commit()
     }
 }

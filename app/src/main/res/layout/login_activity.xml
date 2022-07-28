@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/login_logo_iv"
+        android:id="@+id/splash_logo_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher_foreground"
@@ -16,18 +16,18 @@
         android:layout_marginTop="150dp"/>
 
     <TextView
-        android:id="@+id/login_healthper_kor_tv"
+        android:id="@+id/splash_text1_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="헬스 시간 도우미"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_logo_iv"
+        app:layout_constraintTop_toBottomOf="@id/splash_logo_iv"
         />
 
     <TextView
-        android:id="@+id/login_healthper_eng_tv"
+        android:id="@+id/splash_text2_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HEALTHPER"
@@ -35,7 +35,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_healthper_kor_tv"
+        app:layout_constraintTop_toBottomOf="@id/splash_text1_tv"
         />
 
     <TextView
@@ -46,7 +46,7 @@
         android:text="카카오 로그인 -> 나중에 디자인 나오면 제대로 구현"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_healthper_eng_tv"
+        app:layout_constraintTop_toBottomOf="@id/splash_text2_tv"
         android:layout_marginTop="150dp"
         />
 
