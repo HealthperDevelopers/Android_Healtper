@@ -21,7 +21,6 @@ class MainFragment: Fragment() {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
         val rvAdapter = MainRVAdapter()
-
         binding.mainRv.adapter = rvAdapter
         return binding.root
     }
