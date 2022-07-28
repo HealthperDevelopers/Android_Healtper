@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    android:overScrollMode="never"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/chart_user_iv"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/user"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            />
+        <TextView
+            android:id="@+id/chart_user_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="user_name"
+            android:textSize="20dp"
+            app:layout_constraintTop_toTopOf="@id/chart_user_iv"
+            app:layout_constraintBottom_toBottomOf="@id/chart_user_iv"
+            app:layout_constraintStart_toEndOf="@id/chart_user_iv"
+            android:layout_marginStart="10dp"
+            />
+
+
+        <TextView
+            android:id="@+id/chart_back_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="back"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@id/chart_user_name_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="100dp"
+            app:layout_constraintEnd_toStartOf="@id/chart_leg_tv"
+            />
+
+        <TextView
+            android:id="@+id/chart_leg_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="leg"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@id/chart_user_name_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/chart_back_tv"
+            android:layout_marginTop="100dp"
+            />
+
+        <TextView
+            android:id="@+id/chart_hip_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hip"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@id/chart_back_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="100dp"
+            app:layout_constraintEnd_toStartOf="@id/chart_chest_tv"
+            />
+
+        <TextView
+            android:id="@+id/chart_chest_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="chest"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@id/chart_leg_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/chart_back_tv"
+            android:layout_marginTop="100dp"
+            />
+
+        <TextView
+            android:id="@+id/chart_shoulder_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="shoulder"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@id/chart_hip_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/chart_chest_tv"
+            android:layout_marginTop="100dp"
+            />
+
+        <TextView
+            android:id="@+id/chart_abs_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="abs"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@id/chart_chest_tv"
+            app:layout_constraintStart_toEndOf="@id/chart_shoulder_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="100dp"
+            />
+
+        <TextView
+            android:id="@+id/chart_aerobic_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="aerobic"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@id/chart_shoulder_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/chart_full_tv"
+            android:layout_marginTop="100dp"
+            />
+
+        <TextView
+            android:id="@+id/chart_full_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="full"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@id/chart_abs_tv"
+            app:layout_constraintStart_toEndOf="@id/chart_aerobic_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="100dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
