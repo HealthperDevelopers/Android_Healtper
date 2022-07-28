@@ -36,12 +36,13 @@
         <entry key="..\:/Desktop/activate/Android/Healthper/app/src/main/res/layout/rvitem_main_new.xml" value="0.19895833333333332" />
         <entry key="..\:/Desktop/activate/Android/Healthper/app/src/main/res/layout/rvitem_main_user.xml" value="0.19791666666666666" />
         <entry key="..\:/Desktop/activate/Android/Healthper/app/src/main/res/layout/todaydone_fragment.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/drawable/rectangle.xml" value="0.1445" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/fragment_chart.xml" value="0.22526315789473683" />
         <entry key="app/src/main/res/layout/fragment_doex.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.14010416666666667" />
-        <entry key="app/src/main/res/layout/fragment_mypage_favorites.xml" value="0.14010416666666667" />
+        <entry key="app/src/main/res/layout/fragment_mypage_favorites.xml" value="0.28699798583984376" />
         <entry key="app/src/main/res/layout/fragment_mypage_music.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/fragment_mypage_relaxmusic.xml" value="0.14336372847011145" />
         <entry key="app/src/main/res/layout/fragment_mypage_workmusic.xml" value="0.15070921985815602" />
