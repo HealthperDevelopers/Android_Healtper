@@ -20,9 +20,9 @@ class MainFragment: Fragment() {
 
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        val rvAdapter = binding.mainRv
+        val rvAdapter = MainRVAdapter()
 
-        rvAdapter.adapter = MainRVAdapter()
+        binding.mainRv.adapter = rvAdapter
 
         return binding.root
     }
