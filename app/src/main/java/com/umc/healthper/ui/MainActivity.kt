@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         when (int){
             0 -> transition.replace(R.id.main_frm_fl, FavoritesMypageFragment())
             1 -> transition.replace(R.id.main_frm_fl, MusicMypageFragment())
-            2 -> transition.replace(R.id.main_frm_fl, MainFragment())
+//            2 -> transition.replace(R.id.main_frm_fl, MainFragment())
             // 백스택에 저장하는 방법
         }
         transition.commit()
