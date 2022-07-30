@@ -1,6 +1,7 @@
 package com.umc.healthper.ui.chart.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +20,11 @@ class PartchartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("data : ", arguments?.getString("part").toString())
+
         binding = FragmentPartchartBinding.inflate(inflater, container, false)
 
+        binding.partchartPartTv.text = arguments?.getString("part").toString()
         val partchartAdapter = PartchartVPAdapter(this)
         binding.partchartContentVp.adapter = partchartAdapter
         TabLayoutMediator(binding.partchartContentTb, binding.partchartContentVp) {

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.umc.healthper.R
 import com.umc.healthper.databinding.ActivityMainBinding
 import com.umc.healthper.ui.chart.view.ChartFragment
+import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.healthper.ui.mypage.view.MusicMypageFragment
@@ -114,6 +115,25 @@ class MainActivity : AppCompatActivity() {
                 transition.addToBackStack("music")
             }
         }
+        transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        transition.isAddToBackStackAllowed
+        transition.commit()
+    }
+
+    fun changeChartFragment(part : String){
+        val transition = supportFragmentManager.beginTransaction()
+
+        // activity2fragment using intent -> impossible, use bundle
+
+        transition.replace(binding.mainFrmFl.id,
+            PartchartFragment().apply {
+                arguments = Bundle().apply {
+                    putString("part", part)
+                }
+            }
+        )
+        transition.addToBackStack("part_chart")
+
         transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transition.isAddToBackStackAllowed
         transition.commit()
