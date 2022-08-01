@@ -2,84 +2,170 @@
 <!--메인화면 달력프레임 내 들어갈 내용-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
         android:id="@+id/item_main_cal_left_iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:src="@mipmap/ic_launcher">
     </ImageView>
     <TextView
         android:id="@+id/item_main_cal_monyear_tv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/item_main_cal_left_iv"
+        app:layout_constraintTop_toTopOf="@id/item_main_cal_left_iv"
+        app:layout_constraintBottom_toBottomOf="@id/item_main_cal_left_iv"
+        app:layout_constraintRight_toLeftOf="@id/item_main_cal_right_iv"
+        android:text="----년  --월">
     </TextView>
     <ImageView
         android:id="@+id/item_main_cal_right_iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/ic_launcher">
     </ImageView>
 <!--    좌우버튼과 년월 표시-->
 
 
+
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/item_main_cal_sun_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="@id/item_main_cal_mon_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_main_cal_left_iv"
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w1_rv"
+        android:text="일">
     </TextView>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/item_main_cal_mon_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/item_main_cal_sun_tv"
+        app:layout_constraintRight_toLeftOf="@id/item_main_cal_tue_tv"
+        app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
+        android:text="월">
     </TextView>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/item_main_cal_tue_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/item_main_cal_mon_tv"
+        app:layout_constraintRight_toLeftOf="@id/item_main_cal_wed_tv"
+        app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
+        android:text="화">
     </TextView>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/item_main_cal_wed_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/item_main_cal_tue_tv"
+        app:layout_constraintRight_toLeftOf="@id/item_main_cal_thu_tv"
+        app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
+        android:text="수">
     </TextView>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/item_main_cal_thu_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/item_main_cal_wed_tv"
+        app:layout_constraintRight_toLeftOf="@id/item_main_cal_fri_tv"
+        app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
+        android:text="목">
     </TextView>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/item_main_cal_fri_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/item_main_cal_thu_tv"
+        app:layout_constraintRight_toLeftOf="@id/item_main_cal_sat_tv"
+        app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
+        android:text="금">
     </TextView>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/item_main_cal_sat_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/item_main_cal_fri_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
+        android:text="토">
     </TextView>
 <!--요일표시-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w1_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/item_main_cal_sun_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w2_rv"
+        android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w2_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_main_cal_w1_rv"
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w3_rv"
+        android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w3_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_main_cal_w2_rv"
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w4_rv"
+        android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w4_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_main_cal_w3_rv"
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w5_rv"
+        android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w5_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_main_cal_w4_rv"
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w6_rv"
+        android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w6_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_main_cal_w5_rv"
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w6_rv"
+        android:orientation="horizontal">
     </androidx.recyclerview.widget.RecyclerView>
 <!--    각 주 표시(총 6주)-->
 
