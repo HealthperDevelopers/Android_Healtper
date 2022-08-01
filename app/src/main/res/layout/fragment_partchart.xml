@@ -30,7 +30,7 @@
         android:id="@+id/partchart_part_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="part"
+        android:text=""
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/partchart_user_iv"

@@ -3,9 +3,12 @@ package com.umc.healthper.ui
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.umc.healthper.R
 import com.umc.healthper.databinding.ActivityMainBinding
 import com.umc.healthper.ui.chart.view.ChartFragment
+import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.healthper.ui.mypage.view.MusicMypageFragment
@@ -17,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     var mainFragment: MainFragment? = null
     var ChartFragment: ChartFragment? = null
     var mypageFragment: MypageFragment? = null
+    var FavoritesMypageFragment: FavoritesMypageFragment? = null
+    var MusicMypageFragment: MusicMypageFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +53,8 @@ class MainActivity : AppCompatActivity() {
                     // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
                     if (mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                     if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
+                    if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
                     true
                 }
@@ -59,6 +66,9 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
                     // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
                     if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+                    if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
                     supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
 
                     true
@@ -82,10 +92,13 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mypageFragment!!).commit()
                     }
                     if (mainFragment != null) supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-                // supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-                supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
-                if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
-                true
+                    // supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+                    supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
+                    if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
+                    if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+                    true
 
             }
             }
@@ -95,11 +108,38 @@ class MainActivity : AppCompatActivity() {
     fun changeMypageFragment(int : Int){
         val transition = supportFragmentManager.beginTransaction()
         when (int){
-            0 -> transition.replace(R.id.main_frm_fl, FavoritesMypageFragment())
-            1 -> transition.replace(R.id.main_frm_fl, MusicMypageFragment())
-//            2 -> transition.replace(R.id.main_frm_fl, MainFragment())
-            // 백스택에 저장하는 방법
+            0 -> {
+                FavoritesMypageFragment = FavoritesMypageFragment()
+                transition.replace(binding.mainFrmFl.id, FavoritesMypageFragment!!)
+                transition.addToBackStack("favorites")
+            }
+            1 -> {
+                MusicMypageFragment = MusicMypageFragment()
+                transition.replace(binding.mainFrmFl.id, MusicMypageFragment())
+                transition.addToBackStack("music")
+            }
         }
+        transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        transition.isAddToBackStackAllowed
+        transition.commit()
+    }
+
+    fun changeChartFragment(part : String){
+        val transition = supportFragmentManager.beginTransaction()
+
+        // activity2fragment using intent -> impossible, use bundle
+
+        transition.replace(binding.mainFrmFl.id,
+            PartchartFragment().apply {
+                arguments = Bundle().apply {
+                    putString("part", part)
+                }
+            }
+        )
+        transition.addToBackStack("part_chart")
+
+        transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        transition.isAddToBackStackAllowed
         transition.commit()
     }
 }
