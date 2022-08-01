@@ -1,5 +1,6 @@
 package com.umc.healthper.ui
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.umc.healthper.R
@@ -9,6 +10,7 @@ import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
+import com.umc.healthper.util.VarUtil
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        VarUtil.glob.mainContext = applicationContext
 
         if (mainFragment == null) {
             mainFragment = MainFragment()

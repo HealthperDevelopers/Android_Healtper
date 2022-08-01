@@ -1,21 +1,17 @@
 package com.umc.healthper.ui.main.adapter
 
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.umc.healthper.databinding.ItemMainCalendarBinding
 import com.umc.healthper.databinding.ItemMainDetailBinding
 import com.umc.healthper.databinding.ItemMainNewBinding
 import com.umc.healthper.databinding.ItemMainUserBinding
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.abs
+
 
 class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -75,7 +71,6 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class CalendarHolder(private val binding: ItemMainCalendarBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             val now = Calendar.getInstance()
-            now.set(2022, 1, 10)
             val year = now.get(Calendar.YEAR)
             val month = now.get(Calendar.MONTH) + 1
             val day = now.get(Calendar.DATE)
@@ -85,15 +80,23 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val line:Int = ((maxDay - day - (7 - doy))/ 7 )+ 1 + dow
             val firstDate = abs(day - (dow - 2)*7 - doy - 7) + 1
 
-            Log.d("date", "$year $month $day $doy $maxDay $dow $line $firstDate")
-
+            val firstWeek = 7 - firstDate + 2;
+            var weekList = ArrayList<Int>()
+            weekList.add(1)
+            for (i in 0..line - 2) {
+                weekList.add(firstWeek + (7 *i))
+            }
+            Log.d("date", "$year $month $day $doy $maxDay $dow $line $firstDate $weekList")
+            val data = listOf<Int>(year, month, day, doy, maxDay, dow, line, firstDate)
             val calRvList = ArrayList<DateRVAdapter>()
             if (calRvList.size == 0) {
                 for (i in 1..6) {
-                    val tmp = DateRVAdapter()
+                    val tmp = DateRVAdapter(data, i, weekList)
                     calRvList.add(tmp)
                 }
             }
+            val layoutManager = FlexboxLayoutManager()
+            binding.itemMainCalW1Rv.
             binding.itemMainCalW1Rv.adapter = calRvList[0]
             binding.itemMainCalW2Rv.adapter = calRvList[1]
             binding.itemMainCalW3Rv.adapter = calRvList[2]
