@@ -95,8 +95,6 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     calRvList.add(tmp)
                 }
             }
-            val layoutManager = FlexboxLayoutManager()
-            binding.itemMainCalW1Rv.
             binding.itemMainCalW1Rv.adapter = calRvList[0]
             binding.itemMainCalW2Rv.adapter = calRvList[1]
             binding.itemMainCalW3Rv.adapter = calRvList[2]
