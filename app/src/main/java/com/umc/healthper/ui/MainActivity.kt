@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     var mypageFragment: MypageFragment? = null
     var FavoritesMypageFragment: FavoritesMypageFragment? = null
     var MusicMypageFragment: MusicMypageFragment? = null
+    var PartchartFragment: PartchartFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                     if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
                     if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    if (PartchartFragment != null) supportFragmentManager.popBackStack("part_chart", FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
                     true
                 }
@@ -68,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                     if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                     if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    if (PartchartFragment != null) supportFragmentManager.popBackStack("part_chart", FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
                     supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
 
@@ -97,10 +100,10 @@ class MainActivity : AppCompatActivity() {
                     if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
                     if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    if (PartchartFragment != null) supportFragmentManager.popBackStack("part_chart", FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
                     true
-
-            }
+                }
             }
         }
     }
@@ -126,6 +129,7 @@ class MainActivity : AppCompatActivity() {
 
     fun changeChartFragment(part : String){
         val transition = supportFragmentManager.beginTransaction()
+        PartchartFragment = PartchartFragment()
 
         // activity2fragment using intent -> impossible, use bundle
 
