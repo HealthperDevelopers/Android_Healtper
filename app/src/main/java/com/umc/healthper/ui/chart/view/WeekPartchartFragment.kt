@@ -1,5 +1,6 @@
 package com.umc.healthper.ui.chart.view
 
+import android.app.usage.UsageEvents.Event.NONE
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,6 +37,11 @@ class WeekPartchartFragment : Fragment(){
         Yvalue.add(3)
         Yvalue.add(9)
         Yvalue.add(5)
+        Yvalue.add(1)
+        Yvalue.add(4)
+        Yvalue.add(3)
+        Yvalue.add(9)
+        Yvalue.add(5)
 
         val lineentry = ArrayList<Entry>()
 
@@ -58,7 +64,7 @@ class WeekPartchartFragment : Fragment(){
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         //set the horizontal distance of the grid line
         xAxis.granularity = 1f
-        xAxis.textColor = Color.RED
+        xAxis.textColor = Color.WHITE // 없애거나, 투명화하는 방법은 없을지
         //hiding the x-axis line, default true if not set
         xAxis.setDrawAxisLine(false)
         //hiding the vertical grid lines, default true if not set
@@ -67,7 +73,7 @@ class WeekPartchartFragment : Fragment(){
         //좌측 값 hiding the left y-axis line, default true if not set
         val leftAxis: YAxis = binding.partchartWeekCt.getAxisLeft()
         leftAxis.setDrawAxisLine(false)
-        leftAxis.textColor = Color.RED
+//        leftAxis.textColor = Color.RED
         leftAxis.setDrawAxisLine(false)
         leftAxis.setDrawGridLines(false)
 
@@ -76,7 +82,7 @@ class WeekPartchartFragment : Fragment(){
         //우측 값 hiding the right y-axis line, default true if not set
         val rightAxis: YAxis = binding.partchartWeekCt.getAxisRight()
         rightAxis.setDrawAxisLine(false)
-        rightAxis.textColor = Color.RED
+//        rightAxis.textColor = Color.RED
         rightAxis.setDrawAxisLine(false)
         rightAxis.setDrawGridLines(false)
     }
