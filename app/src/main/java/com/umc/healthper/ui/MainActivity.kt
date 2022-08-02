@@ -10,10 +10,12 @@ import com.umc.healthper.databinding.ActivityMainBinding
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.MainFragment
+import com.umc.healthper.ui.main.view.WorkReadyFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
 import com.umc.healthper.util.VarUtil
+import java.lang.invoke.WrongMethodTypeException
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     var FavoritesMypageFragment: FavoritesMypageFragment? = null
     var MusicMypageFragment: MusicMypageFragment? = null
     var PartchartFragment: PartchartFragment? = null
+    var workReadyFragment: WorkReadyFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +57,7 @@ class MainActivity : AppCompatActivity() {
                     // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
                     if (mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                     if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
-                    if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    if (PartchartFragment != null) supportFragmentManager.popBackStack("part_chart", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    checkStack()
 
                     true
                 }
@@ -68,9 +69,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
                     // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
                     if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-                    if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    if (PartchartFragment != null) supportFragmentManager.popBackStack("part_chart", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    checkStack()
 
                     supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
 
@@ -98,14 +97,31 @@ class MainActivity : AppCompatActivity() {
                     // supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
                     supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
                     if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
-                    if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    if (PartchartFragment != null) supportFragmentManager.popBackStack("part_chart", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    checkStack()
 
                     true
                 }
             }
         }
+    }
+
+    private fun checkStack() {
+        if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack(
+            "favorites",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (MusicMypageFragment != null) supportFragmentManager.popBackStack(
+            "music",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (PartchartFragment != null) supportFragmentManager.popBackStack(
+            "part_chart",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (workReadyFragment != null) supportFragmentManager.popBackStack(
+            "workReady",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
     }
 
     fun changeMypageFragment(int : Int){
@@ -149,5 +165,14 @@ class MainActivity : AppCompatActivity() {
 
     fun changeMainFragment() {
         val trans = supportFragmentManager.beginTransaction()
+        if (workReadyFragment == null) {
+            workReadyFragment = WorkReadyFragment()
+        }
+
+        trans.replace(binding.mainFrmFl.id, workReadyFragment!!).addToBackStack("workReady")
+        trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        trans.isAddToBackStackAllowed
+        trans.commit()
+
     }
 }
