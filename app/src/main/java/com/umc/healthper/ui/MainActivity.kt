@@ -31,9 +31,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val keyHash = Utility.getKeyHash(this)//onCreate 안에 입력해주자
-//        Log.d("Hash", keyHash)
-
         VarUtil.glob.mainContext = applicationContext
 
         if (mainFragment == null) {
