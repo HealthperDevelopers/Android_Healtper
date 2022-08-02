@@ -37,73 +37,80 @@
 
     <TextView
         android:id="@+id/item_main_cal_sun_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toLeftOf="@id/item_main_cal_mon_tv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_main_cal_left_iv"
         app:layout_constraintBottom_toTopOf="@id/item_main_cal_w1_rv"
-        android:text="일">
+        android:text="일"
+        android:textAlignment="center">
     </TextView>
     <TextView
         android:id="@+id/item_main_cal_mon_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/item_main_cal_sun_tv"
         app:layout_constraintRight_toLeftOf="@id/item_main_cal_tue_tv"
         app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
-        android:text="월">
+        android:text="월"
+        android:textAlignment="center">
     </TextView>
     <TextView
         android:id="@+id/item_main_cal_tue_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/item_main_cal_mon_tv"
         app:layout_constraintRight_toLeftOf="@id/item_main_cal_wed_tv"
         app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
-        android:text="화">
+        android:text="화"
+        android:textAlignment="center">
     </TextView>
     <TextView
         android:id="@+id/item_main_cal_wed_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/item_main_cal_tue_tv"
         app:layout_constraintRight_toLeftOf="@id/item_main_cal_thu_tv"
         app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
-        android:text="수">
+        android:text="수"
+        android:textAlignment="center">
     </TextView>
     <TextView
         android:id="@+id/item_main_cal_thu_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/item_main_cal_wed_tv"
         app:layout_constraintRight_toLeftOf="@id/item_main_cal_fri_tv"
         app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
-        android:text="목">
+        android:text="목"
+        android:textAlignment="center">
     </TextView>
     <TextView
         android:id="@+id/item_main_cal_fri_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/item_main_cal_thu_tv"
         app:layout_constraintRight_toLeftOf="@id/item_main_cal_sat_tv"
         app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
-        android:text="금">
+        android:text="금"
+        android:textAlignment="center">
     </TextView>
     <TextView
         android:id="@+id/item_main_cal_sat_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/item_main_cal_fri_tv"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/item_main_cal_sun_tv"
         app:layout_constraintBottom_toBottomOf="@id/item_main_cal_sun_tv"
-        android:text="토">
+        android:text="토"
+        android:textAlignment="center">
     </TextView>
 <!--요일표시-->
 
@@ -114,8 +121,7 @@
         app:layout_constraintTop_toBottomOf="@id/item_main_cal_sun_tv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w2_rv"
-        android:orientation="horizontal">
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w2_rv">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w2_rv"
@@ -124,8 +130,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_main_cal_w1_rv"
-        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w3_rv"
-        android:orientation="horizontal">
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w3_rv">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w3_rv"
@@ -134,8 +139,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_main_cal_w2_rv"
-        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w4_rv"
-        android:orientation="horizontal">
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w4_rv">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w4_rv"
@@ -144,8 +148,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_main_cal_w3_rv"
-        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w5_rv"
-        android:orientation="horizontal">
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w5_rv">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w5_rv"
@@ -154,8 +157,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_main_cal_w4_rv"
-        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w6_rv"
-        android:orientation="horizontal">
+        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w6_rv">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_cal_w6_rv"
@@ -164,8 +166,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_main_cal_w5_rv"
-        app:layout_constraintBottom_toTopOf="@id/item_main_cal_w6_rv"
-        android:orientation="horizontal">
+        app:layout_constraintBottom_toBottomOf="parent">
     </androidx.recyclerview.widget.RecyclerView>
 <!--    각 주 표시(총 6주)-->
 

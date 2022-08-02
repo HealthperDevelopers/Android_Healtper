@@ -151,4 +151,8 @@ class MainActivity : AppCompatActivity() {
         transition.isAddToBackStackAllowed
         transition.commit()
     }
+
+    fun changeMainFragment() {
+        val trans = supportFragmentManager.beginTransaction()
+    }
 }
