@@ -160,7 +160,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:textSize="16sp"
-            android:background="@drawable/table"
+            android:background="@drawable/table_tint"
             app:layout_constraintTop_toBottomOf="@id/timer_workrest_bt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

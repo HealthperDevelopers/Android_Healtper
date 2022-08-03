@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentTimerBinding
 
 class TimerFragment : Fragment() {
@@ -39,11 +40,13 @@ class TimerFragment : Fragment() {
     private fun getRest() {
         if (isRest) {
             isRest = false
+            binding.timerTableTv.setBackgroundResource(R.drawable.table_tint)
             binding.timerWorkTimeCl.visibility = View.VISIBLE
             binding.timerRestTimeCl.visibility = View.GONE
         }
         else {
             isRest = true
+            binding.timerTableTv.setBackgroundResource(R.drawable.table)
             binding.timerWorkTimeCl.visibility = View.GONE
             binding.timerRestTimeCl.visibility = View.VISIBLE
         }
