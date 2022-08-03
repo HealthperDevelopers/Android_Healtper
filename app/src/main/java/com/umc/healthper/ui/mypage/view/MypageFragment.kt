@@ -28,9 +28,9 @@ class MypageFragment : Fragment() {
         binding.mypageFavoritesIv.setOnClickListener{
             mainActivity!!.changeMypageFragment(0)
         }
-        binding.mypageMusicIv.setOnClickListener{
-            mainActivity!!.changeMypageFragment(1)
-        }
+//        binding.mypageMusicIv.setOnClickListener{
+//            mainActivity!!.changeMypageFragment(1)
+//        }
         return binding.root
     }
 }
