@@ -29,6 +29,7 @@ class TimerFragment : Fragment() {
         binding = FragmentTimerBinding.inflate(inflater, container, false)
         TotalTimer().start()
         RunningTimer().start()
+        RestTimer().start()
 
         binding.timerWorkrestBt.setOnClickListener{
             getRest()
@@ -40,15 +41,25 @@ class TimerFragment : Fragment() {
     private fun getRest() {
         if (isRest) {
             isRest = false
+            binding.timerWorkrestBt.text = "쉬는 시간"
             binding.timerTableTv.setBackgroundResource(R.drawable.table_tint)
             binding.timerWorkTimeCl.visibility = View.VISIBLE
             binding.timerRestTimeCl.visibility = View.GONE
+            binding.timerRestSettingTimeTv.visibility = View.INVISIBLE
+            binding.timerRestTimeTv.visibility = View.INVISIBLE
+            binding.timerRunningTv.visibility = View.VISIBLE
+            binding.timerRunningTimeTv.visibility = View.VISIBLE
         }
         else {
             isRest = true
+            binding.timerWorkrestBt.text = "다음 세트"
             binding.timerTableTv.setBackgroundResource(R.drawable.table)
             binding.timerWorkTimeCl.visibility = View.GONE
             binding.timerRestTimeCl.visibility = View.VISIBLE
+            binding.timerRestSettingTimeTv.visibility = View.VISIBLE
+            binding.timerRestTimeTv.visibility = View.VISIBLE
+            binding.timerRunningTv.visibility = View.INVISIBLE
+            binding.timerRunningTimeTv.visibility = View.INVISIBLE
         }
     }
 
@@ -105,7 +116,26 @@ class TimerFragment : Fragment() {
         }
     }
 
-    class RestTimer : Thread(){
+    inner class RestTimer : Thread(){
+        private var second: Int = 0
+        private var mills: Float = 0f
 
+        override fun run() {
+            while (true){
+                if (!isRest){
+                    continue
+                }
+                sleep(50)
+                mills += 50
+
+                if (mills % 1000 == 0f){
+                    second++
+                    settimerActivity!!.runOnUiThread {
+                        binding.timerRestTimeTv.text = String.format("%02d:%02d", second / 60, second % 60)
+                        Log.d("rest timer", binding.timerRestTimeTv.text.toString())
+                    }
+                }
+            }
+        }
     }
 }
