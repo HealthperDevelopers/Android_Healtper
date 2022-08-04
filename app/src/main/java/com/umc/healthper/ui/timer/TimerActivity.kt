@@ -4,15 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.umc.healthper.R
-import com.umc.healthper.databinding.ActivitySetTimerBinding
-import com.umc.healthper.ui.main.view.WorkReadyFragment
+import com.umc.healthper.databinding.ActivityTimerBinding
 
-class SettimerActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySetTimerBinding
+class TimerActivity : AppCompatActivity() {
+    lateinit var binding: ActivityTimerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySetTimerBinding.inflate(layoutInflater)
+        binding = ActivityTimerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportFragmentManager.beginTransaction().add(R.id.main_cl, SettimerFragment()).commit()

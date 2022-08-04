@@ -10,11 +10,11 @@ import com.umc.healthper.databinding.FragmentSetTimerBinding
 
 class SettimerFragment : Fragment() {
     lateinit var binding : FragmentSetTimerBinding
-    var settimerActivity: SettimerActivity? = null
+    var timerActivity: TimerActivity? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        settimerActivity = context as SettimerActivity
+        timerActivity = context as TimerActivity
     }
 
     override fun onCreateView(
@@ -25,7 +25,7 @@ class SettimerFragment : Fragment() {
         binding = FragmentSetTimerBinding.inflate(inflater, container, false)
 
         binding.setTimerWorkstartBt.setOnClickListener{
-            settimerActivity!!.changeTimerFragment()
+            timerActivity!!.changeTimerFragment()
         }
         return binding.root
     }

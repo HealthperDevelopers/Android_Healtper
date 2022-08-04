@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentTimerBinding
@@ -14,11 +15,11 @@ class TimerFragment : Fragment() {
     lateinit var binding : FragmentTimerBinding
     var isRest: Boolean = false
 
-    var settimerActivity: SettimerActivity? = null
+    var timerActivity: TimerActivity? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        settimerActivity = context as SettimerActivity
+        timerActivity = context as TimerActivity
     }
 
     override fun onCreateView(
@@ -35,6 +36,15 @@ class TimerFragment : Fragment() {
             getRest()
         }
 
+        binding.timerRestSettingTimeTv.setOnClickListener {
+
+            // Dialog만들기
+            val mDialogView = LayoutInflater.from(timerActivity).inflate(R.layout.rest_dialog, null)
+            val mBuilder = AlertDialog.Builder(timerActivity!!)
+                .setView(mDialogView)
+            mBuilder.show()
+        }
+
         return binding.root
     }
 
@@ -49,6 +59,7 @@ class TimerFragment : Fragment() {
             binding.timerRestTimeTv.visibility = View.INVISIBLE
             binding.timerRunningTv.visibility = View.VISIBLE
             binding.timerRunningTimeTv.visibility = View.VISIBLE
+            binding.timerRestImg.visibility = View.INVISIBLE
         }
         else {
             isRest = true
@@ -60,6 +71,7 @@ class TimerFragment : Fragment() {
             binding.timerRestTimeTv.visibility = View.VISIBLE
             binding.timerRunningTv.visibility = View.INVISIBLE
             binding.timerRunningTimeTv.visibility = View.INVISIBLE
+            binding.timerRestImg.visibility = View.VISIBLE
         }
     }
 
@@ -78,7 +90,7 @@ class TimerFragment : Fragment() {
                     second++
                     minute = second / 60
                     hour = minute / 60
-                    settimerActivity!!.runOnUiThread {
+                    timerActivity!!.runOnUiThread {
                         binding.timerTotalWorkTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
                         binding.timerTotalRestTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
                         Log.d("start timer", binding.timerTotalWorkTimeTv.text.toString())
@@ -106,7 +118,7 @@ class TimerFragment : Fragment() {
                     second++
                     minute = second / 60
                     hour = minute / 60
-                    settimerActivity!!.runOnUiThread {
+                    timerActivity!!.runOnUiThread {
                         binding.timerRunningTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
                         binding.timerRunningRestTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
                         Log.d("running timer", binding.timerRunningTimeTv.text.toString())
@@ -130,7 +142,7 @@ class TimerFragment : Fragment() {
 
                 if (mills % 1000 == 0f){
                     second++
-                    settimerActivity!!.runOnUiThread {
+                    timerActivity!!.runOnUiThread {
                         binding.timerRestTimeTv.text = String.format("%02d:%02d", second / 60, second % 60)
                         Log.d("rest timer", binding.timerRestTimeTv.text.toString())
                     }
