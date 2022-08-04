@@ -62,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     else -> { // Unknown
                         Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
+                        Log.d("error", error.toString())
                     }
                 }
             }
