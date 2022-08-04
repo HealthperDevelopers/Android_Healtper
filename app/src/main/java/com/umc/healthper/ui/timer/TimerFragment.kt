@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.umc.healthper.R
@@ -42,7 +43,13 @@ class TimerFragment : Fragment() {
             val mDialogView = LayoutInflater.from(timerActivity).inflate(R.layout.rest_dialog, null)
             val mBuilder = AlertDialog.Builder(timerActivity!!)
                 .setView(mDialogView)
-            mBuilder.show()
+
+            val  mAlertDialog = mBuilder.show()
+
+            val doneButton = mDialogView.findViewById<Button>(R.id.rest_done_bt)
+            doneButton.setOnClickListener {
+                mAlertDialog.dismiss()
+            }
         }
 
         return binding.root
