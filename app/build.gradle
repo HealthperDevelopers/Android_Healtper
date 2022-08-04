@@ -19,6 +19,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "kakao_api_key", properties['kakao_api_key']
+        manifestPlaceholders = ["kakao_api_key_manifest":properties['kakao_api_key_manifest']]
     }
 
     viewBinding {

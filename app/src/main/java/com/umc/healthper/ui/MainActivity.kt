@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mainFragment!!).commit()
 
+        var keyHash = Utility.getKeyHash(this)
+        Log.d("keyHash", keyHash)
 
         setListener(binding)
         initNav()
