@@ -17,7 +17,7 @@ import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.main.view.WorkReadyFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
-import com.umc.healthper.ui.mypage.view.MusicMypageFragment
+// import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
 import com.umc.healthper.util.VarUtil
 
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     var ChartFragment: ChartFragment? = null
     var mypageFragment: MypageFragment? = null
     var FavoritesMypageFragment: FavoritesMypageFragment? = null
-    var MusicMypageFragment: MusicMypageFragment? = null
+    // var MusicMypageFragment: MusicMypageFragment? = null
     var PartchartFragment: PartchartFragment? = null
     var workReadyFragment: WorkReadyFragment? = null
 
@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mainFragment!!).commit()
-
 
         setListener(binding)
         initNav()
@@ -139,10 +138,10 @@ class MainActivity : AppCompatActivity() {
             "favorites",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
-        if (MusicMypageFragment != null) supportFragmentManager.popBackStack(
-            "music",
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
+//        if (MusicMypageFragment != null) supportFragmentManager.popBackStack(
+//            "music",
+//            FragmentManager.POP_BACK_STACK_INCLUSIVE
+//        )
         if (PartchartFragment != null) supportFragmentManager.popBackStack(
             "part_chart",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -161,11 +160,11 @@ class MainActivity : AppCompatActivity() {
                 transition.replace(binding.mainFrmFl.id, FavoritesMypageFragment!!)
                 transition.addToBackStack("favorites")
             }
-            1 -> {
-                MusicMypageFragment = MusicMypageFragment()
-                transition.replace(binding.mainFrmFl.id, MusicMypageFragment())
-                transition.addToBackStack("music")
-            }
+//            1 -> {
+//                MusicMypageFragment = MusicMypageFragment()
+//                transition.replace(binding.mainFrmFl.id, MusicMypageFragment())
+//                transition.addToBackStack("music")
+//            }
         }
         transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transition.isAddToBackStackAllowed

@@ -19,6 +19,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "kakao_api_key", properties['kakao_api_key']
+        manifestPlaceholders = ["kakao_api_key_manifest":properties['kakao_api_key_manifest']]
     }
 
     viewBinding {
@@ -48,6 +49,8 @@ dependencies {
 
     // 카카오 로그인
     implementation "com.kakao.sdk:v2-user:2.0.1"
+
+    implementation 'com.google.code.gson:gson:2.8.9'
 
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'

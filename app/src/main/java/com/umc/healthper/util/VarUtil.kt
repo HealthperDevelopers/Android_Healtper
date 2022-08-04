@@ -13,6 +13,6 @@ class VarUtil: Application() {
     override fun onCreate() {
         super.onCreate()
         glob = GlobVar()
-        KakaoSdk.init(this, BuildConfig.kakao_api_key)
+        KakaoSdk.init(this, "${BuildConfig.kakao_api_key}")
     }
 }
