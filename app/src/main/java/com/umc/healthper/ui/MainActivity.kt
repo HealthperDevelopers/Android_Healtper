@@ -1,5 +1,7 @@
 package com.umc.healthper.ui
 
+import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -7,6 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import android.util.Log
+import android.view.WindowManager
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.kakao.sdk.common.util.Utility
@@ -39,6 +42,11 @@ class MainActivity : AppCompatActivity() {
 
         VarUtil.glob.mainContext = applicationContext
         VarUtil.glob.mainActivity = this
+        val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        VarUtil.glob.size = size
 
         if (mainFragment == null) {
             mainFragment = MainFragment()

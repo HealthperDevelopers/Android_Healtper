@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.umc.healthper.databinding.FragmentWorkreadyBinding
-import com.umc.healthper.ui.main.adapter.RoutineReadyListAdapter
+import com.umc.healthper.ui.dialog.EditWorkDialog
+import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
 
 class WorkReadyFragment: Fragment() {
     lateinit var binding: FragmentWorkreadyBinding
@@ -18,12 +19,27 @@ class WorkReadyFragment: Fragment() {
     ): View? {
         binding = FragmentWorkreadyBinding.inflate(inflater, container, false)
 
+        setListener()
+
         var dataList = ArrayList<Int>()
+        dataList.add(1)
 
-        val routineListAdapter = RoutineReadyListAdapter(dataList)
+        val workListAdapter = WorkReadyListAdapter(dataList)
 
-        binding.routinereadyRoutineListRv.adapter = routineListAdapter
+        workListAdapter.setOnClickListener(object: WorkReadyListAdapter.onClickListener{
+            override fun onClick() {
+                EditWorkDialog().show(childFragmentManager.beginTransaction(), "editWorkDialog")
+            }
+
+        })
+        binding.routinereadyRoutineListRv.adapter = workListAdapter
         return binding.root
+    }
+
+    fun setListener() {
+        binding.routinereadyAddTv.setOnClickListener {
+
+        }
     }
 
 
