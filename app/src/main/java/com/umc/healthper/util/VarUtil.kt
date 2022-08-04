@@ -2,6 +2,7 @@ package com.umc.healthper.util
 
 import android.app.Application
 import com.kakao.sdk.common.KakaoSdk
+import com.umc.healthper.BuildConfig
 
 class VarUtil: Application() {
     companion object {
@@ -12,6 +13,6 @@ class VarUtil: Application() {
     override fun onCreate() {
         super.onCreate()
         glob = GlobVar()
-        KakaoSdk.init(this, "e19014eb3f73def98b97a0bd66106387")
+        KakaoSdk.init(this, BuildConfig.kakao_api_key)
     }
 }

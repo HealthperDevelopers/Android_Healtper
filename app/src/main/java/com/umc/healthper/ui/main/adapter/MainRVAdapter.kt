@@ -1,5 +1,6 @@
 package com.umc.healthper.ui.main.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.umc.healthper.databinding.ItemMainCalendarBinding
 import com.umc.healthper.databinding.ItemMainDetailBinding
 import com.umc.healthper.databinding.ItemMainNewBinding
 import com.umc.healthper.databinding.ItemMainUserBinding
+import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.util.VarUtil
 import java.util.*
 import kotlin.math.abs
@@ -68,9 +70,11 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    inner class UserHolder(binding: ItemMainUserBinding):RecyclerView.ViewHolder(binding.root) {
+    inner class UserHolder(val binding: ItemMainUserBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-
+            binding.itemMainUserSettingIv.setOnClickListener {
+                VarUtil.glob.mainActivity.openNav()
+            }
         }
     }
 
@@ -186,8 +190,11 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    inner class NewHolder(binding: ItemMainNewBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class NewHolder(val binding: ItemMainNewBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
+            binding.itemMainNewGoWorkTv.setOnClickListener {
+                VarUtil.glob.mainActivity.changeMainFragment()
+            }
 
         }
     }

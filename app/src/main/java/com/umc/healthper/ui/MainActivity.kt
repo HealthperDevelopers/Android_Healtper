@@ -1,8 +1,11 @@
 package com.umc.healthper.ui
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -17,7 +20,7 @@ import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
 import com.umc.healthper.util.VarUtil
-import java.lang.invoke.WrongMethodTypeException
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         VarUtil.glob.mainContext = applicationContext
+        VarUtil.glob.mainActivity = this
 
         if (mainFragment == null) {
             mainFragment = MainFragment()
@@ -44,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 
 
         setListener(binding)
+        initNav()
     }
 
     private fun setListener(binding: ActivityMainBinding) {
@@ -105,6 +110,28 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        val toggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
+            this, binding.mainDl, R.string.drawer_open, R.string.drawer_close)
+         {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                super.onDrawerSlide(drawerView, slideOffset)
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                super.onDrawerClosed(drawerView)
+                binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+                super.onDrawerStateChanged(newState)
+            }
+        }
+
+        binding.mainDl.addDrawerListener(toggle)
     }
 
     private fun checkStack() {
@@ -176,5 +203,14 @@ class MainActivity : AppCompatActivity() {
         trans.isAddToBackStackAllowed
         trans.commit()
 
+    }
+
+    fun initNav() {
+        binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    }
+
+    fun openNav() {
+        binding.mainDl.openDrawer(Gravity.RIGHT)
+        binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
 }
