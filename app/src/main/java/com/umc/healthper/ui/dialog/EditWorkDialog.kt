@@ -47,16 +47,33 @@ class EditWorkDialog: DialogFragment() {
         adapterList[0].setonClickListener(object :EditWorkRvAdapter.OnClickListener{
             override fun onClick(pos: Int) {
                 val tmp = ls[pos]
-                Log.d("tmp", tmp + pos.toString())
                 ls.removeAt(pos)
                 ls2.add(tmp)
-                adapterList[0].notifyItemRemoved(pos)
-                adapterList[0].notifyItemRangeChanged(pos, 1)
-                adapterList[1].notifyItemInserted(ls2.size)
+                adapterList[0].notifyDataSetChanged()
+                adapterList[1].notifyDataSetChanged()
             }
 
         }
         )
+        adapterList[1].setonClickListener(object :EditWorkRvAdapter.OnClickListener{
+            override fun onClick(pos: Int) {
+                val tmp = ls2[pos]
+                ls2.removeAt(pos)
+                ls.add(tmp)
+                adapterList[0].notifyDataSetChanged()
+                adapterList[1].notifyDataSetChanged()
+            }
+
+        }
+        )
+
+        binding.dialogEditWorkCompleteTv.setOnClickListener {
+            dismiss()
+        }
+
+        binding.dialogEditWorkCloseIv.setOnClickListener {
+            dismiss()
+        }
 
     }
 
