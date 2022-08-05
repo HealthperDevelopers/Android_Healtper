@@ -15,6 +15,5 @@ class VarUtil: Application() {
         super.onCreate()
         glob = GlobVar()
         KakaoSdk.init(this, "${BuildConfig.KAKAO_API_KEY}")
-        Log.d("appkey", "${BuildConfig.KAKAO_API_KEY}")
     }
 }
