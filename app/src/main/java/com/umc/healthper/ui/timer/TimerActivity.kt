@@ -8,6 +8,7 @@ import com.umc.healthper.databinding.ActivityTimerBinding
 
 class TimerActivity : AppCompatActivity() {
     lateinit var binding: ActivityTimerBinding
+    var setCount : Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
