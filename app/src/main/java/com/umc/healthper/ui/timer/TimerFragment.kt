@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentTimerBinding
+import com.umc.healthper.util.VarUtil
 import java.lang.reflect.Array.getInt
 
 class TimerFragment : Fragment() {
@@ -64,6 +65,9 @@ class TimerFragment : Fragment() {
             val mBuilder = AlertDialog.Builder(timerActivity!!)
                 .setView(mDialogView)
 
+            mDialogView.findViewById<EditText>(R.id.rest_minutes_et).setText(String.format("%02d", VarUtil.glob.restMinutes / 60))
+            mDialogView.findViewById<EditText>(R.id.rest_mills_et).setText(String.format("%02d", VarUtil.glob.restMinutes % 60))
+
             val  mAlertDialog = mBuilder.show()
 
             val doneButton = mDialogView.findViewById<Button>(R.id.rest_done_bt)
@@ -79,8 +83,10 @@ class TimerFragment : Fragment() {
                         return@setOnClickListener
                     }
                 }
+
                 binding.timerRestSettingTimeTv.text = String.format("%02d:%02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
-                // Log.d("setting timer", binding.timerRestSettingTimeTv.text.toString())
+                VarUtil.glob.restMinutes = minutesEdit!!.toInt() * 60 + millsEdit!!.toInt()
+                binding.timerRestSettingTimeTv.text = String.format("%02d:%02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
                 mAlertDialog.dismiss()
             }
         }
