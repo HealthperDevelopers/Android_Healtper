@@ -10,4 +10,5 @@ class GlobVar: Application() {
     lateinit var mainContext: Context
     lateinit var mainActivity: MainActivity
     lateinit var today: TextView
+    var setRestTime : Int = 0
 }

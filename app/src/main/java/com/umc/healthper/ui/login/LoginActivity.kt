@@ -21,6 +21,7 @@ import com.umc.healthper.util.saveAutoLogin
 class LoginActivity : AppCompatActivity() {
     lateinit var binding : ActivityLoginBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)

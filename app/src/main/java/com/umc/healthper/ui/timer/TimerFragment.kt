@@ -79,8 +79,8 @@ class TimerFragment : Fragment() {
                         return@setOnClickListener
                     }
                 }
+                mDialogView.findViewById<EditText>(R.id.rest_minutes_et).setText(minutesEdit)
                 binding.timerRestSettingTimeTv.text = String.format("%02d:%02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
-                // Log.d("setting timer", binding.timerRestSettingTimeTv.text.toString())
                 mAlertDialog.dismiss()
             }
         }
