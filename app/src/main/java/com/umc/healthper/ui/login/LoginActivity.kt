@@ -1,17 +1,22 @@
 package com.umc.healthper.ui.login
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.AuthError
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.umc.healthper.databinding.ActivityLoginBinding
 import com.umc.healthper.ui.MainActivity
+import com.umc.healthper.util.VarUtil
+import com.umc.healthper.util.VarUtil.Companion.glob
+import com.umc.healthper.util.getAutoLogin
+import com.umc.healthper.util.saveAutoLogin
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding : ActivityLoginBinding
@@ -21,18 +26,38 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-            if (error != null) {
-                Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+        val spf = this.getSharedPreferences("isAuto", MODE_PRIVATE)
+        val autoLogin = getAutoLogin()
+        setAutoLogin(autoLogin)
+
+        binding.loginAutoTv.setOnClickListener {
+            Log.d("spf", spf!!.getBoolean("isAuto", false).toString())
+
+            if (autoLogin) {
+                saveAutoLogin(false)
+                binding.loginAutoTv.text = "auto login : no"
             }
-            else if (tokenInfo != null) {
-                Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                Log.d("ID tokeninfo", tokenInfo.id.toString())
-                finish()
+            else {
+                saveAutoLogin(true)
+                binding.loginAutoTv.text = "auto login : yes"
             }
         }
+
+        if (autoLogin) {
+            UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+                if (error != null) {
+                    Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+                }
+                else if (tokenInfo != null) {
+                    Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    Log.d("ID tokeninfo", tokenInfo.id.toString())
+                    finish()
+                }
+            }
+        }
+
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 when {
@@ -90,5 +115,15 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             finish()
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setAutoLogin(autoLogin : Boolean) {
+        Log.d("spf", autoLogin.toString())
+
+        if (autoLogin)
+            binding.loginAutoTv.text = "auto login : yes"
+        else
+            binding.loginAutoTv.text = "auto login : no"
     }
 }
