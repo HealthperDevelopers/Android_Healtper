@@ -193,7 +193,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class NewHolder(val binding: ItemMainNewBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.itemMainNewGoWorkTv.setOnClickListener {
-                VarUtil.glob.mainActivity.changeMainFragment()
+                VarUtil.glob.mainActivity.changeMainFragment(1)
             }
 
         }

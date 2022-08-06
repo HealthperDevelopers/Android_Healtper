@@ -1,5 +1,7 @@
 package com.umc.healthper.ui
 
+import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -7,6 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import android.util.Log
+import android.view.WindowManager
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.kakao.sdk.common.util.Utility
@@ -16,6 +19,7 @@ import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.main.view.WorkReadyFragment
+import com.umc.healthper.ui.main.view.WorkdetailFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
@@ -31,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     // var MusicMypageFragment: MusicMypageFragment? = null
     var PartchartFragment: PartchartFragment? = null
     var workReadyFragment: WorkReadyFragment? = null
+    var workdetailFragment: WorkdetailFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +44,11 @@ class MainActivity : AppCompatActivity() {
 
         VarUtil.glob.mainContext = applicationContext
         VarUtil.glob.mainActivity = this
+        val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        VarUtil.glob.size = size
 
         if (mainFragment == null) {
             mainFragment = MainFragment()
@@ -150,6 +160,10 @@ class MainActivity : AppCompatActivity() {
             "workReady",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
+        if (workdetailFragment != null) supportFragmentManager.popBackStack(
+            "workDetail",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
     }
 
     fun changeMypageFragment(int : Int){
@@ -191,13 +205,24 @@ class MainActivity : AppCompatActivity() {
         transition.commit()
     }
 
-    fun changeMainFragment() {
+    fun changeMainFragment(page: Int) {
         val trans = supportFragmentManager.beginTransaction()
-        if (workReadyFragment == null) {
-            workReadyFragment = WorkReadyFragment()
-        }
+        when (page) {
+            1-> {
+                if (workReadyFragment == null) {
+                    workReadyFragment = WorkReadyFragment()
+                }
 
-        trans.replace(binding.mainFrmFl.id, workReadyFragment!!).addToBackStack("workReady")
+                trans.replace(binding.mainFrmFl.id, workReadyFragment!!).addToBackStack("workReady")
+            }
+            else -> {
+                if (workdetailFragment == null) {
+                    workdetailFragment = WorkdetailFragment()
+                }
+
+                trans.replace(binding.mainFrmFl.id, workdetailFragment!!).addToBackStack("workDetail")
+            }
+        }
         trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         trans.isAddToBackStackAllowed
         trans.commit()

@@ -3,7 +3,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 <TextView
     android:id="@+id/routineready_title_tv"
     android:layout_width="match_parent"
@@ -24,7 +25,10 @@
         app:layout_constraintTop_toBottomOf="@id/routineready_title_tv"
         app:layout_constraintBottom_toTopOf="@id/routineready_add_tv"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/item_workready_workpart">
     </androidx.recyclerview.widget.RecyclerView>
 <!--    루틴 내 부위별 리스트-->
 
@@ -36,10 +40,11 @@
         app:layout_constraintTop_toBottomOf="@id/routineready_routine_list_rv"
         app:layout_constraintBottom_toTopOf="@id/routineready_complete_tv"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="운동수정하기">
     </TextView>
 
-<!--    루틴추가하기 버튼-->
+<!--    운동수정하기 버튼-->
     <TextView
         android:id="@+id/routineready_complete_tv"
         android:layout_width="match_parent"
@@ -48,7 +53,8 @@
         app:layout_constraintTop_toBottomOf="@id/routineready_add_tv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="완료하기">
     </TextView>
 <!--    완료하기 버튼-->
 </androidx.constraintlayout.widget.ConstraintLayout>
