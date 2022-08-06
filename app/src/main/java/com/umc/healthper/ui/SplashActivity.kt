@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import com.umc.healthper.R
 import com.umc.healthper.ui.login.LoginActivity
+import com.umc.healthper.ui.timer.TimerActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -14,7 +15,9 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
+            // val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, TimerActivity::class.java)
+
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()

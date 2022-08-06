@@ -1,6 +1,7 @@
 package com.umc.healthper.ui.mypage.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.kakao.sdk.user.UserApiClient
 import com.umc.healthper.databinding.FragmentMypageBinding
 import com.umc.healthper.ui.MainActivity
+import com.umc.healthper.ui.login.LoginActivity
 
 class MypageFragment : Fragment() {
 
@@ -42,6 +44,8 @@ class MypageFragment : Fragment() {
                 }
                 else {
                     Log.i("try logOut", "로그아웃 성공. SDK에서 토큰 삭제됨")
+                    val intent = Intent(mainActivity, LoginActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }
