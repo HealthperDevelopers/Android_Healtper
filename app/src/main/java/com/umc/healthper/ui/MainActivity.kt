@@ -19,6 +19,7 @@ import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.main.view.WorkReadyFragment
+import com.umc.healthper.ui.main.view.WorkdetailFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     var MusicMypageFragment: MusicMypageFragment? = null
     var PartchartFragment: PartchartFragment? = null
     var workReadyFragment: WorkReadyFragment? = null
+    var workdetailFragment: WorkdetailFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -159,6 +161,10 @@ class MainActivity : AppCompatActivity() {
             "workReady",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
+        if (workdetailFragment != null) supportFragmentManager.popBackStack(
+            "workDetail",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
     }
 
     fun changeMypageFragment(int : Int){
@@ -200,13 +206,24 @@ class MainActivity : AppCompatActivity() {
         transition.commit()
     }
 
-    fun changeMainFragment() {
+    fun changeMainFragment(page: Int) {
         val trans = supportFragmentManager.beginTransaction()
-        if (workReadyFragment == null) {
-            workReadyFragment = WorkReadyFragment()
-        }
+        when (page) {
+            1-> {
+                if (workReadyFragment == null) {
+                    workReadyFragment = WorkReadyFragment()
+                }
 
-        trans.replace(binding.mainFrmFl.id, workReadyFragment!!).addToBackStack("workReady")
+                trans.replace(binding.mainFrmFl.id, workReadyFragment!!).addToBackStack("workReady")
+            }
+            else -> {
+                if (workdetailFragment == null) {
+                    workdetailFragment = WorkdetailFragment()
+                }
+
+                trans.replace(binding.mainFrmFl.id, workdetailFragment!!).addToBackStack("workDetail")
+            }
+        }
         trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         trans.isAddToBackStackAllowed
         trans.commit()

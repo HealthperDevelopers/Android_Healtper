@@ -23,7 +23,9 @@ class WorkdetailFragment: Fragment() {
 
 
     fun setListener() {
+        binding.workdetailGobackTv.setOnClickListener {
 
+        }
     }
 
 

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.umc.healthper.databinding.FragmentWorkreadyBinding
 import com.umc.healthper.ui.dialog.EditWorkDialog
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
+import com.umc.healthper.util.VarUtil
 
 class WorkReadyFragment: Fragment() {
     lateinit var binding: FragmentWorkreadyBinding
@@ -28,7 +29,7 @@ class WorkReadyFragment: Fragment() {
 
         workListAdapter.setOnClickListener(object: WorkReadyListAdapter.onClickListener{
             override fun onClick() {
-                EditWorkDialog().show(childFragmentManager.beginTransaction(), "editWorkDialog")
+                VarUtil.glob.mainActivity.changeMainFragment(2)
             }
 
         })
@@ -38,7 +39,7 @@ class WorkReadyFragment: Fragment() {
 
     fun setListener() {
         binding.routinereadyAddTv.setOnClickListener {
-
+            EditWorkDialog().show(childFragmentManager.beginTransaction(), "editWorkDialog")
         }
     }
 
