@@ -47,7 +47,7 @@ class TimerFragment : Fragment() {
         runningTimer.start()
         restTimer.start()
 
-        // val mDialogView = LayoutInflater.from(timerActivity).inflate(R.layout.rest_dialog, null)
+        binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
 
         minutesEdit = LayoutInflater.from(timerActivity)
             .inflate(R.layout.rest_dialog, null).findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
@@ -76,8 +76,16 @@ class TimerFragment : Fragment() {
                     minutesEdit = mDialogView.findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
                     millsEdit = mDialogView.findViewById<EditText>(R.id.rest_mills_et).getText().toString()
 
-                    if (minutesEdit!!.toInt() <= 99 && millsEdit!!.toInt() <= 59)
-                        break
+                    if (minutesEdit!!.toInt() >= 0 && minutesEdit!!.toInt() <= 60 && millsEdit!!.toInt() < 60 && millsEdit!!.toInt() >= 0) {
+                        if (millsEdit!!.toInt() == 0 && minutesEdit!!.toInt() == 0) {
+                            Toast.makeText(timerActivity!!, "None", Toast.LENGTH_SHORT).show()
+                            return@setOnClickListener
+                        }
+                        else {
+                            Toast.makeText(timerActivity!!, "Okay", Toast.LENGTH_SHORT).show()
+                            break
+                        }
+                    }
                     else {
                         Toast.makeText(timerActivity!!, "Out of range", Toast.LENGTH_SHORT).show()
                         return@setOnClickListener
@@ -104,6 +112,8 @@ class TimerFragment : Fragment() {
     private fun getRest() {
         if (isRest) {
             isRest = false
+            timerActivity!!.setCount++
+            binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
             binding.timerWorkrestBt.text = "쉬는 시간"
             binding.timerTableTv.setBackgroundResource(R.drawable.table_tint)
             binding.timerWorkTimeCl.visibility = View.VISIBLE
@@ -131,6 +141,10 @@ class TimerFragment : Fragment() {
             binding.timerRunningTv.visibility = View.INVISIBLE
             binding.timerRunningTimeTv.visibility = View.INVISIBLE
             binding.timerRestImg.visibility = View.VISIBLE
+
+            // editable = false
+            binding.timerTableVolumeEt.isEnabled = false
+            binding.timerTableCountEt.isEnabled = false
         }
     }
 

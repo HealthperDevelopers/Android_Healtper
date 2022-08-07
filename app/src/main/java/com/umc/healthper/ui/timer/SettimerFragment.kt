@@ -24,6 +24,8 @@ class SettimerFragment : Fragment() {
     ): View? {
         binding = FragmentSetTimerBinding.inflate(inflater, container, false)
 
+        binding.setTimerTableSetEt.text = "${timerActivity!!.setCount}세트"
+
         binding.setTimerWorkstartBt.setOnClickListener{
             timerActivity!!.changeTimerFragment()
         }

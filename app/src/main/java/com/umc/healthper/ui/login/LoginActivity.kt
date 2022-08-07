@@ -28,11 +28,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val spf = this.getSharedPreferences("isAuto", MODE_PRIVATE)
-        val autoLogin = getAutoLogin()
+        var autoLogin = getAutoLogin()
         setAutoLogin(autoLogin)
 
         binding.loginAutoTv.setOnClickListener {
             Log.d("spf", spf!!.getBoolean("isAuto", false).toString())
+            autoLogin = getAutoLogin()
 
             if (autoLogin) {
                 saveAutoLogin(false)
@@ -96,7 +97,15 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                Log.d("ID token", token.toString())
+                UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
+                    if (error != null) {
+                        Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+                    }
+                    else if (tokenInfo != null) {
+                        Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
+                        Log.d("ID tokeninfo no auto", tokenInfo.id.toString())
+                    }
+                }
                 finish()
             }
         }
