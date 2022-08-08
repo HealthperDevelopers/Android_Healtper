@@ -55,14 +55,13 @@ class SplashActivity : AppCompatActivity() {
                     }
                     else if (work == "-") next = true
                     else if (!next) {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            if (!next) {
-                                var inp = Work(
-                                    0,work, part, 0, 0, 0
-                                )
-                                db.WorkDao().insert(inp)
-                            }
-                        }
+                        var inp = Work(
+                            0,work, part, 0, 0, 0
+                        )
+                        db.WorkDao().insert(inp)
+//                        CoroutineScope(Dispatchers.IO).launch {
+//
+//                        }
                     }
                 }
             }
