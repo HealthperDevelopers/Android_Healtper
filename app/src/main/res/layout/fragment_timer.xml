@@ -275,11 +275,10 @@
             app:layout_constraintBottom_toTopOf="@id/timer_table_count_et"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/timer_table_set_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="세트"
             app:layout_constraintBottom_toBottomOf="@id/timer_table_tv"
             app:layout_constraintStart_toStartOf="@id/timer_table_tv"
             app:layout_constraintEnd_toEndOf="@id/timer_fir_column"
@@ -291,7 +290,8 @@
             android:id="@+id/timer_table_volume_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="무게"
+            android:hint="무게"
+            android:inputType="number"
             app:layout_constraintStart_toStartOf="@id/timer_fir_column"
             app:layout_constraintEnd_toEndOf="@id/timer_sec_column"
             app:layout_constraintBottom_toBottomOf="@id/timer_table_tv"
@@ -299,17 +299,39 @@
             android:background="@android:color/transparent"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kg"
+            app:layout_constraintTop_toTopOf="@id/timer_table_volume_et"
+            app:layout_constraintBottom_toBottomOf="@id/timer_table_volume_et"
+            app:layout_constraintStart_toEndOf="@id/timer_table_volume_et"
+            android:layout_marginStart="5dp"
+            />
+
         <EditText
             android:id="@+id/timer_table_count_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="횟수"
+            android:hint="횟수"
+            android:inputType="number"
             app:layout_constraintBottom_toBottomOf="@id/timer_table_tv"
             app:layout_constraintStart_toStartOf="@id/timer_sec_column"
             app:layout_constraintEnd_toEndOf="@id/timer_table_tv"
             app:layout_constraintTop_toBottomOf="@id/timer_table_count_tv"
             android:background="@android:color/transparent"
             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회"
+            app:layout_constraintTop_toTopOf="@id/timer_table_count_et"
+            app:layout_constraintBottom_toBottomOf="@id/timer_table_count_et"
+            app:layout_constraintStart_toEndOf="@id/timer_table_count_et"
+            android:layout_marginStart="5dp"
+            />
+
         <Button
             android:id="@+id/timer_done_bt"
             android:layout_width="match_parent"

@@ -15,6 +15,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.InputStream
+import com.umc.healthper.ui.timer.TimerActivity
+
 
 class SplashActivity : AppCompatActivity() {
 
@@ -23,7 +25,9 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
+//            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, TimerActivity::class.java)
+
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
