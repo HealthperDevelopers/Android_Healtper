@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Work (
         @PrimaryKey(autoGenerate = true) var id: Int = 0,
 var workName: String = "",
-var workPart: String = "",
+var workPartId: Int = 0,
 var workWeight: Int = 0,
 var workTime: Int = 0,
 var workSet: Int = 0

@@ -9,6 +9,7 @@ import android.os.Handler
 import android.util.Log
 import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
+import com.umc.healthper.data.entity.WorkPart
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.ui.login.LoginActivity
 import kotlinx.coroutines.CoroutineScope
@@ -25,8 +26,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-//            val intent = Intent(this, LoginActivity::class.java)
-            val intent = Intent(this, TimerActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
+            //val intent = Intent(this, TimerActivity::class.java)
 
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
@@ -50,17 +51,23 @@ class SplashActivity : AppCompatActivity() {
                 val input: InputStream = manager.open("workList.txt")
 
                 var part = ""
+                var partId = 0
                 var next = false
                 input.bufferedReader().readLines().forEach {
                     val work = it
                     if (next) {
                         part = work
+                        var data = WorkPart (
+                            0, part
+                            )
+                        db.WorkPartDao().insert(data)
+                        partId = db.WorkPartDao().getWorkPartId(part)
                         next = false
                     }
                     else if (work == "-") next = true
                     else if (!next) {
                         var inp = Work(
-                            0,work, part, 0, 0, 0
+                            0,work, partId, 0, 0, 0
                         )
                         db.WorkDao().insert(inp)
 //                        CoroutineScope(Dispatchers.IO).launch {

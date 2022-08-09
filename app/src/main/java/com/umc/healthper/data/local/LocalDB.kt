@@ -5,10 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.umc.healthper.data.entity.Work
+import com.umc.healthper.data.entity.WorkPart
 
-@Database(entities = [Work::class], version = 1)
+@Database(entities = [Work::class, WorkPart::class], version = 2)
 abstract class LocalDB: RoomDatabase() {
     abstract fun WorkDao(): WorkDao
+    abstract fun WorkPartDao(): WorkPartDao
 
     companion object {
         private var instance: LocalDB? = null
@@ -21,7 +23,7 @@ abstract class LocalDB: RoomDatabase() {
                         context.applicationContext,
                         LocalDB::class.java,
                         "local_database"
-                    ).allowMainThreadQueries().build()
+                    ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
                 }
             }
             return instance
