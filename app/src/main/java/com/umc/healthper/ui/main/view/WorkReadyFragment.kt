@@ -28,7 +28,7 @@ class WorkReadyFragment: Fragment() {
 
         workListAdapter.setOnClickListener(object: WorkReadyListAdapter.onClickListener{
             override fun onClick(pos: Int) {
-                VarUtil.glob.currentWork = VarUtil.glob.selectedPart[pos]
+                VarUtil.glob.currentPart = VarUtil.glob.selectedPart[pos]
                 VarUtil.glob.mainActivity.changeMainFragment(2)
             }
 
