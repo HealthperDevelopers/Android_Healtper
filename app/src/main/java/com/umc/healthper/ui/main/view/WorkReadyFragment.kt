@@ -1,6 +1,7 @@
 package com.umc.healthper.ui.main.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,20 +21,20 @@ class WorkReadyFragment: Fragment() {
     ): View? {
         binding = FragmentWorkreadyBinding.inflate(inflater, container, false)
 
-        setListener()
 
-        var dataList = ArrayList<Int>()
-        dataList.add(1)
 
-        val workListAdapter = WorkReadyListAdapter(dataList)
+        val workListAdapter = WorkReadyListAdapter()
+        VarUtil.glob.workReadyAdapter = workListAdapter
 
         workListAdapter.setOnClickListener(object: WorkReadyListAdapter.onClickListener{
-            override fun onClick() {
+            override fun onClick(pos: Int) {
+                VarUtil.glob.currentWork = VarUtil.glob.selectedPart[pos]
                 VarUtil.glob.mainActivity.changeMainFragment(2)
             }
 
         })
         binding.routinereadyRoutineListRv.adapter = workListAdapter
+        setListener()
         return binding.root
     }
 
@@ -42,6 +43,5 @@ class WorkReadyFragment: Fragment() {
             EditWorkDialog().show(childFragmentManager.beginTransaction(), "editWorkDialog")
         }
     }
-
 
 }

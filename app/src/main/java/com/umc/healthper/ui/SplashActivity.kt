@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.InputStream
 import com.umc.healthper.ui.timer.TimerActivity
+import com.umc.healthper.util.VarUtil
 
 
 class SplashActivity : AppCompatActivity() {
@@ -35,6 +36,7 @@ class SplashActivity : AppCompatActivity() {
         },DURATION)
 
         initDb(applicationContext)
+
 
     }
     companion object {
@@ -76,5 +78,10 @@ class SplashActivity : AppCompatActivity() {
                     }
                 }
             }
+
+        for (i in db.WorkPartDao().getAllWork()) {
+            VarUtil.glob.unselectedPart.add(i)
+        }
+
     }
 }

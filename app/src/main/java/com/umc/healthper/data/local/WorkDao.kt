@@ -12,4 +12,7 @@ interface WorkDao {
 
     @Insert
     fun insert(data: Work)
+
+    @Query("SELECT * FROM defaultWorkTable WHERE workPartId = :id")
+    fun findWorkbyId(id: Int): List<Work>
 }

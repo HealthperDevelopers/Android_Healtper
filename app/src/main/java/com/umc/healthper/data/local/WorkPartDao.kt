@@ -13,4 +13,7 @@ interface WorkPartDao {
 
     @Query("SELECT id FROM workPartTable WHERE workPart = :workPart")
     fun getWorkPartId(workPart: String): Int
+
+    @Query("SELECT workPart FROM workPartTable")
+    fun getAllWork(): List<String>
 }
