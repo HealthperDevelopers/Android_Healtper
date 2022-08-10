@@ -6,24 +6,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.R
+import com.umc.healthper.data.entity.FavWork
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.FragmentMypageFavoritesBinding
-import com.umc.healthper.databinding.FragmentWorkdetailBinding
 import com.umc.healthper.ui.MainActivity
-import com.umc.healthper.ui.main.adapter.WorkdetailListRVAdapter
 import com.umc.healthper.ui.mypage.util.FavDialogRVAdapter
-import com.umc.healthper.ui.mypage.util.FavWorkDialog
-import com.umc.healthper.ui.timer.TimerActivity
+import com.umc.healthper.ui.mypage.util.FavMypageRVAdapter
 import com.umc.healthper.util.VarUtil
 
 class FavoritesMypageFragment : Fragment() {
+    var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
     var currentPart: String = "어깨" // default value
     lateinit var workList: List<Work>
     lateinit var binding : FragmentMypageFavoritesBinding
@@ -53,15 +50,15 @@ class FavoritesMypageFragment : Fragment() {
         binding.mypagefavBicepsBt.setOnClickListener{ setCurrentPart("이두") }
         binding.mypagefavTricepsBt.setOnClickListener{ setCurrentPart("삼두") }
 
-
-//        val adapter = FavDialogRVAdapter(workList)
-//        binding.mypagefavRv.adapter = adapter
+        val favWork = db.FavWorkDao().getAll(currentPart)
+        val FavAdapter = FavMypageRVAdapter(favWork)
+        binding.mypagefavRv.adapter = FavAdapter
 
         binding.mypagefavPlusIv.setOnClickListener{
-            var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
             var partId = db.WorkPartDao().getWorkPartId(currentPart)
             workList = db.WorkDao().findWorkbyId(partId)
             val adapter = FavDialogRVAdapter(workList)
+            // binding.mypagefavRv.adapter = FavMypageRVAdapter(db.FavWorkDao().getAll(currentPart))
 
             val mDialogView = LayoutInflater.from(mainActivity).inflate(R.layout.dialog_fav, null)
             val mBuilder = AlertDialog.Builder(mainActivity)
@@ -73,12 +70,10 @@ class FavoritesMypageFragment : Fragment() {
 
             adapter.setListener(object: FavDialogRVAdapter.onClickListener {
                 override fun onClick(pos: Int) {
-//                    VarUtil.glob.currentWork = workList[pos].workName
-//                    VarUtil.glob.mainActivity.goTimer()
                     Log.d("posint", workList[pos].workName)
                     Log.d("partId", workList[pos].id.toString())
-
-//                    mAlertDialog.dismiss()
+                    db.FavWorkDao().insert( FavWork( 0,  currentPart, 0, workList[pos].id, workList[pos].workName))
+                    mAlertDialog.dismiss()
                 }
             })
         }
@@ -89,6 +84,6 @@ class FavoritesMypageFragment : Fragment() {
     private fun setCurrentPart(Pick: String) {
         currentPart = Pick
         binding.mypagefavPickBt.text = Pick
+        binding.mypagefavRv.adapter = FavMypageRVAdapter(db.FavWorkDao().getAll(currentPart))
     }
-
 }
