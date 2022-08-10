@@ -16,9 +16,8 @@ import com.umc.healthper.util.VarUtil
 class EditWorkDialog: DialogFragment() {
     lateinit var binding: DialogEditWorkBinding
     var adapterList =  ArrayList<EditWorkRvAdapter>()
-    var ls = mutableListOf<String>("asdf", "ASDh", "ASDG", "ASGHSDGR", "ASDSDG ", "ASDgs", "ASDfdf", "ASDh", "ASDG", "ASGHSDGR")
-    var ls2 = mutableListOf<String>("ASDSDG ", "ASDgs", "ASDfdf", "ASDh", "ASDG", "ASGHSDGR", "ASDSDG ", "ASDgs", "ASDfdf")
-
+    var tempedSelected = ArrayList<String>()
+    var tempedUnselected = ArrayList<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,14 +27,17 @@ class EditWorkDialog: DialogFragment() {
         binding = DialogEditWorkBinding.inflate(inflater, container, false)
 
 
-        adapterList.add(EditWorkRvAdapter(ls))
-        adapterList.add(EditWorkRvAdapter(ls2))
+        adapterList.add(EditWorkRvAdapter(VarUtil.glob.selectedPart))
+        adapterList.add(EditWorkRvAdapter(VarUtil.glob.unselectedPart))
 
 
         binding.dialogEditWorkNoRv.layoutManager = FlexboxLayoutManager(context)
         binding.dialogEditWorkYesRv.layoutManager = FlexboxLayoutManager(context)
         binding.dialogEditWorkYesRv.adapter = adapterList[0]
         binding.dialogEditWorkNoRv.adapter = adapterList[1]
+
+        tempedSelected = VarUtil.glob.selectedPart
+        tempedUnselected = VarUtil.glob.unselectedPart
 
         setListener()
 
@@ -46,9 +48,9 @@ class EditWorkDialog: DialogFragment() {
     fun setListener() {
         adapterList[0].setonClickListener(object :EditWorkRvAdapter.OnClickListener{
             override fun onClick(pos: Int) {
-                val tmp = ls[pos]
-                ls.removeAt(pos)
-                ls2.add(tmp)
+                val tmp = VarUtil.glob.selectedPart[pos]
+                VarUtil.glob.selectedPart.removeAt(pos)
+                VarUtil.glob.unselectedPart.add(tmp)
                 adapterList[0].notifyDataSetChanged()
                 adapterList[1].notifyDataSetChanged()
             }
@@ -57,9 +59,9 @@ class EditWorkDialog: DialogFragment() {
         )
         adapterList[1].setonClickListener(object :EditWorkRvAdapter.OnClickListener{
             override fun onClick(pos: Int) {
-                val tmp = ls2[pos]
-                ls2.removeAt(pos)
-                ls.add(tmp)
+                val tmp =  VarUtil.glob.unselectedPart[pos]
+                VarUtil.glob.unselectedPart.removeAt(pos)
+                VarUtil.glob.selectedPart.add(tmp)
                 adapterList[0].notifyDataSetChanged()
                 adapterList[1].notifyDataSetChanged()
             }
@@ -68,10 +70,13 @@ class EditWorkDialog: DialogFragment() {
         )
 
         binding.dialogEditWorkCompleteTv.setOnClickListener {
+            VarUtil.glob.workReadyAdapter.notifyDataSetChanged()
             dismiss()
         }
 
         binding.dialogEditWorkCloseIv.setOnClickListener {
+            VarUtil.glob.selectedPart = tempedSelected
+            VarUtil.glob.unselectedPart = tempedUnselected
             dismiss()
         }
 

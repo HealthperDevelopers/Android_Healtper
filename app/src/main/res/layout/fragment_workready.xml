@@ -34,27 +34,29 @@
 
     <TextView
         android:id="@+id/routineready_add_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintVertical_weight="1"
         app:layout_constraintTop_toBottomOf="@id/routineready_routine_list_rv"
         app:layout_constraintBottom_toTopOf="@id/routineready_complete_tv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="운동수정하기">
+        android:text="운동수정하기"
+        android:gravity="center">
     </TextView>
 
 <!--    운동수정하기 버튼-->
     <TextView
         android:id="@+id/routineready_complete_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintVertical_weight="1"
         app:layout_constraintTop_toBottomOf="@id/routineready_add_tv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="완료하기">
+        android:text="완료하기"
+        android:gravity="center">
     </TextView>
 <!--    완료하기 버튼-->
 </androidx.constraintlayout.widget.ConstraintLayout>

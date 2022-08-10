@@ -1,6 +1,7 @@
 package com.umc.healthper.ui
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
 import android.view.Gravity
@@ -23,6 +24,7 @@ import com.umc.healthper.ui.main.view.WorkdetailFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
+import com.umc.healthper.ui.timer.TimerActivity
 import com.umc.healthper.util.VarUtil
 
 
@@ -236,5 +238,10 @@ class MainActivity : AppCompatActivity() {
     fun openNav() {
         binding.mainDl.openDrawer(Gravity.RIGHT)
         binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+    }
+
+    fun goTimer() {
+        val intent = Intent(this, TimerActivity::class.java)
+        startActivity(intent)
     }
 }

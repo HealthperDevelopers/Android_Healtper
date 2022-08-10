@@ -63,7 +63,8 @@
         app:layout_constraintTop_toBottomOf="@id/workdetail_work_list_rv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="이전으로">
     </TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

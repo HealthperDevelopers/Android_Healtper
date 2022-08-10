@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.databinding.ItemEditWorkPartBinding
 
-class EditWorkRvAdapter(var data: MutableList<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EditWorkRvAdapter(var data: ArrayList<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnClickListener {
         fun onClick(pos: Int)
@@ -35,7 +35,6 @@ class EditWorkRvAdapter(var data: MutableList<String>): RecyclerView.Adapter<Rec
         fun bind(pos: Int, holdPos:Int) {
             binding.itemEditWorkPartTv.text = data[pos]
             binding.root.setOnClickListener {
-                Log.d("pos", "$pos $holdPos")
                 listener.onClick(pos)
             }
         }

@@ -3,7 +3,6 @@ package com.umc.healthper.ui.timer
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +11,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentTimerBinding
 import com.umc.healthper.util.VarUtil
-import java.lang.reflect.Array.getInt
 
 class TimerFragment : Fragment() {
     lateinit var binding : FragmentTimerBinding
@@ -50,9 +46,9 @@ class TimerFragment : Fragment() {
         binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
 
         minutesEdit = LayoutInflater.from(timerActivity)
-            .inflate(R.layout.rest_dialog, null).findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
+            .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
         millsEdit = LayoutInflater.from(timerActivity)
-            .inflate(R.layout.rest_dialog, null).findViewById<EditText>(R.id.rest_mills_et).getText().toString()
+            .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_mills_et).getText().toString()
 
         binding.timerWorkrestBt.setOnClickListener{
             getRest()
@@ -61,7 +57,7 @@ class TimerFragment : Fragment() {
         binding.timerRestSettingTimeTv.setOnClickListener {
 
             // Dialog만들기
-            val mDialogView = LayoutInflater.from(timerActivity).inflate(R.layout.rest_dialog, null)
+            val mDialogView = LayoutInflater.from(timerActivity).inflate(R.layout.dialog_rest, null)
             val mBuilder = AlertDialog.Builder(timerActivity!!)
                 .setView(mDialogView)
 

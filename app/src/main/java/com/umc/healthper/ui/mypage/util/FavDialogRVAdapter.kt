@@ -1,12 +1,12 @@
-package com.umc.healthper.ui.main.adapter
+package com.umc.healthper.ui.mypage.util
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.data.entity.Work
-import com.umc.healthper.databinding.ItemWorkdetailWorknameBinding
+import com.umc.healthper.databinding.ItemFavdialogWorknameBinding
 
-class WorkdetailListRVAdapter(val data: List<Work>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FavDialogRVAdapter(val data: List<Work>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface onClickListener {
         fun onClick(pos: Int)
@@ -16,9 +16,9 @@ class WorkdetailListRVAdapter(val data: List<Work>): RecyclerView.Adapter<Recycl
     fun setListener(set: onClickListener) {
         onClick = set
     }
-    lateinit var binding: ItemWorkdetailWorknameBinding
+    lateinit var binding: ItemFavdialogWorknameBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = ItemWorkdetailWorknameBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemFavdialogWorknameBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return NameHolder(binding)
     }
@@ -31,9 +31,9 @@ class WorkdetailListRVAdapter(val data: List<Work>): RecyclerView.Adapter<Recycl
         return data.size
     }
 
-    inner class NameHolder(val binding: ItemWorkdetailWorknameBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class NameHolder(val binding: ItemFavdialogWorknameBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
-            binding.itemWorkdetailWorknameTv.text = data[pos].workName
+            binding.itemFavdialogWorknameTv.text = data[pos].workName
             binding.root.setOnClickListener {
                 onClick.onClick(pos)
             }

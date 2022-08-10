@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.databinding.ItemWorkreadyWorkpartBinding
+import com.umc.healthper.util.VarUtil
 
-class WorkReadyListAdapter(private val dataList: ArrayList<Int>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WorkReadyListAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface onClickListener {
-        fun onClick()
+        fun onClick(pos: Int)
     }
     lateinit var listener: onClickListener
 
@@ -17,7 +18,7 @@ class WorkReadyListAdapter(private val dataList: ArrayList<Int>): RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ListHolder).bind()
+        (holder as ListHolder).bind(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -26,18 +27,18 @@ class WorkReadyListAdapter(private val dataList: ArrayList<Int>): RecyclerView.A
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return VarUtil.glob.selectedPart.size
     }
 
     inner class ListHolder(val binding: ItemWorkreadyWorkpartBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
-            binding.itemWorkreadyWorkpartPartTv.text = dataList.toString()
-            setListener()
+        fun bind(pos: Int) {
+            binding.itemWorkreadyWorkpartPartTv.text = VarUtil.glob.selectedPart[pos]
+            setListener(pos)
         }
 
-        fun setListener() {
+        fun setListener(pos: Int) {
             binding.root.setOnClickListener {
-                listener.onClick()
+                listener.onClick(pos)
             }
         }
     }
