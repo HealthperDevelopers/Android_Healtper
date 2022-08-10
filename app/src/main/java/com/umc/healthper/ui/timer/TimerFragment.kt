@@ -129,6 +129,10 @@ class TimerFragment : Fragment() {
             restTimer.mills = 0f
             binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF494949"))
             binding.timerRestTimeTv.text = String.format("%02d:%02d", 0, 0)
+
+            // editable = false
+            binding.timerTableVolumeEt.isEnabled = false
+            binding.timerTableCountEt.isEnabled = false
         }
         else {
             isRest = true
@@ -143,8 +147,8 @@ class TimerFragment : Fragment() {
             binding.timerRestImg.visibility = View.VISIBLE
 
             // editable = false
-            binding.timerTableVolumeEt.isEnabled = false
-            binding.timerTableCountEt.isEnabled = false
+            binding.timerTableVolumeEt.isEnabled = true
+            binding.timerTableCountEt.isEnabled = true
         }
     }
 
