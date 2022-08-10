@@ -2,6 +2,7 @@ package com.umc.healthper.ui.mypage.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ class FavoritesMypageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMypageFavoritesBinding.inflate(inflater, container, false)
+        setCurrentPart(currentPart)
 
         binding.mypagefavChestBt.setOnClickListener{ setCurrentPart("가슴") }
         binding.mypagefavBackBt.setOnClickListener{ setCurrentPart("등") }
@@ -48,6 +50,9 @@ class FavoritesMypageFragment : Fragment() {
         binding.mypagefavAbsBt.setOnClickListener{ setCurrentPart("복근") }
         binding.mypagefavAerobicBt.setOnClickListener{ setCurrentPart("유산소") }
         binding.mypagefavFullBt.setOnClickListener{ setCurrentPart("전신") }
+        binding.mypagefavBicepsBt.setOnClickListener{ setCurrentPart("이두") }
+        binding.mypagefavTricepsBt.setOnClickListener{ setCurrentPart("삼두") }
+
 
 //        val adapter = FavDialogRVAdapter(workList)
 //        binding.mypagefavRv.adapter = adapter
@@ -58,13 +63,24 @@ class FavoritesMypageFragment : Fragment() {
             workList = db.WorkDao().findWorkbyId(partId)
             val adapter = FavDialogRVAdapter(workList)
 
-            val mDialogView = LayoutInflater.from(mainActivity!!).inflate(R.layout.dialog_fav, null)
-            val mBuilder = AlertDialog.Builder(mainActivity!!)
+            val mDialogView = LayoutInflater.from(mainActivity).inflate(R.layout.dialog_fav, null)
+            val mBuilder = AlertDialog.Builder(mainActivity)
                 .setView(mDialogView)
 
             mDialogView.findViewById<RecyclerView>(R.id.fav_dialog_rv).adapter = adapter
 
-            mBuilder.show()
+            val  mAlertDialog = mBuilder.show()
+
+            adapter.setListener(object: FavDialogRVAdapter.onClickListener {
+                override fun onClick(pos: Int) {
+//                    VarUtil.glob.currentWork = workList[pos].workName
+//                    VarUtil.glob.mainActivity.goTimer()
+                    Log.d("posint", workList[pos].workName)
+                    Log.d("partId", workList[pos].id.toString())
+
+//                    mAlertDialog.dismiss()
+                }
+            })
         }
         return binding.root
     }

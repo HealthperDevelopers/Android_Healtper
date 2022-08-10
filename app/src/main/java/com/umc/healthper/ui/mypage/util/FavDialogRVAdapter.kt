@@ -1,5 +1,6 @@
 package com.umc.healthper.ui.mypage.util
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,11 +12,12 @@ class FavDialogRVAdapter(val data: List<Work>): RecyclerView.Adapter<RecyclerVie
     interface onClickListener {
         fun onClick(pos: Int)
     }
-    lateinit var onClick: onClickListener
+     lateinit var onClick: onClickListener
 
     fun setListener(set: onClickListener) {
         onClick = set
     }
+
     lateinit var binding: ItemFavdialogWorknameBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemFavdialogWorknameBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -6,18 +6,19 @@ import com.umc.healthper.data.entity.FavWork
 
 @Dao
 interface FavWorkDao {
-    @Query("SELECT * FROM favworktable ORDER BY id DESC")
+    @Query("SELECT * FROM FavWorkTable ORDER BY id DESC")
     fun getAll(): LiveData<List<FavWork>>
+    // 전체 데이터에 변화가 생길때 LiveData Callback을 실행하여 UI를 업데이트
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(favwork: FavWork)
+    fun insert(FavWork: FavWork)
 
     @Update
-    fun update(favwork: FavWork)
+    fun update(FavWork: FavWork)
 
     @Delete
-    fun delete(favwork: FavWork)
+    fun delete(FavWork: FavWork)
 
-    @Query("DELETE FROM favworktable")
+    @Query("DELETE FROM FavWorkTable")
     fun deleteAll()
 }
