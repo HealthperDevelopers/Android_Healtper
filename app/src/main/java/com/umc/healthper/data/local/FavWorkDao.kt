@@ -3,9 +3,13 @@ package com.umc.healthper.data.local
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.umc.healthper.data.entity.FavWork
+import com.umc.healthper.util.VarUtil
 
 @Dao
 interface FavWorkDao {
+//    @Query("SELECT * FROM favworktable WHERE WorkDao().findWorkPartbyId(FavWorkPartId) = :Part ORDER BY id DESC")
+//    fun getAll(Part : Int): List<FavWork>
+
     @Query("SELECT * FROM favworktable WHERE part = :Part ORDER BY id DESC")
     fun getAll(Part : String): List<FavWork>
 

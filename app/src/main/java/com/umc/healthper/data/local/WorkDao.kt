@@ -15,4 +15,10 @@ interface WorkDao {
 
     @Query("SELECT * FROM defaultWorkTable WHERE workPartId = :id")
     fun findWorkbyId(id: Int): List<Work>
+
+    @Query("SELECT workPartId FROM defaultWorkTable WHERE id = :id")
+    fun findWorkPartbyId(id: Int): Int
+
+    @Query("SELECT id FROM defaultWorkTable WHERE workName = :WorkName")
+    fun findWorkIDbyWorkName(WorkName: String): Int
 }

@@ -58,7 +58,7 @@ class FavoritesMypageFragment : Fragment() {
             var partId = db.WorkPartDao().getWorkPartId(currentPart)
             workList = db.WorkDao().findWorkbyId(partId)
             val adapter = FavDialogRVAdapter(workList)
-            // binding.mypagefavRv.adapter = FavMypageRVAdapter(db.FavWorkDao().getAll(currentPart))
+            binding.mypagefavRv.adapter = FavMypageRVAdapter(db.FavWorkDao().getAll(currentPart))
 
             val mDialogView = LayoutInflater.from(mainActivity).inflate(R.layout.dialog_fav, null)
             val mBuilder = AlertDialog.Builder(mainActivity)
@@ -85,5 +85,7 @@ class FavoritesMypageFragment : Fragment() {
         currentPart = Pick
         binding.mypagefavPickBt.text = Pick
         binding.mypagefavRv.adapter = FavMypageRVAdapter(db.FavWorkDao().getAll(currentPart))
+//        binding.mypagefavRv.adapter = FavMypageRVAdapter(db.FavWorkDao().getAll(db.WorkPartDao().getWorkPartId(currentPart)))
+
     }
 }
