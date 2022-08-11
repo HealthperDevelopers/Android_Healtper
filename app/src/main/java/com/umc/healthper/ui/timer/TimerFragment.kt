@@ -45,6 +45,9 @@ class TimerFragment : Fragment() {
         totalTimer.start()
         runningTimer.start()
         restTimer.start()
+        partTimer.start()
+
+        partTimer.second = timerActivity!!.partTime(VarUtil.glob.currentPart)
 
         binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
         binding.timerWorkTv.text = VarUtil.glob.currentWork
@@ -225,7 +228,9 @@ class TimerFragment : Fragment() {
     inner class PartTimer : Thread(){
         private var hour: Int = 0
         private var minute: Int = 0
-        var second: Int = timerActivity!!.partTime(VarUtil.glob)
+        var second: Int = timerActivity!!.partTime(VarUtil.glob.currentPart)
+//        private var second: Int = 0
+
         private var mills: Float = 0f
 
         override fun run() {
@@ -242,8 +247,7 @@ class TimerFragment : Fragment() {
                         minute = second / 60
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
-                            binding.timerRunningTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
-                            binding.timerRunningRestTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
+                            binding.timerPartTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
                             Log.d("running timer", binding.timerRunningTimeTv.text.toString())
                         }
                     }

@@ -26,7 +26,6 @@ class TimerActivity : AppCompatActivity() {
         binding = ActivityTimerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        work = Work(0, 0, pack, VarUtil.glob.currentPart)
         weight = db.WorkDao().findWorkWeightbyWorkName(VarUtil.glob.currentWork)
         count = db.WorkDao().findWorkSetbyWorkName(VarUtil.glob.currentWork)
 
@@ -52,9 +51,9 @@ class TimerActivity : AppCompatActivity() {
 
     fun iterate(totalTime: Int, runningTime: Int) {
         work.add(Work (totalTime, runningTime, pack, VarUtil.glob.currentPart))
-        Log.d("work totalTime", work.totalTime.toString())
-        Log.d("work runningTime", work.runningTime.toString())
-        Log.d("work currentPart", work.part)
+//        Log.d("work totalTime", work.totalTime.toString())
+//        Log.d("work runningTime", work.runningTime.toString())
+//        Log.d("work currentPart", work.part)
         for (tmp in pack) {
             Log.d("pack set", tmp.set.toString())
             Log.d("pack weight", tmp.weight.toString())
@@ -63,9 +62,12 @@ class TimerActivity : AppCompatActivity() {
         }
     }
 
-    fun partTime(): Int {
+    fun partTime(part:String): Int {
+        var partTime = 0
         for (tmp in work){
-            if ()
+            if (part == tmp.part)
+                partTime += tmp.runningTime
         }
+        return partTime
     }
 }
