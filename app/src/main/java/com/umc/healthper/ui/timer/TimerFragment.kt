@@ -23,7 +23,7 @@ class TimerFragment : Fragment() {
     var millsEdit : String? = null
     var restTimer = RestTimer()
     var runningTimer = RunningTimer()
-    var partTimer = PartTimer()
+    lateinit var partTimer: PartTimer
     var totalTimer = TotalTimer()
 
     var isRest: Boolean = false
@@ -42,6 +42,7 @@ class TimerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTimerBinding.inflate(inflater, container, false)
+        partTimer = PartTimer()
         totalTimer.start()
         runningTimer.start()
         restTimer.start()
