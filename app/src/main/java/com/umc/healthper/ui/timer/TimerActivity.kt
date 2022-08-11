@@ -14,7 +14,7 @@ import com.umc.healthper.util.VarUtil
 
 class TimerActivity : AppCompatActivity() {
     lateinit var binding: ActivityTimerBinding
-    lateinit var work : Work
+    var work : ArrayList<Work> = arrayListOf()
     var pack: ArrayList<Pack> = arrayListOf()
     var setCount : Int = 1
     var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
@@ -26,7 +26,7 @@ class TimerActivity : AppCompatActivity() {
         binding = ActivityTimerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // work = Work(0, 0, pack, db.WorkDao().findWorkPartbyWorkName(VarUtil.glob.currentWork))
+        work = Work(0, 0, pack, VarUtil.glob.currentPart)
         weight = db.WorkDao().findWorkWeightbyWorkName(VarUtil.glob.currentWork)
         count = db.WorkDao().findWorkSetbyWorkName(VarUtil.glob.currentWork)
 
@@ -51,7 +51,7 @@ class TimerActivity : AppCompatActivity() {
     }
 
     fun iterate(totalTime: Int, runningTime: Int) {
-        work = Work (totalTime, runningTime, pack, VarUtil.glob.currentPart)
+        work.add(Work (totalTime, runningTime, pack, VarUtil.glob.currentPart))
         Log.d("work totalTime", work.totalTime.toString())
         Log.d("work runningTime", work.runningTime.toString())
         Log.d("work currentPart", work.part)
@@ -60,6 +60,12 @@ class TimerActivity : AppCompatActivity() {
             Log.d("pack weight", tmp.weight.toString())
             Log.d("pack count", tmp.count.toString())
             Log.d("------------", "done")
+        }
+    }
+
+    fun partTime(): Int {
+        for (tmp in work){
+            if ()
         }
     }
 }

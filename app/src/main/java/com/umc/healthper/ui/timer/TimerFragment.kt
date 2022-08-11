@@ -23,6 +23,7 @@ class TimerFragment : Fragment() {
     var millsEdit : String? = null
     var restTimer = RestTimer()
     var runningTimer = RunningTimer()
+    var partTimer = PartTimer()
     var totalTimer = TotalTimer()
 
     var isRest: Boolean = false
@@ -192,15 +193,47 @@ class TimerFragment : Fragment() {
     inner class RunningTimer : Thread(){
         private var hour: Int = 0
         private var minute: Int = 0
-        var second: Int = 0
+        var second: Int  = 0
         private var mills: Float = 0f
 
         override fun run() {
             try {
                 while (true){
-                    if (isRest){
-                        continue
+//                    if (isRest){
+//                        continue
+//                    }
+                    sleep(50)
+                    mills += 50
+
+                    if (mills % 1000 == 0f){
+                        second++
+                        minute = second / 60
+                        hour = minute / 60
+                        timerActivity!!.runOnUiThread {
+                            binding.timerRunningTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
+                            binding.timerRunningRestTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
+                            Log.d("running timer", binding.timerRunningTimeTv.text.toString())
+                        }
                     }
+                }
+            }catch (e: InterruptedException){
+                Log.d("RunningTimer Thread", "쓰레드가 죽었습니다. ${e.message}")
+            }
+        }
+    }
+
+    inner class PartTimer : Thread(){
+        private var hour: Int = 0
+        private var minute: Int = 0
+        var second: Int = timerActivity!!.partTime(VarUtil.glob)
+        private var mills: Float = 0f
+
+        override fun run() {
+            try {
+                while (true){
+//                    if (isRest){
+//                        continue
+//                    }
                     sleep(50)
                     mills += 50
 
