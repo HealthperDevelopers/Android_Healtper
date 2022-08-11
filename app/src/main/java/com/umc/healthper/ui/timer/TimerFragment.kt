@@ -1,5 +1,6 @@
 package com.umc.healthper.ui.timer
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
@@ -33,6 +34,7 @@ class TimerFragment : Fragment() {
         timerActivity = context as TimerActivity
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,6 +46,10 @@ class TimerFragment : Fragment() {
         restTimer.start()
 
         binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
+        binding.timerWorkTv.text = VarUtil.glob.currentWork
+        binding.timerPickBt.text = VarUtil.glob.currentPart
+        binding.timerTableWeightEt.setText(String.format("%02d", timerActivity!!.weight))
+        binding.timerTableCountEt.setText(String.format("%02d", timerActivity!!.count))
 
         minutesEdit = LayoutInflater.from(timerActivity)
             .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
@@ -52,6 +58,10 @@ class TimerFragment : Fragment() {
 
         binding.timerWorkrestBt.setOnClickListener{
             getRest()
+        }
+
+        binding.timerDoneBt.setOnClickListener{
+            timerActivity!!.iterate(totalTimer.second, runningTimer.second)
         }
 
         binding.timerRestSettingTimeTv.setOnClickListener {
@@ -127,7 +137,7 @@ class TimerFragment : Fragment() {
             binding.timerRestTimeTv.text = String.format("%02d:%02d", 0, 0)
 
             // editable = false
-            binding.timerTableVolumeEt.isEnabled = false
+            binding.timerTableWeightEt.isEnabled = false
             binding.timerTableCountEt.isEnabled = false
         }
         else {
@@ -143,15 +153,17 @@ class TimerFragment : Fragment() {
             binding.timerRestImg.visibility = View.VISIBLE
 
             // editable = false
-            binding.timerTableVolumeEt.isEnabled = true
+            binding.timerTableWeightEt.isEnabled = true
             binding.timerTableCountEt.isEnabled = true
+
+            timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
     }
 
     inner class TotalTimer : Thread(){
         private var hour: Int = 0
         private var minute: Int = 0
-        private var second: Int = 0
+        var second: Int = 0
         private var mills: Float = 0f
 
         override fun run() {
@@ -180,7 +192,7 @@ class TimerFragment : Fragment() {
     inner class RunningTimer : Thread(){
         private var hour: Int = 0
         private var minute: Int = 0
-        private var second: Int = 0
+        var second: Int = 0
         private var mills: Float = 0f
 
         override fun run() {

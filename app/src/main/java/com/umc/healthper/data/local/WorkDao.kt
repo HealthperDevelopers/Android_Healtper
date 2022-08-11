@@ -19,6 +19,15 @@ interface WorkDao {
     @Query("SELECT workPartId FROM defaultWorkTable WHERE id = :id")
     fun findWorkPartbyId(id: Int): Int
 
+    @Query("SELECT workPartId FROM defaultWorkTable WHERE workName = :WorkName")
+    fun findWorkPartbyWorkName(WorkName: String): Int
+
     @Query("SELECT id FROM defaultWorkTable WHERE workName = :WorkName")
     fun findWorkIDbyWorkName(WorkName: String): Int
+
+    @Query("SELECT workWeight FROM defaultWorkTable WHERE workName = :WorkName")
+    fun findWorkWeightbyWorkName(WorkName: String): Int
+
+    @Query("SELECT workSet FROM defaultWorkTable WHERE workName = :WorkName")
+    fun findWorkSetbyWorkName(WorkName: String): Int
 }
