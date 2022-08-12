@@ -1,9 +1,10 @@
 package com.umc.healthper.ui.timer
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,23 +13,23 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentTimerBinding
 import com.umc.healthper.util.VarUtil
-import java.lang.reflect.Array.getInt
 
 class TimerFragment : Fragment() {
     lateinit var binding : FragmentTimerBinding
+    lateinit var partTimer: PartTimer
+    lateinit var totalTimer: TotalTimer
     var minutesEdit : String? = null
     var millsEdit : String? = null
     var restTimer = RestTimer()
     var runningTimer = RunningTimer()
-    var totalTimer = TotalTimer()
 
     var isRest: Boolean = false
+    var isWorkTime: Boolean = true // false -> partTime
 
     var timerActivity: TimerActivity? = null
 
@@ -37,31 +38,51 @@ class TimerFragment : Fragment() {
         timerActivity = context as TimerActivity
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTimerBinding.inflate(inflater, container, false)
+        partTimer = PartTimer()
+        totalTimer = TotalTimer()
         totalTimer.start()
         runningTimer.start()
         restTimer.start()
+        partTimer.start()
+
+        // partTimer.second = timerActivity!!.partTime(VarUtil.glob.currentPart)
 
         binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
+        binding.timerWorkTv.text = VarUtil.glob.currentWork
+        binding.timerPickBt.text = VarUtil.glob.currentPart
+        binding.timerTableWeightEt.setText(String.format("%02d", timerActivity!!.weight))
+        binding.timerTableCountEt.setText(String.format("%02d", timerActivity!!.count))
 
         minutesEdit = LayoutInflater.from(timerActivity)
-            .inflate(R.layout.rest_dialog, null).findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
+            .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
         millsEdit = LayoutInflater.from(timerActivity)
-            .inflate(R.layout.rest_dialog, null).findViewById<EditText>(R.id.rest_mills_et).getText().toString()
+            .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_mills_et).getText().toString()
+
+        binding.timerClickListener.setOnClickListener {
+            getWorkTime()
+        }
 
         binding.timerWorkrestBt.setOnClickListener{
             getRest()
         }
 
+        binding.timerDoneBt.setOnClickListener{
+            timerActivity!!.iterate(totalTimer.second, runningTimer.second)
+            timerActivity!!.popTimerFragment()
+//            timerActivity!!.onStop()
+        }
+
         binding.timerRestSettingTimeTv.setOnClickListener {
 
             // Dialog만들기
-            val mDialogView = LayoutInflater.from(timerActivity).inflate(R.layout.rest_dialog, null)
+            val mDialogView = LayoutInflater.from(timerActivity).inflate(R.layout.dialog_rest, null)
             val mBuilder = AlertDialog.Builder(timerActivity!!)
                 .setView(mDialogView)
 
@@ -102,18 +123,36 @@ class TimerFragment : Fragment() {
         return binding.root
     }
 
+    private fun getWorkTime() {
+        if (isWorkTime) // 현재 진행시간이라면 = 운동별 시간
+        {
+            isWorkTime = false // change to partTime
+            binding.timerRunningRestTv.visibility = View.GONE
+            binding.timerRunningRestTimeTv.visibility = View.GONE
+            binding.timerPartTv.visibility = View.VISIBLE
+            binding.timerPartTimeTv.visibility = View.VISIBLE
+        }
+        else {
+            isWorkTime = true // change to WorkTime = 운동별 시간
+            binding.timerRunningRestTv.visibility = View.VISIBLE
+            binding.timerRunningRestTimeTv.visibility = View.VISIBLE
+            binding.timerPartTv.visibility = View.GONE
+            binding.timerPartTimeTv.visibility = View.GONE
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        timerActivity!!.totalTime = totalTimer.second
         totalTimer.interrupt()
         runningTimer.interrupt()
         restTimer.interrupt()
+        partTimer.interrupt()
     }
 
     private fun getRest() {
         if (isRest) {
             isRest = false
-            timerActivity!!.setCount++
-            binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
             binding.timerWorkrestBt.text = "쉬는 시간"
             binding.timerTableTv.setBackgroundResource(R.drawable.table_tint)
             binding.timerWorkTimeCl.visibility = View.VISIBLE
@@ -129,9 +168,15 @@ class TimerFragment : Fragment() {
             restTimer.mills = 0f
             binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF494949"))
             binding.timerRestTimeTv.text = String.format("%02d:%02d", 0, 0)
+
+            // editable = false
+            binding.timerTableWeightEt.isEnabled = false
+            binding.timerTableCountEt.isEnabled = false
         }
         else {
             isRest = true
+            timerActivity!!.setCount++
+            binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
             binding.timerWorkrestBt.text = "다음 세트"
             binding.timerTableTv.setBackgroundResource(R.drawable.table)
             binding.timerWorkTimeCl.visibility = View.GONE
@@ -143,23 +188,22 @@ class TimerFragment : Fragment() {
             binding.timerRestImg.visibility = View.VISIBLE
 
             // editable = false
-            binding.timerTableVolumeEt.isEnabled = false
-            binding.timerTableCountEt.isEnabled = false
+            binding.timerTableWeightEt.isEnabled = true
+            binding.timerTableCountEt.isEnabled = true
+
+            timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
     }
 
     inner class TotalTimer : Thread(){
         private var hour: Int = 0
         private var minute: Int = 0
-        private var second: Int = 0
+        var second: Int = timerActivity!!.partTime(true) - 1
         private var mills: Float = 0f
 
         override fun run() {
             try {
                 while (true){
-                    sleep(50)
-                    mills += 50
-
                     if (mills % 1000 == 0f){
                         second++
                         minute = second / 60
@@ -170,6 +214,9 @@ class TimerFragment : Fragment() {
                             Log.d("start timer", binding.timerTotalWorkTimeTv.text.toString())
                         }
                     }
+
+                    sleep(50)
+                    mills += 50
                 }
             }catch (e: InterruptedException){
                 Log.d("TotalTimer Thread", "쓰레드가 죽었습니다. ${e.message}")
@@ -180,15 +227,15 @@ class TimerFragment : Fragment() {
     inner class RunningTimer : Thread(){
         private var hour: Int = 0
         private var minute: Int = 0
-        private var second: Int = 0
+        var second: Int  = 0
         private var mills: Float = 0f
 
         override fun run() {
             try {
                 while (true){
-                    if (isRest){
-                        continue
-                    }
+//                    if (isRest){
+//                        continue
+//                    }
                     sleep(50)
                     mills += 50
 
@@ -205,6 +252,37 @@ class TimerFragment : Fragment() {
                 }
             }catch (e: InterruptedException){
                 Log.d("RunningTimer Thread", "쓰레드가 죽었습니다. ${e.message}")
+            }
+        }
+    }
+
+    inner class PartTimer : Thread(){
+        private var hour: Int = 0
+        private var minute: Int = 0
+        private var second: Int = timerActivity!!.partTime(VarUtil.glob.currentPart) - 1
+//        private var second: Int = 0
+
+        private var mills: Float = 0f
+
+        override fun run() {
+            try {
+                while (true){
+                    if (mills % 1000 == 0f){
+                        second++
+                        minute = second / 60
+                        hour = minute / 60
+                        timerActivity!!.runOnUiThread {
+                            binding.timerPartTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
+                            Log.d("part timer", binding.timerRunningTimeTv.text.toString())
+                        }
+                    }
+
+                    sleep(50)
+                    mills += 50
+
+                }
+            }catch (e: InterruptedException){
+                Log.d("PartTimer Thread", "쓰레드가 죽었습니다. ${e.message}")
             }
         }
     }

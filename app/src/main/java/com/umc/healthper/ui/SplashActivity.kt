@@ -6,37 +6,27 @@ import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkPart
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.ui.login.LoginActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.InputStream
-import com.umc.healthper.ui.timer.TimerActivity
 import com.umc.healthper.util.VarUtil
 
-
 class SplashActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
             val intent = Intent(this, LoginActivity::class.java)
-            //val intent = Intent(this, TimerActivity::class.java)
-
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
         },DURATION)
 
         initDb(applicationContext)
-
 
     }
     companion object {
@@ -82,6 +72,5 @@ class SplashActivity : AppCompatActivity() {
         for (i in db.WorkPartDao().getAllWork()) {
             VarUtil.glob.unselectedPart.add(i)
         }
-
     }
 }
