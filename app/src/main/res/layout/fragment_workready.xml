@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--운동 시작 전 준비단계-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<TextView
+    android:id="@+id/routineready_title_tv"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:layout_constraintVertical_weight="2"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/routineready_routine_list_rv"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent">
+</TextView>
+<!--    타이틀-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/routineready_routine_list_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="5"
+        app:layout_constraintTop_toBottomOf="@id/routineready_title_tv"
+        app:layout_constraintBottom_toTopOf="@id/routineready_add_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/item_workready_workpart">
+    </androidx.recyclerview.widget.RecyclerView>
+<!--    루틴 내 부위별 리스트-->
+
+    <TextView
+        android:id="@+id/routineready_add_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/routineready_routine_list_rv"
+        app:layout_constraintBottom_toTopOf="@id/routineready_complete_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="운동수정하기"
+        android:gravity="center">
+    </TextView>
+
+<!--    운동수정하기 버튼-->
+    <TextView
+        android:id="@+id/routineready_complete_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/routineready_add_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="완료하기"
+        android:gravity="center">
+    </TextView>
+<!--    완료하기 버튼-->
+</androidx.constraintlayout.widget.ConstraintLayout>

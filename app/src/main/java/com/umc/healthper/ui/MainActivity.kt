@@ -1,19 +1,32 @@
 package com.umc.healthper.ui
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.graphics.Point
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import android.util.Log
+import android.view.WindowManager
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.kakao.sdk.common.util.Utility
 import com.umc.healthper.R
 import com.umc.healthper.databinding.ActivityMainBinding
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.MainFragment
+import com.umc.healthper.ui.main.view.WorkReadyFragment
+import com.umc.healthper.ui.main.view.WorkdetailFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
-import com.umc.healthper.ui.mypage.view.MusicMypageFragment
+// import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
+import com.umc.healthper.ui.timer.TimerActivity
 import com.umc.healthper.util.VarUtil
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -21,7 +34,10 @@ class MainActivity : AppCompatActivity() {
     var ChartFragment: ChartFragment? = null
     var mypageFragment: MypageFragment? = null
     var FavoritesMypageFragment: FavoritesMypageFragment? = null
-    var MusicMypageFragment: MusicMypageFragment? = null
+    // var MusicMypageFragment: MusicMypageFragment? = null
+    var PartchartFragment: PartchartFragment? = null
+    var workReadyFragment: WorkReadyFragment? = null
+    var workdetailFragment: WorkdetailFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +45,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         VarUtil.glob.mainContext = applicationContext
+        VarUtil.glob.mainActivity = this
+        val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        VarUtil.glob.size = size
 
         if (mainFragment == null) {
             mainFragment = MainFragment()
@@ -36,8 +58,8 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mainFragment!!).commit()
 
-
         setListener(binding)
+        initNav()
     }
 
     private fun setListener(binding: ActivityMainBinding) {
@@ -53,8 +75,7 @@ class MainActivity : AppCompatActivity() {
                     // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
                     if (mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                     if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
-                    if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    checkStack()
 
                     true
                 }
@@ -66,8 +87,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
                     // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
                     if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-                    if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    checkStack()
 
                     supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
 
@@ -95,14 +115,57 @@ class MainActivity : AppCompatActivity() {
                     // supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
                     supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
                     if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
-                    if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack("favorites", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                    if (MusicMypageFragment != null) supportFragmentManager.popBackStack("music", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    checkStack()
 
                     true
-
-            }
+                }
             }
         }
+        val toggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
+            this, binding.mainDl, R.string.drawer_open, R.string.drawer_close)
+         {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                super.onDrawerSlide(drawerView, slideOffset)
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                super.onDrawerClosed(drawerView)
+                binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+                super.onDrawerStateChanged(newState)
+            }
+        }
+
+        binding.mainDl.addDrawerListener(toggle)
+    }
+
+    private fun checkStack() {
+        if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack(
+            "favorites",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+//        if (MusicMypageFragment != null) supportFragmentManager.popBackStack(
+//            "music",
+//            FragmentManager.POP_BACK_STACK_INCLUSIVE
+//        )
+        if (PartchartFragment != null) supportFragmentManager.popBackStack(
+            "part_chart",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (workReadyFragment != null) supportFragmentManager.popBackStack(
+            "workReady",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (workdetailFragment != null) supportFragmentManager.popBackStack(
+            "workDetail",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
     }
 
     fun changeMypageFragment(int : Int){
@@ -113,11 +176,11 @@ class MainActivity : AppCompatActivity() {
                 transition.replace(binding.mainFrmFl.id, FavoritesMypageFragment!!)
                 transition.addToBackStack("favorites")
             }
-            1 -> {
-                MusicMypageFragment = MusicMypageFragment()
-                transition.replace(binding.mainFrmFl.id, MusicMypageFragment())
-                transition.addToBackStack("music")
-            }
+//            1 -> {
+//                MusicMypageFragment = MusicMypageFragment()
+//                transition.replace(binding.mainFrmFl.id, MusicMypageFragment())
+//                transition.addToBackStack("music")
+//            }
         }
         transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transition.isAddToBackStackAllowed
@@ -126,6 +189,7 @@ class MainActivity : AppCompatActivity() {
 
     fun changeChartFragment(part : String){
         val transition = supportFragmentManager.beginTransaction()
+        PartchartFragment = PartchartFragment()
 
         // activity2fragment using intent -> impossible, use bundle
 
@@ -141,5 +205,43 @@ class MainActivity : AppCompatActivity() {
         transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transition.isAddToBackStackAllowed
         transition.commit()
+    }
+
+    fun changeMainFragment(page: Int) {
+        val trans = supportFragmentManager.beginTransaction()
+        when (page) {
+            1-> {
+                if (workReadyFragment == null) {
+                    workReadyFragment = WorkReadyFragment()
+                }
+
+                trans.replace(binding.mainFrmFl.id, workReadyFragment!!).addToBackStack("workReady")
+            }
+            else -> {
+                if (workdetailFragment == null) {
+                    workdetailFragment = WorkdetailFragment()
+                }
+
+                trans.replace(binding.mainFrmFl.id, workdetailFragment!!).addToBackStack("workDetail")
+            }
+        }
+        trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        trans.isAddToBackStackAllowed
+        trans.commit()
+
+    }
+
+    fun initNav() {
+        binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    }
+
+    fun openNav() {
+        binding.mainDl.openDrawer(Gravity.RIGHT)
+        binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+    }
+
+    fun goTimer() {
+        val intent = Intent(this, TimerActivity::class.java)
+        startActivity(intent)
     }
 }

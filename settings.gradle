@@ -3,7 +3,11 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
-//        maven { url 'https://jitpack.io' } 여기가 아니라...고 ㅠㅠ 1시간 삽질
+        maven {
+            url 'https://maven.google.com'
+        }
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
     }
 }
 dependencyResolutionManagement {
@@ -11,7 +15,13 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://maven.google.com'
+        }
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://jitpack.io' }
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
     }
 }
 rootProject.name = "Healthper"
