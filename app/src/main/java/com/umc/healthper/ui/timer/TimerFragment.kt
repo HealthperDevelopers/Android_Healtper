@@ -3,6 +3,7 @@ package com.umc.healthper.ui.timer
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ class TimerFragment : Fragment() {
     var runningTimer = RunningTimer()
 
     var isRest: Boolean = false
+    var isWorkTime: Boolean = true // false -> partTime
 
     var timerActivity: TimerActivity? = null
 
@@ -62,6 +64,10 @@ class TimerFragment : Fragment() {
             .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
         millsEdit = LayoutInflater.from(timerActivity)
             .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_mills_et).getText().toString()
+
+        binding.timerClickListener.setOnClickListener {
+            getWorkTime()
+        }
 
         binding.timerWorkrestBt.setOnClickListener{
             getRest()
@@ -115,6 +121,24 @@ class TimerFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun getWorkTime() {
+        if (isWorkTime) // 현재 진행시간이라면 = 운동별 시간
+        {
+            isWorkTime = false // change to partTime
+            binding.timerRunningRestTv.visibility = View.GONE
+            binding.timerRunningRestTimeTv.visibility = View.GONE
+            binding.timerPartTv.visibility = View.VISIBLE
+            binding.timerPartTimeTv.visibility = View.VISIBLE
+        }
+        else {
+            isWorkTime = true // change to WorkTime = 운동별 시간
+            binding.timerRunningRestTv.visibility = View.VISIBLE
+            binding.timerRunningRestTimeTv.visibility = View.VISIBLE
+            binding.timerPartTv.visibility = View.GONE
+            binding.timerPartTimeTv.visibility = View.GONE
+        }
     }
 
     override fun onDestroy() {
