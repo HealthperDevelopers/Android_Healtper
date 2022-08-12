@@ -18,6 +18,7 @@ import com.umc.healthper.util.VarUtil
 class TimerActivity : AppCompatActivity() {
     lateinit var binding: ActivityTimerBinding
     var pack: ArrayList<Pack> = arrayListOf()
+    var totalTime: Int = 0
     var setCount : Int = 1
     var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
     var weight: Int = 0
@@ -60,7 +61,7 @@ class TimerActivity : AppCompatActivity() {
     }
 
     fun iterate(totalTime: Int, runningTime: Int) {
-        VarUtil.glob.work.add(Work (totalTime, runningTime, pack, VarUtil.glob.currentPart))
+        VarUtil.glob.work.add(Work (totalTime, runningTime, pack, db.WorkPartDao().getWorkPartId(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
         for (tmp in pack) {
             Log.d("pack set", tmp.set.toString())
             Log.d("pack weight", tmp.weight.toString())
@@ -76,9 +77,24 @@ class TimerActivity : AppCompatActivity() {
         for (tmp in VarUtil.glob.work){
             Log.d("total time", tmp.totalTime.toString())
             Log.d("running time", tmp.runningTime.toString())
-            Log.d("part", tmp.part)
+            Log.d("part", tmp.partId.toString())
 
-            if (part == tmp.part)
+            if (db.WorkPartDao().getWorkPartId(part) == tmp.partId)
+                partTime += tmp.runningTime
+        }
+        return partTime
+    }
+
+    fun partTime(all:Boolean): Int {
+        var partTime = 0
+        Log.d("partTime func", "func")
+
+        for (tmp in VarUtil.glob.work){
+            Log.d("total time", tmp.totalTime.toString())
+            Log.d("running time", tmp.runningTime.toString())
+            Log.d("part", tmp.partId.toString())
+
+            if (all)
                 partTime += tmp.runningTime
         }
         return partTime

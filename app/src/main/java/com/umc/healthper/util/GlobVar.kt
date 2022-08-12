@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.graphics.Point
 import android.widget.TextView
+import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
 import com.umc.healthper.ui.timer.data.Work
@@ -19,6 +20,7 @@ class GlobVar: Application() {
     var selectedPart = ArrayList<String>()
     var unselectedPart = ArrayList<String>()
     var work : ArrayList<Work> = arrayListOf()
+    var totalData : TotalData = TotalData(ArrayList(), "")
 
     lateinit var workReadyAdapter: WorkReadyListAdapter
     var currentPart: String = ""

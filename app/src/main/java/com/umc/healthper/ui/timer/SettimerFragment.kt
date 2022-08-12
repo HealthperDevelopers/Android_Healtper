@@ -37,9 +37,13 @@ class SettimerFragment : Fragment() {
     ): View? {
         binding = FragmentSetTimerBinding.inflate(inflater, container, false)
 
+        var second = timerActivity!!.partTime(true)
+        var minute = second / 60
+        var hour = minute / 60
         binding.setTimerTableSetEt.text = "${timerActivity!!.setCount}세트"
         binding.setTimerWorkTv.text = VarUtil.glob.currentWork
         binding.setTimerPickBt.text = VarUtil.glob.currentPart
+        binding.setTimeTotalTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
         binding.setTimerTableWeightEt.setText(String.format("%02d", timerActivity!!.weight))
         binding.setTimerTableCountEt.setText(String.format("%02d", timerActivity!!.count))
         timerActivity!!.weight = binding.setTimerTableWeightEt.text.toString().toInt()

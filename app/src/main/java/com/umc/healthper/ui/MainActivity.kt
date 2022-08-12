@@ -249,7 +249,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun change2Comment() {
-
+        for (tmp in VarUtil.glob.work){
+            Log.d("total time", tmp.totalTime.toString())
+            Log.d("running time", tmp.runningTime.toString())
+            Log.d("partId", tmp.partId.toString())
+            Log.d("work", tmp.work)
+            for (temp in tmp.pack){
+                Log.d("pack set", temp.set.toString())
+                Log.d("pack weight", temp.weight.toString())
+                Log.d("pack count", temp.count.toString())
+                Log.d("------------", "done")
+            }
+            Log.d("work done", "_________________")
+        }
 
         val intent = Intent(this, CommentActivity::class.java)
         startActivity(intent)

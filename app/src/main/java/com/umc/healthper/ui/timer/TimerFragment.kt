@@ -20,12 +20,12 @@ import com.umc.healthper.util.VarUtil
 
 class TimerFragment : Fragment() {
     lateinit var binding : FragmentTimerBinding
+    lateinit var partTimer: PartTimer
+    lateinit var totalTimer: TotalTimer
     var minutesEdit : String? = null
     var millsEdit : String? = null
     var restTimer = RestTimer()
     var runningTimer = RunningTimer()
-    lateinit var partTimer: PartTimer
-    var totalTimer = TotalTimer()
 
     var isRest: Boolean = false
 
@@ -44,6 +44,7 @@ class TimerFragment : Fragment() {
     ): View? {
         binding = FragmentTimerBinding.inflate(inflater, container, false)
         partTimer = PartTimer()
+        totalTimer = TotalTimer()
         totalTimer.start()
         runningTimer.start()
         restTimer.start()
@@ -118,6 +119,7 @@ class TimerFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        timerActivity!!.totalTime = totalTimer.second
         totalTimer.interrupt()
         runningTimer.interrupt()
         restTimer.interrupt()
@@ -127,8 +129,6 @@ class TimerFragment : Fragment() {
     private fun getRest() {
         if (isRest) {
             isRest = false
-            timerActivity!!.setCount++
-            binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
             binding.timerWorkrestBt.text = "쉬는 시간"
             binding.timerTableTv.setBackgroundResource(R.drawable.table_tint)
             binding.timerWorkTimeCl.visibility = View.VISIBLE
@@ -151,6 +151,8 @@ class TimerFragment : Fragment() {
         }
         else {
             isRest = true
+            timerActivity!!.setCount++
+            binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
             binding.timerWorkrestBt.text = "다음 세트"
             binding.timerTableTv.setBackgroundResource(R.drawable.table)
             binding.timerWorkTimeCl.visibility = View.GONE
@@ -172,15 +174,12 @@ class TimerFragment : Fragment() {
     inner class TotalTimer : Thread(){
         private var hour: Int = 0
         private var minute: Int = 0
-        var second: Int = 0
+        var second: Int = timerActivity!!.partTime(true) - 1
         private var mills: Float = 0f
 
         override fun run() {
             try {
                 while (true){
-                    sleep(50)
-                    mills += 50
-
                     if (mills % 1000 == 0f){
                         second++
                         minute = second / 60
@@ -191,6 +190,9 @@ class TimerFragment : Fragment() {
                             Log.d("start timer", binding.timerTotalWorkTimeTv.text.toString())
                         }
                     }
+
+                    sleep(50)
+                    mills += 50
                 }
             }catch (e: InterruptedException){
                 Log.d("TotalTimer Thread", "쓰레드가 죽었습니다. ${e.message}")
