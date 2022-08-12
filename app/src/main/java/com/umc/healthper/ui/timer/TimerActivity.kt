@@ -1,20 +1,22 @@
 package com.umc.healthper.ui.timer
 
+import android.content.Intent
 import android.icu.text.Edits
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.umc.healthper.R
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.ActivityTimerBinding
+import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.ui.timer.data.Pack
 import com.umc.healthper.ui.timer.data.Work
 import com.umc.healthper.util.VarUtil
 
 class TimerActivity : AppCompatActivity() {
     lateinit var binding: ActivityTimerBinding
-    var work : ArrayList<Work> = arrayListOf()
     var pack: ArrayList<Pack> = arrayListOf()
     var setCount : Int = 1
     var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
@@ -41,6 +43,14 @@ class TimerActivity : AppCompatActivity() {
         trans.commit()
     }
 
+    fun popTimerFragment() {
+        supportFragmentManager.popBackStack(
+            "timerFragment",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        finish()
+    }
+
     fun addPack(){
         pack.add(Pack(setCount, weight, count))
     }
@@ -50,10 +60,7 @@ class TimerActivity : AppCompatActivity() {
     }
 
     fun iterate(totalTime: Int, runningTime: Int) {
-        work.add(Work (totalTime, runningTime, pack, VarUtil.glob.currentPart))
-//        Log.d("work totalTime", work.totalTime.toString())
-//        Log.d("work runningTime", work.runningTime.toString())
-//        Log.d("work currentPart", work.part)
+        VarUtil.glob.work.add(Work (totalTime, runningTime, pack, VarUtil.glob.currentPart))
         for (tmp in pack) {
             Log.d("pack set", tmp.set.toString())
             Log.d("pack weight", tmp.weight.toString())
@@ -64,7 +71,13 @@ class TimerActivity : AppCompatActivity() {
 
     fun partTime(part:String): Int {
         var partTime = 0
-        for (tmp in work){
+        Log.d("partTime func", "func")
+
+        for (tmp in VarUtil.glob.work){
+            Log.d("total time", tmp.totalTime.toString())
+            Log.d("running time", tmp.runningTime.toString())
+            Log.d("part", tmp.part)
+
             if (part == tmp.part)
                 partTime += tmp.runningTime
         }

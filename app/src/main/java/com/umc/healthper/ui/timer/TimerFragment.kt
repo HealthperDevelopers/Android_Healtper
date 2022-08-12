@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentTimerBinding
 import com.umc.healthper.util.VarUtil
@@ -48,7 +49,7 @@ class TimerFragment : Fragment() {
         restTimer.start()
         partTimer.start()
 
-        partTimer.second = timerActivity!!.partTime(VarUtil.glob.currentPart)
+        // partTimer.second = timerActivity!!.partTime(VarUtil.glob.currentPart)
 
         binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
         binding.timerWorkTv.text = VarUtil.glob.currentWork
@@ -67,6 +68,8 @@ class TimerFragment : Fragment() {
 
         binding.timerDoneBt.setOnClickListener{
             timerActivity!!.iterate(totalTimer.second, runningTimer.second)
+            timerActivity!!.popTimerFragment()
+//            timerActivity!!.onStop()
         }
 
         binding.timerRestSettingTimeTv.setOnClickListener {
@@ -118,6 +121,7 @@ class TimerFragment : Fragment() {
         totalTimer.interrupt()
         runningTimer.interrupt()
         restTimer.interrupt()
+        partTimer.interrupt()
     }
 
     private fun getRest() {
@@ -229,7 +233,7 @@ class TimerFragment : Fragment() {
     inner class PartTimer : Thread(){
         private var hour: Int = 0
         private var minute: Int = 0
-        var second: Int = timerActivity!!.partTime(VarUtil.glob.currentPart)
+        private var second: Int = timerActivity!!.partTime(VarUtil.glob.currentPart) - 1
 //        private var second: Int = 0
 
         private var mills: Float = 0f
@@ -237,24 +241,22 @@ class TimerFragment : Fragment() {
         override fun run() {
             try {
                 while (true){
-//                    if (isRest){
-//                        continue
-//                    }
-                    sleep(50)
-                    mills += 50
-
                     if (mills % 1000 == 0f){
                         second++
                         minute = second / 60
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
                             binding.timerPartTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
-                            Log.d("running timer", binding.timerRunningTimeTv.text.toString())
+                            Log.d("part timer", binding.timerRunningTimeTv.text.toString())
                         }
                     }
+
+                    sleep(50)
+                    mills += 50
+
                 }
             }catch (e: InterruptedException){
-                Log.d("RunningTimer Thread", "쓰레드가 죽었습니다. ${e.message}")
+                Log.d("PartTimer Thread", "쓰레드가 죽었습니다. ${e.message}")
             }
         }
     }

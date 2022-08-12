@@ -24,12 +24,15 @@ import com.umc.healthper.ui.main.view.WorkdetailFragment
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
+import com.umc.healthper.ui.timer.CommentActivity
 import com.umc.healthper.ui.timer.TimerActivity
+import com.umc.healthper.ui.timer.data.Work
 import com.umc.healthper.util.VarUtil
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+//    var work : ArrayList<Work> = arrayListOf()
     var mainFragment: MainFragment? = null
     var ChartFragment: ChartFragment? = null
     var mypageFragment: MypageFragment? = null
@@ -242,6 +245,13 @@ class MainActivity : AppCompatActivity() {
 
     fun goTimer() {
         val intent = Intent(this, TimerActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun change2Comment() {
+
+
+        val intent = Intent(this, CommentActivity::class.java)
         startActivity(intent)
     }
 }

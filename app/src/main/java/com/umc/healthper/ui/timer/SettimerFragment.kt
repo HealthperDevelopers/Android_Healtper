@@ -48,6 +48,10 @@ class SettimerFragment : Fragment() {
         binding.setTimerWorkstartBt.setOnClickListener{
             timerActivity!!.changeTimerFragment()
         }
+
+        binding.setTimerBackBt.setOnClickListener{
+            timerActivity!!.finish()
+        }
         return binding.root
     }
 }
