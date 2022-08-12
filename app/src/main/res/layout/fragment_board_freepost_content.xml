@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            android:id="@+id/board_freepost_content_return_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin = "20dp"
+            />
+
+        <TextView
+            android:id="@+id/board_freepost_content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="자유게시판"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/board_freepost_content_return_iv"
+            app:layout_constraintTop_toTopOf="@id/board_freepost_content_return_iv" />
+
+        <ImageView
+            android:id="@+id/board_freepost_content_writer_iv"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/user"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/board_freepost_content_return_iv" />
+
+    <TextView
+            android:id="@+id/board_freepost_content_writer_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="12dp"
+            android:text="짱짱맨"
+            android:textSize ="20sp"
+            android:textStyle="bold"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@id/board_freepost_content_writer_iv"
+            app:layout_constraintTop_toBottomOf="@id/board_freepost_content_return_iv" />
+
+    <TextView
+        android:id="@+id/board_freepost_content_posting_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="07/19 22:10"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/board_freepost_content_writer_iv"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_writer_tv" />
+
+    <ImageView
+        android:id="@+id/board_freepost_content_postint_setting_iv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/board_freepost_content_writer_iv" />
+
+    <TextView
+        android:id="@+id/board_freepost_content_post_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="30dp"
+        android:textSize ="30sp"
+        android:textColor="@color/black"
+        android:text="렛풀다운 스트랩 추천함"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_posting_time_tv" />
+
+    <TextView
+        android:id="@+id/board_freepost_content_post_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="요새 핸드그립 쓰는데 솔직히 스트랩 너무 귀찮음. 바가 좀 높이 있으면 점프 해야 하는데 점프하고 어케 스트랩 감음? 걍 자석 달린 핸드그랩 쓰지ㅇㅈ?"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_title_tv" />
+
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_content_tv"
+
+           />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
