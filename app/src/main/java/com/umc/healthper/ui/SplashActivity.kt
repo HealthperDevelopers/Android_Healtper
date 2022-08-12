@@ -6,21 +6,12 @@ import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkPart
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.ui.login.LoginActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.InputStream
-import com.umc.healthper.ui.timer.TimerActivity
-//<<<<<<< HEAD
-//import com.umc.healthper.util.getAutoLogin
-//import kotlin.math.log
-////=======
 import com.umc.healthper.util.VarUtil
 
 class SplashActivity : AppCompatActivity() {
