@@ -66,6 +66,7 @@ class TimerFragment : Fragment() {
             .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_mills_et).getText().toString()
 
         binding.timerClickListener.setOnClickListener {
+            Log.d("isWorkTime", isWorkTime.toString())
             getWorkTime()
         }
 
@@ -170,6 +171,8 @@ class TimerFragment : Fragment() {
             binding.timerRestTimeTv.text = String.format("%02d:%02d", 0, 0)
 
             // editable = false
+            binding.timerTableWeightEt.setText(String.format("%02d", binding.timerTableWeightEt.text.toString().toInt()))
+            binding.timerTableCountEt.setText(String.format("%02d", binding.timerTableCountEt.text.toString().toInt()))
             binding.timerTableWeightEt.isEnabled = false
             binding.timerTableCountEt.isEnabled = false
         }
