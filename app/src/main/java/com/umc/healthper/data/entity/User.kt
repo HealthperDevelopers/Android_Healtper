@@ -1,4 +1,4 @@
-package com.umc.healthper.data
+package com.umc.healthper.data.entity
 
 import com.google.gson.annotations.SerializedName
 import java.math.BigInteger

@@ -1,4 +1,4 @@
-package com.umc.healthper.data
+package com.umc.healthper.data.remote
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,6 +1,7 @@
-package com.umc.healthper.data
+package com.umc.healthper.data.remote
 
 import android.util.Log
+import com.umc.healthper.data.entity.User
 import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
 import retrofit2.Callback
