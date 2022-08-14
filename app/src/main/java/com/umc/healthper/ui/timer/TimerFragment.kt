@@ -52,6 +52,8 @@ class TimerFragment : Fragment() {
         restTimer.start()
         partTimer.start()
 
+        VarUtil.glob.restMinutes = 60
+
         // partTimer.second = timerActivity!!.partTime(VarUtil.glob.currentPart)
 
         binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
