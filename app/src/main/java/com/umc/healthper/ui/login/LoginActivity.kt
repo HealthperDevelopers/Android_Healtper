@@ -55,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     Log.d("ID tokeninfo", tokenInfo.id.toString())
+                    // api 들어갈 자리
                     finish()
                 }
             }
@@ -104,6 +105,7 @@ class LoginActivity : AppCompatActivity() {
                     else if (tokenInfo != null) {
                         Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
                         Log.d("ID tokeninfo no auto", tokenInfo.id.toString())
+                        // api 들어갈 자리
                     }
                 }
                 finish()

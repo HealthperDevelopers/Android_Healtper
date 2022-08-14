@@ -1,4 +1,4 @@
-package com.umc.healthper.data
+package com.umc.healthper.util
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
