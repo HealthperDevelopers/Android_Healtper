@@ -12,8 +12,19 @@ class AuthService {
     fun test(user : String)
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
-        val tmplist = authService.test(user)
-        Log.d("tmplist", tmplist.toString())
+        // val tmplist = authService.test(user)
+        // Log.d("tmplist", tmplist.toString())
+
+        authService.test(user).enqueue(object :Callback<List<AuthResponse>> {
+            override fun onResponse(call: Call<List<AuthResponse>>, response: Response<List<AuthResponse>>
+            ) {
+                Log.d("LOGIN/SUCCESS", response.toString())
+            }
+
+            override fun onFailure(call: Call<List<AuthResponse>>, t: Throwable) {
+                Log.d("LOGIN/FAILURE", t.message.toString())
+            }
+        })
     }
 //    fun login(user : User){
 //

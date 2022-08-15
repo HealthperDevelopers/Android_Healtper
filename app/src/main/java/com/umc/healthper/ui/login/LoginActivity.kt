@@ -59,6 +59,7 @@ class LoginActivity : AppCompatActivity() {
                     // api 들어갈 자리
                     val authService = AuthService()
                     authService.test("2022")
+                    //authService.test(tokenInfo.id.toString())
                     finish()
                 }
             }
