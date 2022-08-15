@@ -3,7 +3,6 @@ package com.umc.healthper.data.remote
 import com.google.gson.annotations.SerializedName
 
 data class AuthResponse(
-    @SerializedName(value = "isSuccess") val isSuccess:Boolean,
-    @SerializedName(value = "code") val code:Int,
-    @SerializedName(value = "message") val message:String
+    @SerializedName(value = "day") val day : Int,
+    @SerializedName(value = "sections") val sections : List<String>
 )

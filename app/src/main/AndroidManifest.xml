@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Healthper"
         android:name=".util.VarUtil"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity android:name=".ui.timer.TimerActivity"/>
         <activity android:name=".ui.MainActivity"/>
