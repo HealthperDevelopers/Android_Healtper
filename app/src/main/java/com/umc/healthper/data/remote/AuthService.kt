@@ -1,6 +1,7 @@
 package com.umc.healthper.data.remote
 
 import android.util.Log
+import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.User
 import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
@@ -23,19 +24,19 @@ class AuthService {
             }
         })
     }
-    fun test(user : String)
+    fun login(user : String)
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
         // val tmplist = authService.test(user)
         // Log.d("tmplist", tmplist.toString())
 
-        authService.test(user).enqueue(object :Callback<List<AuthResponse>> {
+        authService.login(user).enqueue(object :Callback<List<AuthResponse>> {
             override fun onResponse(call: Call<List<AuthResponse>>, response: Response<List<AuthResponse>>
             ) {
-                Log.d("test login/success", response.toString())
-//                val resp : List<AuthResponse> = response.body()!!
-//                Log.d("test login/resp body", resp.first().day.toString())
-//                Log.d("test login/resp body", resp.first().sections.toString())
+                Log.d("login/success", response.toString())
+                val resp : List<AuthResponse> = response.body()!!
+                Log.d("login/resp body", resp.first().day.toString())
+                Log.d("login/resp body", resp.first().sections.toString())
             }
 
             override fun onFailure(call: Call<List<AuthResponse>>, t: Throwable) {
@@ -65,4 +66,18 @@ class AuthService {
 //        })
 //        Log.d("LOGIN", "HELLO")
 //    }
+
+    fun todayRecord(totalData: TotalData) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.todayRecord(totalData).enqueue(object: Callback<AuthResponse> {
+            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+                Log.d("record/SUCCESS", response.toString())
+            }
+
+            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+                Log.d("record/FAILURE", t.message.toString())
+            }
+        })
+    }
 }

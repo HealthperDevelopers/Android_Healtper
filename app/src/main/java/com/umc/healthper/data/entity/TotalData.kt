@@ -1,8 +1,9 @@
 package com.umc.healthper.data.entity
 
+import com.google.gson.annotations.SerializedName
 import com.umc.healthper.ui.timer.data.Work
 
 data class TotalData (
-    var workList: ArrayList<Work>,
-    var comment : String
+    @SerializedName(value = "workList") var workList: ArrayList<Work>,
+    @SerializedName(value = "comment") var comment : String
 )

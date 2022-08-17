@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("ID tokeninfo", tokenInfo.id.toString())
                     // api 들어갈 자리
                     val authService = AuthService()
-                    authService.test(tokenInfo.id.toString())
+                    authService.login(tokenInfo.id.toString())
 //                    authService.isLogin()
                     finish()
                 }
@@ -111,7 +111,7 @@ class LoginActivity : AppCompatActivity() {
                         Log.d("ID tokeninfo no auto", tokenInfo.id.toString())
                         // api 들어갈 자리
                         val authService = AuthService()
-                        authService.test(tokenInfo.id.toString())
+                        authService.login(tokenInfo.id.toString())
 //                        authService.isLogin()
                     }
                 }

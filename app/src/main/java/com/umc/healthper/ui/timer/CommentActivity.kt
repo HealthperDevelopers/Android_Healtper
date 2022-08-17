@@ -3,6 +3,7 @@ package com.umc.healthper.ui.timer
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityCommentBinding
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.util.VarUtil
@@ -21,6 +22,11 @@ class CommentActivity : AppCompatActivity() {
         binding.todaycommentCalenderBt.setOnClickListener {
             VarUtil.glob.totalData.comment = binding.todaycommentCommentEt.text.toString()
             VarUtil.glob.totalData.workList = VarUtil.glob.work
+
+            // total data 서버로 넘기기
+            val authService = AuthService()
+            authService.todayRecord(VarUtil.glob.totalData)
+
 // -> totalData 내용확인용 로그
 
 //            Log.d("\n\ntotalData comment", VarUtil.glob.totalData.comment)

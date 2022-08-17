@@ -1,5 +1,6 @@
 package com.umc.healthper.util
 
+import android.util.Log
 import com.google.gson.GsonBuilder
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
@@ -34,8 +35,6 @@ fun getRetrofit(): Retrofit {
             .addInterceptor(interceptor)
 //            .connectTimeout(CONNECT_TIMEOUT_SEC, TimeUnit.SECONDS)
             .build()
-
-        val cookieManager = CookieManager.getDefault()
 
         instance = Retrofit.Builder()
             .baseUrl(BASE_URL)

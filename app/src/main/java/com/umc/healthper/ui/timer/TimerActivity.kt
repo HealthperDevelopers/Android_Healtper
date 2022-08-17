@@ -60,7 +60,7 @@ class TimerActivity : AppCompatActivity() {
         pack.add(Pack(setCount, weight, count))
     }
 
-    fun iterate(totalTime: Int, runningTime: Int) {
+    fun addWork(totalTime: Int, runningTime: Int) {
         VarUtil.glob.work.add(Work (totalTime, runningTime, pack, db.WorkPartDao().getWorkPartId(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
         for (tmp in pack) {
             Log.d("pack set", tmp.set.toString())

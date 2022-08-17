@@ -77,7 +77,7 @@ class TimerFragment : Fragment() {
         }
 
         binding.timerDoneBt.setOnClickListener{
-            timerActivity!!.iterate(totalTimer.second, runningTimer.second)
+            timerActivity!!.addWork(totalTimer.second, runningTimer.second)
             timerActivity!!.popTimerFragment()
 //            timerActivity!!.onStop()
         }
