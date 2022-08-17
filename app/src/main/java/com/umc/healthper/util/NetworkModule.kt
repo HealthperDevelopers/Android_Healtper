@@ -35,6 +35,8 @@ fun getRetrofit(): Retrofit {
 //            .connectTimeout(CONNECT_TIMEOUT_SEC, TimeUnit.SECONDS)
             .build()
 
+        val cookieManager = CookieManager.getDefault()
+
         instance = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))

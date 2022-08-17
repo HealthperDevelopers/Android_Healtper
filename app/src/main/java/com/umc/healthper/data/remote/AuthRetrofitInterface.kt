@@ -12,4 +12,7 @@ interface AuthRetrofitInterface {
     fun test(
         @Query ("kakaoId") kakaoId : String
     ) : Call<List<AuthResponse>>
+
+    @GET("/home")
+    fun isLogin() : Call<Test>
 }

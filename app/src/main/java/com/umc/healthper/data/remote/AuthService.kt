@@ -9,6 +9,20 @@ import retrofit2.Response
 
 class AuthService {
 
+    fun isLogin() {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.isLogin().enqueue(object : Callback<Test>{
+            override fun onResponse(call: Call<Test>, response: Response<Test>) {
+//                val resp: Test = response.body()!!
+                Log.d("resp str/ success", response.toString())
+            }
+
+            override fun onFailure(call: Call<Test>, t: Throwable) {
+                Log.d("resp str/ fail", t.message.toString())
+            }
+        })
+    }
     fun test(user : String)
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
@@ -18,7 +32,10 @@ class AuthService {
         authService.test(user).enqueue(object :Callback<List<AuthResponse>> {
             override fun onResponse(call: Call<List<AuthResponse>>, response: Response<List<AuthResponse>>
             ) {
-                Log.d("LOGIN/SUCCESS", response.toString())
+                Log.d("test login/success", response.toString())
+//                val resp : List<AuthResponse> = response.body()!!
+//                Log.d("test login/resp body", resp.first().day.toString())
+//                Log.d("test login/resp body", resp.first().sections.toString())
             }
 
             override fun onFailure(call: Call<List<AuthResponse>>, t: Throwable) {
