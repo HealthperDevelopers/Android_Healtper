@@ -10,25 +10,53 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentMypageFavoritesBinding
+import com.umc.healthper.ui.dialog.AddFavWorkDialog
+import com.umc.healthper.ui.dialog.EditWorkDialog
+import com.umc.healthper.ui.mypage.adapter.PartRVAdapter
+import com.umc.healthper.util.VarUtil
 
 class FavoritesMypageFragment : Fragment() {
 
     lateinit var binding : FragmentMypageFavoritesBinding
-    val numButton : Int = 0
+    lateinit var partAdapter: PartRVAdapter
+    var currentPart = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMypageFavoritesBinding.inflate(inflater, container, false)
-        binding.mypagefavPlusIv.setOnClickListener{
-            val mypageWork = LayoutInflater.from(context).inflate(R.layout.item_mypage_favorites,null,false)
-            mypageWork.findViewById<TextView>(R.id.mypagefav_work).text = "work"
-            binding.mypagefavLlo.addView(mypageWork)
-        }
+
+        setListener()
+
+        partAdapter = PartRVAdapter()
+        binding.mypagefavPartListRv.layoutManager = FlexboxLayoutManager(VarUtil.glob.mainContext)
+        binding.mypagefavPartListRv.adapter = partAdapter
+
+        partAdapter.setListen(object: PartRVAdapter.listener{
+            override fun onClick(str: String) {
+                binding.mypagefavSelectPartTv.text = str
+                currentPart = str
+            }
+        })
+
+        binding.mypagefavWorkListRv
         return binding.root
     }
+
+
+    fun setListener() {
+        binding.mypagefavAddWorkIv.setOnClickListener {
+            AddFavWorkDialog(currentPart).show(childFragmentManager.beginTransaction(), "addFavWorkDialog")
+
+        }
+    }
+
+
+
 
 }
