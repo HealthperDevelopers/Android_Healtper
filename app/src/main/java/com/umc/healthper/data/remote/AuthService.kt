@@ -3,10 +3,12 @@ package com.umc.healthper.data.remote
 import android.util.Log
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.User
+import com.umc.healthper.ui.timer.data.Work
 import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Body
 
 class AuthService {
 
@@ -74,6 +76,23 @@ class AuthService {
             Log.d("coroutine", i.toString())
         }
         authService.todayRecord(totalData).enqueue(object: Callback<AuthResponse> {
+            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+                Log.d("record/SUCCESS", response.toString())
+            }
+
+            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+                Log.d("record/FAILURE", t.message.toString())
+            }
+        })
+    }
+
+
+    fun detailRecord(@Body work : ArrayList<Work>){
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+        for (i in 40..80){
+            Log.d("coroutine", i.toString())
+        }
+        authService.detailRecord(work).enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 Log.d("record/SUCCESS", response.toString())
             }

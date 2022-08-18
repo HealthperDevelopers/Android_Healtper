@@ -39,10 +39,8 @@ class CommentActivity : AppCompatActivity() {
             CoroutineScope(IO).launch {
 
                 // 무조건 이 안에서는 순차적으로 실행되는가?
-                for (i in 0..40){
-                    Log.d("coroutine", i.toString())
-                }
                 authService.todayRecord(VarUtil.glob.totalData)
+                authService.detailRecord(VarUtil.glob.work)
             }
 
             val intent = Intent(this, MainActivity::class.java)
