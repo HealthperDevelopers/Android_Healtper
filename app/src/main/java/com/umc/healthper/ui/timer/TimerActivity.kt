@@ -54,21 +54,22 @@ class TimerActivity : AppCompatActivity() {
     fun addPack(){
         pack.add(Pack(setCount, weight, count))
         VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
-        Log.d("pack weight", weight.toString())
-        Log.d("pack count", count.toString())
-        Log.d("------------", "done")
+//        Log.d("pack weight", weight.toString())
+//        Log.d("pack count", count.toString())
+//        Log.d("------------", "done")
     }
 
     fun addPack(weight: Int, count: Int){
         pack.add(Pack(setCount, weight, count))
         VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
-        Log.d("pack weight", weight.toString())
-        Log.d("pack count", count.toString())
-        Log.d("------------", "done")
+//        Log.d("pack weight", weight.toString())
+//        Log.d("pack count", count.toString())
+//        Log.d("------------", "done")
     }
 
     fun addWork(runningTime: Int) {
         VarUtil.glob.work.add(Work (runningTime, pack, db.WorkPartDao().getWorkPartId(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
+        VarUtil.glob.totalData.sections.add(VarUtil.glob.currentPart) // -> comment에서 중복 제거
         for (tmp in pack) {
             Log.d("pack set", tmp.set.toString())
             Log.d("pack weight", tmp.weight.toString())
@@ -82,7 +83,6 @@ class TimerActivity : AppCompatActivity() {
         Log.d("partTime func", "func")
 
         for (tmp in VarUtil.glob.work){
-//            Log.d("total time", tmp.totalTime.toString())
             Log.d("running time", tmp.runningTime.toString())
             Log.d("part", tmp.partId.toString())
 
@@ -97,7 +97,6 @@ class TimerActivity : AppCompatActivity() {
         Log.d("partTime func", "func")
 
         for (tmp in VarUtil.glob.work){
-//            Log.d("total time", tmp.totalTime.toString())
             Log.d("running time", tmp.runningTime.toString())
             Log.d("part", tmp.partId.toString())
 

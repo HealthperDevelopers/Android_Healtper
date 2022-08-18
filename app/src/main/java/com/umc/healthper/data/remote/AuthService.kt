@@ -24,6 +24,7 @@ class AuthService {
             }
         })
     }
+
     fun login(user : String)
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
@@ -69,7 +70,9 @@ class AuthService {
 
     fun todayRecord(totalData: TotalData) {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
-
+        for (i in 40..80){
+            Log.d("coroutine", i.toString())
+        }
         authService.todayRecord(totalData).enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 Log.d("record/SUCCESS", response.toString())

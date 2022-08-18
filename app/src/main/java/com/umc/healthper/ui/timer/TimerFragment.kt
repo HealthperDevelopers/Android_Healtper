@@ -147,7 +147,6 @@ class TimerFragment : Fragment() {
         super.onDestroy()
         timerActivity!!.addWork(runningTimer.second)
         VarUtil.glob.totalData.exerciseInfo.totalExerciseTime = totalTimer.second
-//        timerActivity!!.totalTime = totalTimer.second
         totalTimer.interrupt()
         runningTimer.interrupt()
         restTimer.interrupt()
