@@ -77,7 +77,8 @@ class TimerFragment : Fragment() {
         }
 
         binding.timerDoneBt.setOnClickListener{
-            timerActivity!!.addWork(totalTimer.second, runningTimer.second)
+            timerActivity!!.addWork(runningTimer.second)
+            VarUtil.glob.totalData.exerciseInfo.totalExerciseTime = totalTimer.second
             timerActivity!!.popTimerFragment()
 //            timerActivity!!.onStop()
         }
@@ -100,10 +101,9 @@ class TimerFragment : Fragment() {
                     minutesEdit = mDialogView.findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
                     millsEdit = mDialogView.findViewById<EditText>(R.id.rest_mills_et).getText().toString()
 
-                    if (minutesEdit!!.toInt() >= 0 && minutesEdit!!.toInt() <= 60 && millsEdit!!.toInt() < 60 && millsEdit!!.toInt() >= 0) {
+                    if (minutesEdit!!.toInt() in 0..60 && millsEdit!!.toInt() < 60 && millsEdit!!.toInt() >= 0) {
                         if (millsEdit!!.toInt() == 0 && minutesEdit!!.toInt() == 0) {
                             Toast.makeText(timerActivity!!, "None", Toast.LENGTH_SHORT).show()
-                            return@setOnClickListener
                         }
                         else {
                             Toast.makeText(timerActivity!!, "Okay", Toast.LENGTH_SHORT).show()
@@ -112,7 +112,6 @@ class TimerFragment : Fragment() {
                     }
                     else {
                         Toast.makeText(timerActivity!!, "Out of range", Toast.LENGTH_SHORT).show()
-                        return@setOnClickListener
                     }
                 }
 
@@ -146,7 +145,9 @@ class TimerFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        timerActivity!!.totalTime = totalTimer.second
+        timerActivity!!.addWork(runningTimer.second)
+        VarUtil.glob.totalData.exerciseInfo.totalExerciseTime = totalTimer.second
+//        timerActivity!!.totalTime = totalTimer.second
         totalTimer.interrupt()
         runningTimer.interrupt()
         restTimer.interrupt()
@@ -157,13 +158,8 @@ class TimerFragment : Fragment() {
         if (isRest) {
             isRest = false
             binding.timerWorkrestBt.text = "쉬는 시간"
-//            binding.timerTableTv.setBackgroundResource(R.drawable.table_tint)
-//            binding.timerWorkTimeCl.visibility = View.VISIBLE
-//            binding.timerRestTimeCl.visibility = View.GONE
             binding.timerRestSettingTimeTv.visibility = View.INVISIBLE
             binding.timerRestTimeTv.visibility = View.INVISIBLE
-//            binding.timerRunningTv.visibility = View.VISIBLE
-//            binding.timerRunningTimeTv.visibility = View.VISIBLE
             binding.timerRestImg.visibility = View.INVISIBLE
 
             //rest timer initialize
@@ -177,26 +173,23 @@ class TimerFragment : Fragment() {
             binding.timerTableCountEt.setText(String.format("%02d", binding.timerTableCountEt.text.toString().toInt()))
             binding.timerTableWeightEt.isEnabled = false
             binding.timerTableCountEt.isEnabled = false
+
+            timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
         else {
             isRest = true
             timerActivity!!.setCount++
             binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
             binding.timerWorkrestBt.text = "다음 세트"
-//            binding.timerTableTv.setBackgroundResource(R.drawable.table)
-//            binding.timerWorkTimeCl.visibility = View.GONE
-//            binding.timerRestTimeCl.visibility = View.VISIBLE
             binding.timerRestSettingTimeTv.visibility = View.VISIBLE
             binding.timerRestTimeTv.visibility = View.VISIBLE
-//            binding.timerRunningTv.visibility = View.INVISIBLE
-//            binding.timerRunningTimeTv.visibility = View.INVISIBLE
             binding.timerRestImg.visibility = View.VISIBLE
 
             // editable = false
             binding.timerTableWeightEt.isEnabled = true
             binding.timerTableCountEt.isEnabled = true
 
-            timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
+//            timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
     }
 
@@ -214,9 +207,8 @@ class TimerFragment : Fragment() {
                         minute = second / 60
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
-//                            binding.timerTotalWorkTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
                             binding.timerTotalRestTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
-//                            Log.d("start timer", binding.timerTotalWorkTimeTv.text.toString())
+                            Log.d("start timer", binding.timerTotalRestTimeTv.text.toString())
                         }
                     }
 
@@ -249,9 +241,8 @@ class TimerFragment : Fragment() {
                         minute = second / 60
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
-//                            binding.timerRunningTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
                             binding.timerRunningRestTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
-//                            Log.d("running timer", binding.timerRunningTimeTv.text.toString())
+                            Log.d("running timer", binding.timerRunningRestTimeTv.text.toString())
                         }
                     }
                 }

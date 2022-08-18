@@ -2,6 +2,7 @@ package com.umc.healthper.ui.timer
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityCommentBinding
@@ -21,12 +22,14 @@ class CommentActivity : AppCompatActivity() {
 
         binding.todaycommentCalenderBt.setOnClickListener {
             VarUtil.glob.totalData.comment = binding.todaycommentCommentEt.text.toString()
-            VarUtil.glob.totalData.workList = VarUtil.glob.work
+            Log.d("info / TotalTime", VarUtil.glob.totalData.exerciseInfo.totalExerciseTime.toString())
+            Log.d("info / TotalVolume", VarUtil.glob.totalData.exerciseInfo.totalVolume.toString())
+
+            // VarUtil.glob.totalData.sections & exerciseInfo -> 운동을 저장하면서 처리가능할 것 같음.
 
             // total data 서버로 넘기기
             val authService = AuthService()
             authService.todayRecord(VarUtil.glob.totalData)
-
 // -> totalData 내용확인용 로그
 
 //            Log.d("\n\ntotalData comment", VarUtil.glob.totalData.comment)
@@ -43,7 +46,6 @@ class CommentActivity : AppCompatActivity() {
 //                }
 //                Log.d("work done", "_________________")
 //            }
-
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
