@@ -9,6 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Path
 
 class AuthService {
 
@@ -87,12 +88,12 @@ class AuthService {
     }
 
 
-    fun detailRecord(@Body work : ArrayList<Work>){
+    fun detailRecord(@Body work : ArrayList<Work>, @Path("recordId") recordId : Int){
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
         for (i in 40..80){
             Log.d("coroutine", i.toString())
         }
-        authService.detailRecord(work).enqueue(object: Callback<AuthResponse> {
+        authService.detailRecord(work, recordId).enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 Log.d("record/SUCCESS", response.toString())
             }

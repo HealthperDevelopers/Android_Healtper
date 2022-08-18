@@ -7,8 +7,6 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface AuthRetrofitInterface {
-//    @POST("/app/users/user")
-//    fun login(@Body user: User): Call<AuthResponse>
 
     @GET("/login")
     fun login(
@@ -22,5 +20,8 @@ interface AuthRetrofitInterface {
     fun todayRecord(@Body totalData : TotalData) : Call<AuthResponse>
 
     @POST("/finish/{recordId}")
-    fun detailRecord(@Body work : ArrayList<Work>) : Call<AuthResponse>
+    fun detailRecord(
+        @Body work : ArrayList<Work>,
+        @Path("recordId") recordId : Int
+    ) : Call<AuthResponse>
 }
