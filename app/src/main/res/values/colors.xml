@@ -10,4 +10,5 @@
     <color name="yellow">#FFC107</color>
     <color name="gray">#494949</color>
     <color name="red">#FF0000</color>
+    <color name="timer_background">#f6f6f6</color>
 </resources>

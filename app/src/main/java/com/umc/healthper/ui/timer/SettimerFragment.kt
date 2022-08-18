@@ -29,6 +29,16 @@ class SettimerFragment : Fragment() {
         timerActivity!!.addPack()
     }
 
+    override fun onResume() {
+        super.onResume()
+        var second = timerActivity!!.partTime(true)
+        var minute = second / 60
+        var hour = minute / 60
+        binding.setTimeTotalTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
+        binding.setTimerTableWeightEt.setText(String.format("%02d", timerActivity!!.weight))
+        binding.setTimerTableCountEt.setText(String.format("%02d", timerActivity!!.count))
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,

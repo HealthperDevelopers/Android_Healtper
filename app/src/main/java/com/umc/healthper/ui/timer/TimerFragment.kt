@@ -13,14 +13,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentTimerBinding
+import com.umc.healthper.databinding.FragmentTimerTmpBinding
 import com.umc.healthper.util.VarUtil
 
 class TimerFragment : Fragment() {
-    lateinit var binding : FragmentTimerBinding
+    lateinit var binding : FragmentTimerTmpBinding
     lateinit var partTimer: PartTimer
     lateinit var totalTimer: TotalTimer
     var minutesEdit : String? = null
@@ -44,13 +46,15 @@ class TimerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTimerBinding.inflate(inflater, container, false)
+        binding = FragmentTimerTmpBinding.inflate(inflater, container, false)
         partTimer = PartTimer()
         totalTimer = TotalTimer()
         totalTimer.start()
         runningTimer.start()
         restTimer.start()
         partTimer.start()
+
+        VarUtil.glob.restMinutes = 60
 
         // partTimer.second = timerActivity!!.partTime(VarUtil.glob.currentPart)
 
@@ -66,6 +70,7 @@ class TimerFragment : Fragment() {
             .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_mills_et).getText().toString()
 
         binding.timerClickListener.setOnClickListener {
+            Log.d("isWorkTime", isWorkTime.toString())
             getWorkTime()
         }
 
@@ -74,7 +79,8 @@ class TimerFragment : Fragment() {
         }
 
         binding.timerDoneBt.setOnClickListener{
-            timerActivity!!.iterate(totalTimer.second, runningTimer.second)
+            timerActivity!!.addWork(runningTimer.second)
+            VarUtil.glob.totalData.exerciseInfo.totalExerciseTime = totalTimer.second
             timerActivity!!.popTimerFragment()
 //            timerActivity!!.onStop()
         }
@@ -97,10 +103,9 @@ class TimerFragment : Fragment() {
                     minutesEdit = mDialogView.findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
                     millsEdit = mDialogView.findViewById<EditText>(R.id.rest_mills_et).getText().toString()
 
-                    if (minutesEdit!!.toInt() >= 0 && minutesEdit!!.toInt() <= 60 && millsEdit!!.toInt() < 60 && millsEdit!!.toInt() >= 0) {
+                    if (minutesEdit!!.toInt() in 0..60 && millsEdit!!.toInt() < 60 && millsEdit!!.toInt() >= 0) {
                         if (millsEdit!!.toInt() == 0 && minutesEdit!!.toInt() == 0) {
                             Toast.makeText(timerActivity!!, "None", Toast.LENGTH_SHORT).show()
-                            return@setOnClickListener
                         }
                         else {
                             Toast.makeText(timerActivity!!, "Okay", Toast.LENGTH_SHORT).show()
@@ -109,7 +114,6 @@ class TimerFragment : Fragment() {
                     }
                     else {
                         Toast.makeText(timerActivity!!, "Out of range", Toast.LENGTH_SHORT).show()
-                        return@setOnClickListener
                     }
                 }
 
@@ -143,7 +147,8 @@ class TimerFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        timerActivity!!.totalTime = totalTimer.second
+        timerActivity!!.addWork(runningTimer.second)
+        VarUtil.glob.totalData.exerciseInfo.totalExerciseTime = totalTimer.second
         totalTimer.interrupt()
         runningTimer.interrupt()
         restTimer.interrupt()
@@ -154,14 +159,9 @@ class TimerFragment : Fragment() {
         if (isRest) {
             isRest = false
             binding.timerWorkrestBt.text = "쉬는 시간"
-            binding.timerTableTv.setBackgroundResource(R.drawable.table_tint)
-            binding.timerWorkTimeCl.visibility = View.VISIBLE
-            binding.timerRestTimeCl.visibility = View.GONE
             binding.timerRestSettingTimeTv.visibility = View.INVISIBLE
             binding.timerRestTimeTv.visibility = View.INVISIBLE
-            binding.timerRunningTv.visibility = View.VISIBLE
-            binding.timerRunningTimeTv.visibility = View.VISIBLE
-            binding.timerRestImg.visibility = View.INVISIBLE
+            binding.timerRestImg.visibility = View.GONE
 
             //rest timer initialize
             restTimer.second = 0
@@ -170,28 +170,27 @@ class TimerFragment : Fragment() {
             binding.timerRestTimeTv.text = String.format("%02d:%02d", 0, 0)
 
             // editable = false
+            binding.timerTableWeightEt.setText(String.format("%02d", binding.timerTableWeightEt.text.toString().toInt()))
+            binding.timerTableCountEt.setText(String.format("%02d", binding.timerTableCountEt.text.toString().toInt()))
             binding.timerTableWeightEt.isEnabled = false
             binding.timerTableCountEt.isEnabled = false
+
+            timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
         else {
             isRest = true
             timerActivity!!.setCount++
             binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
             binding.timerWorkrestBt.text = "다음 세트"
-            binding.timerTableTv.setBackgroundResource(R.drawable.table)
-            binding.timerWorkTimeCl.visibility = View.GONE
-            binding.timerRestTimeCl.visibility = View.VISIBLE
             binding.timerRestSettingTimeTv.visibility = View.VISIBLE
             binding.timerRestTimeTv.visibility = View.VISIBLE
-            binding.timerRunningTv.visibility = View.INVISIBLE
-            binding.timerRunningTimeTv.visibility = View.INVISIBLE
             binding.timerRestImg.visibility = View.VISIBLE
 
             // editable = false
             binding.timerTableWeightEt.isEnabled = true
             binding.timerTableCountEt.isEnabled = true
 
-            timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
+//            timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
     }
 
@@ -209,9 +208,8 @@ class TimerFragment : Fragment() {
                         minute = second / 60
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
-                            binding.timerTotalWorkTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
                             binding.timerTotalRestTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
-                            Log.d("start timer", binding.timerTotalWorkTimeTv.text.toString())
+                            Log.d("start timer", binding.timerTotalRestTimeTv.text.toString())
                         }
                     }
 
@@ -244,9 +242,8 @@ class TimerFragment : Fragment() {
                         minute = second / 60
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
-                            binding.timerRunningTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
                             binding.timerRunningRestTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
-                            Log.d("running timer", binding.timerRunningTimeTv.text.toString())
+                            Log.d("running timer", binding.timerRunningRestTimeTv.text.toString())
                         }
                     }
                 }
@@ -273,7 +270,7 @@ class TimerFragment : Fragment() {
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
                             binding.timerPartTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
-                            Log.d("part timer", binding.timerRunningTimeTv.text.toString())
+                            Log.d("part timer", binding.timerRunningRestTimeTv.text.toString())
                         }
                     }
 

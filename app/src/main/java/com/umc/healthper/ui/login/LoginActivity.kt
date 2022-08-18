@@ -11,6 +11,7 @@ import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
+import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityLoginBinding
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.util.VarUtil
@@ -55,6 +56,10 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     Log.d("ID tokeninfo", tokenInfo.id.toString())
+                    // api 들어갈 자리
+                    val authService = AuthService()
+                    authService.login(tokenInfo.id.toString())
+//                    authService.isLogin()
                     finish()
                 }
             }
@@ -104,6 +109,10 @@ class LoginActivity : AppCompatActivity() {
                     else if (tokenInfo != null) {
                         Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
                         Log.d("ID tokeninfo no auto", tokenInfo.id.toString())
+                        // api 들어갈 자리
+                        val authService = AuthService()
+                        authService.login(tokenInfo.id.toString())
+//                        authService.isLogin()
                     }
                 }
                 finish()

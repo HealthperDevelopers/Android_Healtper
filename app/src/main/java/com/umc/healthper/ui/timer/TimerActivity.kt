@@ -18,7 +18,6 @@ import com.umc.healthper.util.VarUtil
 class TimerActivity : AppCompatActivity() {
     lateinit var binding: ActivityTimerBinding
     var pack: ArrayList<Pack> = arrayListOf()
-    var totalTime: Int = 0
     var setCount : Int = 1
     var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
     var weight: Int = 0
@@ -54,14 +53,23 @@ class TimerActivity : AppCompatActivity() {
 
     fun addPack(){
         pack.add(Pack(setCount, weight, count))
+        VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
+//        Log.d("pack weight", weight.toString())
+//        Log.d("pack count", count.toString())
+//        Log.d("------------", "done")
     }
 
     fun addPack(weight: Int, count: Int){
         pack.add(Pack(setCount, weight, count))
+        VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
+//        Log.d("pack weight", weight.toString())
+//        Log.d("pack count", count.toString())
+//        Log.d("------------", "done")
     }
 
-    fun iterate(totalTime: Int, runningTime: Int) {
-        VarUtil.glob.work.add(Work (totalTime, runningTime, pack, db.WorkPartDao().getWorkPartId(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
+    fun addWork(runningTime: Int) {
+        VarUtil.glob.work.add(Work (runningTime, pack, db.WorkPartDao().getWorkPartId(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
+        VarUtil.glob.totalData.sections.add(VarUtil.glob.currentPart) // -> comment에서 중복 제거
         for (tmp in pack) {
             Log.d("pack set", tmp.set.toString())
             Log.d("pack weight", tmp.weight.toString())
@@ -75,7 +83,6 @@ class TimerActivity : AppCompatActivity() {
         Log.d("partTime func", "func")
 
         for (tmp in VarUtil.glob.work){
-            Log.d("total time", tmp.totalTime.toString())
             Log.d("running time", tmp.runningTime.toString())
             Log.d("part", tmp.partId.toString())
 
@@ -90,7 +97,6 @@ class TimerActivity : AppCompatActivity() {
         Log.d("partTime func", "func")
 
         for (tmp in VarUtil.glob.work){
-            Log.d("total time", tmp.totalTime.toString())
             Log.d("running time", tmp.runningTime.toString())
             Log.d("part", tmp.partId.toString())
 

@@ -2,10 +2,15 @@ package com.umc.healthper.ui.timer
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityCommentBinding
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.util.VarUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class CommentActivity : AppCompatActivity() {
 
@@ -20,23 +25,23 @@ class CommentActivity : AppCompatActivity() {
 
         binding.todaycommentCalenderBt.setOnClickListener {
             VarUtil.glob.totalData.comment = binding.todaycommentCommentEt.text.toString()
-            VarUtil.glob.totalData.workList = VarUtil.glob.work
-// -> totalData 내용확인용 로그
 
-//            Log.d("\n\ntotalData comment", VarUtil.glob.totalData.comment)
-//            for (tmp in VarUtil.glob.totalData.workList){
-//                Log.d("work", tmp.work)
-//                Log.d("total time", tmp.totalTime.toString())
-//                Log.d("running time", tmp.runningTime.toString())
-//                Log.d("partId", tmp.partId.toString())
-//                for (temp in tmp.pack){
-//                    Log.d("pack set", temp.set.toString())
-//                    Log.d("pack weight", temp.weight.toString())
-//                    Log.d("pack count", temp.count.toString())
-//                    Log.d("------------", "done")
-//                }
-//                Log.d("work done", "_________________")
-//            }
+            // HashSet을 통해 중복 제거
+            val tmp = HashSet<String>(VarUtil.glob.totalData.sections)
+            VarUtil.glob.totalData.sections = ArrayList(tmp)
+
+            Log.d("info / TotalTime", VarUtil.glob.totalData.exerciseInfo.totalExerciseTime.toString())
+            Log.d("info / TotalVolume", VarUtil.glob.totalData.exerciseInfo.totalVolume.toString())
+            Log.d("info / sections", VarUtil.glob.totalData.sections.toString())
+
+            // total data 서버로 넘기기
+            val authService = AuthService()
+            CoroutineScope(IO).launch {
+
+                // 무조건 이 안에서는 순차적으로 실행되는가?
+                val resp = authService.todayRecord(VarUtil.glob.totalData)
+                // authService.detailRecord(VarUtil.glob.work, resp.recordId)
+            }
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

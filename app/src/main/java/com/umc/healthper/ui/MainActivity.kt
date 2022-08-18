@@ -250,7 +250,7 @@ class MainActivity : AppCompatActivity() {
 
     fun change2Comment() {
         for (tmp in VarUtil.glob.work){
-            Log.d("total time", tmp.totalTime.toString())
+//            Log.d("total time", tmp.totalTime.toString())
             Log.d("running time", tmp.runningTime.toString())
             Log.d("partId", tmp.partId.toString())
             Log.d("work", tmp.work)
