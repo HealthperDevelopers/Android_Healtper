@@ -13,14 +13,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentTimerBinding
+import com.umc.healthper.databinding.FragmentTimerTmpBinding
 import com.umc.healthper.util.VarUtil
 
 class TimerFragment : Fragment() {
-    lateinit var binding : FragmentTimerBinding
+    lateinit var binding : FragmentTimerTmpBinding
     lateinit var partTimer: PartTimer
     lateinit var totalTimer: TotalTimer
     var minutesEdit : String? = null
@@ -44,7 +46,7 @@ class TimerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTimerBinding.inflate(inflater, container, false)
+        binding = FragmentTimerTmpBinding.inflate(inflater, container, false)
         partTimer = PartTimer()
         totalTimer = TotalTimer()
         totalTimer.start()
@@ -159,7 +161,7 @@ class TimerFragment : Fragment() {
             binding.timerWorkrestBt.text = "쉬는 시간"
             binding.timerRestSettingTimeTv.visibility = View.INVISIBLE
             binding.timerRestTimeTv.visibility = View.INVISIBLE
-            binding.timerRestImg.visibility = View.INVISIBLE
+            binding.timerRestImg.visibility = View.GONE
 
             //rest timer initialize
             restTimer.second = 0
