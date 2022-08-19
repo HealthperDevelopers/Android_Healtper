@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.kakao.sdk.common.util.Utility
 import com.umc.healthper.R
+import com.umc.healthper.databinding.ActivityCommentBinding
 import com.umc.healthper.databinding.ActivityMainBinding
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
@@ -25,6 +26,7 @@ import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
 import com.umc.healthper.ui.timer.CommentActivity
+import com.umc.healthper.ui.timer.SettimerFragment
 import com.umc.healthper.ui.timer.TimerActivity
 import com.umc.healthper.ui.timer.data.Work
 import com.umc.healthper.util.VarUtil
@@ -42,11 +44,21 @@ class MainActivity : AppCompatActivity() {
     var workReadyFragment: WorkReadyFragment? = null
     var workdetailFragment: WorkdetailFragment? = null
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("mainActivity", "reStart")
+        if (VarUtil.glob.setMain) {
+            checkStack()
+            VarUtil.glob.setMain = false
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Log.d("mainActivity", "Start")
         VarUtil.glob.mainContext = applicationContext
         VarUtil.glob.mainActivity = this
         val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -148,7 +160,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainDl.addDrawerListener(toggle)
     }
 
-    private fun checkStack() {
+    fun checkStack() {
         if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack(
             "favorites",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -219,6 +231,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 trans.replace(binding.mainFrmFl.id, workReadyFragment!!).addToBackStack("workReady")
+                Log.d("add2BackStack", "workReady")
             }
             else -> {
                 if (workdetailFragment == null) {
@@ -226,6 +239,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 trans.replace(binding.mainFrmFl.id, workdetailFragment!!).addToBackStack("workDetail")
+                Log.d("add2BackStack", "workDetail")
             }
         }
         trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

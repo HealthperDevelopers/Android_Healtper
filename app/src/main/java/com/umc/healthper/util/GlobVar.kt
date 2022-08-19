@@ -17,11 +17,11 @@ class GlobVar: Application() {
     lateinit var size: Point
     var restMinutes : Int = 60
 
-
     var selectedPart = ArrayList<String>()
     var unselectedPart = ArrayList<String>()
     var work : ArrayList<Work> = arrayListOf()
     var totalData : TotalData = TotalData("", ArrayList(), ExerciseInfo(0, 0))
+    var setMain : Boolean = false
 
     lateinit var workReadyAdapter: WorkReadyListAdapter
     var currentPart: String = ""

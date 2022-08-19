@@ -14,4 +14,20 @@
         <!-- Customize your theme here. -->
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <style name="Text.DIGIT.total" parent="android:TextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:fontFamily">@font/ds_digi</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Text.DIGIT.rest" parent="android:TextAppearance">
+        <item name="android:textStyle">bold</item>
+<!--        <item name="android:textSize">38sp</item>-->
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/ds_digi_talic</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
 </resources>

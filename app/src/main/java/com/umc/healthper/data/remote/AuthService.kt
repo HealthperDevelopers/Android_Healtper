@@ -4,6 +4,7 @@ import android.util.Log
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.User
 import com.umc.healthper.ui.timer.data.Work
+import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
 import retrofit2.Callback
@@ -73,15 +74,21 @@ class AuthService {
 
     fun todayRecord(totalData: TotalData) {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
-        for (i in 40..80){
-            Log.d("coroutine", i.toString())
-        }
-        authService.todayRecord(totalData).enqueue(object: Callback<AuthResponse> {
-            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+
+        authService.todayRecord(totalData).enqueue(object: Callback<Int> {
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
                 Log.d("record/SUCCESS", response.toString())
+                when (response.code()){
+                    200 -> {
+                        var resp : Int = response.body()!!
+                        Log.d("record/resp", resp.toString())
+                        detailRecord(VarUtil.glob.work, resp)
+                    }
+                    else -> {Log.d("detail/FAILURE", "FAil")}
+                }
             }
 
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+            override fun onFailure(call: Call<Int>, t: Throwable) {
                 Log.d("record/FAILURE", t.message.toString())
             }
         })
@@ -90,16 +97,18 @@ class AuthService {
 
     fun detailRecord(@Body work : ArrayList<Work>, @Path("recordId") recordId : Int){
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
-        for (i in 40..80){
-            Log.d("coroutine", i.toString())
-        }
+
         authService.detailRecord(work, recordId).enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                Log.d("record/SUCCESS", response.toString())
+                Log.d("detail/SUCCESS", response.toString())
+                when (response.code()){
+                    200 -> {Log.d("detail/SUCCESS", response.toString())}
+                    else -> {Log.d("detail/FAILURE", "FAil")}
+                }
             }
 
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                Log.d("record/FAILURE", t.message.toString())
+                Log.d("detail/FAILURE", t.message.toString())
             }
         })
     }

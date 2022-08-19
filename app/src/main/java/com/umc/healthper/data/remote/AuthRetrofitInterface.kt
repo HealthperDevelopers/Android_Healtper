@@ -17,7 +17,7 @@ interface AuthRetrofitInterface {
     fun isLogin() : Call<Test>
 
     @POST("/record")
-    fun todayRecord(@Body totalData : TotalData) : Call<AuthResponse>
+    fun todayRecord(@Body totalData : TotalData) : Call<Int>
 
     @POST("/finish/{recordId}")
     fun detailRecord(
