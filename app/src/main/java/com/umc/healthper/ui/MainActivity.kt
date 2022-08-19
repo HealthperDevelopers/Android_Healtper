@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.kakao.sdk.common.util.Utility
 import com.umc.healthper.R
+import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityCommentBinding
 import com.umc.healthper.databinding.ActivityMainBinding
 import com.umc.healthper.ui.chart.view.ChartFragment
@@ -30,6 +31,7 @@ import com.umc.healthper.ui.timer.SettimerFragment
 import com.umc.healthper.ui.timer.TimerActivity
 import com.umc.healthper.ui.timer.data.Work
 import com.umc.healthper.util.VarUtil
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,11 +45,14 @@ class MainActivity : AppCompatActivity() {
     var PartchartFragment: PartchartFragment? = null
     var workReadyFragment: WorkReadyFragment? = null
     var workdetailFragment: WorkdetailFragment? = null
+    var authService : AuthService = AuthService()
+    private var now: Calendar = Calendar.getInstance()
 
     override fun onResume() {
         super.onResume()
         Log.d("mainActivity", "reStart")
         if (VarUtil.glob.setMain) {
+            // authService.calenderInfo(2022, 8)
             checkStack()
             VarUtil.glob.setMain = false
         }

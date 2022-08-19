@@ -30,9 +30,9 @@ class CommentActivity : AppCompatActivity() {
 
             // HashSet을 통해 중복 제거
             val tmp = HashSet<String>(VarUtil.glob.totalData.sections)
-//            VarUtil.glob.totalData.sections.add("WHOLE")
-//            VarUtil.glob.totalData.sections.add("LEG")
-            VarUtil.glob.totalData.sections = ArrayList(tmp)
+            VarUtil.glob.totalData.sections.add("WHOLE")
+            VarUtil.glob.totalData.sections.add("LEG")
+//            VarUtil.glob.totalData.sections = ArrayList(tmp)
 
             Log.d("info / TotalTime", VarUtil.glob.totalData.exerciseInfo.totalExerciseTime.toString())
             Log.d("info / TotalVolume", VarUtil.glob.totalData.exerciseInfo.totalVolume.toString())
@@ -43,8 +43,8 @@ class CommentActivity : AppCompatActivity() {
             CoroutineScope(IO).launch {
 
                 // 무조건 이 안에서는 순차적으로 실행되는가?
-                val resp = authService.todayRecord(VarUtil.glob.totalData)
-                // authService.detailRecord(VarUtil.glob.work, resp.recordId)
+                authService.todayRecord(VarUtil.glob.totalData)
+//                authService.detailRecord(VarUtil.glob.work, resp)
             }
 
 //            val intent = Intent(this, MainActivity::class.java)
