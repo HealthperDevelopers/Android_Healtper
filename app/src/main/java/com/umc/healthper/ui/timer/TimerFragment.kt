@@ -22,7 +22,7 @@ import com.umc.healthper.databinding.FragmentTimerTmpBinding
 import com.umc.healthper.util.VarUtil
 
 class TimerFragment : Fragment() {
-    lateinit var binding : FragmentTimerTmpBinding
+    lateinit var binding : FragmentTimerBinding
     lateinit var partTimer: PartTimer
     lateinit var totalTimer: TotalTimer
     var minutesEdit : String? = null
@@ -46,7 +46,7 @@ class TimerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTimerTmpBinding.inflate(inflater, container, false)
+        binding = FragmentTimerBinding.inflate(inflater, container, false)
         partTimer = PartTimer()
         totalTimer = TotalTimer()
         totalTimer.start()
@@ -131,8 +131,8 @@ class TimerFragment : Fragment() {
         if (isWorkTime) // 현재 진행시간이라면 = 운동별 시간
         {
             isWorkTime = false // change to partTime
-            binding.timerRunningRestTv.visibility = View.GONE
-            binding.timerRunningRestTimeTv.visibility = View.GONE
+            binding.timerRunningRestTv.visibility = View.INVISIBLE
+            binding.timerRunningRestTimeTv.visibility = View.INVISIBLE
             binding.timerPartTv.visibility = View.VISIBLE
             binding.timerPartTimeTv.visibility = View.VISIBLE
         }
@@ -140,8 +140,8 @@ class TimerFragment : Fragment() {
             isWorkTime = true // change to WorkTime = 운동별 시간
             binding.timerRunningRestTv.visibility = View.VISIBLE
             binding.timerRunningRestTimeTv.visibility = View.VISIBLE
-            binding.timerPartTv.visibility = View.GONE
-            binding.timerPartTimeTv.visibility = View.GONE
+            binding.timerPartTv.visibility = View.INVISIBLE
+            binding.timerPartTimeTv.visibility = View.INVISIBLE
         }
     }
 
@@ -161,7 +161,7 @@ class TimerFragment : Fragment() {
             binding.timerWorkrestBt.text = "쉬는 시간"
             binding.timerRestSettingTimeTv.visibility = View.INVISIBLE
             binding.timerRestTimeTv.visibility = View.INVISIBLE
-            binding.timerRestImg.visibility = View.GONE
+            binding.timerRestImg.visibility = View.INVISIBLE
 
             //rest timer initialize
             restTimer.second = 0
