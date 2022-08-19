@@ -20,7 +20,6 @@ class FavoritesMypageFragment : Fragment() {
     lateinit var partAdapter: PartRVAdapter
     val db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
     var currentPart = ""
-    val favList = ArrayList<Work>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,15 +34,15 @@ class FavoritesMypageFragment : Fragment() {
         binding.mypagefavSelectPartTv.text = currentPart
         val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(1)
         val tmpAll = db.WorkDao().findWorkbyPartId(1)
+        VarUtil.glob.favWorkList.clear()
                 for (i in tmpFav) {
                     for (j in tmpAll) {
                         if (i.workId == j.id) {
-                            favList.add(db.WorkDao().findWorkbyId(j.id))
+                            VarUtil.glob.favWorkList.add(db.WorkDao().findWorkbyId(j.id))
                         }
                     }
                 }
-        val workAdapter = ShowFavWorkRVAdapter(favList)
-        VarUtil.glob.favPageWorkListAdapter = workAdapter
+        VarUtil.glob.favPageWorkListAdapter = ShowFavWorkRVAdapter()
         binding.mypagefavWorkListRv.adapter = VarUtil.glob.favPageWorkListAdapter
 
 
@@ -57,15 +56,15 @@ class FavoritesMypageFragment : Fragment() {
                 currentPart = str
                 val partId = db.WorkPartDao().getWorkPartIdbyPartName(str)
                 val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(partId)
-                favList.clear()
+                VarUtil.glob.favWorkList.clear()
                 for (i in 0..tmpFav.size - 1) {
                     for (j in tmpFav) {
                         if (j.order == i) {
-                            favList.add(db.WorkDao().findWorkbyId(j.workId))
+                            VarUtil.glob.favWorkList.add(db.WorkDao().findWorkbyId(j.workId))
                         }
                     }
                 }
-                workAdapter.notifyDataSetChanged()
+                VarUtil.glob.favPageWorkListAdapter.notifyDataSetChanged()
             }
         })
 

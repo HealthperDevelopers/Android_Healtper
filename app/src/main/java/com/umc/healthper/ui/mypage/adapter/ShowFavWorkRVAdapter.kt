@@ -9,7 +9,7 @@ import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.ItemMypageFavoritesBinding
 import com.umc.healthper.util.VarUtil
 
-class ShowFavWorkRVAdapter(val favList: ArrayList<Work>): RecyclerView.Adapter<ShowFavWorkRVAdapter.ListHolder>() {
+class ShowFavWorkRVAdapter(): RecyclerView.Adapter<ShowFavWorkRVAdapter.ListHolder>() {
     lateinit var binding: ItemMypageFavoritesBinding
     val db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListHolder {
@@ -19,17 +19,16 @@ class ShowFavWorkRVAdapter(val favList: ArrayList<Work>): RecyclerView.Adapter<S
     }
 
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
-         holder.bind(position, favList)
+         holder.bind(position)
     }
 
     override fun getItemCount(): Int {
-        return favList.size
+        return VarUtil.glob.favWorkList.size
     }
 
     class ListHolder(val binding: ItemMypageFavoritesBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(pos: Int, data: ArrayList<Work>) {
-            Log.d("favtv", binding.itemMypagefavWorkTv.text.toString())
-            binding.itemMypagefavWorkTv.text = data[pos].workName + pos.toString()
+        fun bind(pos: Int) {
+            binding.itemMypagefavWorkTv.text = VarUtil.glob.favWorkList[pos].workName
         }
     }
 }
