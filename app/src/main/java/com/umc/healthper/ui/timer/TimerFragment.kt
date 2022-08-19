@@ -158,6 +158,7 @@ class TimerFragment : Fragment() {
             binding.timerRestSettingTimeTv.visibility = View.INVISIBLE
             binding.timerRestTimeTv.visibility = View.INVISIBLE
             binding.timerRestImg.visibility = View.INVISIBLE
+            binding.timerRestTimeRedTv.visibility = View.INVISIBLE
 
             //rest timer initialize
             restTimer.second = 0
@@ -240,7 +241,6 @@ class TimerFragment : Fragment() {
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
                             binding.timerRunningRestTimeTv.text = String.format("%02d : %02d : %02d", hour, minute, second % 60)
-                            Log.d("running timer", binding.timerRunningRestTimeTv.text.toString())
                         }
                     }
                 }
@@ -267,7 +267,6 @@ class TimerFragment : Fragment() {
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
                             binding.timerPartTimeTv.text = String.format("%02d : %02d : %02d", hour, minute, second % 60)
-                            Log.d("part timer", binding.timerRunningRestTimeTv.text.toString())
                         }
                     }
 
@@ -307,7 +306,6 @@ class TimerFragment : Fragment() {
                             }
 
                             binding.timerRestTimeTv.text = String.format("%02d : %02d", second / 60, second % 60)
-                            Log.d("rest timer", binding.timerRestTimeTv.text.toString())
                         }
                         second++
                     }

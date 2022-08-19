@@ -12,6 +12,7 @@ import com.umc.healthper.util.VarUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import java.sql.Array
 
 class CommentActivity : AppCompatActivity() {
 
@@ -29,6 +30,8 @@ class CommentActivity : AppCompatActivity() {
 
             // HashSet을 통해 중복 제거
             val tmp = HashSet<String>(VarUtil.glob.totalData.sections)
+//            VarUtil.glob.totalData.sections.add("WHOLE")
+//            VarUtil.glob.totalData.sections.add("LEG")
             VarUtil.glob.totalData.sections = ArrayList(tmp)
 
             Log.d("info / TotalTime", VarUtil.glob.totalData.exerciseInfo.totalExerciseTime.toString())
@@ -46,6 +49,7 @@ class CommentActivity : AppCompatActivity() {
 
 //            val intent = Intent(this, MainActivity::class.java)
 //            startActivity(intent)
+            VarUtil.glob.setMain = true
             finish()
         }
     }

@@ -47,7 +47,10 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d("mainActivity", "reStart")
-        checkStack()
+        if (VarUtil.glob.setMain) {
+            checkStack()
+            VarUtil.glob.setMain = false
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
