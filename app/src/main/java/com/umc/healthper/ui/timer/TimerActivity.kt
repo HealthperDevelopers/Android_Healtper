@@ -23,6 +23,11 @@ class TimerActivity : AppCompatActivity() {
     var weight: Int = 0
     var count: Int = 0
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("timerActivity", "finish()")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimerBinding.inflate(layoutInflater)

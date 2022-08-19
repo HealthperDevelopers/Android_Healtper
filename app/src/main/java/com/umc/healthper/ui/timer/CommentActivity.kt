@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityCommentBinding
 import com.umc.healthper.ui.MainActivity
@@ -43,8 +44,9 @@ class CommentActivity : AppCompatActivity() {
                 // authService.detailRecord(VarUtil.glob.work, resp.recordId)
             }
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+            finish()
         }
     }
 }

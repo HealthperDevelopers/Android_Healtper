@@ -3,7 +3,6 @@ package com.umc.healthper.ui.timer
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,12 +12,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentTimerBinding
-import com.umc.healthper.databinding.FragmentTimerTmpBinding
 import com.umc.healthper.util.VarUtil
 
 class TimerFragment : Fragment() {
@@ -103,7 +99,7 @@ class TimerFragment : Fragment() {
                     minutesEdit = mDialogView.findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
                     millsEdit = mDialogView.findViewById<EditText>(R.id.rest_mills_et).getText().toString()
 
-                    if (minutesEdit!!.toInt() in 0..60 && millsEdit!!.toInt() < 60 && millsEdit!!.toInt() >= 0) {
+                    if (minutesEdit!!.toInt() >= 0 && minutesEdit!!.toInt() <= 60 && millsEdit!!.toInt() < 60 && millsEdit!!.toInt() >= 0) {
                         if (millsEdit!!.toInt() == 0 && minutesEdit!!.toInt() == 0) {
                             Toast.makeText(timerActivity!!, "None", Toast.LENGTH_SHORT).show()
                         }
@@ -117,9 +113,9 @@ class TimerFragment : Fragment() {
                     }
                 }
 
-                binding.timerRestSettingTimeTv.text = String.format("%02d:%02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
+//                binding.timerRestSettingTimeTv.text = String.format("%02d : %02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
                 VarUtil.glob.restMinutes = minutesEdit!!.toInt() * 60 + millsEdit!!.toInt()
-                binding.timerRestSettingTimeTv.text = String.format("%02d:%02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
+                binding.timerRestSettingTimeTv.text = String.format("%02d : %02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
                 mAlertDialog.dismiss()
             }
         }
@@ -167,7 +163,7 @@ class TimerFragment : Fragment() {
             restTimer.second = 0
             restTimer.mills = 0f
             binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF494949"))
-            binding.timerRestTimeTv.text = String.format("%02d:%02d", 0, 0)
+            binding.timerRestTimeTv.text = String.format("%02d : %02d", 0, 0)
 
             // editable = false
             binding.timerTableWeightEt.setText(String.format("%02d", binding.timerTableWeightEt.text.toString().toInt()))
@@ -189,6 +185,7 @@ class TimerFragment : Fragment() {
             // editable = false
             binding.timerTableWeightEt.isEnabled = true
             binding.timerTableCountEt.isEnabled = true
+            binding.timerRestTimeRedTv.visibility = View.INVISIBLE
 
 //            timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
@@ -208,7 +205,7 @@ class TimerFragment : Fragment() {
                         minute = second / 60
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
-                            binding.timerTotalRestTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
+                            binding.timerTotalRestTimeTv.text = String.format("%02d : %02d : %02d", hour, minute, second % 60)
                             Log.d("start timer", binding.timerTotalRestTimeTv.text.toString())
                         }
                     }
@@ -242,7 +239,7 @@ class TimerFragment : Fragment() {
                         minute = second / 60
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
-                            binding.timerRunningRestTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
+                            binding.timerRunningRestTimeTv.text = String.format("%02d : %02d : %02d", hour, minute, second % 60)
                             Log.d("running timer", binding.timerRunningRestTimeTv.text.toString())
                         }
                     }
@@ -269,7 +266,7 @@ class TimerFragment : Fragment() {
                         minute = second / 60
                         hour = minute / 60
                         timerActivity!!.runOnUiThread {
-                            binding.timerPartTimeTv.text = String.format("%02d:%02d:%02d", hour, minute, second % 60)
+                            binding.timerPartTimeTv.text = String.format("%02d : %02d : %02d", hour, minute, second % 60)
                             Log.d("part timer", binding.timerRunningRestTimeTv.text.toString())
                         }
                     }
@@ -300,12 +297,16 @@ class TimerFragment : Fragment() {
                     if (mills % 1000 == 0f){
                         // second++
                         timerActivity!!.runOnUiThread {
-                            if ((second / 60 >= minutesEdit!!.toInt()) && (second % 60 >= millsEdit!!.toInt()))
+                            if ((second / 60 >= minutesEdit!!.toInt()) && (second % 60 >= millsEdit!!.toInt())) {
                                 binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF0000"))
-                            else
+                                binding.timerRestTimeRedTv.visibility = View.VISIBLE
+                            }
+                            else {
                                 binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF494949"))
+                                binding.timerRestTimeRedTv.visibility = View.INVISIBLE
+                            }
 
-                            binding.timerRestTimeTv.text = String.format("%02d:%02d", second / 60, second % 60)
+                            binding.timerRestTimeTv.text = String.format("%02d : %02d", second / 60, second % 60)
                             Log.d("rest timer", binding.timerRestTimeTv.text.toString())
                         }
                         second++
