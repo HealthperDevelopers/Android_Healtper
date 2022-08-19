@@ -12,4 +12,7 @@ interface WorkFavDao {
 
     @Query("SELECT * FROM workFavTable WHERE workId = :id")
     fun getAllFavWorkById(id: Int): List<WorkFav>
+
+    @Query("SELECT * FROM workFavTable WHERE workPartId= :part")
+    fun getAllFavWorkByPartId(part: Int): List<WorkFav>
 }

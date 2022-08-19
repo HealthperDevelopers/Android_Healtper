@@ -12,8 +12,11 @@ interface WorkPartDao {
     fun insert(data: WorkPart)
 
     @Query("SELECT id FROM workPartTable WHERE workPart = :workPart")
-    fun getWorkPartId(workPart: String): Int
+    fun getWorkPartIdbyPartName(workPart: String): Int
 
     @Query("SELECT workPart FROM workPartTable")
     fun getAllWork(): List<String>
+
+    @Query("SELECT * FROM workPartTable WHERE id = 1")
+    fun getFirst(): WorkPart
 }

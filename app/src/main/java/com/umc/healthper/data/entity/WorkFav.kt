@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class WorkFav (
     @PrimaryKey(autoGenerate = true)var id: Int = 0,
     var order: Int = 0,
-    var workId: Int = 0
+    var workId: Int = 0,
+    var workPartId: Int = 0
         )

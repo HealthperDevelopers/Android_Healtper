@@ -1,7 +1,6 @@
 package com.umc.healthper.ui.main.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +26,8 @@ class WorkdetailFragment: Fragment() {
         setListener()
 
         var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
-        var partId = db.WorkPartDao().getWorkPartId(currentWork)
-        workList = db.WorkDao().findWorkbyId(partId)
+        var partId = db.WorkPartDao().getWorkPartIdbyPartName(currentWork)
+        workList = db.WorkDao().findWorkbyPartId(partId)
 
         binding.workdetailWorkTitleTv.text = currentWork
 
