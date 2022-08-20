@@ -20,12 +20,6 @@ import kotlin.math.abs
 class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data_list = listOf(1, 2, 3, 4)
-    private lateinit var data: List<Int>
-    private lateinit var weekList: ArrayList<Int>
-    private lateinit var now: Calendar
-    private lateinit var calRvAdapList: ArrayList<DateRVAdapter>
-    private lateinit var calRvLayoutList: ArrayList<FlexboxLayoutManager>
-    private var authService = AuthService()
 
     override fun getItemViewType(position: Int): Int {
         return data_list[position]
@@ -58,21 +52,21 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(data_list[position]) {
             1-> {
-                (holder as MainRVAdapter.UserHolder).bind()
+                (holder as UserHolder).bind()
             }
             2-> {
-                (holder as MainRVAdapter.CalendarHolder).bind()
+                (holder as CalendarHolder).bind()
             }
             3-> {
-                (holder as MainRVAdapter.DetailHolder).bind()
+                (holder as DetailHolder).bind()
             }
             4-> {
-                (holder as MainRVAdapter.NewHolder).bind()
+                (holder as NewHolder).bind()
             }
         }
     }
 
-    inner class UserHolder(val binding: ItemMainUserBinding):RecyclerView.ViewHolder(binding.root) {
+    class UserHolder(val binding: ItemMainUserBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.itemMainUserSettingIv.setOnClickListener {
                 VarUtil.glob.mainActivity.openNav()
@@ -80,7 +74,15 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    inner class CalendarHolder(private val binding: ItemMainCalendarBinding): RecyclerView.ViewHolder(binding.root) {
+    class CalendarHolder(private val binding: ItemMainCalendarBinding): RecyclerView.ViewHolder(binding.root) {
+        private lateinit var data: List<Int>
+        private lateinit var weekList: ArrayList<Int>
+        private lateinit var now: Calendar
+        private lateinit var calRvAdapList: ArrayList<DateRVAdapter>
+        private lateinit var calRvLayoutList: ArrayList<FlexboxLayoutManager>
+
+        private var authService = AuthService()
+
         fun bind() {
             now = Calendar.getInstance()
             setListener()
@@ -124,31 +126,40 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val day = now.get(Calendar.DATE)
             val doy = now.get(Calendar.DAY_OF_WEEK)
             val maxDay = now.getActualMaximum(Calendar.DATE)
-            val dow = now.get(Calendar.DAY_OF_WEEK_IN_MONTH)
-            val line:Int = ((maxDay - day - (7 - doy))/ 7 )+ 1 + dow
-            val firstDate = abs(day - (dow - 2)*7 - doy - 7) + 1
-
-            val firstWeek = 7 - firstDate + 2;
+            val dow = now.get(Calendar.WEEK_OF_MONTH)
+            var line:Int = ((maxDay - day - (7 - doy))/ 7 )+ dow
+            if ((maxDay - day - (7 - doy))% 7 != 0) {
+                line += 1
+            }
+            now.set(year, month - 1, 1)
+            val firstDate = now.get(Calendar.DAY_OF_WEEK)
+            val firstWeek = 7 - firstDate + 2
             var weekList = ArrayList<Int>()
             weekList.add(1)
             for (i in 0..line - 2) {
                 weekList.add(firstWeek + (7 *i))
             }
             Log.d("date", "$year $month $day $doy $maxDay $dow $line $firstDate $weekList")
+            //년 월 일 요일 마지막날짜 오늘이몇주차인지 한달이총몇주인지
             val data = listOf<Int>(year, month, day, doy, maxDay, dow, line, firstDate)
 
             return data
         }
 
         fun setCalWeekData(): ArrayList<Int> {
+            val year = now.get(Calendar.YEAR)
+            val month = now.get(Calendar.MONTH) + 1
             val day = now.get(Calendar.DATE)
             val doy = now.get(Calendar.DAY_OF_WEEK)
             val maxDay = now.getActualMaximum(Calendar.DATE)
-            val dow = now.get(Calendar.DAY_OF_WEEK_IN_MONTH)
-            val line:Int = ((maxDay - day - (7 - doy))/ 7 )+ 1 + dow
-            val firstDate = abs(day - (dow - 2)*7 - doy - 7) + 1
-
-            val firstWeek = 7 - firstDate + 2;
+            val dow = now.get(Calendar.WEEK_OF_MONTH)
+            var line:Int = ((maxDay - day - (7 - doy))/ 7 )+ dow
+            if ((maxDay - day - (7 - doy))% 7 != 0) {
+                line += 1
+            }
+            now.set(year, month - 1, 1)
+            val firstDate = now.get(Calendar.DAY_OF_WEEK)
+            val firstWeek = 7 - firstDate + 2
             var weekList = ArrayList<Int>()
             weekList.add(1)
             for (i in 0..line - 2) {
@@ -188,12 +199,12 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.itemMainCalW6Rv.adapter = calRvAdapList[5]}
     }
 
-    inner class DetailHolder(binding: ItemMainDetailBinding): RecyclerView.ViewHolder(binding.root) {
+    class DetailHolder(binding: ItemMainDetailBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
         }
     }
 
-    inner class NewHolder(val binding: ItemMainNewBinding): RecyclerView.ViewHolder(binding.root) {
+    class NewHolder(val binding: ItemMainNewBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.itemMainNewGoWorkTv.setOnClickListener {
                 VarUtil.glob.mainActivity.changeMainFragment(1)
