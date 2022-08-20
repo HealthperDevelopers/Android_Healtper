@@ -2,7 +2,7 @@ package com.umc.healthper.data.remote
 
 import android.util.Log
 import com.umc.healthper.data.entity.TotalData
-import com.umc.healthper.ui.timer.data.Work
+import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
@@ -100,7 +100,7 @@ class AuthService {
         })
     }
 
-    fun detailRecord(@Body work : ArrayList<Work>, @Path("recordId") recordId : Int){
+    fun detailRecord(@Body work : ArrayList<WorkRecord>, @Path("recordId") recordId : Int){
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
         authService.detailRecord(work, recordId).enqueue(object: Callback<CalenderResponse> {

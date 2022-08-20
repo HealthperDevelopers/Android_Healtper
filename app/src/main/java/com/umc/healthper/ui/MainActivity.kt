@@ -27,9 +27,7 @@ import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
 import com.umc.healthper.ui.timer.CommentActivity
-import com.umc.healthper.ui.timer.SettimerFragment
 import com.umc.healthper.ui.timer.TimerActivity
-import com.umc.healthper.ui.timer.data.Work
 import com.umc.healthper.util.VarUtil
 import java.util.*
 

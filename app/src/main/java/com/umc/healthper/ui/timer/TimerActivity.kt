@@ -8,11 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.umc.healthper.R
+import com.umc.healthper.data.entity.Pack
+import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.ActivityTimerBinding
 import com.umc.healthper.ui.MainActivity
-import com.umc.healthper.ui.timer.data.Pack
-import com.umc.healthper.ui.timer.data.Work
 import com.umc.healthper.util.VarUtil
 
 class TimerActivity : AppCompatActivity() {
@@ -73,7 +73,7 @@ class TimerActivity : AppCompatActivity() {
     }
 
     fun addWork(runningTime: Int) {
-        VarUtil.glob.work.add(Work (runningTime, pack, db.WorkPartDao().getWorkPartId(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
+        VarUtil.glob.work.add(WorkRecord (runningTime, pack, db.WorkPartDao().getWorkPartId(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
         // VarUtil.glob.totalData.sections.add(VarUtil.glob.currentPart) // -> comment에서 중복 제거
         for (tmp in pack) {
             Log.d("pack set", tmp.set.toString())

@@ -1,7 +1,7 @@
 package com.umc.healthper.data.remote
 
 import com.umc.healthper.data.entity.TotalData
-import com.umc.healthper.ui.timer.data.Work
+import com.umc.healthper.data.entity.WorkRecord
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -32,7 +32,7 @@ interface AuthRetrofitInterface {
 
     @POST("/finish/{recordId}")
     fun detailRecord(
-        @Body work : ArrayList<Work>,
+        @Body work : ArrayList<WorkRecord>,
         @Path("recordId") recordId : Int
     ) : Call<CalenderResponse>
 //    상세 정보 등록
