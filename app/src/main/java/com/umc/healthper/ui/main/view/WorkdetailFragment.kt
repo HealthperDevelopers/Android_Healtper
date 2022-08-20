@@ -26,8 +26,13 @@ class WorkdetailFragment: Fragment() {
         setListener()
 
         var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
+<<<<<<< HEAD
         var partId = db.WorkPartDao().getWorkPartId(currentPart)
         workList = db.WorkDao().findWorkbyId(partId)
+=======
+        var partId = db.WorkPartDao().getWorkPartIdbyPartName(currentWork)
+        workList = db.WorkDao().findWorkbyPartId(partId)
+>>>>>>> workFlow
 
         binding.workdetailWorkTitleTv.text = currentPart
 
