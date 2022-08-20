@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@id/end"
+        motion:constraintSetStart="@id/start"
+        motion:autoTransition="animateToEnd"
+        motion:duration="2000">
+
+        <OnSwipe
+            motion:dragDirection="dragLeft"
+            motion:touchAnchorId="@+id/splash_logo_iv"
+            motion:touchAnchorSide="right" />
+        <KeyFrameSet>
+
+            <KeyAttribute
+                android:rotation="-360"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/splash_logo_iv" />
+
+            <!--            <KeyPosition-->
+            <!--                motion:framePosition="50"-->
+            <!--                motion:keyPositionType="parentRelative"-->
+            <!--                motion:motionTarget="@+id/button"-->
+            <!--                motion:percentY="0.25" />-->
+        </KeyFrameSet>
+
+    </Transition>
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/splash_logo_iv"
+            android:layout_width="200dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="8dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent">
+
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="@color/purple_500" />
+
+        </Constraint>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/splash_logo_iv"
+            android:layout_width="200dp"
+            android:layout_height="85dp"
+            android:layout_marginEnd="8dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent">
+
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="@color/purple_200" />
+
+        </Constraint>
+    </ConstraintSet>
+</MotionScene>
