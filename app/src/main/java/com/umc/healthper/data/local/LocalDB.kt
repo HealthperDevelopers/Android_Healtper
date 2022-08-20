@@ -9,19 +9,12 @@ import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkFav
 import com.umc.healthper.data.entity.WorkPart
 
-<<<<<<< HEAD
-@Database(entities = [Work::class, WorkPart::class, FavWork::class], version = 3)
-abstract class LocalDB: RoomDatabase() {
-    abstract fun WorkDao(): WorkDao
-    abstract fun WorkPartDao(): WorkPartDao
-    abstract fun FavWorkDao(): FavWorkDao
-=======
+
 @Database(entities = [Work::class, WorkPart::class, WorkFav::class], version = 4)
 abstract class LocalDB: RoomDatabase() {
     abstract fun WorkDao(): WorkDao
     abstract fun WorkPartDao(): WorkPartDao
     abstract fun WorkFavDao(): WorkFavDao
->>>>>>> workFlow
 
     companion object {
         private var instance: LocalDB? = null

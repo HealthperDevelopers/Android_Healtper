@@ -73,7 +73,7 @@ class TimerActivity : AppCompatActivity() {
     }
 
     fun addWork(runningTime: Int) {
-        VarUtil.glob.work.add(WorkRecord (runningTime, pack, db.WorkPartDao().getWorkPartId(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
+        VarUtil.glob.work.add(WorkRecord (runningTime, pack, db.WorkPartDao().getWorkPartIdbyPartName(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
         // VarUtil.glob.totalData.sections.add(VarUtil.glob.currentPart) // -> comment에서 중복 제거
         for (tmp in pack) {
             Log.d("pack set", tmp.set.toString())
@@ -91,7 +91,7 @@ class TimerActivity : AppCompatActivity() {
             Log.d("running time", tmp.runningTime.toString())
             Log.d("part", tmp.partId.toString())
 
-            if (db.WorkPartDao().getWorkPartId(part) == tmp.partId)
+            if (db.WorkPartDao().getWorkPartIdbyPartName(part) == tmp.partId)
                 partTime += tmp.runningTime
         }
         return partTime
