@@ -101,6 +101,7 @@ class TimerFragment : Fragment() {
             val  mAlertDialog = mBuilder.show()
 
             mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            mAlertDialog.window?.setLayout(800, 700)
 
             val doneButton = mDialogView.findViewById<Button>(R.id.rest_done_bt)
             doneButton.setOnClickListener {
