@@ -37,9 +37,7 @@ class CommentActivity : AppCompatActivity() {
 
                 // HashSet을 통해 중복 제거
                 val tmp = HashSet<String>(VarUtil.glob.totalData.sections)
-                VarUtil.glob.totalData.sections.add("WHOLE")
-                VarUtil.glob.totalData.sections.add("LEG")
-//            VarUtil.glob.totalData.sections = ArrayList(tmp)
+                VarUtil.glob.totalData.sections = ArrayList(tmp)
 
                 Log.d(
                     "info / TotalTime",
