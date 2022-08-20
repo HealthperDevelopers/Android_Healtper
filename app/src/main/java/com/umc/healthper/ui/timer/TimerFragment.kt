@@ -278,6 +278,7 @@ class TimerFragment : Fragment() {
     inner class RestTimer : Thread(){
         var second: Int = 0
         var mills: Float = 0f
+        var resttime : Int = 6
 
         override fun run() {
             try {
@@ -292,12 +293,22 @@ class TimerFragment : Fragment() {
                         // second++
                         timerActivity!!.runOnUiThread {
                             if ((second / 60 >= minutesEdit!!.toInt()) && (second % 60 >= millsEdit!!.toInt())) {
-                                binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF0000"))
-                                binding.timerRestTimeRedTv.visibility = View.VISIBLE
+                                if (resttime != 0) {
+                                    binding.timerRestTimeTv.setTextColor(Color.parseColor("#FEA621"))
+                                    binding.timerRestTimeYellowTv.visibility = View.VISIBLE
+                                    binding.timerRestTimeRedTv.visibility = View.INVISIBLE
+                                    resttime--
+                                }
+                                else {
+                                    binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF0000"))
+                                    binding.timerRestTimeRedTv.visibility = View.VISIBLE
+                                    binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
+                                }
                             }
                             else {
                                 binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF494949"))
                                 binding.timerRestTimeRedTv.visibility = View.INVISIBLE
+                                binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
                             }
 
                             binding.timerRestTimeTv.text = String.format("%02d : %02d", second / 60, second % 60)
