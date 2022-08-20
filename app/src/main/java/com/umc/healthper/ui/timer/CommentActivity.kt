@@ -3,6 +3,7 @@ package com.umc.healthper.ui.timer
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import com.umc.healthper.data.remote.AuthService
@@ -26,31 +27,37 @@ class CommentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.todaycommentCalenderBt.setOnClickListener {
-            VarUtil.glob.totalData.comment = binding.todaycommentCommentEt.text.toString()
+            Log.d("todaycommentCommentEt", binding.todaycommentCommentEt.text.toString())
 
-            // HashSet을 통해 중복 제거
-            val tmp = HashSet<String>(VarUtil.glob.totalData.sections)
-            VarUtil.glob.totalData.sections.add("WHOLE")
-            VarUtil.glob.totalData.sections.add("LEG")
+            if (binding.todaycommentCommentEt.text.toString() == "") {
+                Toast.makeText(this, "작성해주세요", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                VarUtil.glob.totalData.comment = binding.todaycommentCommentEt.text.toString()
+
+                // HashSet을 통해 중복 제거
+                val tmp = HashSet<String>(VarUtil.glob.totalData.sections)
+                VarUtil.glob.totalData.sections.add("WHOLE")
+                VarUtil.glob.totalData.sections.add("LEG")
 //            VarUtil.glob.totalData.sections = ArrayList(tmp)
 
-            Log.d("info / TotalTime", VarUtil.glob.totalData.exerciseInfo.totalExerciseTime.toString())
-            Log.d("info / TotalVolume", VarUtil.glob.totalData.exerciseInfo.totalVolume.toString())
-            Log.d("info / sections", VarUtil.glob.totalData.sections.toString())
+                Log.d(
+                    "info / TotalTime",
+                    VarUtil.glob.totalData.exerciseInfo.totalExerciseTime.toString()
+                )
+                Log.d(
+                    "info / TotalVolume",
+                    VarUtil.glob.totalData.exerciseInfo.totalVolume.toString()
+                )
+                Log.d("info / sections", VarUtil.glob.totalData.sections.toString())
 
-            // total data 서버로 넘기기
-            val authService = AuthService()
-            CoroutineScope(IO).launch {
-
-                // 무조건 이 안에서는 순차적으로 실행되는가?
+                // total data 서버로 넘기기
+                val authService = AuthService()
                 authService.todayRecord(VarUtil.glob.totalData)
-//                authService.detailRecord(VarUtil.glob.work, resp)
-            }
 
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-            VarUtil.glob.setMain = true
-            finish()
+                VarUtil.glob.setMain = true
+                finish()
+            }
         }
     }
 }
