@@ -95,28 +95,23 @@ class TimerFragment : Fragment() {
 
             val doneButton = mDialogView.findViewById<Button>(R.id.rest_done_bt)
             doneButton.setOnClickListener {
-                while (true){
-                    minutesEdit = mDialogView.findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
-                    millsEdit = mDialogView.findViewById<EditText>(R.id.rest_mills_et).getText().toString()
+                minutesEdit = mDialogView.findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
+                millsEdit = mDialogView.findViewById<EditText>(R.id.rest_mills_et).getText().toString()
 
-                    if (minutesEdit!!.toInt() >= 0 && minutesEdit!!.toInt() <= 60 && millsEdit!!.toInt() < 60 && millsEdit!!.toInt() >= 0) {
-                        if (millsEdit!!.toInt() == 0 && minutesEdit!!.toInt() == 0) {
-                            Toast.makeText(timerActivity!!, "None", Toast.LENGTH_SHORT).show()
-                        }
-                        else {
-                            Toast.makeText(timerActivity!!, "Okay", Toast.LENGTH_SHORT).show()
-                            break
-                        }
+                if (minutesEdit!!.toInt() >= 0 && minutesEdit!!.toInt() <= 60 && millsEdit!!.toInt() < 60 && millsEdit!!.toInt() >= 0) {
+                    if (millsEdit!!.toInt() == 0 && minutesEdit!!.toInt() == 0) {
+                        Toast.makeText(timerActivity!!, "None", Toast.LENGTH_SHORT).show()
                     }
                     else {
-                        Toast.makeText(timerActivity!!, "Out of range", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(timerActivity!!, "Okay", Toast.LENGTH_SHORT).show()
+                        VarUtil.glob.restMinutes = minutesEdit!!.toInt() * 60 + millsEdit!!.toInt()
+                        binding.timerRestSettingTimeTv.text = String.format("%02d : %02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
+                        mAlertDialog.dismiss()
                     }
                 }
-
-//                binding.timerRestSettingTimeTv.text = String.format("%02d : %02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
-                VarUtil.glob.restMinutes = minutesEdit!!.toInt() * 60 + millsEdit!!.toInt()
-                binding.timerRestSettingTimeTv.text = String.format("%02d : %02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
-                mAlertDialog.dismiss()
+                else {
+                    Toast.makeText(timerActivity!!, "Out of range", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

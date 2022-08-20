@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.*
+import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ItemMainCalendarBinding
 import com.umc.healthper.databinding.ItemMainDetailBinding
 import com.umc.healthper.databinding.ItemMainNewBinding
@@ -24,6 +25,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var now: Calendar
     private lateinit var calRvAdapList: ArrayList<DateRVAdapter>
     private lateinit var calRvLayoutList: ArrayList<FlexboxLayoutManager>
+    private var authService = AuthService()
 
     override fun getItemViewType(position: Int): Int {
         return data_list[position]
@@ -105,6 +107,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             weekList = setCalWeekData()
 
             binding.itemMainCalMonyearTv.text = data[0].toString() + "년 " + data[1].toString()+ "월"
+            authService.calenderInfo(data[0], data[1])
             VarUtil.glob.today.background = null
             for (i in 0..5) {
                 calRvAdapList[i].data = data
