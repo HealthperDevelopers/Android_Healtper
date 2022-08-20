@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.databinding.ItemWorkdetailWorknameBinding
 
-class WorkdetailListRVAdapter(val data: List<Work>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WorkdetailListRVAdapter(val data: List<Work>): RecyclerView.Adapter<WorkdetailListRVAdapter.NameHolder>() {
 
     interface onClickListener {
         fun onClick(pos: Int)
@@ -17,22 +17,22 @@ class WorkdetailListRVAdapter(val data: List<Work>): RecyclerView.Adapter<Recycl
         onClick = set
     }
     lateinit var binding: ItemWorkdetailWorknameBinding
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
         val binding = ItemWorkdetailWorknameBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return NameHolder(binding)
+        return NameHolder(binding, data)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as NameHolder).bind(position)
+    override fun onBindViewHolder(holder: NameHolder, position: Int) {
+        holder.bind(position, onClick)
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    inner class NameHolder(val binding: ItemWorkdetailWorknameBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(pos: Int) {
+    class NameHolder(val binding: ItemWorkdetailWorknameBinding, val data: List<Work>): RecyclerView.ViewHolder(binding.root) {
+        fun bind(pos: Int, onClick: onClickListener) {
             binding.itemWorkdetailWorknameTv.text = data[pos].workName
             binding.root.setOnClickListener {
                 onClick.onClick(pos)

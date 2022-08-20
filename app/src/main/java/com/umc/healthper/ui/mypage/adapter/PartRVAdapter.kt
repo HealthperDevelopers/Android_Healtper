@@ -9,7 +9,7 @@ import com.umc.healthper.databinding.ItemEditWorkPartBinding
 import com.umc.healthper.databinding.ItemMypageFavoritesBinding
 import com.umc.healthper.util.VarUtil
 
-class PartRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PartRVAdapter(): RecyclerView.Adapter<PartRVAdapter.ListBinding>() {
 
     interface listener {
         fun onClick(str: String)
@@ -21,25 +21,25 @@ class PartRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var binding: ItemEditWorkPartBinding
     var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListBinding {
         binding = ItemEditWorkPartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return ListBinding(binding)
+        return ListBinding(binding, db)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ListBinding).bind(position)
+    override fun onBindViewHolder(holder: ListBinding, position: Int) {
+        holder.bind(position, setListener)
     }
 
     override fun getItemCount(): Int {
         return db.WorkPartDao().getAllWork().size
     }
 
-    inner class ListBinding(binding: ItemEditWorkPartBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(pos: Int) {
+    class ListBinding(val binding: ItemEditWorkPartBinding, val db: LocalDB): RecyclerView.ViewHolder(binding.root) {
+        fun bind(pos: Int, listener: listener) {
             binding.itemEditWorkPartTv.text = db.WorkPartDao().getAllWork()[pos]
             binding.root.setOnClickListener {
-                setListener.onClick(db.WorkPartDao().getAllWork()[pos])
+                listener.onClick(db.WorkPartDao().getAllWork()[pos])
             }
         }
     }

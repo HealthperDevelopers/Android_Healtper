@@ -10,7 +10,7 @@ import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.ItemWorkdetailWorknameBinding
 import com.umc.healthper.util.VarUtil
 
-class AddFavWorkRVAdapter(val nonFavList: MutableList<Work>, val partId: Int):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AddFavWorkRVAdapter(val nonFavList: MutableList<Work>, val partId: Int):RecyclerView.Adapter<AddFavWorkRVAdapter.WorkListBinding>() {
     interface Listener {
         fun onClick(pos: Int)
     }
@@ -18,31 +18,31 @@ class AddFavWorkRVAdapter(val nonFavList: MutableList<Work>, val partId: Int):Re
     fun setListener(set: Listener) {
         listenerSet = set
     }
+
     lateinit var binding: ItemWorkdetailWorknameBinding
     val db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkListBinding {
         binding = ItemWorkdetailWorknameBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return WorkListBinding(binding)
+        return WorkListBinding(binding, partId, db)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as WorkListBinding).bind(position)
+    override fun onBindViewHolder(holder: WorkListBinding, position: Int) {
+        holder.bind(position, nonFavList, listenerSet)
     }
 
     override fun getItemCount(): Int {
         return nonFavList.size
     }
 
-    inner class WorkListBinding(binding: ItemWorkdetailWorknameBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(pos: Int) {
-            Log.d("allList", nonFavList.toString())
-            binding.itemWorkdetailWorknameTv.text = nonFavList[pos].workName
+    class WorkListBinding(val binding: ItemWorkdetailWorknameBinding, val partId: Int, val db: LocalDB): RecyclerView.ViewHolder(binding.root) {
+        fun bind(pos: Int, data: MutableList<Work>, listener: Listener) {
+            binding.itemWorkdetailWorknameTv.text = data[pos].workName
             binding.root.setOnClickListener {
 
-                val data = WorkFav( 0,db.WorkFavDao().getAllFavWorkByPartId(partId).size, nonFavList[pos].id, partId)
+                val data = WorkFav( 0,db.WorkFavDao().getAllFavWorkByPartId(partId).size, data[pos].id, partId)
                 db.WorkFavDao().insert(data)
-                listenerSet.onClick(pos)
+                listener.onClick(pos)
             }
         }
     }

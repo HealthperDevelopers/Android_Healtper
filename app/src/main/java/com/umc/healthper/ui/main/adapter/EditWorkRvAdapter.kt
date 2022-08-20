@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.databinding.ItemEditWorkPartBinding
 
-class EditWorkRvAdapter(var data: ArrayList<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EditWorkRvAdapter(var data: ArrayList<String>): RecyclerView.Adapter<EditWorkRvAdapter.EditWorkHolder>() {
 
     interface OnClickListener {
         fun onClick(pos: Int)
@@ -17,22 +17,22 @@ class EditWorkRvAdapter(var data: ArrayList<String>): RecyclerView.Adapter<Recyc
         listener = listen
     }
     lateinit var binding: ItemEditWorkPartBinding
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditWorkHolder {
         binding = ItemEditWorkPartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return EditWorkHolder(binding)
+        return EditWorkHolder(binding, data)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as EditWorkHolder).bind(position, holder.adapterPosition)
+    override fun onBindViewHolder(holder: EditWorkHolder, position: Int) {
+        holder.bind(position, listener)
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    inner class EditWorkHolder(val binding: ItemEditWorkPartBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(pos: Int, holdPos:Int) {
+    class EditWorkHolder(val binding: ItemEditWorkPartBinding, var data: ArrayList<String>): RecyclerView.ViewHolder(binding.root) {
+        fun bind(pos: Int, listener: OnClickListener) {
             binding.itemEditWorkPartTv.text = data[pos]
             binding.root.setOnClickListener {
                 listener.onClick(pos)

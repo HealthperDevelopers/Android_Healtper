@@ -11,15 +11,15 @@ import com.umc.healthper.util.VarUtil
 import java.util.*
 import kotlin.collections.ArrayList
 
-class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<Int>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<Int>): RecyclerView.Adapter<DateRVAdapter.DateHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DateHolder {
         val binding = ItemMainCalendarListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return DateHolder(binding)
+        return DateHolder(binding, data, count, weekData)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as DateHolder).bind(position + 1)
+    override fun onBindViewHolder(holder: DateHolder, position: Int) {
+        holder.bind(position + 1)
     }
 
     override fun getItemCount(): Int {
@@ -27,7 +27,8 @@ class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<
     }
 
 
-    inner class DateHolder(private val binding: ItemMainCalendarListBinding) : RecyclerView.ViewHolder(binding.root) {
+    class DateHolder(private val binding: ItemMainCalendarListBinding, var data: List<Int>, val count:Int, var weekData: ArrayList<Int>)
+        : RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
             val now = Calendar.getInstance()
             val year = now.get(Calendar.YEAR)
