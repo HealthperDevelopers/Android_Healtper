@@ -100,14 +100,8 @@ class TimerFragment : Fragment() {
             mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             mAlertDialog.window?.setLayout(800, 600)
 
-//<<<<<<< HEAD
             val doneButton = mDialogView.findViewById<TextView>(R.id.rest_done_bt)
-//=======
-//            mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//            mAlertDialog.window?.setLayout(800, 700)
-//
-//            val doneButton = mDialogView.findViewById<Button>(R.id.rest_done_bt)
-//>>>>>>> c1df25981d69ecd8bbdc0dc4392cc9a4cfbb1f29
+
             doneButton.setOnClickListener {
                 minutesEdit = mDialogView.findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
                 millsEdit = mDialogView.findViewById<EditText>(R.id.rest_mills_et).getText().toString()
