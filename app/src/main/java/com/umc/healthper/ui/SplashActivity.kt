@@ -53,7 +53,7 @@ class SplashActivity : AppCompatActivity() {
                             0, part
                             )
                         db.WorkPartDao().insert(data)
-                        partId = db.WorkPartDao().getWorkPartId(part)
+                        partId = db.WorkPartDao().getWorkPartIdbyPartName(part)
                         next = false
                     }
                     else if (work == "-") next = true

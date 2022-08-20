@@ -3,6 +3,7 @@ package com.umc.healthper.ui.timer
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -70,6 +71,12 @@ class TimerFragment : Fragment() {
             getWorkTime()
         }
 
+        binding.timerPartPackSet.setOnClickListener {
+            if (!isRest) {
+                Toast.makeText(timerActivity!!, "운동 중에는 수정 불가합니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         binding.timerWorkrestBt.setOnClickListener{
             getRest()
         }
@@ -92,6 +99,9 @@ class TimerFragment : Fragment() {
             mDialogView.findViewById<EditText>(R.id.rest_mills_et).setText(String.format("%02d", VarUtil.glob.restMinutes % 60))
 
             val  mAlertDialog = mBuilder.show()
+
+            mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            mAlertDialog.window?.setLayout(800, 700)
 
             val doneButton = mDialogView.findViewById<Button>(R.id.rest_done_bt)
             doneButton.setOnClickListener {
@@ -278,6 +288,7 @@ class TimerFragment : Fragment() {
     inner class RestTimer : Thread(){
         var second: Int = 0
         var mills: Float = 0f
+        var resttime : Int = 6
 
         override fun run() {
             try {
@@ -292,12 +303,22 @@ class TimerFragment : Fragment() {
                         // second++
                         timerActivity!!.runOnUiThread {
                             if ((second / 60 >= minutesEdit!!.toInt()) && (second % 60 >= millsEdit!!.toInt())) {
-                                binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF0000"))
-                                binding.timerRestTimeRedTv.visibility = View.VISIBLE
+                                if (resttime != 0) {
+                                    binding.timerRestTimeTv.setTextColor(Color.parseColor("#FEA621"))
+                                    binding.timerRestTimeYellowTv.visibility = View.VISIBLE
+                                    binding.timerRestTimeRedTv.visibility = View.INVISIBLE
+                                    resttime--
+                                }
+                                else {
+                                    binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF0000"))
+                                    binding.timerRestTimeRedTv.visibility = View.VISIBLE
+                                    binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
+                                }
                             }
                             else {
                                 binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF494949"))
                                 binding.timerRestTimeRedTv.visibility = View.INVISIBLE
+                                binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
                             }
 
                             binding.timerRestTimeTv.text = String.format("%02d : %02d", second / 60, second % 60)
