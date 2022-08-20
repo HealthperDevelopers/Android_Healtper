@@ -3,6 +3,7 @@ package com.umc.healthper.ui.timer
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -70,6 +71,12 @@ class TimerFragment : Fragment() {
             getWorkTime()
         }
 
+        binding.timerPartPackSet.setOnClickListener {
+            if (!isRest) {
+                Toast.makeText(timerActivity!!, "운동 중에는 수정 불가합니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         binding.timerWorkrestBt.setOnClickListener{
             getRest()
         }
@@ -92,6 +99,8 @@ class TimerFragment : Fragment() {
             mDialogView.findViewById<EditText>(R.id.rest_mills_et).setText(String.format("%02d", VarUtil.glob.restMinutes % 60))
 
             val  mAlertDialog = mBuilder.show()
+
+            mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
             val doneButton = mDialogView.findViewById<Button>(R.id.rest_done_bt)
             doneButton.setOnClickListener {

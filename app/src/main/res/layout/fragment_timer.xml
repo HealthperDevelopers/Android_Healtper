@@ -117,12 +117,11 @@
 
     <TextView
         android:id="@+id/timer_part_pack_set"
-        android:layout_width="117dp"
-        android:layout_height="1dp"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
         app:layout_constraintStart_toStartOf="@id/total_timer_info_iv"
         app:layout_constraintEnd_toEndOf="@id/total_timer_info_iv"
-        app:layout_constraintBottom_toBottomOf="@id/total_timer_info_iv"
-        android:layout_marginBottom="70dp"/>
+        app:layout_constraintBottom_toBottomOf="@id/total_timer_info_iv"/>
 
     <ImageView
         android:id="@+id/total_timer_info_iv"
