@@ -3,19 +3,6 @@ package com.umc.healthper.util
 import android.app.Application
 import android.content.Context
 import android.graphics.Point
-import android.widget.TextView
-<<<<<<< HEAD
-import com.umc.healthper.data.entity.ExerciseInfo
-import com.umc.healthper.data.entity.TotalData
-import com.umc.healthper.ui.MainActivity
-import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
-import com.umc.healthper.ui.timer.data.Work
-=======
-import com.umc.healthper.data.entity.Work
-import com.umc.healthper.ui.MainActivity
-import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
-import com.umc.healthper.ui.mypage.adapter.ShowFavWorkRVAdapter
->>>>>>> workFlow
 
 class GlobVar: Application() {
     lateinit var mainContext: Context
@@ -26,7 +13,7 @@ class GlobVar: Application() {
 
     var selectedPart = ArrayList<String>()
     var unselectedPart = ArrayList<String>()
-    var work : ArrayList<Work> = arrayListOf()
+    var work : ArrayList<WorkRecord> = arrayListOf()
     var totalData : TotalData = TotalData("", ArrayList(), ExerciseInfo(0, 0))
     var setMain : Boolean = false
 

@@ -1,8 +1,8 @@
-package com.umc.healthper.ui.timer.data
+package com.umc.healthper.data.entity
 
 import com.google.gson.annotations.SerializedName
 
-data class Work (
+data class WorkRecord (
         @SerializedName(value = "exerciseTime") var runningTime:Int,
         @SerializedName(value = "details") var pack: ArrayList<Pack>,
         @SerializedName(value = "section") var partId:Int,
