@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -53,8 +54,6 @@ class TimerFragment : Fragment() {
 
         VarUtil.glob.restMinutes = 60
 
-        // partTimer.second = timerActivity!!.partTime(VarUtil.glob.currentPart)
-
         binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
         binding.timerWorkTv.text = VarUtil.glob.currentWork
         binding.timerPickBt.text = VarUtil.glob.currentPart
@@ -85,7 +84,6 @@ class TimerFragment : Fragment() {
             timerActivity!!.addWork(runningTimer.second)
             VarUtil.glob.totalData.exerciseInfo.totalExerciseTime = totalTimer.second
             timerActivity!!.popTimerFragment()
-//            timerActivity!!.onStop()
         }
 
         binding.timerRestSettingTimeTv.setOnClickListener {
@@ -99,11 +97,11 @@ class TimerFragment : Fragment() {
             mDialogView.findViewById<EditText>(R.id.rest_mills_et).setText(String.format("%02d", VarUtil.glob.restMinutes % 60))
 
             val  mAlertDialog = mBuilder.show()
-
             mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            mAlertDialog.window?.setLayout(800, 700)
+            mAlertDialog.window?.setLayout(800, 600)
 
-            val doneButton = mDialogView.findViewById<Button>(R.id.rest_done_bt)
+            val doneButton = mDialogView.findViewById<TextView>(R.id.rest_done_bt)
+
             doneButton.setOnClickListener {
                 minutesEdit = mDialogView.findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
                 millsEdit = mDialogView.findViewById<EditText>(R.id.rest_mills_et).getText().toString()
@@ -193,7 +191,6 @@ class TimerFragment : Fragment() {
             binding.timerTableCountEt.isEnabled = true
             binding.timerRestTimeRedTv.visibility = View.INVISIBLE
 
-//            timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
     }
 
@@ -234,9 +231,6 @@ class TimerFragment : Fragment() {
         override fun run() {
             try {
                 while (true){
-//                    if (isRest){
-//                        continue
-//                    }
                     sleep(50)
                     mills += 50
 
