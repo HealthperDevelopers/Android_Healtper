@@ -6,9 +6,11 @@ import android.graphics.Point
 import android.widget.TextView
 import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
+import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
+import com.umc.healthper.ui.mypage.adapter.ShowFavWorkRVAdapter
 
 class GlobVar: Application() {
     lateinit var mainContext: Context
@@ -26,4 +28,7 @@ class GlobVar: Application() {
     lateinit var workReadyAdapter: WorkReadyListAdapter
     var currentPart: String = ""
     var currentWork: String = ""
+
+    var favWorkList = ArrayList<Work>()
+    lateinit var favPageWorkListAdapter: ShowFavWorkRVAdapter
 }
