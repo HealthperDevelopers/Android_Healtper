@@ -34,7 +34,7 @@ interface AuthRetrofitInterface {
     fun detailRecord(
         @Body work : ArrayList<WorkRecord>,
         @Path("recordId") recordId : Int
-    ) : Call<CalenderResponse>
+    ) : Call<String>
 //    상세 정보 등록
 
 }

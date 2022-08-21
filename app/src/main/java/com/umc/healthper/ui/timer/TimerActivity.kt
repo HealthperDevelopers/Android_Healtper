@@ -23,18 +23,13 @@ class TimerActivity : AppCompatActivity() {
     var weight: Int = 0
     var count: Int = 0
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("timerActivity", "finish()")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         weight = db.WorkDao().findWorkWeightbyWorkName(VarUtil.glob.currentWork)
-        count = db.WorkDao().findWorkSetbyWorkName(VarUtil.glob.currentWork)
+        count = db.WorkDao().findWorkCountbyWorkName(VarUtil.glob.currentWork)
 
         supportFragmentManager.beginTransaction().add(R.id.main_cl, SettimerFragment()).commit()
     }
@@ -59,38 +54,29 @@ class TimerActivity : AppCompatActivity() {
     fun addPack(){
         pack.add(Pack(setCount, weight, count))
         VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
-//        Log.d("pack weight", weight.toString())
-//        Log.d("pack count", count.toString())
-//        Log.d("------------", "done")
+
+        // 현재 진행한 세트의 무게와 횟수 저장
+        db.WorkDao().updateWorkWeight(VarUtil.glob.currentWork, weight)
+        db.WorkDao().updateWorkCount(VarUtil.glob.currentWork, count)
     }
 
     fun addPack(weight: Int, count: Int){
         pack.add(Pack(setCount, weight, count))
         VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
-//        Log.d("pack weight", weight.toString())
-//        Log.d("pack count", count.toString())
-//        Log.d("------------", "done")
+
+        // 현재 진행한 세트의 무게와 횟수 저장
+        db.WorkDao().updateWorkWeight(VarUtil.glob.currentWork, weight)
+        db.WorkDao().updateWorkCount(VarUtil.glob.currentWork, count)
     }
 
     fun addWork(runningTime: Int) {
         VarUtil.glob.work.add(WorkRecord (runningTime, pack, db.WorkPartDao().getWorkPartIdbyPartName(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
-        // VarUtil.glob.totalData.sections.add(VarUtil.glob.currentPart) // -> comment에서 중복 제거
-        for (tmp in pack) {
-            Log.d("pack set", tmp.set.toString())
-            Log.d("pack weight", tmp.weight.toString())
-            Log.d("pack count", tmp.count.toString())
-            Log.d("------------", "done")
-        }
+        VarUtil.glob.totalData.sections.add(VarUtil.glob.currentPart) // -> comment에서 중복 제거
     }
 
     fun partTime(part:String): Int {
         var partTime = 0
-        Log.d("partTime func", "func")
-
         for (tmp in VarUtil.glob.work){
-            Log.d("running time", tmp.runningTime.toString())
-            Log.d("part", tmp.partId.toString())
-
             if (db.WorkPartDao().getWorkPartIdbyPartName(part) == tmp.partId)
                 partTime += tmp.runningTime
         }
@@ -99,12 +85,8 @@ class TimerActivity : AppCompatActivity() {
 
     fun partTime(all:Boolean): Int {
         var partTime = 0
-        Log.d("partTime func", "func")
 
         for (tmp in VarUtil.glob.work){
-            Log.d("running time", tmp.runningTime.toString())
-            Log.d("part", tmp.partId.toString())
-
             if (all)
                 partTime += tmp.runningTime
         }

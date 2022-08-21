@@ -31,7 +31,12 @@ interface WorkDao {
     @Query("SELECT workWeight FROM defaultWorkTable WHERE workName = :WorkName")
     fun findWorkWeightbyWorkName(WorkName: String): Int
 
-    @Query("SELECT workSet FROM defaultWorkTable WHERE workName = :WorkName")
-    fun findWorkSetbyWorkName(WorkName: String): Int
+    @Query("SELECT workTime FROM defaultWorkTable WHERE workName = :WorkName")
+    fun findWorkCountbyWorkName(WorkName: String): Int
 
+    @Query("UPDATE defaultWorkTable SET workWeight = :WorkWeight WHERE workName = :WorkName ")
+    fun updateWorkWeight(WorkName: String, WorkWeight : Int)
+
+    @Query("UPDATE defaultWorkTable SET workTime = :WorkCount WHERE workName = :WorkName ")
+    fun updateWorkCount(WorkName: String, WorkCount : Int)
 }

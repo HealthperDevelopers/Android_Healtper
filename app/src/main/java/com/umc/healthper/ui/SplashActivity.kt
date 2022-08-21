@@ -37,37 +37,37 @@ class SplashActivity : AppCompatActivity() {
         super.onBackPressed()
     }
     fun initDb(context: Context) {
-            val db = LocalDB.getInstance(context)!!
-            if (db.WorkDao().getFirst() == null) {
-                val manager: AssetManager = context.assets
-                val input: InputStream = manager.open("workList.txt")
+        val db = LocalDB.getInstance(context)!!
+        if (db.WorkDao().getFirst() == null) {
+            val manager: AssetManager = context.assets
+            val input: InputStream = manager.open("workList.txt")
 
-                var part = ""
-                var partId = 0
-                var next = false
-                input.bufferedReader().readLines().forEach {
-                    val work = it
-                    if (next) {
-                        part = work
-                        var data = WorkPart (
-                            0, part
-                            )
-                        db.WorkPartDao().insert(data)
-                        partId = db.WorkPartDao().getWorkPartIdbyPartName(part)
-                        next = false
-                    }
-                    else if (work == "-") next = true
-                    else if (!next) {
-                        var inp = Work(
-                            0,work, partId, 0, 0, 0
-                        )
-                        db.WorkDao().insert(inp)
+            var part = ""
+            var partId = 0
+            var next = false
+            input.bufferedReader().readLines().forEach {
+                val work = it
+                if (next) {
+                    part = work
+                    var data = WorkPart (
+                        0, part
+                    )
+                    db.WorkPartDao().insert(data)
+                    partId = db.WorkPartDao().getWorkPartIdbyPartName(part)
+                    next = false
+                }
+                else if (work == "-") next = true
+                else if (!next) {
+                    var inp = Work(
+                        0,work, partId, 0, 0, 0
+                    )
+                    db.WorkDao().insert(inp)
 //                        CoroutineScope(Dispatchers.IO).launch {
 //
 //                        }
-                    }
                 }
             }
+        }
 
         for (i in db.WorkPartDao().getAllWork()) {
             VarUtil.glob.unselectedPart.add(i)

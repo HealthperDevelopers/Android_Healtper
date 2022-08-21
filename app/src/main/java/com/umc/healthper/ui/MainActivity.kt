@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.kakao.sdk.common.util.Utility
 import com.umc.healthper.R
+import com.umc.healthper.data.entity.ExerciseInfo
+import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityCommentBinding
 import com.umc.healthper.databinding.ActivityMainBinding
@@ -282,5 +284,12 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, CommentActivity::class.java)
         startActivity(intent)
+    }
+
+    fun resetWorkData(){
+        Log.d("reset", "Work")
+        VarUtil.glob.work = arrayListOf()
+        VarUtil.glob.totalData = TotalData("", ArrayList(), ExerciseInfo(0, 0))
+
     }
 }
