@@ -1,6 +1,7 @@
 package com.umc.healthper.data.remote
 
 import android.util.Log
+import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.util.VarUtil
@@ -103,18 +104,19 @@ class AuthService {
     fun detailRecord(@Body work : ArrayList<WorkRecord>, @Path("recordId") recordId : Int){
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
-        authService.detailRecord(work, recordId).enqueue(object: Callback<CalenderResponse> {
-            override fun onResponse(call: Call<CalenderResponse>, response: Response<CalenderResponse>) {
+        authService.detailRecord(work, recordId).enqueue(object: Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
                 Log.d("detail/response", response.toString())
                 when (response.code()){
                     200 -> {
                         Log.d("detail/SUCCESS", response.toString())
+                        VarUtil.glob.mainActivity.resetWorkData() // detail 저장 후 루틴 초기화
                     }
                     else -> {Log.d("detail/FAILURE", response.toString())}
                 }
             }
 
-            override fun onFailure(call: Call<CalenderResponse>, t: Throwable) {
+            override fun onFailure(call: Call<String>, t: Throwable) {
                 Log.d("detail/fail", t.message.toString())
             }
         })
