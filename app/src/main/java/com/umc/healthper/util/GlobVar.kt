@@ -29,6 +29,8 @@ class GlobVar: Application() {
     var currentPart: String = ""
     var currentWork: String = ""
 
+    //사용자 즐겨찾기 페이지 데이터
     var favWorkList = ArrayList<Work>()
     lateinit var favPageWorkListAdapter: ShowFavWorkRVAdapter
+
 }
