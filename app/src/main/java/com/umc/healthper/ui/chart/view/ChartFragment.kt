@@ -26,28 +26,34 @@ class ChartFragment : Fragment() {
         binding = FragmentChartBinding.inflate(inflater, container, false)
 
         binding.chartBackTv.setOnClickListener{
-            mainActivity!!.changeChartFragment("back")
+            mainActivity!!.changeChartFragment("등")
         }
         binding.chartLegTv.setOnClickListener{
-            mainActivity!!.changeChartFragment("leg")
+            mainActivity!!.changeChartFragment("하체")
         }
         binding.chartHipTv.setOnClickListener{
-            mainActivity!!.changeChartFragment("hip")
+            mainActivity!!.changeChartFragment("엉덩이")
         }
         binding.chartChestTv.setOnClickListener{
-            mainActivity!!.changeChartFragment("chest")
+            mainActivity!!.changeChartFragment("가슴")
         }
         binding.chartShoulderTv.setOnClickListener{
-            mainActivity!!.changeChartFragment("shoulder")
+            mainActivity!!.changeChartFragment("어깨")
         }
         binding.chartAbsTv.setOnClickListener{
-            mainActivity!!.changeChartFragment("abs")
+            mainActivity!!.changeChartFragment("복근")
+        }
+        binding.chartBicepsTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("이두")
+        }
+        binding.chartTricepsTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("삼두")
         }
         binding.chartAerobicTv.setOnClickListener{
-            mainActivity!!.changeChartFragment("aerobic")
+            mainActivity!!.changeChartFragment("유산소")
         }
         binding.chartFullTv.setOnClickListener{
-            mainActivity!!.changeChartFragment("full")
+            mainActivity!!.changeChartFragment("전신")
         }
         return binding.root
     }
