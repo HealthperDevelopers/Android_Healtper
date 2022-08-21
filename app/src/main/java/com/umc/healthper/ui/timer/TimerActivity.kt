@@ -29,7 +29,7 @@ class TimerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         weight = db.WorkDao().findWorkWeightbyWorkName(VarUtil.glob.currentWork)
-        count = db.WorkDao().findWorkSetbyWorkName(VarUtil.glob.currentWork)
+        count = db.WorkDao().findWorkCountbyWorkName(VarUtil.glob.currentWork)
 
         supportFragmentManager.beginTransaction().add(R.id.main_cl, SettimerFragment()).commit()
     }
@@ -54,11 +54,19 @@ class TimerActivity : AppCompatActivity() {
     fun addPack(){
         pack.add(Pack(setCount, weight, count))
         VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
+
+        // 현재 진행한 세트의 무게와 횟수 저장
+        db.WorkDao().updateWorkWeight(VarUtil.glob.currentWork, weight)
+        db.WorkDao().updateWorkCount(VarUtil.glob.currentWork, count)
     }
 
     fun addPack(weight: Int, count: Int){
         pack.add(Pack(setCount, weight, count))
         VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
+
+        // 현재 진행한 세트의 무게와 횟수 저장
+        db.WorkDao().updateWorkWeight(VarUtil.glob.currentWork, weight)
+        db.WorkDao().updateWorkCount(VarUtil.glob.currentWork, count)
     }
 
     fun addWork(runningTime: Int) {
