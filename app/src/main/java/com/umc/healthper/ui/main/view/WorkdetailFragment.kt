@@ -29,6 +29,7 @@ class WorkdetailFragment: Fragment() {
         var partId = db.WorkPartDao().getWorkPartIdbyPartName(currentPart)
         val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(partId)
         val tmpAll = db.WorkDao().findWorkbyPartId(partId)
+        workList.clear()
         for (i in tmpFav) {
             for (j in tmpAll) {
                 if (i.workId == j.id) {
@@ -55,10 +56,7 @@ class WorkdetailFragment: Fragment() {
 
     fun setListener() {
         binding.workdetailGobackTv.setOnClickListener {
-            parentFragmentManager.popBackStack(
-                "workDetail",
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
-            )
+            VarUtil.glob.mainActivity.changeMainFragment(1)
         }
     }
 
