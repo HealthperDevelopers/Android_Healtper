@@ -29,7 +29,6 @@ class TimerFragment : Fragment() {
     var runningTimer = RunningTimer()
 
     var isRest: Boolean = false
-    var isWorkTime: Boolean = true // false -> partTime
 
     var timerActivity: TimerActivity? = null
 
@@ -54,6 +53,8 @@ class TimerFragment : Fragment() {
 
         VarUtil.glob.restMinutes = 60
 
+        setWorkTime()
+
         binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
         binding.timerWorkTv.text = VarUtil.glob.currentWork
         binding.timerPickBt.text = VarUtil.glob.currentPart
@@ -66,7 +67,7 @@ class TimerFragment : Fragment() {
             .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_mills_et).getText().toString()
 
         binding.timerClickListener.setOnClickListener {
-            Log.d("isWorkTime", isWorkTime.toString())
+            Log.d("isWorkTime", VarUtil.glob.isWorkTime.toString())
             getWorkTime()
         }
 
@@ -81,7 +82,6 @@ class TimerFragment : Fragment() {
         }
 
         binding.timerDoneBt.setOnClickListener{
-            timerActivity!!.addWork(runningTimer.second)
             VarUtil.glob.totalData.exerciseInfo.totalExerciseTime = totalTimer.second
             timerActivity!!.popTimerFragment()
         }
@@ -126,17 +126,33 @@ class TimerFragment : Fragment() {
         return binding.root
     }
 
-    private fun getWorkTime() {
-        if (isWorkTime) // 현재 진행시간이라면 = 운동별 시간
+    private fun setWorkTime() {
+        if (!VarUtil.glob.isWorkTime) // 현재 진행시간이 아니라면 = 파트별 시간
         {
-            isWorkTime = false // change to partTime
             binding.timerRunningRestTv.visibility = View.INVISIBLE
             binding.timerRunningRestTimeTv.visibility = View.INVISIBLE
             binding.timerPartTv.visibility = View.VISIBLE
             binding.timerPartTimeTv.visibility = View.VISIBLE
         }
         else {
-            isWorkTime = true // change to WorkTime = 운동별 시간
+            binding.timerRunningRestTv.visibility = View.VISIBLE
+            binding.timerRunningRestTimeTv.visibility = View.VISIBLE
+            binding.timerPartTv.visibility = View.INVISIBLE
+            binding.timerPartTimeTv.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun getWorkTime() {
+        if (VarUtil.glob.isWorkTime) // 현재 진행시간이라면 = 운동별 시간
+        {
+            VarUtil.glob.isWorkTime = false // change to partTime
+            binding.timerRunningRestTv.visibility = View.INVISIBLE
+            binding.timerRunningRestTimeTv.visibility = View.INVISIBLE
+            binding.timerPartTv.visibility = View.VISIBLE
+            binding.timerPartTimeTv.visibility = View.VISIBLE
+        }
+        else {
+            VarUtil.glob.isWorkTime = true // change to WorkTime = 운동별 시간
             binding.timerRunningRestTv.visibility = View.VISIBLE
             binding.timerRunningRestTimeTv.visibility = View.VISIBLE
             binding.timerPartTv.visibility = View.INVISIBLE

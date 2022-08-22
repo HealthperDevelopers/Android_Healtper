@@ -46,6 +46,8 @@ class SettimerFragment : Fragment() {
     ): View? {
         binding = FragmentSetTimerBinding.inflate(inflater, container, false)
 
+        setWorkTime()
+
         var second = timerActivity!!.partTime(true)
         var minute = second / 60
         var hour = minute / 60
@@ -65,6 +67,45 @@ class SettimerFragment : Fragment() {
         binding.setTimerBackBt.setOnClickListener{
             timerActivity!!.finish()
         }
+
+        binding.setTimerClickListener.setOnClickListener {
+            Log.d("isWorkTime", VarUtil.glob.isWorkTime.toString())
+            getWorkTime()
+        }
         return binding.root
+    }
+
+    private fun setWorkTime() {
+        if (!VarUtil.glob.isWorkTime) // 현재 진행시간이 아니라면 = 파트별 시간
+        {
+            binding.setTimerRunningRestTv.visibility = View.INVISIBLE
+            binding.setTimerRunningRestTimeTv.visibility = View.INVISIBLE
+            binding.setTimerPartTv.visibility = View.VISIBLE
+            binding.setTimerPartTimeTv.visibility = View.VISIBLE
+        }
+        else {
+            binding.setTimerRunningRestTv.visibility = View.VISIBLE
+            binding.setTimerRunningRestTimeTv.visibility = View.VISIBLE
+            binding.setTimerPartTv.visibility = View.INVISIBLE
+            binding.setTimerPartTimeTv.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun getWorkTime() {
+        if (VarUtil.glob.isWorkTime) // 현재 진행시간이라면 = 운동별 시간
+        {
+            VarUtil.glob.isWorkTime = false // change to partTime
+            binding.setTimerRunningRestTv.visibility = View.INVISIBLE
+            binding.setTimerRunningRestTimeTv.visibility = View.INVISIBLE
+            binding.setTimerPartTv.visibility = View.VISIBLE
+            binding.setTimerPartTimeTv.visibility = View.VISIBLE
+        }
+        else {
+            VarUtil.glob.isWorkTime = true // change to WorkTime = 운동별 시간
+            binding.setTimerRunningRestTv.visibility = View.VISIBLE
+            binding.setTimerRunningRestTimeTv.visibility = View.VISIBLE
+            binding.setTimerPartTv.visibility = View.INVISIBLE
+            binding.setTimerPartTimeTv.visibility = View.INVISIBLE
+        }
     }
 }

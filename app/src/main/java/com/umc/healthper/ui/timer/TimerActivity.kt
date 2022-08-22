@@ -52,26 +52,61 @@ class TimerActivity : AppCompatActivity() {
     }
 
     fun addPack(){
-        pack.add(Pack(setCount, weight, count))
-        VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
-
-        // 현재 진행한 세트의 무게와 횟수 저장
+        // 중복 데이터 조회해서 pack에 덧붙이기
+        var flag = false
+        for (workRecord in VarUtil.glob.work){
+            if (workRecord.work == VarUtil.glob.currentWork)
+            {
+                workRecord.pack.add(Pack(setCount, weight, count))
+                VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
+                flag = true
+                break
+            }
+        }
+        if (!flag) {
+            pack.add(Pack(setCount, weight, count))
+            VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
+        }
+        // 현재 진행한 세트의 무게와 횟수 저장 + 세트수도 저장해야함.
         db.WorkDao().updateWorkWeight(VarUtil.glob.currentWork, weight)
         db.WorkDao().updateWorkCount(VarUtil.glob.currentWork, count)
     }
 
     fun addPack(weight: Int, count: Int){
-        pack.add(Pack(setCount, weight, count))
-        VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
-
+        // 중복 데이터 조회해서 pack에 덧붙이기
+        var flag = false
+        for (workRecord in VarUtil.glob.work){
+            if (workRecord.work == VarUtil.glob.currentWork)
+            {
+                workRecord.pack.add(Pack(setCount, weight, count))
+                VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
+                flag = true
+                break
+            }
+        }
+        if (!flag) {
+            pack.add(Pack(setCount, weight, count))
+            VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
+        }
         // 현재 진행한 세트의 무게와 횟수 저장
         db.WorkDao().updateWorkWeight(VarUtil.glob.currentWork, weight)
         db.WorkDao().updateWorkCount(VarUtil.glob.currentWork, count)
     }
 
     fun addWork(runningTime: Int) {
-        VarUtil.glob.work.add(WorkRecord (runningTime, pack, db.WorkPartDao().getWorkPartIdbyPartName(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
-        VarUtil.glob.totalData.sections.add(VarUtil.glob.currentPart) // -> comment에서 중복 제거
+        var flag = false
+        for (workRecord in VarUtil.glob.work){
+            if (workRecord.work == VarUtil.glob.currentWork)
+            {
+                workRecord.runningTime += runningTime
+                flag = true
+                break
+            }
+        }
+        if (!flag) {
+            VarUtil.glob.work.add(WorkRecord (runningTime, pack, db.WorkPartDao().getWorkPartIdbyPartName(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
+            VarUtil.glob.totalData.sections.add(VarUtil.glob.currentPart) // -> comment에서 중복 제거
+        }
     }
 
     fun partTime(part:String): Int {

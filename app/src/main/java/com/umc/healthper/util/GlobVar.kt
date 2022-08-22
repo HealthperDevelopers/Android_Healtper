@@ -24,6 +24,7 @@ class GlobVar: Application() {
     var work : ArrayList<WorkRecord> = arrayListOf()
     var totalData : TotalData = TotalData("", ArrayList(), ExerciseInfo(0, 0))
     var setMain : Boolean = false
+    var isWorkTime: Boolean = true // false -> partTime
 
     lateinit var workReadyAdapter: WorkReadyListAdapter
     var currentPart: String = ""
