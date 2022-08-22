@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.databinding.ItemWorkdetailWorknameBinding
 
-class WorkdetailListRVAdapter(val data: List<Work>): RecyclerView.Adapter<WorkdetailListRVAdapter.NameHolder>() {
+class WorkdetailListRVAdapter(val data: ArrayList<Work>): RecyclerView.Adapter<WorkdetailListRVAdapter.NameHolder>() {
 
     interface onClickListener {
         fun onClick(pos: Int)

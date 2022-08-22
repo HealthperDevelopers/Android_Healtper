@@ -15,7 +15,7 @@ import com.umc.healthper.util.VarUtil
 class WorkdetailFragment: Fragment() {
     lateinit var binding: FragmentWorkdetailBinding
     lateinit var currentPart: String
-    lateinit var workList: List<Work>
+    var workList = ArrayList<Work>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,7 +27,15 @@ class WorkdetailFragment: Fragment() {
 
         var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
         var partId = db.WorkPartDao().getWorkPartIdbyPartName(currentPart)
-        workList = db.WorkDao().findWorkbyPartId(partId)
+        val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(partId)
+        val tmpAll = db.WorkDao().findWorkbyPartId(partId)
+        for (i in tmpFav) {
+            for (j in tmpAll) {
+                if (i.workId == j.id) {
+                    workList.add(db.WorkDao().findWorkbyId(j.id))
+                }
+            }
+        }
         binding.workdetailWorkTitleTv.text = currentPart
 
         val adapter = WorkdetailListRVAdapter(workList)
