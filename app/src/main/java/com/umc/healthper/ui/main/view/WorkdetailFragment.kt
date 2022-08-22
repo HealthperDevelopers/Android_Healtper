@@ -1,6 +1,7 @@
 package com.umc.healthper.ui.main.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +17,28 @@ class WorkdetailFragment: Fragment() {
     lateinit var binding: FragmentWorkdetailBinding
     lateinit var currentPart: String
     var workList = ArrayList<Work>()
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("WorkDetail", "Start")
+        val adapter = WorkdetailListRVAdapter(workList)
+        binding.workdetailWorkListRv.adapter = adapter
+
+        adapter.setListener(object: WorkdetailListRVAdapter.onClickListener {
+            override fun onClick(pos: Int) {
+                VarUtil.glob.currentWork = workList[pos].workName
+                VarUtil.glob.mainActivity.goTimer()
+            }
+        })
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("WorkDetail", "create")
+
         binding = FragmentWorkdetailBinding.inflate(inflater, container, false)
         currentPart = VarUtil.glob.currentPart
         setListener()
@@ -39,16 +57,16 @@ class WorkdetailFragment: Fragment() {
         }
         binding.workdetailWorkTitleTv.text = currentPart
 
-        val adapter = WorkdetailListRVAdapter(workList)
-        binding.workdetailWorkListRv.adapter = adapter
+//        val adapter = WorkdetailListRVAdapter(workList)
+//        binding.workdetailWorkListRv.adapter = adapter
 
-        adapter.setListener(object: WorkdetailListRVAdapter.onClickListener {
-            override fun onClick(pos: Int) {
-                VarUtil.glob.currentWork = workList[pos].workName
-                VarUtil.glob.mainActivity.goTimer()
-            }
-
-        })
+//        adapter.setListener(object: WorkdetailListRVAdapter.onClickListener {
+//            override fun onClick(pos: Int) {
+//                VarUtil.glob.currentWork = workList[pos].workName
+//                VarUtil.glob.mainActivity.goTimer()
+//            }
+//
+//        })
 
         return binding.root
     }
