@@ -81,7 +81,7 @@ class TimerFragment : Fragment() {
         }
 
         binding.timerDoneBt.setOnClickListener{
-            timerActivity!!.addWork(runningTimer.second)
+//            timerActivity!!.addWork(runningTimer.second)
             VarUtil.glob.totalData.exerciseInfo.totalExerciseTime = totalTimer.second
             timerActivity!!.popTimerFragment()
         }
