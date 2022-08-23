@@ -197,7 +197,9 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class DetailHolder(val binding: ItemMainDetailBinding): RecyclerView.ViewHolder(binding.root) {
+        private var authService = AuthService()
         fun bind() {
+            authService.dayInfo().
             binding.root.setOnClickListener {
                 VarUtil.glob.mainActivity.changeMainFragment(3)
             }
