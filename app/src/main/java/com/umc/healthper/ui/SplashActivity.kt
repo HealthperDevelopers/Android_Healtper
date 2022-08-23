@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
 //            startActivity(intent)
 //            finish()
               splashlogin()
-//            finish()
+            finish()
         },DURATION)
         initDb(applicationContext)
 
@@ -171,8 +171,8 @@ class SplashActivity : AppCompatActivity() {
 
         if(LoginClient.instance.isKakaoTalkLoginAvailable(this)){
             LoginClient.instance.loginWithKakaoTalk(this, callback = callback)
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
 //            finish()
         }else if (getAutoLogin()) {
             LoginClient.instance.loginWithKakaoAccount(this, callback = callback)

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import android.util.Log
 import android.view.WindowManager
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.kakao.sdk.common.util.Utility
@@ -47,6 +48,12 @@ class MainActivity : AppCompatActivity() {
     var workdetailFragment: WorkdetailFragment? = null
     var authService : AuthService = AuthService()
     private var now: Calendar = Calendar.getInstance()
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("mainActivity", "destroy")
+        ActivityCompat.finishAffinity(this)
+    }
 
     override fun onResume() {
         super.onResume()

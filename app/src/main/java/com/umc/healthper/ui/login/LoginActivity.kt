@@ -132,11 +132,11 @@ class LoginActivity : AppCompatActivity() {
 
 
         //임시
-        binding.googleLoginTv.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-            finish()
-        }
+//        binding.googleLoginTv.setOnClickListener {
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//            finish()
+//        }
     }
 
     @SuppressLint("SetTextI18n")
