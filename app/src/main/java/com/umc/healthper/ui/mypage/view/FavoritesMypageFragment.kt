@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.flexbox.FlexboxLayoutManager
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.FragmentMypageFavoritesBinding
 import com.umc.healthper.ui.dialog.AddFavWorkDialog
+import com.umc.healthper.ui.mypage.adapter.ItemMove
 import com.umc.healthper.ui.mypage.adapter.PartRVAdapter
 import com.umc.healthper.ui.mypage.adapter.ShowFavWorkRVAdapter
 import com.umc.healthper.util.VarUtil
@@ -42,7 +44,12 @@ class FavoritesMypageFragment : Fragment() {
                         }
                     }
                 }
+
+
         VarUtil.glob.favPageWorkListAdapter = ShowFavWorkRVAdapter()
+        val itemAdapter = ItemMove(VarUtil.glob.favPageWorkListAdapter)
+        val touchHelper = ItemTouchHelper(itemAdapter)
+        touchHelper.attachToRecyclerView(binding.mypagefavWorkListRv)
         binding.mypagefavWorkListRv.adapter = VarUtil.glob.favPageWorkListAdapter
 
 
