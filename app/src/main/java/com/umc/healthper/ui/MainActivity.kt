@@ -9,13 +9,14 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import android.util.Log
 import android.view.WindowManager
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.kakao.sdk.common.util.Utility
 import com.umc.healthper.R
 import com.umc.healthper.databinding.ActivityMainBinding
+import com.umc.healthper.ui.board.view.BoardFragment
+import com.umc.healthper.ui.board.view.MyboardBoardFragment
+import com.umc.healthper.ui.board.view.WriteBoardFragment
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.MainFragment
@@ -33,11 +34,14 @@ class MainActivity : AppCompatActivity() {
     var mainFragment: MainFragment? = null
     var ChartFragment: ChartFragment? = null
     var mypageFragment: MypageFragment? = null
+    var BoardFragment: BoardFragment? = null
     var FavoritesMypageFragment: FavoritesMypageFragment? = null
     // var MusicMypageFragment: MusicMypageFragment? = null
     var PartchartFragment: PartchartFragment? = null
     var workReadyFragment: WorkReadyFragment? = null
     var workdetailFragment: WorkdetailFragment? = null
+    var MyboardBoardFragment: MyboardBoardFragment? = null
+    var WriteBoardFragment: WriteBoardFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mainFragment!!).commit()
                     }
                     supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
-                    // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
+                    if(BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
                     if (mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                     if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
                     checkStack()
@@ -85,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, ChartFragment!!).commit()
                     }
                     supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-                    // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
+                    if(BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
                     if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                     checkStack()
 
@@ -95,24 +99,25 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-//                "게시판" -> {
-//                    if (ChartFragment == null) {
-//                        ChartFragment = ChartFragment()
-//                        supportFragmentManager.beginTransaction().replace(R.id.main_frm_fl, ChartFragment!!).commit()
-//                    }
-//                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-//                    // supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
-//                    supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-//                    supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
-//                    true
-//                }
+                "게시판" -> {
+                    if (BoardFragment == null) {
+                        BoardFragment = BoardFragment()
+                        supportFragmentManager.beginTransaction().replace(R.id.main_frm_fl, BoardFragment!!).commit()
+                    }
+                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+                    supportFragmentManager.beginTransaction().show(BoardFragment!!).commit()
+                    supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+                    supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
+
+                    true
+                }
                 else -> {
                     if (mypageFragment == null) {
                         mypageFragment = MypageFragment()
                         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mypageFragment!!).commit()
                     }
                     if (mainFragment != null) supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-                    // supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+                    if (BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
                     supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
                     if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
                     checkStack()
@@ -231,6 +236,27 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    fun changeBoardFragment(int : Int){
+        val transition = supportFragmentManager.beginTransaction()
+        when (int){
+            0 -> {
+                MyboardBoardFragment = MyboardBoardFragment()
+                transition.replace(binding.mainFrmFl.id, MyboardBoardFragment!!)
+                transition.addToBackStack("boardMypage")
+            }
+            1->{
+                WriteBoardFragment = WriteBoardFragment()
+                transition.replace(binding.mainFrmFl.id, WriteBoardFragment!!)
+                transition.addToBackStack("boardWrite")
+
+            }
+        }
+        transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        transition.isAddToBackStackAllowed
+        transition.commit()
+    }
+
     fun initNav() {
         binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
@@ -244,4 +270,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, TimerActivity::class.java)
         startActivity(intent)
     }
+
+
+
 }
