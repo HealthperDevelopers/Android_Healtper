@@ -34,8 +34,8 @@ class FavoritesMypageFragment : Fragment() {
         //초기 dp
         currentPart = db.WorkPartDao().getFirst().workPart
         binding.mypagefavSelectPartTv.text = currentPart
-        val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(1)
-        val tmpAll = db.WorkDao().findWorkbyPartId(1)
+        val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(0)
+        val tmpAll = db.WorkDao().findWorkbyPartId(0)
         VarUtil.glob.favWorkList.clear()
                 for (i in tmpFav) {
                     for (j in tmpAll) {

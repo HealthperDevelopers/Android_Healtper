@@ -2,10 +2,14 @@ package com.umc.healthper.ui
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Base64
+import android.util.Log
 import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkPart
@@ -13,6 +17,8 @@ import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.ui.login.LoginActivity
 import java.io.InputStream
 import com.umc.healthper.util.VarUtil
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,26 +44,35 @@ class SplashActivity : AppCompatActivity() {
     }
     fun initDb(context: Context) {
         val db = LocalDB.getInstance(context)!!
-        if (db.WorkDao().getFirst() == null) {
-            val manager: AssetManager = context.assets
-            val input: InputStream = manager.open("workList.txt")
+        val manager: AssetManager = context.assets
+        if (db.WorkPartDao().getFirst() == null) {
+            val partData = manager.open("workPartList.txt")
 
+            partData.bufferedReader().readLines().forEach {
+                val dataList = it.split(" ")
+                val id = dataList[0].toInt()
+                val partEng = dataList[1]
+                val partKor = dataList[2]
+                val partColor = dataList[3]
+
+                val partData = WorkPart(id, partKor)
+                db.WorkPartDao().insert(partData)
+            }
+        }
+        if (db.WorkDao().getFirst() == null) {
+            val input: InputStream = manager.open("workList.txt")
             var part = ""
             var partId = 0
-            var next = false
+            var isPart = false
             input.bufferedReader().readLines().forEach {
                 val work = it
-                if (next) {
+                if (isPart) {
                     part = work
-                    var data = WorkPart (
-                        0, part
-                    )
-                    db.WorkPartDao().insert(data)
                     partId = db.WorkPartDao().getWorkPartIdbyPartName(part)
-                    next = false
+                    isPart = false
                 }
-                else if (work == "-") next = true
-                else if (!next) {
+                else if (work == "-") isPart = true
+                else if (!isPart) {
                     var inp = Work(
                         0,work, partId, 0, 0, 0
                     )

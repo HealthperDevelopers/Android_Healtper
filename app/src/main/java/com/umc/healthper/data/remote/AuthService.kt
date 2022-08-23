@@ -44,8 +44,8 @@ class AuthService {
             ) {
                 Log.d("login/success", response.toString())
                 val resp : List<CalenderResponse> = response.body()!!
-                Log.d("login/resp body", resp.first().day.toString())
-                Log.d("login/resp body", resp.first().sections.toString())
+//                Log.d("login/resp body", resp.first().day.toString())
+//                Log.d("login/resp body", resp.first().sections.toString())
             }
 
             override fun onFailure(call: Call<List<CalenderResponse>>, t: Throwable) {

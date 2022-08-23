@@ -17,6 +17,6 @@ interface WorkPartDao {
     @Query("SELECT workPart FROM workPartTable")
     fun getAllWork(): List<String>
 
-    @Query("SELECT * FROM workPartTable WHERE id = 1")
+    @Query("SELECT * FROM workPartTable WHERE id = 0")
     fun getFirst(): WorkPart
 }
