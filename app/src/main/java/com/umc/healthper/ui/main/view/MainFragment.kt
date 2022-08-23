@@ -24,4 +24,9 @@ class MainFragment: Fragment() {
         binding.mainRv.adapter = rvAdapter
         return binding.root
     }
+
+    override fun onResume() {
+        super.onResume()
+
+    }
 }
