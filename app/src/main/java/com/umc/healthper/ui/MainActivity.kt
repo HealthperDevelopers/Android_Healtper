@@ -184,6 +184,14 @@ class MainActivity : AppCompatActivity() {
             "workDetail",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
+        if (detailWorkRecordFirstFragment != null) supportFragmentManager.popBackStack(
+            "detailWorkRecordFirst",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (detailWorkRecordSecondFragment != null) supportFragmentManager.popBackStack(
+            "detailWorkRecordSecond",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
     }
 
     fun changeMypageFragment(int : Int){
