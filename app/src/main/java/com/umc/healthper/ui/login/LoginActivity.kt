@@ -49,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
         if (autoLogin) {
             UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
                 if (error != null) {
+                    Log.d("tmptoken", error.toString())
                     Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
                 }
                 else if (tokenInfo != null) {
@@ -67,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
 
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
+                Log.d("token", error.toString())
                 when {
                     error.toString() == AuthErrorCause.AccessDenied.toString() -> {
                         Toast.makeText(this, "접근이 거부 됨(동의 취소)", Toast.LENGTH_SHORT).show()
