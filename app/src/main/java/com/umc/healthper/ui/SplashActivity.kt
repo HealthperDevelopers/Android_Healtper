@@ -14,16 +14,30 @@ import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkPart
 import com.umc.healthper.data.local.LocalDB
+import com.umc.healthper.data.remote.AuthService
+import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.ui.login.LoginActivity
+import com.umc.healthper.ui.main.view.DetailFirstView
 import java.io.InputStream
 import com.umc.healthper.util.VarUtil
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.util.*
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(), DetailFirstView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        initDb(applicationContext)
+
+        val conn = AuthService()
+        conn.dayInfoData = this
+        val now = Calendar.getInstance()
+        val y = now.get(Calendar.YEAR)
+        val m = now.get(Calendar.MONTH) + 1
+        val d = now.get(Calendar.DATE)
+        conn.dayInfo("$y-$m-$d")
 
         Handler().postDelayed({
             val intent = Intent(this, LoginActivity::class.java)
@@ -32,7 +46,7 @@ class SplashActivity : AppCompatActivity() {
             finish()
         },DURATION)
 
-        initDb(applicationContext)
+
 
     }
     companion object {
@@ -87,5 +101,13 @@ class SplashActivity : AppCompatActivity() {
         for (i in db.WorkPartDao().getAllWork()) {
             VarUtil.glob.unselectedPart.add(i)
         }
+    }
+
+    override fun onDetailFirstGetSuccess(data: ArrayList<GetDayDetailFirst>) {
+        VarUtil.glob.detailFirstList = data
+    }
+
+    override fun onDetailFirstGetFailure() {
+        TODO("Not yet implemented")
     }
 }

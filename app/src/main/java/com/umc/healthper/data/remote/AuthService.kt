@@ -1,9 +1,9 @@
 package com.umc.healthper.data.remote
 
 import android.util.Log
-import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.WorkRecord
+import com.umc.healthper.ui.main.view.DetailFirstView
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
@@ -11,25 +11,25 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Path
-import retrofit2.http.Query
-import java.util.*
 import kotlin.collections.ArrayList
 
 class AuthService {
-
+    lateinit var dayInfoData: DetailFirstView
     fun dayInfo(theDay : String)
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
-        authService.dayInfo(theDay).enqueue(object :Callback<List<DayResponse>> {
-            override fun onResponse(call: Call<List<DayResponse>>, response: Response<List<DayResponse>>
+        authService.dayInfo(theDay).enqueue(object :Callback<List<GetDayDetailFirst>> {
+            override fun onResponse(call: Call<List<GetDayDetailFirst>>, response: Response<List<GetDayDetailFirst>>
             ) {
                 Log.d("dayInfo/success", response.toString())
-                val resp : List<DayResponse> = response.body()!!
+                val resp : List<GetDayDetailFirst> = response.body()!!
+                val arrResp = ArrayList<GetDayDetailFirst>(resp)
+                dayInfoData.onDetailFirstGetSuccess(arrResp)
                 Log.d("dayInfo/resp body", resp.toString())
             }
 
-            override fun onFailure(call: Call<List<DayResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<List<GetDayDetailFirst>>, t: Throwable) {
                 Log.d("dayInfo/FAILURE", t.message.toString())
             }
         })

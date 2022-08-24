@@ -23,7 +23,7 @@ interface AuthRetrofitInterface {
     @GET("/record/info")
     fun dayInfo(
         @Query ("theDay") theDay : String
-    ) : Call<List<DayResponse>>
+    ) : Call<List<GetDayDetailFirst>>
 //    캘린더 밑에 운동 정보 받아오는 함수. theDay 예시 = "2022-08-23"
 
     @POST("/record")

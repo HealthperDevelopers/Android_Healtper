@@ -6,20 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.*
 import com.umc.healthper.data.remote.AuthService
+import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.databinding.ItemMainCalendarBinding
 import com.umc.healthper.databinding.ItemMainDetailBinding
 import com.umc.healthper.databinding.ItemMainNewBinding
 import com.umc.healthper.databinding.ItemMainUserBinding
+import com.umc.healthper.ui.main.view.DetailFirstView
 import com.umc.healthper.util.VarUtil
 import java.util.*
 
 
-class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    private val data_list = listOf(1, 2, 3, 4)
 
     override fun getItemViewType(position: Int): Int {
-        return data_list[position]
+        return VarUtil.glob.mainCompList[position]
     }
     override fun getItemCount(): Int {
         return 4
@@ -47,7 +48,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(data_list[position]) {
+        when(VarUtil.glob.mainCompList[position]) {
             1-> {
                 (holder as UserHolder).bind()
             }
@@ -77,7 +78,6 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private lateinit var now: Calendar
         private lateinit var calRvAdapList: ArrayList<DateRVAdapter>
         private lateinit var calRvLayoutList: ArrayList<FlexboxLayoutManager>
-
         private var authService = AuthService()
 
         fun bind() {
@@ -172,6 +172,15 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             if (calRvAdapList.size == 0) {
                 for (i in 1..6) {
                     val tmp = DateRVAdapter(data, i, weekList)
+                    tmp.customListener(object: DateRVAdapter.UserListener {
+                        override fun onClick(date: String) {
+                            val y = now.get(Calendar.YEAR).toString()
+                            val m = (now.get(Calendar.MONTH)+1).toString()
+                            val selectedDay = "$y-$m-date"
+                            authService.dayInfo(selectedDay)
+                        }
+
+                    })
                     calRvAdapList.add(tmp)
                     val tmp2 = FlexboxLayoutManager(VarUtil.glob.mainContext)
                     tmp2.flexDirection = FlexDirection.ROW
@@ -196,13 +205,15 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.itemMainCalW6Rv.adapter = calRvAdapList[5]}
     }
 
-    class DetailHolder(val binding: ItemMainDetailBinding): RecyclerView.ViewHolder(binding.root) {
-        private var authService = AuthService()
+    inner class DetailHolder(val binding: ItemMainDetailBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.root.setOnClickListener {
                 VarUtil.glob.mainActivity.changeMainFragment(3)
             }
+            binding.itemMainDetailTotalTimeTv.text = VarUtil.glob.detailFirstList[adapterPosition].exerciseInfo!!.totalExerciseTime.toString()
+            binding.itemMainDetailTotalWeightTv.text = VarUtil.glob.detailFirstList[adapterPosition].exerciseInfo!!.totalVolume.toString()
         }
+
     }
 
     class NewHolder(val binding: ItemMainNewBinding): RecyclerView.ViewHolder(binding.root) {
@@ -213,6 +224,5 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         }
     }
-
 
 }
