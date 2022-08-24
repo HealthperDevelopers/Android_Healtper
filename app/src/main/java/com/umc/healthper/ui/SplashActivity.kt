@@ -28,6 +28,12 @@ import kotlin.collections.ArrayList
 
 class SplashActivity : AppCompatActivity(), DetailFirstView  {
     var isToken = false
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("splashActivity", "finish")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
