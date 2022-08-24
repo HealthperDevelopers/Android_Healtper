@@ -19,6 +19,16 @@ class CommentActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityCommentBinding
 
+    override fun onStart() {
+        super.onStart()
+        var second = VarUtil.glob.totalData.exerciseInfo.totalExerciseTime
+        var minute = second / 60
+        var hour = minute / 60
+        binding.todaycommentRealTimeTv.text = String.format("%02d : %02d : %02d", hour, minute, second % 60)
+
+        var volume = VarUtil.glob.totalData.exerciseInfo.totalVolume
+        binding.todaycommentRealVolumeTv.text = String.format("%d kg", volume)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
