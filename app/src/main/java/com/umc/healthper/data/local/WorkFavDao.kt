@@ -15,4 +15,10 @@ interface WorkFavDao {
 
     @Query("SELECT * FROM workFavTable WHERE workPartId= :part")
     fun getAllFavWorkByPartId(part: Int): List<WorkFav>
+
+    @Query("UPDATE workFavTable SET `order`=:ord WHERE workId= :id ")
+    fun editOrder(id: Int, ord: Int)
+
+    @Query("DELETE FROM workFavTable WHERE workId= :id")
+    fun delFavWork(id: Int)
 }

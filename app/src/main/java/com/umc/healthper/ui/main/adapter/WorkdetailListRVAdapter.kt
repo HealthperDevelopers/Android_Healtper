@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.databinding.ItemWorkdetailWorknameBinding
 import com.umc.healthper.util.VarUtil
@@ -41,8 +42,9 @@ class WorkdetailListRVAdapter(val data: ArrayList<Work>): RecyclerView.Adapter<W
             try {
                 for (work in VarUtil.glob.work){
                     if (work.work == data[pos].workName) {
-                        Log.d("workDetailRVAdapter", "color change")
-                        binding.itemWorkdetailWorknameTv.setBackgroundColor(Color.parseColor("#FF0000"))
+//                        val d = Log.d("workDetailRVAdapter", "color change")
+                        binding.itemWorkdetailWorknameTv.setBackground(VarUtil.glob.mainContext.getResources().getDrawable(
+                            R.drawable.workdetail_do_work))
                     }
                 }
             }catch(e : Exception){

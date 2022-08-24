@@ -27,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d("LoginActivity", "create")
 
         val spf = this.getSharedPreferences("isAuto", MODE_PRIVATE)
         var autoLogin = getAutoLogin()
@@ -67,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
 
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
+                Log.d("token", error.toString())
                 when {
                     error.toString() == AuthErrorCause.AccessDenied.toString() -> {
                         Toast.makeText(this, "접근이 거부 됨(동의 취소)", Toast.LENGTH_SHORT).show()

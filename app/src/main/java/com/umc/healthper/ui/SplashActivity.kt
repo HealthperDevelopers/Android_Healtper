@@ -1,6 +1,5 @@
 package com.umc.healthper.ui
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
@@ -18,17 +17,36 @@ import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkPart
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.data.remote.AuthService
+import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.ui.login.LoginActivity
+import com.umc.healthper.ui.main.view.DetailFirstView
 import java.io.InputStream
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getAutoLogin
-import com.umc.healthper.util.saveAutoLogin
+import java.util.*
+import kotlin.collections.ArrayList
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(), DetailFirstView  {
     var isToken = false
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("splashActivity", "finish")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        initDb(applicationContext)
+
+        val conn = AuthService()
+        conn.dayInfoData = this
+        val now = Calendar.getInstance()
+        val y = now.get(Calendar.YEAR)
+        val m = now.get(Calendar.MONTH) + 1
+        val d = now.get(Calendar.DATE)
+        conn.dayInfo("$y-$m-$d")
 
         Handler().postDelayed({
 //            val intent = Intent(this, LoginActivity::class.java)
@@ -38,7 +56,6 @@ class SplashActivity : AppCompatActivity() {
               splashlogin()
             finish()
         },DURATION)
-        initDb(applicationContext)
 
     }
     companion object {
@@ -50,26 +67,35 @@ class SplashActivity : AppCompatActivity() {
     }
     fun initDb(context: Context) {
         val db = LocalDB.getInstance(context)!!
-        if (db.WorkDao().getFirst() == null) {
-            val manager: AssetManager = context.assets
-            val input: InputStream = manager.open("workList.txt")
+        val manager: AssetManager = context.assets
+        if (db.WorkPartDao().getFirst() == null) {
+            val partData = manager.open("workPartList.txt")
 
+            partData.bufferedReader().readLines().forEach {
+                val dataList = it.split(" ")
+                val id = dataList[0].toInt()
+                val partEng = dataList[1]
+                val partKor = dataList[2]
+                val partColor = dataList[3]
+
+                val partData = WorkPart(id, partKor, partColor)
+                db.WorkPartDao().insert(partData)
+            }
+        }
+        if (db.WorkDao().getFirst() == null) {
+            val input: InputStream = manager.open("workList.txt")
             var part = ""
             var partId = 0
-            var next = false
+            var isPart = false
             input.bufferedReader().readLines().forEach {
                 val work = it
-                if (next) {
+                if (isPart) {
                     part = work
-                    var data = WorkPart (
-                        0, part
-                    )
-                    db.WorkPartDao().insert(data)
                     partId = db.WorkPartDao().getWorkPartIdbyPartName(part)
-                    next = false
+                    isPart = false
                 }
-                else if (work == "-") next = true
-                else if (!next) {
+                else if (work == "-") isPart = true
+                else if (!isPart) {
                     var inp = Work(
                         0,work, partId, 0, 0, 0
                     )
@@ -81,9 +107,20 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
-        for (i in db.WorkPartDao().getAllWork()) {
-            VarUtil.glob.unselectedPart.add(i)
+        if (VarUtil.glob.unselectedPart.size == 0 &&
+            VarUtil.glob.selectedPart.size == 0) {
+            for (i in db.WorkPartDao().getAllWork()) {
+                VarUtil.glob.unselectedPart.add(i)
+            }
         }
+
+    }
+
+    override fun onDetailFirstGetSuccess(data: ArrayList<GetDayDetailFirst>) {
+        VarUtil.glob.detailFirstList = data
+    }
+
+    override fun onDetailFirstGetFailure() {
     }
 
     fun splashlogin(){

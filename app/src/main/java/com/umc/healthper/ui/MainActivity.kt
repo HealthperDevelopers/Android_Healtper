@@ -14,19 +14,14 @@ import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.kakao.sdk.auth.LoginClient
-import com.kakao.sdk.common.util.Utility
 import com.umc.healthper.R
 import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.remote.AuthService
-import com.umc.healthper.databinding.ActivityCommentBinding
 import com.umc.healthper.databinding.ActivityMainBinding
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
-import com.umc.healthper.ui.main.view.MainFragment
-import com.umc.healthper.ui.main.view.WorkReadyFragment
-import com.umc.healthper.ui.main.view.WorkdetailFragment
+import com.umc.healthper.ui.main.view.*
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
@@ -47,6 +42,8 @@ class MainActivity : AppCompatActivity() {
     var PartchartFragment: PartchartFragment? = null
     var workReadyFragment: WorkReadyFragment? = null
     var workdetailFragment: WorkdetailFragment? = null
+    var detailWorkRecordSecondFragment: DetailWorkRecordSecondFragment? = null
+    var detailWorkRecordFirstFragment: DetailWorkRecordFirstFragment? = null
     var authService : AuthService = AuthService()
     private var now: Calendar = Calendar.getInstance()
 
@@ -194,6 +191,14 @@ class MainActivity : AppCompatActivity() {
             "workDetail",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
+        if (detailWorkRecordFirstFragment != null) supportFragmentManager.popBackStack(
+            "detailWorkRecordFirst",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (detailWorkRecordSecondFragment != null) supportFragmentManager.popBackStack(
+            "detailWorkRecordSecond",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
     }
 
     fun changeMypageFragment(int : Int){
@@ -246,13 +251,28 @@ class MainActivity : AppCompatActivity() {
                 trans.replace(binding.mainFrmFl.id, workReadyFragment!!).addToBackStack("workReady")
                 Log.d("add2BackStack", "workReady")
             }
-            else -> {
+            4 -> {
+                if (detailWorkRecordSecondFragment == null) {
+                    detailWorkRecordSecondFragment = DetailWorkRecordSecondFragment()
+                }
+
+                trans.replace(binding.mainFrmFl.id, detailWorkRecordSecondFragment!!).addToBackStack("detailWorkRecordSecond")
+            }
+            2 -> {
                 if (workdetailFragment == null) {
                     workdetailFragment = WorkdetailFragment()
                 }
 
                 trans.replace(binding.mainFrmFl.id, workdetailFragment!!).addToBackStack("workDetail")
                 Log.d("add2BackStack", "workDetail")
+            }
+            else -> {
+                if (detailWorkRecordFirstFragment == null) {
+                    detailWorkRecordFirstFragment = DetailWorkRecordFirstFragment()
+                }
+
+                trans.replace(binding.mainFrmFl.id, detailWorkRecordFirstFragment!!).addToBackStack("detailWorkRecordFirst")
+
             }
         }
         trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

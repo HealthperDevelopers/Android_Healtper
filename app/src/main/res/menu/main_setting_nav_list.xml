@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <item
+    android:id="@+id/setting_ad"
     android:title="test">
 </item>
+    <item
+        android:id="@+id/setting_privacy"
+        android:title="test">
+    </item>
+    <item
+        android:id="@+id/setting_help"
+        android:title="test">
+    </item>
+    <item
+        android:id="@+id/setting_review"
+        android:title="test">
+    </item>
+    <item
+        android:id="@+id/setting_get_backup"
+        android:title="test">
+    </item>
+    <item
+        android:id="@+id/setting_set_backup"
+        android:title="test">
+    </item>
+    <item
+        android:id="@+id/setting_update"
+        android:title="test">
+    </item>
+    <item
+        android:id="@+id/setting_exit"
+        android:title="test">
+    </item>
 </menu>

@@ -1,8 +1,11 @@
 package com.umc.healthper.data.remote
 
 import android.util.Log
+import com.umc.healthper.ui.main.view.CalendarDataView
+import com.umc.healthper.ui.main.view.DetailFirstView
+import com.umc.healthper.ui.main.view.DetailSecondView
+
 import android.widget.Toast
-import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.ui.SplashActivity
@@ -13,25 +16,35 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Path
-import retrofit2.http.Query
-import java.util.*
 import kotlin.collections.ArrayList
 
 class AuthService {
+    lateinit var dayInfoData: DetailFirstView
+    lateinit var calendarData: CalendarDataView
+    lateinit var dayDetailData: DetailSecondView
 
     fun dayInfo(theDay : String)
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
-        authService.dayInfo(theDay).enqueue(object :Callback<List<DayResponse>> {
-            override fun onResponse(call: Call<List<DayResponse>>, response: Response<List<DayResponse>>
+        authService.dayInfo(theDay).enqueue(object :Callback<List<GetDayDetailFirst>> {
+            override fun onResponse(call: Call<List<GetDayDetailFirst>>, response: Response<List<GetDayDetailFirst>>
             ) {
-                Log.d("dayInfo/success", response.toString())
-                val resp : List<DayResponse> = response.body()!!
-                Log.d("dayInfo/resp body", resp.toString())
+                if (response.code() != 400) {
+                    if (!response.body().isNullOrEmpty()) {
+                        Log.d("dayInfo/success", response.toString())
+                        val resp: List<GetDayDetailFirst> = response.body()!!
+                        val arrResp = ArrayList<GetDayDetailFirst>(resp)
+                        dayInfoData.onDetailFirstGetSuccess(arrResp)
+                        Log.d("dayInfo/resp body", resp.toString())
+                    }
+                }
+                else {
+
+                }
             }
 
-            override fun onFailure(call: Call<List<DayResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<List<GetDayDetailFirst>>, t: Throwable) {
                 Log.d("dayInfo/FAILURE", t.message.toString())
             }
         })
@@ -41,19 +54,21 @@ class AuthService {
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
-        authService.login(user).enqueue(object :Callback<List<CalenderResponse>> {
-            override fun onResponse(call: Call<List<CalenderResponse>>, response: Response<List<CalenderResponse>>
+        authService.login(user).enqueue(object :Callback<List<CalendarResponse>> {
+            override fun onResponse(call: Call<List<CalendarResponse>>, response: Response<List<CalendarResponse>>
             ) {
                 Log.d("login/success", response.toString())
-                val resp : List<CalenderResponse> = response.body()!!
-                Log.d("login/resp body", resp.first().day.toString())
-                Log.d("login/resp body", resp.first().sections.toString())
-                Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
-                val splashActivity =  SplashActivity()
-                splashActivity.finish()
+                val resp : List<CalendarResponse> = response.body()!!
+                if (resp.first() != null) {
+                    Log.d("login/resp body", resp.first().day.toString())
+                    Log.d("login/resp body", resp.first().sections.toString())
+                }
+//                  Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
+                  val splashActivity =  SplashActivity()
+                  splashActivity.finish()
             }
 
-            override fun onFailure(call: Call<List<CalenderResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<List<CalendarResponse>>, t: Throwable) {
                 Log.d("LOGIN/FAILURE", t.message.toString())
             }
         })
@@ -63,13 +78,18 @@ class AuthService {
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
-        authService.calenderInfo(year, month).enqueue(object :Callback<List<CalenderResponse>> {
-            override fun onResponse(call: Call<List<CalenderResponse>>, response: Response<List<CalenderResponse>>
+        authService.calenderInfo(year, month).enqueue(object :Callback<List<CalendarResponse>> {
+            override fun onResponse(call: Call<List<CalendarResponse>>, response: Response<List<CalendarResponse>>
             ) {
                 when (response.code()){
                     200 -> {
-                        val resp: List<CalenderResponse> = response.body()!!
-                        Log.d("calender/resp body", resp.toString())
+                        val resp: List<CalendarResponse>? = response.body()
+                        if (resp.isNullOrEmpty()) {
+                        }
+                        else {
+                            calendarData.calendarDataGetSuccess(ArrayList(resp))
+                            Log.d("calender/resp body", resp.toString())
+                        }
                     }
                     else -> {
                         Log.d("calender/FAILURE", "Fail")
@@ -77,7 +97,7 @@ class AuthService {
                 }
             }
 
-            override fun onFailure(call: Call<List<CalenderResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<List<CalendarResponse>>, t: Throwable) {
                 Log.d("calender/FAILURE", t.message.toString())
             }
         })
@@ -124,6 +144,27 @@ class AuthService {
             override fun onFailure(call: Call<String>, t: Throwable) {
                 Log.d("detail/fail", t.message.toString())
             }
+        })
+    }
+
+    fun dayDetail(id : Int)
+    {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.getDetail(id).enqueue(object: Callback<List<GetDayDetailSecond>> {
+            override fun onResponse(
+                call: Call<List<GetDayDetailSecond>>,
+                response: Response<List<GetDayDetailSecond>>
+            ) {
+                val resp = response.body()
+                Log.d("workData", resp.toString())
+                val arrResp = ArrayList(resp)
+                dayDetailData.daySecondDetailonSuccess(arrResp)
+            }
+
+            override fun onFailure(call: Call<List<GetDayDetailSecond>>, t: Throwable) {
+            }
+
         })
     }
 }
