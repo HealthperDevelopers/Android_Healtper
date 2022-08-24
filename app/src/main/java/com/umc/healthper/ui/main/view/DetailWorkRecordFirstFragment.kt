@@ -22,6 +22,8 @@ class DetailWorkRecordFirstFragment: Fragment() {
 
         binding = FragmentDetailWorkRecordFirstBinding.inflate(inflater, container, false)
 
+
+        VarUtil.glob.recordId
         val adapter = DetailWorkRecordRvAdapter()
         adapter.setListener(object: DetailWorkRecordRvAdapter.Listener{
             override fun onClick(pos: Int) {

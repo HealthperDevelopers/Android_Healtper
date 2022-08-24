@@ -11,6 +11,7 @@ import com.umc.healthper.databinding.ItemMainCalendarBinding
 import com.umc.healthper.databinding.ItemMainDetailBinding
 import com.umc.healthper.databinding.ItemMainNewBinding
 import com.umc.healthper.databinding.ItemMainUserBinding
+import com.umc.healthper.ui.main.view.CalendarDataView
 import com.umc.healthper.ui.main.view.DetailFirstView
 import com.umc.healthper.util.VarUtil
 import java.util.*
@@ -23,7 +24,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         return VarUtil.glob.mainCompList[position]
     }
     override fun getItemCount(): Int {
-        return 4
+        return VarUtil.glob.mainCompList.size
     }
     override fun onCreateViewHolder(parent:ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -106,6 +107,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             weekList = setCalWeekData()
 
             binding.itemMainCalMonyearTv.text = data[0].toString() + "년 " + data[1].toString()+ "월"
+            VarUtil.glob.mainFragment.setAuth(authService)
             authService.calenderInfo(data[0], data[1])
             VarUtil.glob.today.background = null
             for (i in 0..5) {
@@ -175,8 +177,15 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                     tmp.customListener(object: DateRVAdapter.UserListener {
                         override fun onClick(date: String) {
                             val y = now.get(Calendar.YEAR).toString()
-                            val m = (now.get(Calendar.MONTH)+1).toString()
-                            val selectedDay = "$y-$m-date"
+                            val m = (now.get(Calendar.MONTH)+1)
+                            val newM = if (m < 10) {
+                                "0$m"
+                            }
+                            else {
+                                m.toString()
+                            }
+                            val selectedDay = "$y-$newM-$date"
+                            authService.dayInfoData = VarUtil.glob.mainFragment
                             authService.dayInfo(selectedDay)
                         }
 
@@ -205,13 +214,21 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             binding.itemMainCalW6Rv.adapter = calRvAdapList[5]}
     }
 
-    inner class DetailHolder(val binding: ItemMainDetailBinding): RecyclerView.ViewHolder(binding.root) {
+    class DetailHolder(val binding: ItemMainDetailBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.root.setOnClickListener {
+                VarUtil.glob.recordId = VarUtil.glob.detailFirstList[adapterPosition - 2].record_id
                 VarUtil.glob.mainActivity.changeMainFragment(3)
             }
-            binding.itemMainDetailTotalTimeTv.text = VarUtil.glob.detailFirstList[adapterPosition].exerciseInfo!!.totalExerciseTime.toString()
-            binding.itemMainDetailTotalWeightTv.text = VarUtil.glob.detailFirstList[adapterPosition].exerciseInfo!!.totalVolume.toString()
+            if (VarUtil.glob.detailFirstList.isNullOrEmpty()) {
+
+            }
+            else {
+                binding.itemMainDetailTotalTimeTv.text =
+                    VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseInfo!!.totalExerciseTime.toString()
+                binding.itemMainDetailTotalWeightTv.text =
+                    VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseInfo!!.totalVolume.toString()
+            }
         }
 
     }

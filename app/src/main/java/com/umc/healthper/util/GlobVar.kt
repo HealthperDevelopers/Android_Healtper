@@ -11,11 +11,13 @@ import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
+import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.mypage.adapter.ShowFavWorkRVAdapter
 
 class GlobVar: Application() {
     lateinit var mainContext: Context
     lateinit var mainActivity: MainActivity
+    lateinit var mainFragment: MainFragment
     lateinit var today: TextView
     lateinit var size: Point
     var restMinutes : Int = 60
@@ -39,4 +41,7 @@ class GlobVar: Application() {
     //달력각날짜의상세데이터
     var detailFirstList = ArrayList<GetDayDetailFirst>()
     var mainCompList =(1..4).toMutableList()
+
+    //현재 열람중인 운동정보id
+    var recordId: Int = 0
 }

@@ -10,14 +10,14 @@ interface AuthRetrofitInterface {
     @GET("/login")
     fun login(
         @Query ("kakaoId") kakaoId : String
-    ) : Call<List<CalenderResponse>>
+    ) : Call<List<CalendarResponse>>
 //    로그인 시 캘린더 정보를 동시에 받아옴 = calenderInfo
 
     @GET("/record/calender")
     fun calenderInfo(
         @Query ("year") year : Int,
         @Query ("month") month: Int
-    ) : Call<List<CalenderResponse>>
+    ) : Call<List<CalendarResponse>>
 //    캘린더 내의 정보 받아오는 함수. 점 3개
 
     @GET("/record/info")
