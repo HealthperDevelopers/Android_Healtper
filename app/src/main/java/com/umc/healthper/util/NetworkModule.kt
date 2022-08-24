@@ -28,7 +28,7 @@ private val gson = GsonBuilder().setLenient().create()
 fun getRetrofit(): Retrofit {
     if (instance == null) {
         val interceptor = HttpLoggingInterceptor()
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val client = OkHttpClient.Builder()
             .cookieJar(JavaNetCookieJar(CookieManager()))

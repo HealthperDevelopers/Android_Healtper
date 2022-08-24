@@ -19,4 +19,7 @@ interface WorkPartDao {
 
     @Query("SELECT * FROM workPartTable WHERE id = 0")
     fun getFirst(): WorkPart
+
+    @Query("SELECT workPart FROM workPartTable WHERE id = :id")
+    fun getWorkPartNamebyWorkPartId(id: Int): String
 }
