@@ -101,6 +101,13 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
             }
         }
 
+        if (VarUtil.glob.unselectedPart.size == 0 &&
+            VarUtil.glob.selectedPart.size == 0) {
+            for (i in db.WorkPartDao().getAllWork()) {
+                VarUtil.glob.unselectedPart.add(i)
+            }
+        }
+
     }
 
     override fun onDetailFirstGetSuccess(data: ArrayList<GetDayDetailFirst>) {

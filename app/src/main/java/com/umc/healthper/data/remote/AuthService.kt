@@ -63,7 +63,7 @@ class AuthService {
                     Log.d("login/resp body", resp.first().day.toString())
                     Log.d("login/resp body", resp.first().sections.toString())
                 }
-                  Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
+//                  Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
                   val splashActivity =  SplashActivity()
                   splashActivity.finish()
             }
