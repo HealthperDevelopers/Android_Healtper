@@ -6,14 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.*
 import com.umc.healthper.data.remote.AuthService
-import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.databinding.ItemMainCalendarBinding
 import com.umc.healthper.databinding.ItemMainDetailBinding
 import com.umc.healthper.databinding.ItemMainNewBinding
 import com.umc.healthper.databinding.ItemMainUserBinding
-import com.umc.healthper.ui.main.view.CalendarDataView
-import com.umc.healthper.ui.main.view.DetailFirstView
 import com.umc.healthper.ui.main.view.DetailSecondView
 import com.umc.healthper.util.VarUtil
 import java.util.*
@@ -235,9 +232,9 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             }
             else {
                 binding.itemMainDetailTotalTimeTv.text =
-                    VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseInfo!!.totalExerciseTime.toString()
+                    VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseEntity!!.totalExerciseTime.toString()
                 binding.itemMainDetailTotalWeightTv.text =
-                    VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseInfo!!.totalVolume.toString()
+                    VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseEntity!!.totalVolume.toString()
             }
         }
 

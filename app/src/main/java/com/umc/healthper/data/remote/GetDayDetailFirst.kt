@@ -4,10 +4,10 @@ data class GetDayDetailFirst (
         var record_id: Int = 0,
         var comment: String? = null,
         var sections: ArrayList<String>? = null,
-        var exerciseInfo: ExerciseInfo? = null
+        var exerciseEntity: ExerciseEntity? = null
 )
 
-data class ExerciseInfo (
+data class ExerciseEntity (
         var totalExerciseTime:Int = 0,
         var totalVolume:Int = 0
         )
