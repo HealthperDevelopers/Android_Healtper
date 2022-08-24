@@ -14,6 +14,7 @@ import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.common.util.Utility
 import com.umc.healthper.R
 import com.umc.healthper.data.entity.ExerciseInfo
