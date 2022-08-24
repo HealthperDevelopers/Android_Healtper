@@ -1,9 +1,11 @@
 package com.umc.healthper.data.remote
 
 import android.util.Log
+import android.widget.Toast
 import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.WorkRecord
+import com.umc.healthper.ui.SplashActivity
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
@@ -44,10 +46,18 @@ class AuthService {
             ) {
                 Log.d("login/success", response.toString())
                 val resp : List<CalenderResponse> = response.body()!!
-                if (resp.first() != null) {
-                    Log.d("login/resp body", resp.first().day.toString())
-                    Log.d("login/resp body", resp.first().sections.toString())
-                }
+  <<<<<<< miri
+                  Log.d("login/resp body", resp.first().day.toString())
+                  Log.d("login/resp body", resp.first().sections.toString())
+                  Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
+                  val splashActivity =  SplashActivity()
+                  splashActivity.finish()
+  =======
+                  if (resp.first() != null) {
+                      Log.d("login/resp body", resp.first().day.toString())
+                      Log.d("login/resp body", resp.first().sections.toString())
+                  }
+  >>>>>>> main
             }
 
             override fun onFailure(call: Call<List<CalenderResponse>>, t: Throwable) {

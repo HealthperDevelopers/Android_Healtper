@@ -6,37 +6,38 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     app:layoutDescription="@xml/scene_01"
-    tools:showPaths="true">
+    tools:showPaths="true"
+    android:background="@color/timer_background">
     <ImageView
         android:id="@+id/splash_logo_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_foreground"
+        android:layout_width="176dp"
+        android:layout_height="127dp"
+        android:src="@drawable/splash_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView
-        android:id="@+id/splash_text1_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="헬스 시간 도우미"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/splash_logo_iv"
-        />
+<!--    <TextView-->
+<!--        android:id="@+id/splash_text1_tv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="헬스 시간 도우미"-->
+<!--        android:textSize="15sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/splash_logo_iv"-->
+<!--        />-->
 
-    <TextView
-        android:id="@+id/splash_text2_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HEALTHPER"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/splash_text1_tv"
-        />
+<!--    <TextView-->
+<!--        android:id="@+id/splash_text2_tv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="HEALTHPER"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/splash_text1_tv"-->
+<!--        />-->
 </androidx.constraintlayout.motion.widget.MotionLayout>

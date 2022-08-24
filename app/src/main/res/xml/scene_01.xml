@@ -31,17 +31,17 @@
     <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@+id/splash_logo_iv"
-            android:layout_width="200dp"
-            android:layout_height="85dp"
+            android:layout_width="176dp"
+            android:layout_height="127dp"
             android:layout_marginStart="8dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="parent">
 
-            <CustomAttribute
-                motion:attributeName="backgroundColor"
-                motion:customColorValue="@color/purple_500" />
+<!--            <CustomAttribute-->
+<!--                motion:attributeName="backgroundColor"-->
+<!--                motion:customColorValue="@color/purple_500" />-->
 
         </Constraint>
     </ConstraintSet>
@@ -49,17 +49,17 @@
     <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@+id/splash_logo_iv"
-            android:layout_width="200dp"
-            android:layout_height="85dp"
+            android:layout_width="176dp"
+            android:layout_height="127dp"
             android:layout_marginEnd="8dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="parent">
 
-            <CustomAttribute
-                motion:attributeName="backgroundColor"
-                motion:customColorValue="@color/purple_200" />
+<!--            <CustomAttribute-->
+<!--                motion:attributeName="backgroundColor"-->
+<!--                motion:customColorValue="@color/purple_200" />-->
 
         </Constraint>
     </ConstraintSet>

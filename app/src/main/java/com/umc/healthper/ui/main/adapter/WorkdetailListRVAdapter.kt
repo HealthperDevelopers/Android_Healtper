@@ -19,6 +19,7 @@ class WorkdetailListRVAdapter(val data: ArrayList<Work>): RecyclerView.Adapter<W
     fun setListener(set: onClickListener) {
         onClick = set
     }
+
     lateinit var binding: ItemWorkdetailWorknameBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
         val binding = ItemWorkdetailWorknameBinding.inflate(LayoutInflater.from(parent.context), parent, false)

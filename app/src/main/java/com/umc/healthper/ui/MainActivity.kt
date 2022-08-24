@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import android.util.Log
 import android.view.WindowManager
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.umc.healthper.R
@@ -46,6 +47,12 @@ class MainActivity : AppCompatActivity() {
     var authService : AuthService = AuthService()
     private var now: Calendar = Calendar.getInstance()
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("mainActivity", "destroy")
+        ActivityCompat.finishAffinity(this)
+    }
+
     override fun onResume() {
         super.onResume()
         Log.d("mainActivity", "reStart")
@@ -61,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.d("mainActivity", "Start")
+        Log.d("mainActivity", "Create")
         VarUtil.glob.mainContext = applicationContext
         VarUtil.glob.mainActivity = this
         val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
