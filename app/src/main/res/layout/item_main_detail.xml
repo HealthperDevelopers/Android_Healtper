@@ -7,11 +7,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
+        android:id="@+id/item_main_detail_comm_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/item_main_detail_total_time_title_tv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/item_main_detail_part_list_rv"
+        android:text="comm">
+    </TextView>
+    <TextView
         android:id="@+id/item_main_detail_total_time_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_main_detail_comm_iv"
         app:layout_constraintBottom_toTopOf="@id/item_main_detail_total_weight_title_tv"
         app:layout_constraintRight_toLeftOf="@id/item_main_detail_total_time_tv"
         android:text="총 시간">
@@ -30,7 +40,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/item_main_detail_total_time_title_tv"
         app:layout_constraintBottom_toTopOf="@id/item_main_detail_part_list_rv"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_main_detail_comm_iv"
         app:layout_constraintRight_toLeftOf="@id/item_main_detail_total_weight_tv"
         android:text="총 무게">
     </TextView>

@@ -46,11 +46,18 @@ class AuthService {
             ) {
                 Log.d("login/success", response.toString())
                 val resp : List<CalenderResponse> = response.body()!!
-                Log.d("login/resp body", resp.first().day.toString())
-                Log.d("login/resp body", resp.first().sections.toString())
-                Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
-                val splashActivity =  SplashActivity()
-                splashActivity.finish()
+  <<<<<<< miri
+                  Log.d("login/resp body", resp.first().day.toString())
+                  Log.d("login/resp body", resp.first().sections.toString())
+                  Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
+                  val splashActivity =  SplashActivity()
+                  splashActivity.finish()
+  =======
+                  if (resp.first() != null) {
+                      Log.d("login/resp body", resp.first().day.toString())
+                      Log.d("login/resp body", resp.first().sections.toString())
+                  }
+  >>>>>>> main
             }
 
             override fun onFailure(call: Call<List<CalenderResponse>>, t: Throwable) {

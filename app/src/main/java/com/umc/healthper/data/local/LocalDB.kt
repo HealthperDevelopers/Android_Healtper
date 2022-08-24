@@ -10,7 +10,7 @@ import com.umc.healthper.data.entity.WorkFav
 import com.umc.healthper.data.entity.WorkPart
 
 
-@Database(entities = [Work::class, WorkPart::class, WorkFav::class], version = 4)
+@Database(entities = [Work::class, WorkPart::class, WorkFav::class], version = 5)
 abstract class LocalDB: RoomDatabase() {
     abstract fun WorkDao(): WorkDao
     abstract fun WorkPartDao(): WorkPartDao

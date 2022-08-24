@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.flexbox.FlexboxLayoutManager
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.FragmentMypageFavoritesBinding
 import com.umc.healthper.ui.dialog.AddFavWorkDialog
+import com.umc.healthper.ui.mypage.adapter.ItemMove
 import com.umc.healthper.ui.mypage.adapter.PartRVAdapter
 import com.umc.healthper.ui.mypage.adapter.ShowFavWorkRVAdapter
 import com.umc.healthper.util.VarUtil
@@ -32,8 +34,8 @@ class FavoritesMypageFragment : Fragment() {
         //초기 dp
         currentPart = db.WorkPartDao().getFirst().workPart
         binding.mypagefavSelectPartTv.text = currentPart
-        val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(1)
-        val tmpAll = db.WorkDao().findWorkbyPartId(1)
+        val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(0)
+        val tmpAll = db.WorkDao().findWorkbyPartId(0)
         VarUtil.glob.favWorkList.clear()
                 for (i in tmpFav) {
                     for (j in tmpAll) {
@@ -42,7 +44,12 @@ class FavoritesMypageFragment : Fragment() {
                         }
                     }
                 }
+
+
         VarUtil.glob.favPageWorkListAdapter = ShowFavWorkRVAdapter()
+        val itemAdapter = ItemMove(VarUtil.glob.favPageWorkListAdapter)
+        val touchHelper = ItemTouchHelper(itemAdapter)
+        touchHelper.attachToRecyclerView(binding.mypagefavWorkListRv)
         binding.mypagefavWorkListRv.adapter = VarUtil.glob.favPageWorkListAdapter
 
 
