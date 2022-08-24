@@ -23,6 +23,14 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
+    <style name="Text.DIGIT.workdetail" parent="android:TextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:fontFamily">@font/ds_digi</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
     <style name="Text.DIGIT.rest" parent="android:TextAppearance">
         <item name="android:textStyle">bold</item>
 <!--        <item name="android:textSize">38sp</item>-->

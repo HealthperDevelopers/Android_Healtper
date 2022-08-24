@@ -34,6 +34,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
     <ImageView
         android:id="@+id/routineready_title_tv"
         android:layout_width="188dp"
@@ -111,6 +112,7 @@
         android:background="@drawable/workready_done_bt"
         android:layout_marginEnd="110dp"
         android:layout_marginStart="110dp"
+        android:textColor="@color/black"
         android:text="완료하기"
         android:gravity="center">
     </TextView>

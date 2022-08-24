@@ -11,6 +11,9 @@ interface WorkPartDao {
     @Insert
     fun insert(data: WorkPart)
 
+    @Query("SELECT color FROM workPartTable WHERE workPart = :workPart")
+    fun getColorbyPartName(workPart: String): String
+
     @Query("SELECT id FROM workPartTable WHERE workPart = :workPart")
     fun getWorkPartIdbyPartName(workPart: String): Int
 

@@ -1,8 +1,12 @@
 package com.umc.healthper.ui.main.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.ItemWorkreadyWorkpartBinding
 import com.umc.healthper.util.VarUtil
 
@@ -32,7 +36,10 @@ class WorkReadyListAdapter(): RecyclerView.Adapter<WorkReadyListAdapter.ListHold
 
     class ListHolder(val binding: ItemWorkreadyWorkpartBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int, listener: onClickListener) {
+            var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
             binding.itemWorkreadyWorkpartPartTv.text = VarUtil.glob.selectedPart[pos]
+            Log.d("color", "#" + db.WorkPartDao().getColorbyPartName(VarUtil.glob.selectedPart[pos]))
+            binding.itemWorkreadyWorkpartPartTv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + db.WorkPartDao().getColorbyPartName(VarUtil.glob.selectedPart[pos])))
             setListener(pos, listener)
         }
 
