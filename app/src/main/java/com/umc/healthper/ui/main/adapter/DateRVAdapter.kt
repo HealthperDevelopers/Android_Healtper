@@ -13,6 +13,13 @@ import kotlin.collections.ArrayList
 
 class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<Int>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    interface UserListener {
+        fun onClick(date: String)
+    }
+    lateinit var userListener: UserListener
+    fun customListener(data: UserListener) {
+        userListener = data
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DateHolder {
         val binding = ItemMainCalendarListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DateHolder(binding)
@@ -64,6 +71,13 @@ class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<
             else {
                 binding.itemMainCalListDateTv.text = (pos + weekData[count - 1] - 1).toString()
             }
+
+
+            binding.root.setOnClickListener {
+                val date = binding.itemMainCalListDateTv.text.toString()
+                userListener.onClick(date)
+            }
+
         }
     }
 

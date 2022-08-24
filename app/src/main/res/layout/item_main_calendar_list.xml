@@ -32,18 +32,6 @@
     </TextView>
 <!--    날짜-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </TextView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </TextView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </TextView>
 <!--날짜아래 색상들-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
