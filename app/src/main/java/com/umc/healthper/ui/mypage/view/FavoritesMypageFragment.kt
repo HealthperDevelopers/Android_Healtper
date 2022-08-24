@@ -1,5 +1,7 @@
 package com.umc.healthper.ui.mypage.view
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -85,7 +87,6 @@ class FavoritesMypageFragment : Fragment() {
         binding.mypagefavAddWorkIv.setOnClickListener {
             val partId = db.WorkPartDao().getWorkPartIdbyPartName(currentPart)
             AddFavWorkDialog(partId).show(childFragmentManager.beginTransaction(), "addFavWorkDialog")
-
         }
     }
 }
