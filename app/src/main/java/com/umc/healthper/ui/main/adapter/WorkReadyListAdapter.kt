@@ -39,7 +39,7 @@ class WorkReadyListAdapter(): RecyclerView.Adapter<WorkReadyListAdapter.ListHold
             var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
             binding.itemWorkreadyWorkpartPartTv.text = VarUtil.glob.selectedPart[pos]
             Log.d("color", "#" + db.WorkPartDao().getColorbyPartName(VarUtil.glob.selectedPart[pos]))
-            binding.itemWorkreadyWorkpartPartTv.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + db.WorkPartDao().getColorbyPartName(VarUtil.glob.selectedPart[pos])))
+            binding.itemWorkreadyWorkpartPartTv.backgroundTintList = ColorStateList.valueOf(Color.parseColor(db.WorkPartDao().getColorbyPartName(VarUtil.glob.selectedPart[pos])))
             setListener(pos, listener)
         }
 

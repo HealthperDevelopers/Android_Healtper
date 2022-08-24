@@ -1,5 +1,7 @@
 package com.umc.healthper.ui.main.view
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -56,6 +58,7 @@ class WorkdetailFragment: Fragment() {
             }
         }
         binding.workdetailWorkTitleTv.text = currentPart
+        binding.workdetailWorkTitleTv.backgroundTintList = ColorStateList.valueOf(Color.parseColor(db.WorkPartDao().getColorbyPartName(currentPart)))
 
 //        val adapter = WorkdetailListRVAdapter(workList)
 //        binding.workdetailWorkListRv.adapter = adapter
