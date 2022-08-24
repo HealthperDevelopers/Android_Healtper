@@ -25,7 +25,7 @@ import com.umc.healthper.util.getAutoLogin
 import com.umc.healthper.util.saveAutoLogin
 
 class SplashActivity : AppCompatActivity() {
-//    var autoLogin = getAutoLogin()
+    var isToken = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -101,6 +101,7 @@ class SplashActivity : AppCompatActivity() {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     Log.d("ID tokeninfo", tokenInfo.id.toString())
+                    isToken = true
                     // api 들어갈 자리
                     val authService = AuthService()
                     authService.login(tokenInfo.id.toString())
@@ -159,6 +160,7 @@ class SplashActivity : AppCompatActivity() {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                         Log.d("ID tokeninfo no auto", tokenInfo.id.toString())
+                        isToken = true
                         // api 들어갈 자리
                         val authService = AuthService()
                         authService.login(tokenInfo.id.toString())
@@ -174,8 +176,14 @@ class SplashActivity : AppCompatActivity() {
 //            val intent = Intent(this, MainActivity::class.java)
 //            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
 //            finish()
-        }else if (getAutoLogin()) {
+        }else if (getAutoLogin() && isToken) {
             LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
+        }
+        else if (getAutoLogin() && !isToken) {
+//            LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//            finish()
         }
         else if (!getAutoLogin()){
             val intent = Intent(this, LoginActivity::class.java)
