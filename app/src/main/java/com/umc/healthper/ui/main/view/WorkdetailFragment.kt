@@ -13,6 +13,7 @@ import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.FragmentWorkdetailBinding
 import com.umc.healthper.ui.main.adapter.WorkdetailListRVAdapter
+import com.umc.healthper.ui.timer.TimerActivity
 import com.umc.healthper.util.VarUtil
 
 class WorkdetailFragment: Fragment() {
@@ -25,6 +26,7 @@ class WorkdetailFragment: Fragment() {
         Log.d("WorkDetail", "Start")
         val adapter = WorkdetailListRVAdapter(workList)
         binding.workdetailWorkListRv.adapter = adapter
+        setTotalTimer()
 
         adapter.setListener(object: WorkdetailListRVAdapter.onClickListener {
             override fun onClick(pos: Int) {
@@ -57,6 +59,7 @@ class WorkdetailFragment: Fragment() {
                 }
             }
         }
+
         binding.workdetailWorkTitleTv.text = currentPart
         binding.workdetailWorkTitleTv.backgroundTintList = ColorStateList.valueOf(Color.parseColor(db.WorkPartDao().getColorbyPartName(currentPart)))
 
@@ -86,6 +89,14 @@ class WorkdetailFragment: Fragment() {
         }
     }
 
+    fun setTotalTimer(){
 
+        Log.d("total Time", TimerActivity().partTime(true).toString())
+
+        var second = TimerActivity().partTime(true)
+        var minute = second / 60
+        var hour = minute / 60
+        binding.workdetailTotalTimeTv.text = String.format("%02d : %02d : %02d", hour, minute, second % 60)
+    }
 
 }
