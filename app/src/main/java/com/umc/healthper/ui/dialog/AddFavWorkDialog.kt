@@ -1,11 +1,14 @@
 package com.umc.healthper.ui.dialog
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.DialogAddFavWorkBinding
@@ -16,12 +19,14 @@ class AddFavWorkDialog(val partId: Int): DialogFragment() {
     lateinit var binding: DialogAddFavWorkBinding
     val db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
     lateinit var nonFavList: MutableList<Work>
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DialogAddFavWorkBinding.inflate(inflater, container, false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val favList = db.WorkFavDao().getAllFavWorkByPartId(partId)
         nonFavList = db.WorkDao().findWorkbyPartId(partId).toMutableList()
@@ -61,10 +66,12 @@ class AddFavWorkDialog(val partId: Int): DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        val params = dialog?.window?.attributes
-
-        params?.width = (VarUtil.glob.size.x * 0.9).toInt()
-        dialog?.window?.attributes = params as WindowManager.LayoutParams
-
+//        val params = dialog?.window?.attributes
+//
+//        params?.width = (VarUtil.glob.size.x * 0.9).toInt()
+//        dialog?.window?.attributes = params as WindowManager.LayoutParams
+        val width = resources.getDimensionPixelSize(R.dimen.popup_width)
+        val height = resources.getDimensionPixelSize(R.dimen.popup_height)
+        dialog?.window?.setLayout(width, height)
     }
 }
