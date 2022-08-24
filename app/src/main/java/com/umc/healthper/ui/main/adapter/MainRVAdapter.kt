@@ -109,7 +109,8 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             data = setCalData()
             weekList = setCalWeekData()
 
-            binding.itemMainCalMonyearTv.text = data[0].toString() + "년 " + data[1].toString()+ "월"
+            binding.itemMainCalYearTv.text = data[0].toString() + "년"
+            binding.itemMainCalMonthTv.text = data[1].toString()+ "월"
             VarUtil.glob.mainFragment.setAuth(authService)
             authService.calenderInfo(data[0], data[1])
             VarUtil.glob.today.background = null
@@ -201,7 +202,8 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 }
             }
 
-            binding.itemMainCalMonyearTv.text = data[0].toString() + "년 " + data[1].toString()+ "월"
+            binding.itemMainCalYearTv.text = data[0].toString() + "년"
+            binding.itemMainCalMonthTv.text = data[1].toString()+ "월"
 
             binding.itemMainCalW1Rv.layoutManager = calRvLayoutList[0]
             binding.itemMainCalW1Rv.adapter = calRvAdapList[0]
