@@ -139,7 +139,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             val firstWeek = 7 - firstDate + 2
             var weekList = ArrayList<Int>()
             weekList.add(1)
-            for (i in 0..line - 2) {
+            for (i in 0..line - 1) {
                 weekList.add(firstWeek + (7 *i))
             }
             Log.d("date", "$year $month $day $doy $maxDay $dow $line $firstDate $weekList")
@@ -165,7 +165,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             val firstWeek = 7 - firstDate + 2
             var weekList = ArrayList<Int>()
             weekList.add(1)
-            for (i in 0..line - 2) {
+            for (i in 0..line - 1) {
                 weekList.add(firstWeek + (7 *i))
             }
 
