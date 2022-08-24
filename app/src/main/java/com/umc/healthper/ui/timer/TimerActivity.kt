@@ -109,6 +109,7 @@ class TimerActivity : AppCompatActivity() {
         }
     }
 
+    /** partName을 넣으면 파트별 운동 시간을 알려주는 함수 */
     fun partTime(part:String): Int {
         var partTime = 0
         for (tmp in VarUtil.glob.work){
@@ -118,6 +119,7 @@ class TimerActivity : AppCompatActivity() {
         return partTime
     }
 
+    /** 총 운동시간을 알려주는 함수 */
     fun partTime(all:Boolean): Int {
         var partTime = 0
 
@@ -126,5 +128,19 @@ class TimerActivity : AppCompatActivity() {
                 partTime += tmp.runningTime
         }
         return partTime
+    }
+
+    /** partID을 넣으면 파트별 볼륨을 알려주는 함수 */
+    fun partVolume(partId : Int): Int {
+        var partVolume = 0
+        for (tmp in VarUtil.glob.work){
+            if (tmp.partId == partId){
+                for (pack in tmp.pack)
+                {
+                    partVolume += pack.count * pack.weight
+                }
+            }
+        }
+        return partVolume
     }
 }
