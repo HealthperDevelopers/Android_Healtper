@@ -46,46 +46,24 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-  <<<<<<< miri
-  //        if (autoLogin) {
-  //            UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-  //                if (error != null) {
-  //                    Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
-  //                }
-  //                else if (tokenInfo != null) {
-  //                    Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-  //                    val intent = Intent(this, MainActivity::class.java)
-  //                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-  //                    Log.d("ID tokeninfo", tokenInfo.id.toString())
-  //                    // api 들어갈 자리
-  //                    val authService = AuthService()
-  //                    authService.login(tokenInfo.id.toString())
-  ////                    authService.isLogin()
-  //                    finish()
-  //                }
-  //            }
-  //        }
-  =======
-          if (autoLogin) {
-              UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-                  if (error != null) {
-                      Log.d("tmptoken", error.toString())
-                      Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
-                  }
-                  else if (tokenInfo != null) {
-                      Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                      val intent = Intent(this, MainActivity::class.java)
-                      startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                      Log.d("ID tokeninfo", tokenInfo.id.toString())
-                      // api 들어갈 자리
-                      val authService = AuthService()
-                      authService.login(tokenInfo.id.toString())
-  //                    authService.isLogin()
-                      finish()
-                  }
-              }
-          }
-  >>>>>>> main
+//        if (autoLogin) {
+//            UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+//                if (error != null) {
+//                    Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+//                }
+//                else if (tokenInfo != null) {
+//                    Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
+//                    val intent = Intent(this, MainActivity::class.java)
+//                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//                    Log.d("ID tokeninfo", tokenInfo.id.toString())
+//                    // api 들어갈 자리
+//                    val authService = AuthService()
+//                    authService.login(tokenInfo.id.toString())
+////                    authService.isLogin()
+//                    finish()
+//                }
+//            }
+//        }
 
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {

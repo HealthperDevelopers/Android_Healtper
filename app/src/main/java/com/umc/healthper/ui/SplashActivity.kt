@@ -1,40 +1,26 @@
 package com.umc.healthper.ui
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-  <<<<<<< miri
-  import android.util.Log
-  import android.widget.Toast
-  import com.kakao.sdk.auth.LoginClient
-  import com.kakao.sdk.auth.model.OAuthToken
-  import com.kakao.sdk.common.model.AuthErrorCause
-  import com.kakao.sdk.user.UserApiClient
-  =======
-  import android.util.Base64
-  import android.util.Log
-  >>>>>>> main
-  import com.umc.healthper.R
-  import com.umc.healthper.data.entity.Work
-  import com.umc.healthper.data.entity.WorkPart
-  import com.umc.healthper.data.local.LocalDB
-  import com.umc.healthper.data.remote.AuthService
-  import com.umc.healthper.ui.login.LoginActivity
-  import java.io.InputStream
-  import com.umc.healthper.util.VarUtil
-  <<<<<<< miri
-  import com.umc.healthper.util.getAutoLogin
-  import com.umc.healthper.util.saveAutoLogin
-  =======
-  import java.security.MessageDigest
-  import java.security.NoSuchAlgorithmException
-  >>>>>>> main
+import android.util.Log
+import android.widget.Toast
+import com.kakao.sdk.auth.LoginClient
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.model.AuthErrorCause
+import com.kakao.sdk.user.UserApiClient
+import com.umc.healthper.R
+import com.umc.healthper.data.entity.Work
+import com.umc.healthper.data.entity.WorkPart
+import com.umc.healthper.data.local.LocalDB
+import com.umc.healthper.data.remote.AuthService
+import com.umc.healthper.ui.login.LoginActivity
+import java.io.InputStream
+import com.umc.healthper.util.VarUtil
+import com.umc.healthper.util.getAutoLogin
 
 class SplashActivity : AppCompatActivity() {
     var isToken = false
