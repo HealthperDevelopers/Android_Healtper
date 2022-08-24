@@ -63,17 +63,6 @@ class WorkdetailFragment: Fragment() {
         binding.workdetailWorkTitleTv.text = currentPart
         binding.workdetailWorkTitleTv.backgroundTintList = ColorStateList.valueOf(Color.parseColor(db.WorkPartDao().getColorbyPartName(currentPart)))
 
-//        val adapter = WorkdetailListRVAdapter(workList)
-//        binding.workdetailWorkListRv.adapter = adapter
-
-//        adapter.setListener(object: WorkdetailListRVAdapter.onClickListener {
-//            override fun onClick(pos: Int) {
-//                VarUtil.glob.currentWork = workList[pos].workName
-//                VarUtil.glob.mainActivity.goTimer()
-//            }
-//
-//        })
-
         return binding.root
     }
 
