@@ -7,14 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.*
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.data.remote.GetDayDetailFirst
+import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.databinding.ItemMainCalendarBinding
 import com.umc.healthper.databinding.ItemMainDetailBinding
 import com.umc.healthper.databinding.ItemMainNewBinding
 import com.umc.healthper.databinding.ItemMainUserBinding
 import com.umc.healthper.ui.main.view.CalendarDataView
 import com.umc.healthper.ui.main.view.DetailFirstView
+import com.umc.healthper.ui.main.view.DetailSecondView
 import com.umc.healthper.util.VarUtil
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -214,11 +217,16 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             binding.itemMainCalW6Rv.adapter = calRvAdapList[5]}
     }
 
-    class DetailHolder(val binding: ItemMainDetailBinding): RecyclerView.ViewHolder(binding.root) {
+    class DetailHolder(val binding: ItemMainDetailBinding): RecyclerView.ViewHolder(binding.root),
+        DetailSecondView {
         fun bind() {
             binding.root.setOnClickListener {
                 VarUtil.glob.recordId = VarUtil.glob.detailFirstList[adapterPosition - 2].record_id
-                VarUtil.glob.mainActivity.changeMainFragment(3)
+
+                val conn = AuthService()
+                conn.dayDetailData = this
+                conn.dayDetail(VarUtil.glob.recordId)
+
             }
             if (VarUtil.glob.detailFirstList.isNullOrEmpty()) {
 
@@ -229,6 +237,11 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 binding.itemMainDetailTotalWeightTv.text =
                     VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseInfo!!.totalVolume.toString()
             }
+        }
+
+        override fun daySecondDetailonSuccess(data: ArrayList<GetDayDetailSecond>) {
+            VarUtil.glob.recordList = data
+            VarUtil.glob.mainActivity.changeMainFragment(3)
         }
 
     }

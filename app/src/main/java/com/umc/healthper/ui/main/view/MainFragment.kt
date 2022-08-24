@@ -71,7 +71,7 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
         TODO("Not yet implemented")
     }
 
-    override fun CalendarDataGetSuccess(data: ArrayList<CalendarResponse>) {
+    override fun calendarDataGetSuccess(data: ArrayList<CalendarResponse>) {
         Log.d("calData", data.toString())
 
     }

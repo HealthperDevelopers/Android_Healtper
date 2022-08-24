@@ -5,6 +5,7 @@ import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.ui.main.view.CalendarDataView
 import com.umc.healthper.ui.main.view.DetailFirstView
+import com.umc.healthper.ui.main.view.DetailSecondView
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
@@ -17,6 +18,7 @@ import kotlin.collections.ArrayList
 class AuthService {
     lateinit var dayInfoData: DetailFirstView
     lateinit var calendarData: CalendarDataView
+    lateinit var dayDetailData: DetailSecondView
 
     fun dayInfo(theDay : String)
     {
@@ -79,7 +81,7 @@ class AuthService {
                         if (resp.isNullOrEmpty()) {
                         }
                         else {
-                            calendarData.CalendarDataGetSuccess(ArrayList(resp))
+                            calendarData.calendarDataGetSuccess(ArrayList(resp))
                             Log.d("calender/resp body", resp.toString())
                         }
                     }
@@ -136,6 +138,27 @@ class AuthService {
             override fun onFailure(call: Call<String>, t: Throwable) {
                 Log.d("detail/fail", t.message.toString())
             }
+        })
+    }
+
+    fun dayDetail(id : Int)
+    {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.getDetail(id).enqueue(object: Callback<List<GetDayDetailSecond>> {
+            override fun onResponse(
+                call: Call<List<GetDayDetailSecond>>,
+                response: Response<List<GetDayDetailSecond>>
+            ) {
+                val resp = response.body()
+                Log.d("workData", resp.toString())
+                val arrResp = ArrayList(resp)
+                dayDetailData.daySecondDetailonSuccess(arrResp)
+            }
+
+            override fun onFailure(call: Call<List<GetDayDetailSecond>>, t: Throwable) {
+            }
+
         })
     }
 }

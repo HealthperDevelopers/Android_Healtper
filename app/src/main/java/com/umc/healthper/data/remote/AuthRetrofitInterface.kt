@@ -37,4 +37,9 @@ interface AuthRetrofitInterface {
     ) : Call<String>
 //    상세 정보 등록
 
+    @GET("/finish/{recordId}")
+    fun getDetail(
+        @Path("recordId") recordId : Int
+    ): Call<List<GetDayDetailSecond>>
+    //상세정보 가져오기
 }

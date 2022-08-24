@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.umc.healthper.data.remote.AuthService
+import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.databinding.FragmentDetailWorkRecordFirstBinding
 import com.umc.healthper.ui.main.adapter.DetailWorkRecordRvAdapter
 import com.umc.healthper.util.VarUtil
@@ -23,7 +25,6 @@ class DetailWorkRecordFirstFragment: Fragment() {
         binding = FragmentDetailWorkRecordFirstBinding.inflate(inflater, container, false)
 
 
-        VarUtil.glob.recordId
         val adapter = DetailWorkRecordRvAdapter()
         adapter.setListener(object: DetailWorkRecordRvAdapter.Listener{
             override fun onClick(pos: Int) {
@@ -34,5 +35,6 @@ class DetailWorkRecordFirstFragment: Fragment() {
         binding.detailWorkRecordFirstListRv.adapter = adapter
         return binding.root
     }
+
 
 }

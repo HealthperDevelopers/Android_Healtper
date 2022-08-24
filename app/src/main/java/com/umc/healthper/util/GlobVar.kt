@@ -9,6 +9,7 @@ import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.data.remote.GetDayDetailFirst
+import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
 import com.umc.healthper.ui.main.view.MainFragment
@@ -42,6 +43,7 @@ class GlobVar: Application() {
     var detailFirstList = ArrayList<GetDayDetailFirst>()
     var mainCompList =(1..4).toMutableList()
 
-    //현재 열람중인 운동정보id
+    //현재 열람중인 운동정보
     var recordId: Int = 0
+    var recordList = ArrayList<GetDayDetailSecond>()
 }

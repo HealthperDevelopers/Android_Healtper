@@ -98,9 +98,6 @@ class SplashActivity : AppCompatActivity(), DetailFirstView {
             }
         }
 
-        for (i in db.WorkPartDao().getAllWork()) {
-            VarUtil.glob.unselectedPart.add(i)
-        }
     }
 
     override fun onDetailFirstGetSuccess(data: ArrayList<GetDayDetailFirst>) {
@@ -108,6 +105,5 @@ class SplashActivity : AppCompatActivity(), DetailFirstView {
     }
 
     override fun onDetailFirstGetFailure() {
-        TODO("Not yet implemented")
     }
 }

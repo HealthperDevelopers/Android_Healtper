@@ -3,7 +3,9 @@ package com.umc.healthper.ui.main.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.ItemWorkreadyWorkpartBinding
+import com.umc.healthper.util.VarUtil
 
 class DetailWorkRecordRvAdapter(): RecyclerView.Adapter<DetailWorkRecordRvAdapter.ViewHolder>() {
 
@@ -27,11 +29,22 @@ class DetailWorkRecordRvAdapter(): RecyclerView.Adapter<DetailWorkRecordRvAdapte
     }
 
     override fun getItemCount(): Int {
-        return 3
+        return VarUtil.glob.recordList.size
     }
 
     class ViewHolder(val binding: ItemWorkreadyWorkpartBinding):RecyclerView.ViewHolder(binding.root) {
+        val db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
         fun bind(pos: Int, userListener: Listener) {
+            val data = VarUtil.glob.recordList[pos]
+            binding.itemWorkreadyWorkpartPartTv.text = db.WorkPartDao().getWorkPartNamebyWorkPartId(data.sectionId)
+            binding.itemWorkreadyWorkpartTimeTv.text = data.exerciseTime.toString()
+            var totalVol = 0
+            for (i in data.details!!) {
+                totalVol += i.repeatTime * i.weight
+            }
+            binding.itemWorkreadyWorkpartVolTv.text = totalVol.toString()
+
+
             binding.root.setOnClickListener {
                 userListener.onClick(pos)
             }
