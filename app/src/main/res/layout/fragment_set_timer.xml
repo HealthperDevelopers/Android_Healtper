@@ -272,7 +272,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="30dp"
-        android:paddingBottom="10dp"/>
+        android:paddingBottom="5dp"/>
 
     <TextView
         android:id="@+id/set_timer_back_bt"
