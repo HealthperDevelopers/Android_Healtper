@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.d("mainActivity", "Start")
+        Log.d("mainActivity", "Create")
         VarUtil.glob.mainContext = applicationContext
         VarUtil.glob.mainActivity = this
         val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager

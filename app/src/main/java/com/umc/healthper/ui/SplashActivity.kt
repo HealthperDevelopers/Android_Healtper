@@ -92,9 +92,6 @@ class SplashActivity : AppCompatActivity() {
             UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
                 if (error != null) {
                     Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-//                    finish()
                 }
                 else if (tokenInfo != null) {
                     Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
@@ -105,7 +102,6 @@ class SplashActivity : AppCompatActivity() {
                     // api 들어갈 자리
                     val authService = AuthService()
                     authService.login(tokenInfo.id.toString())
-//                    finish()
                 }
             }
         }
@@ -140,9 +136,6 @@ class SplashActivity : AppCompatActivity() {
                     else -> { // Unknown
                         Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
                         Log.d("error", error.toString())
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-//                        finish()
                     }
                 }
             }
@@ -151,9 +144,6 @@ class SplashActivity : AppCompatActivity() {
                 UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
                     if (error != null) {
                         Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-//                        finish()
                     }
                     else if (tokenInfo != null) {
                         Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
@@ -173,22 +163,12 @@ class SplashActivity : AppCompatActivity() {
 
         if(LoginClient.instance.isKakaoTalkLoginAvailable(this)){
             LoginClient.instance.loginWithKakaoTalk(this, callback = callback)
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-//            finish()
-        }else if (getAutoLogin() && isToken) {
+        }else if (getAutoLogin() && !isToken) {
             LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
         }
-        else if (getAutoLogin() && !isToken) {
-//            LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-//            finish()
-        }
-        else if (!getAutoLogin()){
+        else if (!getAutoLogin() || !isToken){
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-//            finish()
         }
     }
 }
