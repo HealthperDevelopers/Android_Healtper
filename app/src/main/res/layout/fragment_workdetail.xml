@@ -65,12 +65,22 @@
         app:layout_constraintTop_toBottomOf="@id/workdetail_total_time_tv"
         android:background="@drawable/workdetail_work_list_background"
         />
+    <ImageView
+        android:layout_width="23dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/scrollbar_track"
+        app:layout_constraintTop_toTopOf="@id/workdetail_work_list_rv"
+        app:layout_constraintBottom_toBottomOf="@id/workdetail_work_list_rv"
+        app:layout_constraintEnd_toEndOf="@id/workdetail_work_list_background"
+        android:layout_marginEnd="26dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/workdetail_work_list_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="115dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="35dp"
         android:layout_marginStart="50dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintTop_toTopOf="@id/workdetail_work_list_background"
@@ -79,7 +89,13 @@
         app:layout_constraintStart_toStartOf="@id/workdetail_work_list_background"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_workdetail_workname"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@drawable/scroll_thumb"
+        >
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
