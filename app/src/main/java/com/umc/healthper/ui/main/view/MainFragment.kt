@@ -25,7 +25,6 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
         VarUtil.glob.mainFragment = this
@@ -33,12 +32,6 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
         binding.mainRv.adapter = adapter
         return binding.root
     }
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
 
     fun setAuth(auth: AuthService) {
         auth.calendarData = this

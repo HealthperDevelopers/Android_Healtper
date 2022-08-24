@@ -41,7 +41,7 @@ class GlobVar: Application() {
 
     //달력각날짜의상세데이터
     var detailFirstList = ArrayList<GetDayDetailFirst>()
-    var mainCompList =(1..4).toMutableList()
+    var mainCompList = mutableListOf(1, 2, 4)
 
     //현재 열람중인 운동정보
     var recordId: Int = 0
