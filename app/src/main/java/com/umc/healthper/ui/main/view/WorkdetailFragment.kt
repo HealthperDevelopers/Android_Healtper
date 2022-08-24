@@ -76,8 +76,13 @@ class WorkdetailFragment: Fragment() {
 
 
     fun setListener() {
+        val trans = VarUtil.glob.mainActivity.supportFragmentManager
         binding.workdetailGobackTv.setOnClickListener {
-            VarUtil.glob.mainActivity.changeMainFragment(1)
+            trans.popBackStack(
+                "workDetail",
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
+//            VarUtil.glob.mainActivity.supportFragmentManager.beginTransaction().hide(VarUtil.glob.mainActivity.workdetailFragment!!).commit()
         }
     }
 
