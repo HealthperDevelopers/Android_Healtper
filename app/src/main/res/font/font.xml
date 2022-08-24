@@ -10,5 +10,19 @@
         android:fontStyle="normal"
         android:fontWeight="400">
     </font>
-
+<font
+    android:font="@font/myanmar_text_bold"
+    android:fontStyle="normal"
+    android:fontWeight="400">
+</font>
+    <font
+        android:font="@font/vivald_italic"
+        android:fontStyle="normal"
+        android:fontWeight="400">
+    </font>
+    <font
+        android:font="@font/bahnschrift"
+        android:fontStyle="normal"
+        android:fontWeight="400">
+    </font>
 </font-family>
