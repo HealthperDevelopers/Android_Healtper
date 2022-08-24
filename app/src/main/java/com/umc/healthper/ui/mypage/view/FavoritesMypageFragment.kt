@@ -1,15 +1,15 @@
 package com.umc.healthper.ui.mypage.view
 
+import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.flexbox.FlexboxLayoutManager
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.FragmentMypageFavoritesBinding
@@ -18,6 +18,7 @@ import com.umc.healthper.ui.mypage.adapter.ItemMove
 import com.umc.healthper.ui.mypage.adapter.PartRVAdapter
 import com.umc.healthper.ui.mypage.adapter.ShowFavWorkRVAdapter
 import com.umc.healthper.util.VarUtil
+
 
 class FavoritesMypageFragment : Fragment() {
     var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
@@ -33,8 +34,11 @@ class FavoritesMypageFragment : Fragment() {
         binding = FragmentMypageFavoritesBinding.inflate(inflater, container, false)
         setListener()
 
+
         //초기 dp
         currentPart = db.WorkPartDao().getFirst().workPart
+        binding.mypagefavSelectPartTv.backgroundTintList = ColorStateList.valueOf(
+            Color.parseColor(db.WorkPartDao().getColorbyPartName(currentPart)))
         binding.mypagefavSelectPartTv.text = currentPart
         val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(0)
         val tmpAll = db.WorkDao().findWorkbyPartId(0)
@@ -59,9 +63,16 @@ class FavoritesMypageFragment : Fragment() {
         binding.mypagefavPartListRv.layoutManager = FlexboxLayoutManager(VarUtil.glob.mainContext)
         binding.mypagefavPartListRv.adapter = partAdapter
 
+        val gridLayoutManager = GridLayoutManager(VarUtil.glob.mainContext, 5)
+        binding.mypagefavPartListRv.layoutManager = gridLayoutManager
+
+
         partAdapter.setListen(object: PartRVAdapter.listener{
             override fun onClick(str: String) {
                 binding.mypagefavSelectPartTv.text = str
+                binding.mypagefavSelectPartTv.backgroundTintList = ColorStateList.valueOf(
+                    Color.parseColor(db.WorkPartDao().getColorbyPartName(str)))
+
                 currentPart = str
                 val partId = db.WorkPartDao().getWorkPartIdbyPartName(str)
                 val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(partId)
