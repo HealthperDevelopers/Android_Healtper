@@ -57,7 +57,7 @@
             android:layout_margin = "40dp" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/board_tv"
+            android:id="@+id/board_tb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,12 +80,11 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/board_free_post_vp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/board_tv"
-
-                 />
+            app:layout_constraintTop_toBottomOf="@id/board_tb"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
