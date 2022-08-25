@@ -42,28 +42,25 @@ class LoginActivity : AppCompatActivity() {
         Log.d("LoginActivity", "create")
 
 
-        //세션키 확인
-
-//        var packageInfo: PackageInfo? = null
-//        try{
-//            packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
-//        } catch (e: PackageManager.NameNotFoundException) {
-//            e.printStackTrace()
-//        }
-//        if (packageInfo == null) {
-//            Log.d("hashKey", "null")
-//        }
-//        packageInfo?.signatures?.forEach {
-//            try {
-//                val md = MessageDigest.getInstance("SHA")
-//                md.update(it.toByteArray())
-//                Log.d("hashKey", Base64.encodeToString(md.digest(), Base64.DEFAULT))
-//            } catch (e: NoSuchAlgorithmException) {
-//                e.printStackTrace()
-//                Log.e("KeyHash", "Unable to get MessageDigest. signature=$it", e)
-//            }
-//        }
-
+        var packageInfo: PackageInfo? = null
+        try{
+            packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        if (packageInfo == null) {
+            Log.d("hashKey", "null")
+        }
+        packageInfo?.signatures?.forEach {
+            try {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(it.toByteArray())
+                Log.d("hashKey", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            } catch (e: NoSuchAlgorithmException) {
+                e.printStackTrace()
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=$it", e)
+            }
+        }
 
         val spf = this.getSharedPreferences("isAuto", MODE_PRIVATE)
         var autoLogin = getAutoLogin()
@@ -187,6 +184,7 @@ class LoginActivity : AppCompatActivity() {
             binding.loginAutoTv.text = "auto login : no"
     }
 }
+
 //package com.umc.healthper.ui.login
 //
 //import android.annotation.SuppressLint

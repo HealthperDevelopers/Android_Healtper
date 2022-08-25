@@ -59,7 +59,7 @@ class AuthService {
             override fun onResponse(call: Call<List<CalendarResponse>>, response: Response<List<CalendarResponse>>
             ) {
                 Log.d("login/success", response.toString())
-//                val resp : List<CalendarResponse> = response.body()!!
+                val resp : List<CalendarResponse> = response.body()!!
 //                if (resp.first() != null) {
 //                    Log.d("login/resp body", resp.first().day.toString())
 //                    Log.d("login/resp body", resp.first().sections.toString())

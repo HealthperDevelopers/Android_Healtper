@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:text="user_name"
         android:textSize="15sp"
+        style="@style/Text.uljiro.user"
         app:layout_constraintTop_toTopOf="@id/mypagefav_user_iv"
         app:layout_constraintBottom_toBottomOf="@id/mypagefav_user_iv"
         app:layout_constraintStart_toEndOf="@id/mypagefav_user_iv"
