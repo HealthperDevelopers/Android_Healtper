@@ -56,6 +56,12 @@ class TimerFragment : Fragment() {
 
         setWorkTime()
 
+        binding.timerTableWeightEt.setTextColor(Color.parseColor("#acacac")) // 운동 시간
+        binding.timerTableCountEt.setTextColor(Color.parseColor("#acacac"))
+        binding.timerTableSetEt.setTextColor(Color.parseColor("#acacac"))
+        binding.timerTableWeight.setTextColor(Color.parseColor("#acacac"))
+        binding.timerTableCount.setTextColor(Color.parseColor("#acacac"))
+
         binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
         binding.timerWorkTv.text = VarUtil.glob.currentWork
         binding.timerPickBt.text = VarUtil.glob.currentPart
@@ -196,6 +202,11 @@ class TimerFragment : Fragment() {
             binding.timerTableCountEt.setText(String.format("%02d", binding.timerTableCountEt.text.toString().toInt()))
             binding.timerTableWeightEt.isEnabled = false
             binding.timerTableCountEt.isEnabled = false
+            binding.timerTableWeightEt.setTextColor(Color.parseColor("#acacac")) // 운동 시간
+            binding.timerTableCountEt.setTextColor(Color.parseColor("#acacac"))
+            binding.timerTableSetEt.setTextColor(Color.parseColor("#acacac"))
+            binding.timerTableWeight.setTextColor(Color.parseColor("#acacac"))
+            binding.timerTableCount.setTextColor(Color.parseColor("#acacac"))
 
             timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
@@ -214,6 +225,11 @@ class TimerFragment : Fragment() {
             binding.timerTableCountEt.isEnabled = true
             binding.timerRestTimeRedTv.visibility = View.INVISIBLE
             binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
+            binding.timerTableWeightEt.setTextColor(Color.parseColor("#616161")) // 쉬는 시간
+            binding.timerTableCountEt.setTextColor(Color.parseColor("#616161"))
+            binding.timerTableSetEt.setTextColor(Color.parseColor("#616161"))
+            binding.timerTableWeight.setTextColor(Color.parseColor("#616161"))
+            binding.timerTableCount.setTextColor(Color.parseColor("#616161"))
 
         }
     }

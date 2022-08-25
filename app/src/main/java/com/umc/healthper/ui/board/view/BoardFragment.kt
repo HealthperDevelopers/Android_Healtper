@@ -65,10 +65,10 @@ class BoardFragment : Fragment() {
         }
         val boardVPAdapter = BoardVPAdapter(this)
         binding.boardFreePostVp.adapter = boardVPAdapter
-        TabLayoutMediator(binding.boardTb, binding.boardFreePostVp)
-        { tab, position ->
-            tab.text = information[position]
-        }.attach()
+//        TabLayoutMediator(binding.boardTb, binding.boardFreePostVp)
+//        { tab, position ->
+//            tab.text = information[position]
+//        }.attach()
 
         binding.boardMyboardIv.setOnClickListener {
             mainActivity!!.changeBoardFragment(0)
