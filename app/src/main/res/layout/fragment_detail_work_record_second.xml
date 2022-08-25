@@ -142,6 +142,21 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="세트">
+    </TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="무게">
+    </TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="횟수">
+    </TextView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detail_work_record_second_work_detail_rv"
         android:layout_width="match_parent"
