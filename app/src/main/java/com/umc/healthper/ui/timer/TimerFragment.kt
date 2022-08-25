@@ -178,6 +178,7 @@ class TimerFragment : Fragment() {
             binding.timerRestTimeTv.visibility = View.INVISIBLE
             binding.timerRestImg.visibility = View.INVISIBLE
             binding.timerRestTimeRedTv.visibility = View.INVISIBLE
+            binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
 
             //rest timer initialize
             restTimer.second = 0
@@ -206,6 +207,7 @@ class TimerFragment : Fragment() {
             binding.timerTableWeightEt.isEnabled = true
             binding.timerTableCountEt.isEnabled = true
             binding.timerRestTimeRedTv.visibility = View.INVISIBLE
+            binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
 
         }
     }
