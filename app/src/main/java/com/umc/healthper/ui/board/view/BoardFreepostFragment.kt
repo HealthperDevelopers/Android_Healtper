@@ -17,18 +17,11 @@ import retrofit2.Response
 
 class BoardFreepostFragment : Fragment() {
     lateinit var binding : FragmentBoardFreepostBinding
-    var post : PostsResponse = PostsResponse(listOf(Contents(0, "", WriterInfo(0, "", ""), "", 0, 0, "")))
+    var post : PostsResponse = PostsResponse(arrayListOf(Contents(0, "", WriterInfo(0, "", ""), "", 0, 0, "")))
 
     override fun onResume() {
         super.onResume()
-        val adapter = BoardFreepostRVAdapter(post.content)
-        binding.boardFreepostRv.adapter = adapter
-
-        adapter.setListener(object: BoardFreepostRVAdapter.onClickListener {
-            override fun onClick(pos: Int) {
-                Log.d("pos", pos.toString())
-            }
-        })
+        getPosts("LATEST", 0)
     }
 
     override fun onCreateView(
@@ -38,15 +31,6 @@ class BoardFreepostFragment : Fragment() {
     ): View? {
         binding = FragmentBoardFreepostBinding.inflate(inflater, container, false)
         getPosts("LATEST", 0)
-
-//        val adapter = BoardFreepostRVAdapter(post.content)
-//        binding.boardFreepostRv.adapter = adapter
-//
-//        adapter.setListener(object: BoardFreepostRVAdapter.onClickListener {
-//            override fun onClick(pos: Int) {
-//                Log.d("pos", pos.toString())
-//            }
-//        })
 
         return binding.root
     }
@@ -68,6 +52,14 @@ class BoardFreepostFragment : Fragment() {
                         Log.d("posts/SUCCESS", response.toString())
                         Log.d("posts/resp", response.body().toString())
                         post = response.body()!!
+                        val adapter = BoardFreepostRVAdapter(post.content)
+                        binding.boardFreepostRv.adapter = adapter
+
+                        adapter.setListener(object: BoardFreepostRVAdapter.onClickListener {
+                            override fun onClick(pos: Int) {
+                                Log.d("pos", pos.toString())
+                            }
+                        })
                     }
                     else -> {
                         Log.d("posts/FAILURE", response.toString())

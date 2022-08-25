@@ -6,6 +6,7 @@ import com.umc.healthper.ui.main.view.DetailFirstView
 import com.umc.healthper.ui.main.view.DetailSecondView
 
 import android.widget.Toast
+import com.umc.healthper.data.entity.Post
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.ui.SplashActivity
@@ -168,4 +169,28 @@ class AuthService {
         })
     }
 
+    fun postPost(post: Post){
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.postPost(post).enqueue(object: Callback<PostId> {
+            override fun onResponse(
+                call: Call<PostId>,
+                response: Response<PostId>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("postPost/success", response.body().toString())
+                    }
+                    else -> {
+                        Log.d("postPost/fail", response.body().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PostId>, t: Throwable) {
+                Log.d("postPost/fail onfailure", t.toString())
+            }
+
+        })
+    }
 }

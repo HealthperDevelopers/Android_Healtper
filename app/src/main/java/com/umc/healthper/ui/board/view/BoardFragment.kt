@@ -14,6 +14,7 @@ import com.umc.healthper.ui.board.adapter.BoardVPAdapter
 class BoardFragment : Fragment() {
     lateinit var binding: FragmentBoardBinding
     var mainActivity: MainActivity? = null
+    private val information = arrayListOf("자유 게시판", "질문 게시판")
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -29,10 +30,10 @@ class BoardFragment : Fragment() {
 
         val boardVPAdapter = BoardVPAdapter(this)
         binding.boardFreePostVp.adapter = boardVPAdapter
-//        TabLayoutMediator(binding.dotsIndicatorTb, binding.homePannelBackgroundVp)
-//        { tab, position ->
-//            information[position]
-//        }.attach()
+        TabLayoutMediator(binding.boardTb, binding.boardFreePostVp)
+        { tab, position ->
+            tab.text = information[position]
+        }.attach()
 
         binding.boardMyboardIv.setOnClickListener {
             mainActivity!!.changeBoardFragment(0)

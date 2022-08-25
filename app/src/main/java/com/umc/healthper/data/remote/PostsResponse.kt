@@ -1,6 +1,7 @@
 package com.umc.healthper.data.remote
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class PostsResponse (
     @SerializedName(value = "content") val content : List<Contents>
