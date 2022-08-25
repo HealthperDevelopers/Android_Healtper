@@ -239,6 +239,7 @@
         app:layout_constraintTop_toTopOf="@id/timer_part_pack_set" />
 
     <TextView
+        android:id="@+id/timer_table_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="kg"
@@ -265,6 +266,7 @@
         app:layout_constraintTop_toTopOf="@id/timer_part_pack_set"/>
 
     <TextView
+        android:id="@+id/timer_table_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회"
