@@ -21,7 +21,6 @@ import retrofit2.Response
 
 class BoardFreepostFragment : Fragment() {
     lateinit var binding : FragmentBoardFreepostBinding
-    var post : PostsResponse = PostsResponse(arrayListOf(Contents(0, "", WriterInfo(0, "", ""), "", 0, 0, "")))
 
     override fun onResume() {
         super.onResume()
@@ -54,7 +53,7 @@ class BoardFreepostFragment : Fragment() {
                     200 -> {
                         Log.d("posts/SUCCESS", response.toString())
                         Log.d("posts/resp", response.body().toString())
-                        post = response.body()!!
+                        var post = response.body()!!
                         val adapter = BoardFreepostRVAdapter(post.content)
                         binding.boardFreepostRv.adapter = adapter
 
