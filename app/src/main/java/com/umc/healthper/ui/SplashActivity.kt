@@ -53,13 +53,12 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 //            startActivity(intent)
 //            finish()
-              splashlogin()
-            finish()
+            splashlogin()
         },DURATION)
 
     }
     companion object {
-        private const val DURATION : Long = 1500
+        private const val DURATION : Long = 3000
     }
 
     override fun onBackPressed() {
@@ -131,6 +130,7 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                     Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    finish()
                 }
                 else if (tokenInfo != null) {
                     Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
@@ -141,16 +141,21 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                     // api 들어갈 자리
                     val authService = AuthService()
                     authService.login(tokenInfo.id.toString())
+                    finish()
                 }
             }
         }
         else {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+            finish()
         }
 
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                finish()
                 when {
                     error.toString() == AuthErrorCause.AccessDenied.toString() -> {
                         Toast.makeText(this, "접근이 거부 됨(동의 취소)", Toast.LENGTH_SHORT).show()
@@ -187,6 +192,9 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                 UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
                     if (error != null) {
                         Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                        finish()
                     }
                     else if (tokenInfo != null) {
                         Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
@@ -197,7 +205,7 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                         // api 들어갈 자리
                         val authService = AuthService()
                         authService.login(tokenInfo.id.toString())
-//                        finish()
+                        finish()
                     }
                 }
             }

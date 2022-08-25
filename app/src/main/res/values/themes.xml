@@ -50,4 +50,13 @@
         <item name="android:fontFamily">@font/bmeuljirottf</item>
         <item name="android:includeFontPadding">false</item>
     </style>
+    
+    <style name="Text.bmjua.total" parent="android:TextAppearance">
+        <item name="android:fontFamily">@font/bmjua_ttf</item>
+    </style>
+
+    <style name="Text.arialround.total" parent="android:TextAppearance">
+        <item name="android:fontFamily">@font/arialround</item>
+        <item name="android:textColor">"#616161"</item>
+    </style>
 </resources>

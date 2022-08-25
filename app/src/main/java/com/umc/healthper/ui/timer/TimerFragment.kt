@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import com.umc.healthper.R
 import com.umc.healthper.databinding.FragmentTimerBinding
@@ -55,6 +56,12 @@ class TimerFragment : Fragment() {
 
         setWorkTime()
 
+        binding.timerTableWeightEt.setTextColor(Color.parseColor("#acacac")) // 운동 시간
+        binding.timerTableCountEt.setTextColor(Color.parseColor("#acacac"))
+        binding.timerTableSetEt.setTextColor(Color.parseColor("#acacac"))
+        binding.timerTableWeight.setTextColor(Color.parseColor("#acacac"))
+        binding.timerTableCount.setTextColor(Color.parseColor("#acacac"))
+
         binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
         binding.timerWorkTv.text = VarUtil.glob.currentWork
         binding.timerPickBt.text = VarUtil.glob.currentPart
@@ -78,6 +85,9 @@ class TimerFragment : Fragment() {
         }
 
         binding.timerWorkrestBt.setOnClickListener{
+            getRest()
+        }
+        binding.timerWorknextBt.setOnClickListener{
             getRest()
         }
 
@@ -173,7 +183,8 @@ class TimerFragment : Fragment() {
     private fun getRest() {
         if (isRest) {
             isRest = false
-            binding.timerWorkrestBt.text = "쉬는 시간"
+            binding.timerWorkrestBt.visibility = View.INVISIBLE
+            binding.timerWorknextBt.visibility = View.VISIBLE
             binding.timerRestSettingTimeTv.visibility = View.INVISIBLE
             binding.timerRestTimeTv.visibility = View.INVISIBLE
             binding.timerRestImg.visibility = View.INVISIBLE
@@ -191,14 +202,20 @@ class TimerFragment : Fragment() {
             binding.timerTableCountEt.setText(String.format("%02d", binding.timerTableCountEt.text.toString().toInt()))
             binding.timerTableWeightEt.isEnabled = false
             binding.timerTableCountEt.isEnabled = false
+            binding.timerTableWeightEt.setTextColor(Color.parseColor("#acacac")) // 운동 시간
+            binding.timerTableCountEt.setTextColor(Color.parseColor("#acacac"))
+            binding.timerTableSetEt.setTextColor(Color.parseColor("#acacac"))
+            binding.timerTableWeight.setTextColor(Color.parseColor("#acacac"))
+            binding.timerTableCount.setTextColor(Color.parseColor("#acacac"))
 
             timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
         else {
             isRest = true
             timerActivity!!.setCount++
+            binding.timerWorkrestBt.visibility = View.VISIBLE
+            binding.timerWorknextBt.visibility = View.INVISIBLE
             binding.timerTableSetEt.text = "${timerActivity!!.setCount}세트"
-            binding.timerWorkrestBt.text = "다음 세트"
             binding.timerRestSettingTimeTv.visibility = View.VISIBLE
             binding.timerRestTimeTv.visibility = View.VISIBLE
             binding.timerRestImg.visibility = View.VISIBLE
@@ -208,6 +225,11 @@ class TimerFragment : Fragment() {
             binding.timerTableCountEt.isEnabled = true
             binding.timerRestTimeRedTv.visibility = View.INVISIBLE
             binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
+            binding.timerTableWeightEt.setTextColor(Color.parseColor("#616161")) // 쉬는 시간
+            binding.timerTableCountEt.setTextColor(Color.parseColor("#616161"))
+            binding.timerTableSetEt.setTextColor(Color.parseColor("#616161"))
+            binding.timerTableWeight.setTextColor(Color.parseColor("#616161"))
+            binding.timerTableCount.setTextColor(Color.parseColor("#616161"))
 
         }
     }

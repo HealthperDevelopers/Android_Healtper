@@ -113,21 +113,21 @@ class MainActivity : AppCompatActivity() {
 
                     true
                 }
-                "차트" -> {
-                    if (ChartFragment == null) {
-                        ChartFragment = ChartFragment()
-                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, ChartFragment!!).commit()
-                    }
-                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-                    if(BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
-                    if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-                    checkStack()
-
-                    supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
-
-                    true
-
-                }
+//                "차트" -> {
+//                    if (ChartFragment == null) {
+//                        ChartFragment = ChartFragment()
+//                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, ChartFragment!!).commit()
+//                    }
+//                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+//                    if(BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
+//                    if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+//                    checkStack()
+//
+//                    supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
+//
+//                    true
+//
+//                }
 
                 "게시판" -> {
                     if (BoardFragment == null) {
@@ -351,19 +351,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun change2Comment() {
-        for (tmp in VarUtil.glob.work){
-//            Log.d("total time", tmp.totalTime.toString())
-            Log.d("running time", tmp.runningTime.toString())
-            Log.d("partId", tmp.partId.toString())
-            Log.d("work", tmp.work)
-            for (temp in tmp.pack){
-                Log.d("pack set", temp.set.toString())
-                Log.d("pack weight", temp.weight.toString())
-                Log.d("pack count", temp.count.toString())
-                Log.d("------------", "done")
-            }
-            Log.d("work done", "_________________")
-        }
+//        for (tmp in VarUtil.glob.work){
+////            Log.d("total time", tmp.totalTime.toString())
+//            Log.d("running time", tmp.runningTime.toString())
+//            Log.d("partId", tmp.partId.toString())
+//            Log.d("work", tmp.work)
+//            for (temp in tmp.pack){
+//                Log.d("pack set", temp.set.toString())
+//                Log.d("pack weight", temp.weight.toString())
+//                Log.d("pack count", temp.count.toString())
+//                Log.d("------------", "done")
+//            }
+//            Log.d("work done", "_________________")
+//        }
 
         val intent = Intent(this, CommentActivity::class.java)
         startActivity(intent)
