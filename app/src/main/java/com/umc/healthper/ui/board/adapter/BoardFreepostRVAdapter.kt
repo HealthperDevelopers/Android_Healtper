@@ -1,5 +1,6 @@
 package com.umc.healthper.ui.board.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -43,9 +44,13 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Boa
         fun bind(pos: Int, onClick: onClickListener) {
             if (data[pos].postType == "NORMAL") {
                 binding.itemBoardPostTitleTv.text = data[pos].title
+                binding.itemBoardPostNicknameTv.text = data[pos].writer.nickName
+                binding.itemBoardPostTimeTv.text = data[pos].createdAt
+                binding.itemBoardPostRecommendTv.text = data[pos].likeCount.toString()
+                binding.itemBoardPostCommentTv.text = data[pos].commentCount.toString()
             }
             binding.root.setOnClickListener {
-                onClick.onClick(pos)
+                onClick.onClick(data[pos].postId)
             }
         }
     }
