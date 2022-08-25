@@ -2,34 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <item
     android:id="@+id/setting_ad"
-    android:title="test">
+    android:title="광고">
 </item>
     <item
         android:id="@+id/setting_privacy"
-        android:title="test">
+        android:title="개인정보 처리 방침">
     </item>
     <item
         android:id="@+id/setting_help"
-        android:title="test">
+        android:title="사용 방법 도움말">
     </item>
     <item
         android:id="@+id/setting_review"
-        android:title="test">
+        android:title="리뷰 작성하기">
     </item>
     <item
         android:id="@+id/setting_get_backup"
-        android:title="test">
+        android:title="백업 데이터 불러오기">
     </item>
     <item
         android:id="@+id/setting_set_backup"
-        android:title="test">
+        android:title="데이터 백업하기">
     </item>
     <item
         android:id="@+id/setting_update"
-        android:title="test">
+        android:title="버전 업데이트">
     </item>
     <item
-        android:id="@+id/setting_exit"
-        android:title="test">
+        android:id="@+id/setting_signout"
+        android:title="회원 탈퇴하기">
     </item>
 </menu>
