@@ -45,9 +45,12 @@ class BoardQuestionpostRVAdapter(val data: List<Contents>): RecyclerView.Adapter
         fun bind(pos: Int, onClick: onClickListener) {
             if (data[pos].postType == "QUESTION") {
                 binding.itemBoardQuestionpostTitleTv.text = data[pos].title
+                binding.itemBoardPostNicknameTv.text = data[pos].writer.nickName
+                binding.itemBoardPostTimeTv.text = data[pos].createdAt
+                binding.itemBoardQuestionpostTitleCommentnumTv.text = data[pos].commentCount.toString()
             }
             binding.root.setOnClickListener {
-                onClick.onClick(pos)
+                onClick.onClick(data[pos].postId)
             }
         }
     }

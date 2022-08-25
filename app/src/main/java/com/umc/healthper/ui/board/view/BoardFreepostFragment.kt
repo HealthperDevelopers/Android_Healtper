@@ -57,6 +57,7 @@ class BoardFreepostFragment : Fragment() {
                         adapter.setListener(object: BoardFreepostRVAdapter.onClickListener {
                             override fun onClick(pos: Int) {
                                 Log.d("pos", pos.toString())
+                                // post 조회
                             }
                         })
                     }
