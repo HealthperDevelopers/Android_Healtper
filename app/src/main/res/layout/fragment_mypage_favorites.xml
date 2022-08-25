@@ -18,7 +18,7 @@
         android:id="@+id/mypagefav_user_iv"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:src="@drawable/user"
+        android:src="@mipmap/nav_mypage"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="37dp"
         app:layout_constraintStart_toStartOf="parent"
