@@ -75,7 +75,7 @@
         android:layout_marginStart="30dp"
         android:textSize ="30sp"
         android:textColor="@color/black"
-        android:text="렛풀다운 스트랩 추천함"
+        android:text="null error"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/board_freepost_content_posting_time_tv" />
@@ -93,14 +93,15 @@
         app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_title_tv" />
 
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_content_tv"
-
-           />
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_content_tv"
+        ads:adUnitId="YOUR_AD_UNIT_ID"
+        ads:adSize="BANNER"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

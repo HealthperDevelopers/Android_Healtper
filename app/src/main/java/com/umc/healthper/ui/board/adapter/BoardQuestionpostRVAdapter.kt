@@ -22,8 +22,15 @@ class BoardQuestionpostRVAdapter(val data: List<Contents>): RecyclerView.Adapter
     lateinit var binding: ItemBoardQuestionpostBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
         val binding = ItemBoardQuestionpostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        var QuestionData = ArrayList<Contents>()
 
-        return NameHolder(binding, data)
+        for (tmp in data)
+        {
+            if (tmp.postType == "QUESTION")
+                QuestionData.add(tmp)
+        }
+
+        return NameHolder(binding, QuestionData)
     }
 
     override fun onBindViewHolder(holder: NameHolder, position: Int) {

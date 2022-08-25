@@ -3,20 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="60dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="7dp"
     android:layout_marginTop="10dp"
     android:background="@color/white">
 
-
-
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:src="@drawable/item_post_line"
+    android:layout_marginTop="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+/>
 
     <TextView
         android:id="@+id/item_board_post_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="렛풀 다운 스트랩 추천함"
+        android:text="null error"
         android:textSize="15sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"

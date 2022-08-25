@@ -14,6 +14,7 @@ import com.umc.healthper.util.getRetrofit
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import okhttp3.internal.notify
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,12 +22,6 @@ import retrofit2.Response
 
 class BoardFreepostFragment : Fragment() {
     lateinit var binding : FragmentBoardFreepostBinding
-    var post : PostsResponse = PostsResponse(arrayListOf(Contents(0, "", WriterInfo(0, "", ""), "", 0, 0, "")))
-
-    override fun onResume() {
-        super.onResume()
-        getPosts("LATEST", 0)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +29,9 @@ class BoardFreepostFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBoardFreepostBinding.inflate(inflater, container, false)
+        getPosts("LATEST", 0)
 
+        VarUtil.glob.boardFreepostFragment = this
         return binding.root
     }
 
@@ -54,9 +51,10 @@ class BoardFreepostFragment : Fragment() {
                     200 -> {
                         Log.d("posts/SUCCESS", response.toString())
                         Log.d("posts/resp", response.body().toString())
-                        post = response.body()!!
+
+                        var post = response.body()!!
                         val adapter = BoardFreepostRVAdapter(post.content)
-                        binding.boardFreepostRv.adapter = adapter
+                        VarUtil.glob.boardFreepostFragment.binding.boardFreepostRv.adapter = adapter
 
                         adapter.setListener(object: BoardFreepostRVAdapter.onClickListener {
                             override fun onClick(pos: Int) {

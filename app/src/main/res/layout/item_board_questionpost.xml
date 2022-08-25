@@ -16,7 +16,7 @@
         android:id="@+id/item_board_questionpost_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="형님들 스쿼트 최대 몇?"
+        android:text="null error"
         android:textSize="15sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"

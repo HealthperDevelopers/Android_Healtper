@@ -22,7 +22,14 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Boa
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
         val binding = ItemBoardFreepostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return NameHolder(binding, data)
+        var FreeData = ArrayList<Contents>()
+
+        for (tmp in data)
+        {
+            if (tmp.postType == "NORMAL")
+                FreeData.add(tmp)
+        }
+        return NameHolder(binding, FreeData)
     }
 
     override fun onBindViewHolder(holder: NameHolder, position: Int) {
@@ -36,7 +43,7 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Boa
             if (tmp.postType != "NORMAL")
                 size--
         }
-
+        Log.d("Freesize", size.toString())
         return size
     }
 
