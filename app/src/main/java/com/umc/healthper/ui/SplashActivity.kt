@@ -129,6 +129,8 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
             UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
                 if (error != null) {
                     Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 }
                 else if (tokenInfo != null) {
                     Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
@@ -141,6 +143,10 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                     authService.login(tokenInfo.id.toString())
                 }
             }
+        }
+        else {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         }
 
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -198,14 +204,16 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
         }
 
 
-        if(LoginClient.instance.isKakaoTalkLoginAvailable(this)){
-            LoginClient.instance.loginWithKakaoTalk(this, callback = callback)
-        }else if (getAutoLogin() && !isToken) {
-            LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
-        }
-        else if (!getAutoLogin() || !isToken){
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-        }
+//        if(LoginClient.instance.isKakaoTalkLoginAvailable(this)){
+//            LoginClient.instance.loginWithKakaoTalk(this, callback = callback)
+////        }else if (getAutoLogin() && !isToken) {
+//////            LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
+////            val intent = Intent(this, LoginActivity::class.java)
+////            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//        }
+//        else if (!getAutoLogin()){
+//            val intent = Intent(this, LoginActivity::class.java)
+//            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//        }
     }
 }

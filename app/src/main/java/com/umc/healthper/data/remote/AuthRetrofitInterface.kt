@@ -1,11 +1,26 @@
 package com.umc.healthper.data.remote
 
+import com.umc.healthper.data.entity.Post
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.WorkRecord
 import retrofit2.Call
 import retrofit2.http.*
 
 interface AuthRetrofitInterface {
+
+    @GET("/post/{postId}")
+    fun viewPost(
+        @Path("postId") postId : Int
+    ) : Call<APostResponse>
+
+    @POST("/post")
+    fun postPost(@Body post : Post) : Call<PostId>
+
+    @GET("/posts")
+    fun getPosts(
+        @Query ("sort") sortType : String,
+        @Query ("page") page : Int
+    ) : Call<PostsResponse>
 
     @GET("/login")
     fun login(
