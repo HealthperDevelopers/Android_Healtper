@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.healthper.databinding.FragmentPartchartBinding
 import com.umc.healthper.ui.board.adapter.BoardVPAdapter
+import com.umc.healthper.ui.chart.adapter.PartchartVPAdapter
 
 class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding
@@ -25,7 +26,7 @@ class PartchartFragment : Fragment() {
         binding = FragmentPartchartBinding.inflate(inflater, container, false)
 
         binding.partchartPartTv.text = arguments?.getString("part").toString()
-        val partchartAdapter = BoardVPAdapter(this)
+        val partchartAdapter = PartchartVPAdapter(this)
         binding.partchartContentVp.adapter = partchartAdapter
         TabLayoutMediator(binding.partchartContentTb, binding.partchartContentVp) {
             tab, position ->

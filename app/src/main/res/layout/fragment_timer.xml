@@ -274,6 +274,7 @@
         app:layout_constraintStart_toEndOf="@id/timer_table_count_et"
         app:layout_constraintTop_toTopOf="@id/timer_table_count_et"/>
 
+
     <ImageView
         android:id="@+id/timer_rest_img"
         android:layout_width="30dp"
@@ -366,6 +367,7 @@
         android:gravity="center"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:visibility="invisible"
         android:background="@drawable/timer_rest2work_background"
         app:layout_constraintTop_toBottomOf="@id/timer_rest_img"
         app:layout_constraintEnd_toEndOf="parent"
@@ -373,15 +375,31 @@
         android:layout_marginTop="30dp"
         android:paddingBottom="5dp"/>
 
+    <TextView
+        android:id="@+id/timer_worknext_bt"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:text="다음 세트"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        android:background="@drawable/timer_rest2work_background"
+        app:layout_constraintTop_toBottomOf="@id/total_timer_info_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="83dp"
+        android:paddingBottom="5dp"/>
+
     <ImageView
         android:id="@+id/timer_done_bt"
         android:layout_width="150dp"
         android:layout_height="45dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="245dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timer_workrest_bt"
+        app:layout_constraintTop_toBottomOf="@id/total_timer_info_iv"
         android:background="@drawable/timer_finish_bt"
         android:layout_marginBottom="70dp"/>
 
