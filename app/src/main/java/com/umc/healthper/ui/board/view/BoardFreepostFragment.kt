@@ -30,7 +30,6 @@ class BoardFreepostFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBoardFreepostBinding.inflate(inflater, container, false)
-        getPosts("LATEST", 0)
 
         return binding.root
     }
