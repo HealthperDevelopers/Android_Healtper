@@ -18,8 +18,6 @@
         android:fontFamily="@font/bmeuljirottf"
         app:layout_goneMarginTop="100dp">
     </TextView>
-
-
     <ImageView
         android:id="@+id/detail_work_record_second_left_iv"
         android:layout_width="12.8dp"

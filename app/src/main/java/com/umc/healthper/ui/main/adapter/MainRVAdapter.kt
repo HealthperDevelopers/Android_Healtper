@@ -225,6 +225,8 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 val conn = AuthService()
                 conn.dayDetailData = this
                 VarUtil.glob.comm = VarUtil.glob.detailFirstList[adapterPosition - 2].comment
+                VarUtil.glob.totalTime = VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseEntity!!.totalExerciseTime
+                VarUtil.glob.totalVol = VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseEntity!!.totalVolume
                 conn.dayDetail(VarUtil.glob.recordId)
 
             }

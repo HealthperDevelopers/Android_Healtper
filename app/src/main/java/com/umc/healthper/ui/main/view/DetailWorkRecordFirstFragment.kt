@@ -42,6 +42,33 @@ class DetailWorkRecordFirstFragment: Fragment() {
 
         })
         binding.detailWorkRecordFirstListRv.adapter = adapter
+
+
+
+        val data = VarUtil.glob.totalTime
+        val tmph = data / 3600
+        val tmpm = (data - tmph * 3600)/ 60
+        val tmps = (data - tmph * 3600)% 60
+        val h = if (tmph < 10) {
+            "0$tmph"
+        }
+        else {
+            "$tmph"
+        }
+        val m = if (tmpm < 10) {
+            "0$tmpm"
+        }
+        else {
+            "$tmpm"
+        }
+        val s = if (tmps < 10) {
+            "0$tmps"
+        }
+        else {
+            "$tmps"
+        }
+        binding.detailWorkRecordFirstTotalTimeTv.text = "$h:$m:$s"
+        binding.detailWorkRecordFirstTotalVolTv.text = VarUtil.glob.totalVol.toString() + "kg"
         return binding.root
     }
 

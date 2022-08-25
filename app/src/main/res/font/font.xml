@@ -30,4 +30,9 @@
         android:fontStyle="normal"
         android:fontWeight="400">
     </font>
+    <font
+        android:font="@font/vivaldi"
+        android:fontStyle="normal"
+        android:fontWeight="400">
+    </font>
 </font-family>

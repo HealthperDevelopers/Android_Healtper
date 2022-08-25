@@ -52,4 +52,6 @@ class GlobVar: Application() {
     var recordPartList = ArrayList<String>()
     var partPos: Int = 0
     var comm: String? = ""
+    var totalTime: Int = 0
+    var totalVol: Int = 0
 }

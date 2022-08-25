@@ -1,5 +1,7 @@
 package com.umc.healthper.ui.main.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -42,19 +44,45 @@ class DetailWorkRecordRvAdapter(): RecyclerView.Adapter<DetailWorkRecordRvAdapte
                     data.add(i)
                 }
             }
+
+            binding.itemWorkreadyWorkpartPartTv.backgroundTintList =
+                ColorStateList.valueOf(Color.parseColor(db.WorkPartDao().getColorbyPartName(VarUtil.glob.recordPartList[pos])))
             binding.itemWorkreadyWorkpartPartTv.text = VarUtil.glob.recordPartList[pos]
             var totalTime = 0
             for (i in data) {
                 totalTime += i.exerciseTime
             }
-            binding.itemWorkreadyWorkpartTimeTv.text = totalTime.toString()
             var totalVol = 0
             for (i in data) {
                 for (j in i.details!!) {
                     totalVol = j.repeatTime * j.weight
                 }
             }
-            binding.itemWorkreadyWorkpartVolTv.text = totalVol.toString()
+
+
+            val tmph = totalTime / 3600
+            val tmpm = (totalTime - tmph * 3600)/ 60
+            val tmps = (totalTime - tmph * 3600)% 60
+            val h = if (tmph < 10) {
+                "0$tmph"
+            }
+            else {
+                "$tmph"
+            }
+            val m = if (tmpm < 10) {
+                "0$tmpm"
+            }
+            else {
+                "$tmpm"
+            }
+            val s = if (tmps < 10) {
+                "0$tmps"
+            }
+            else {
+                "$tmps"
+            }
+            binding.itemWorkreadyWorkpartTimeTv.text = "$h:$m:$s"
+            binding.itemWorkreadyWorkpartVolTv.text = totalVol.toString() + "kg"
 
 
             binding.root.setOnClickListener {
