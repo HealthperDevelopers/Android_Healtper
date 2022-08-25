@@ -196,6 +196,7 @@ class TimerFragment : Fragment() {
             binding.timerTableCountEt.setText(String.format("%02d", binding.timerTableCountEt.text.toString().toInt()))
             binding.timerTableWeightEt.isEnabled = false
             binding.timerTableCountEt.isEnabled = false
+            binding.timerTableWeightEt.setTextColor(Color.parseColor("#000000")) // 운동시간
 
             timerActivity!!.addPack(binding.timerTableWeightEt.text.toString().toInt(), binding.timerTableCountEt.text.toString().toInt())
         }
@@ -214,7 +215,7 @@ class TimerFragment : Fragment() {
             binding.timerTableCountEt.isEnabled = true
             binding.timerRestTimeRedTv.visibility = View.INVISIBLE
             binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
-
+            binding.timerTableWeightEt.setTextColor(Color.parseColor("#FFFFFFFF")) // 쉬는 시간
         }
     }
 

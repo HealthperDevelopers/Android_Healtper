@@ -113,21 +113,21 @@ class MainActivity : AppCompatActivity() {
 
                     true
                 }
-                "차트" -> {
-                    if (ChartFragment == null) {
-                        ChartFragment = ChartFragment()
-                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, ChartFragment!!).commit()
-                    }
-                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-                    if(BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
-                    if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-                    checkStack()
-
-                    supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
-
-                    true
-
-                }
+//                "차트" -> {
+//                    if (ChartFragment == null) {
+//                        ChartFragment = ChartFragment()
+//                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, ChartFragment!!).commit()
+//                    }
+//                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+//                    if(BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
+//                    if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+//                    checkStack()
+//
+//                    supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
+//
+//                    true
+//
+//                }
 
                 "게시판" -> {
                     if (BoardFragment == null) {
