@@ -51,4 +51,5 @@ class GlobVar: Application() {
     var recordList = ArrayList<GetDayDetailSecond>()
     var recordPartList = ArrayList<String>()
     var partPos: Int = 0
+    var comm: String? = ""
 }
