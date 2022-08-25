@@ -2,10 +2,12 @@ package com.umc.healthper.ui
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import com.kakao.sdk.auth.LoginClient
@@ -23,6 +25,8 @@ import com.umc.healthper.ui.main.view.DetailFirstView
 import java.io.InputStream
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getAutoLogin
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -37,6 +41,7 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
 
         initDb(applicationContext)
 
@@ -53,13 +58,12 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 //            startActivity(intent)
 //            finish()
-              splashlogin()
-            finish()
+            splashlogin()
         },DURATION)
 
     }
     companion object {
-        private const val DURATION : Long = 1500
+        private const val DURATION : Long = 3000
     }
 
     override fun onBackPressed() {
@@ -131,6 +135,7 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                     Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    finish()
                 }
                 else if (tokenInfo != null) {
                     Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
@@ -141,16 +146,21 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                     // api 들어갈 자리
                     val authService = AuthService()
                     authService.login(tokenInfo.id.toString())
+                    finish()
                 }
             }
         }
         else {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+            finish()
         }
 
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                finish()
                 when {
                     error.toString() == AuthErrorCause.AccessDenied.toString() -> {
                         Toast.makeText(this, "접근이 거부 됨(동의 취소)", Toast.LENGTH_SHORT).show()
@@ -187,6 +197,9 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                 UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
                     if (error != null) {
                         Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                        finish()
                     }
                     else if (tokenInfo != null) {
                         Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
@@ -197,7 +210,7 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                         // api 들어갈 자리
                         val authService = AuthService()
                         authService.login(tokenInfo.id.toString())
-//                        finish()
+                        finish()
                     }
                 }
             }

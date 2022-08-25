@@ -60,10 +60,10 @@ class AuthService {
             ) {
                 Log.d("login/success", response.toString())
                 val resp : List<CalendarResponse> = response.body()!!
-                if (resp.first() != null) {
-                    Log.d("login/resp body", resp.first().day.toString())
-                    Log.d("login/resp body", resp.first().sections.toString())
-                }
+//                if (resp.first() != null) {
+//                    Log.d("login/resp body", resp.first().day.toString())
+//                    Log.d("login/resp body", resp.first().sections.toString())
+//                }
 //                  Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
                   val splashActivity =  SplashActivity()
                   splashActivity.finish()
@@ -127,7 +127,7 @@ class AuthService {
         })
     }
 
-    fun detailRecord(@Body work : ArrayList<WorkRecord>, @Path("recordId") recordId : Int){
+    fun detailRecord(@Body work : ArrayList<SetDayDetailSecond>, @Path("recordId") recordId : Int){
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
         authService.detailRecord(work, recordId).enqueue(object: Callback<String> {

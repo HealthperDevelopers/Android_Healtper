@@ -2,7 +2,7 @@ package com.umc.healthper.data.remote
 
 data class GetDayDetailSecond (
     var exerciseName: String? = null,
-    var sectionId: Int,
+    var section: String,
     var exerciseTime : Int,
     var details: ArrayList<Detail>? = null
     )

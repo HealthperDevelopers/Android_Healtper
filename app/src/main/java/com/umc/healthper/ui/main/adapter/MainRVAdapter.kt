@@ -224,6 +224,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
                 val conn = AuthService()
                 conn.dayDetailData = this
+                VarUtil.glob.comm = VarUtil.glob.detailFirstList[adapterPosition - 2].comment
                 conn.dayDetail(VarUtil.glob.recordId)
 
             }
@@ -240,6 +241,20 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         override fun daySecondDetailonSuccess(data: ArrayList<GetDayDetailSecond>) {
             VarUtil.glob.recordList = data
+            VarUtil.glob.recordPartList.clear()
+            VarUtil.glob.recordPartList.add(data[0].section)
+            for (i in data) {
+                val siz = VarUtil.glob.recordPartList.size
+                for (j in 0..siz - 1) {
+                    if (VarUtil.glob.recordPartList[j] == i.section) {
+                        break
+                    }
+                    if (j == siz - 1) {
+                        VarUtil.glob.recordPartList.add(i.section)
+                    }
+                }
+            }
+            VarUtil.glob.recordPartList.sort()
             VarUtil.glob.mainActivity.changeMainFragment(3)
         }
 

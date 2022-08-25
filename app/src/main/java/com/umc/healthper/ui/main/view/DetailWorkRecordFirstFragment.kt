@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.databinding.FragmentDetailWorkRecordFirstBinding
@@ -27,7 +28,15 @@ class DetailWorkRecordFirstFragment: Fragment() {
 
         val adapter = DetailWorkRecordRvAdapter()
         adapter.setListener(object: DetailWorkRecordRvAdapter.Listener{
-            override fun onClick(pos: Int) {
+            override fun onClick(pos: Int, partname: String) {
+                val db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
+                for (i in 0..VarUtil.glob.recordPartList.size - 1) {
+                    if (VarUtil.glob.recordPartList[i] == partname) {
+                        VarUtil.glob.partPos = i
+
+                        break
+                    }
+                }
                 VarUtil.glob.mainActivity.changeMainFragment(4)
             }
 
