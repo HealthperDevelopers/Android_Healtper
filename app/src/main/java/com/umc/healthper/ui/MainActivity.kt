@@ -21,6 +21,7 @@ import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityMainBinding
 import com.umc.healthper.ui.board.MyboardBoardFragment
 import com.umc.healthper.ui.board.view.BoardFragment
+import com.umc.healthper.ui.board.view.BoardFreepostContentFragment
 import com.umc.healthper.ui.board.view.BoardWritingFragement
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     // board page
     var MyboardBoardFragment: MyboardBoardFragment? = null
     var boardWritingFragement: BoardWritingFragement? = null
+    var boardFreepostContentFragment : BoardFreepostContentFragment? = null
 
     var detailWorkRecordSecondFragment: DetailWorkRecordSecondFragment? = null
     var detailWorkRecordFirstFragment: DetailWorkRecordFirstFragment? = null
@@ -308,6 +310,11 @@ class MainActivity : AppCompatActivity() {
                 transition.replace(binding.mainFrmFl.id, boardWritingFragement!!)
                 transition.addToBackStack("boardWrite")
 
+            }
+            2->{
+                if (boardFreepostContentFragment == null) boardFreepostContentFragment = BoardFreepostContentFragment()
+                transition.replace(binding.mainFrmFl.id, boardFreepostContentFragment!!)
+                transition.addToBackStack("boardFreeComment")
             }
         }
         transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
