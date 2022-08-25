@@ -59,11 +59,11 @@ class AuthService {
             override fun onResponse(call: Call<List<CalendarResponse>>, response: Response<List<CalendarResponse>>
             ) {
                 Log.d("login/success", response.toString())
-                val resp : List<CalendarResponse> = response.body()!!
-                if (resp.first() != null) {
-                    Log.d("login/resp body", resp.first().day.toString())
-                    Log.d("login/resp body", resp.first().sections.toString())
-                }
+//                val resp : List<CalendarResponse> = response.body()!!
+//                if (resp.first() != null) {
+//                    Log.d("login/resp body", resp.first().day.toString())
+//                    Log.d("login/resp body", resp.first().sections.toString())
+//                }
 //                  Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
                   val splashActivity =  SplashActivity()
                   splashActivity.finish()
