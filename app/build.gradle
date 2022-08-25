@@ -7,12 +7,12 @@ Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.umc.Healthper"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -46,6 +46,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
     // 카카오 로그인
     implementation "com.kakao.sdk:v2-user:2.0.1"
@@ -53,12 +54,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.1'
 
     // google ads
-    implementation 'com.google.android.gms:play-services-ads:20.2.0'
+    implementation 'com.google.android.gms:play-services-ads:21.1.0'
 
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     testImplementation 'junit:junit:4.13.2'

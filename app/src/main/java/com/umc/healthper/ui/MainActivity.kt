@@ -20,9 +20,7 @@ import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityMainBinding
 import com.umc.healthper.ui.board.MyboardBoardFragment
-import com.umc.healthper.ui.board.view.BoardFragment
-import com.umc.healthper.ui.board.view.BoardFreepostContentFragment
-import com.umc.healthper.ui.board.view.BoardWritingFragement
+import com.umc.healthper.ui.board.view.*
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.*
@@ -186,6 +184,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun checkStack() {
+        if (boardFreepostContentFragment != null) supportFragmentManager.popBackStack(
+            "boardFreeComment",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (MyboardBoardFragment != null) supportFragmentManager.popBackStack(
+            "boardMypage",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (boardWritingFragement != null) supportFragmentManager.popBackStack(
+            "boardWrite",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack(
+            "favorites",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
         if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack(
             "favorites",
             FragmentManager.POP_BACK_STACK_INCLUSIVE

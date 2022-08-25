@@ -29,7 +29,7 @@ class MypageFragment : Fragment() {
     ): View? {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
 
-        binding.mypageFavoritesIv.setOnClickListener{
+        binding.mypageFavoritesTv.setOnClickListener{
             mainActivity!!.changeMypageFragment(0)
         }
 //        binding.mypageMusicIv.setOnClickListener{
