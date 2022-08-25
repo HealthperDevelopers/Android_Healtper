@@ -340,7 +340,8 @@
         app:layout_constraintTop_toBottomOf="@id/timer_rest_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:paddingBottom="5dp"/>
 
     <ImageView
         android:id="@+id/timer_done_bt"
