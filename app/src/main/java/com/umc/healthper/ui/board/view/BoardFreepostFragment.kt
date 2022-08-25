@@ -9,7 +9,11 @@ import androidx.fragment.app.Fragment
 import com.umc.healthper.data.remote.*
 import com.umc.healthper.databinding.FragmentBoardFreepostBinding
 import com.umc.healthper.ui.board.adapter.BoardFreepostRVAdapter
+import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,6 +62,19 @@ class BoardFreepostFragment : Fragment() {
                             override fun onClick(pos: Int) {
                                 Log.d("pos", pos.toString())
                                 // post 조회
+                                runBlocking {
+                                    async {
+                                        for (tmp in 0..5)
+                                            Log.d("tmp", tmp.toString())
+                                        VarUtil.glob.mainActivity.boardFreepostContentFragment = BoardFreepostContentFragment()
+                                    }
+                                    launch {
+                                        for (tmp in 6..10)
+                                            Log.d("tmp", tmp.toString())
+                                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.postId = pos
+                                        VarUtil.glob.mainActivity.changeBoardFragment(2)
+                                    }
+                                }
                             }
                         })
                     }
