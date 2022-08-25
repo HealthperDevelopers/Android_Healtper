@@ -3,7 +3,10 @@ package com.umc.healthper.ui.login
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +22,8 @@ import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.VarUtil.Companion.glob
 import com.umc.healthper.util.getAutoLogin
 import com.umc.healthper.util.saveAutoLogin
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding : ActivityLoginBinding
@@ -35,6 +40,27 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Log.d("LoginActivity", "create")
+
+
+        var packageInfo: PackageInfo? = null
+        try{
+            packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        if (packageInfo == null) {
+            Log.d("hashKey", "null")
+        }
+        packageInfo?.signatures?.forEach {
+            try {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(it.toByteArray())
+                Log.d("hashKey", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            } catch (e: NoSuchAlgorithmException) {
+                e.printStackTrace()
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=$it", e)
+            }
+        }
 
         val spf = this.getSharedPreferences("isAuto", MODE_PRIVATE)
         var autoLogin = getAutoLogin()
@@ -158,6 +184,7 @@ class LoginActivity : AppCompatActivity() {
             binding.loginAutoTv.text = "auto login : no"
     }
 }
+
 //package com.umc.healthper.ui.login
 //
 //import android.annotation.SuppressLint
