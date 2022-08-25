@@ -1,4 +1,4 @@
-package com.umc.healthper.ui.board.view
+package com.umc.healthper.ui.board
 
 import android.content.Context
 import androidx.fragment.app.Fragment
