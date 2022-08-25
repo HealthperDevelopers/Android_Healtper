@@ -10,6 +10,7 @@ import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.data.remote.GetDayDetailSecond
+import com.umc.healthper.data.remote.SetDayDetailSecond
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
 import com.umc.healthper.ui.main.view.MainFragment
@@ -25,7 +26,7 @@ class GlobVar: Application() {
 
     var selectedPart = ArrayList<String>()
     var unselectedPart = ArrayList<String>()
-    var work : ArrayList<WorkRecord> = arrayListOf()
+    var work : ArrayList<SetDayDetailSecond> = arrayListOf()
     var totalData : TotalData = TotalData("", ArrayList(), ExerciseInfo(0, 0))
     var setMain : Boolean = false
     var isWorkTime: Boolean = true // false -> partTime
@@ -46,4 +47,6 @@ class GlobVar: Application() {
     //현재 열람중인 운동정보
     var recordId: Int = 0
     var recordList = ArrayList<GetDayDetailSecond>()
+    var recordPartList = ArrayList<String>()
+    var partPos: Int = 0
 }

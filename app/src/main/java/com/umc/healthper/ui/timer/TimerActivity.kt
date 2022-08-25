@@ -11,13 +11,16 @@ import com.umc.healthper.R
 import com.umc.healthper.data.entity.Pack
 import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.data.local.LocalDB
+import com.umc.healthper.data.remote.Detail
+import com.umc.healthper.data.remote.GetDayDetailSecond
+import com.umc.healthper.data.remote.SetDayDetailSecond
 import com.umc.healthper.databinding.ActivityTimerBinding
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.util.VarUtil
 
 class TimerActivity : AppCompatActivity() {
     lateinit var binding: ActivityTimerBinding
-    var pack: ArrayList<Pack> = arrayListOf()
+    var pack: ArrayList<Detail> = arrayListOf()
     var setCount : Int = 1
     var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
     var weight: Int = 0
@@ -55,16 +58,16 @@ class TimerActivity : AppCompatActivity() {
         // 중복 데이터 조회해서 pack에 덧붙이기
         var flag = false
         for (workRecord in VarUtil.glob.work){
-            if (workRecord.work == VarUtil.glob.currentWork)
+            if (workRecord.exerciseName == VarUtil.glob.currentWork)
             {
-                workRecord.pack.add(Pack(setCount, weight, count))
+                workRecord.details?.add(Detail(setCount, weight, count))
                 VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
                 flag = true
                 break
             }
         }
         if (!flag) {
-            pack.add(Pack(setCount, weight, count))
+            pack.add(Detail(setCount, count, weight))
             VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
         }
         // 현재 진행한 세트의 무게와 횟수 저장 + 세트수도 저장해야함.
@@ -76,16 +79,16 @@ class TimerActivity : AppCompatActivity() {
         // 중복 데이터 조회해서 pack에 덧붙이기
         var flag = false
         for (workRecord in VarUtil.glob.work){
-            if (workRecord.work == VarUtil.glob.currentWork)
+            if (workRecord.exerciseName == VarUtil.glob.currentWork)
             {
-                workRecord.pack.add(Pack(setCount, weight, count))
+                workRecord.details?.add(Detail(setCount, weight, count))
                 VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
                 flag = true
                 break
             }
         }
         if (!flag) {
-            pack.add(Pack(setCount, weight, count))
+            pack.add(Detail(setCount, count, weight))
             VarUtil.glob.totalData.exerciseInfo.totalVolume += weight * count
         }
         // 현재 진행한 세트의 무게와 횟수 저장
@@ -96,15 +99,15 @@ class TimerActivity : AppCompatActivity() {
     fun addWork(runningTime: Int) {
         var flag = false
         for (workRecord in VarUtil.glob.work){
-            if (workRecord.work == VarUtil.glob.currentWork)
+            if (workRecord.exerciseName == VarUtil.glob.currentWork)
             {
-                workRecord.runningTime += runningTime
+                workRecord.exerciseTime += runningTime
                 flag = true
                 break
             }
         }
         if (!flag) {
-            VarUtil.glob.work.add(WorkRecord (runningTime, pack, db.WorkPartDao().getWorkPartIdbyPartName(VarUtil.glob.currentPart), VarUtil.glob.currentWork))
+            VarUtil.glob.work.add(SetDayDetailSecond (VarUtil.glob.currentWork, db.WorkPartDao().getWorkPartIdbyPartName(VarUtil.glob.currentPart), runningTime,pack))
             VarUtil.glob.totalData.sections.add(VarUtil.glob.currentPart) // -> comment에서 중복 제거
         }
     }
@@ -113,8 +116,8 @@ class TimerActivity : AppCompatActivity() {
     fun partTime(part:String): Int {
         var partTime = 0
         for (tmp in VarUtil.glob.work){
-            if (db.WorkPartDao().getWorkPartIdbyPartName(part) == tmp.partId)
-                partTime += tmp.runningTime
+            if (db.WorkPartDao().getWorkPartIdbyPartName(part) == tmp.sectionId)
+                partTime += tmp.exerciseTime
         }
         return partTime
     }
@@ -125,7 +128,7 @@ class TimerActivity : AppCompatActivity() {
 
         for (tmp in VarUtil.glob.work){
             if (all)
-                partTime += tmp.runningTime
+                partTime += tmp.exerciseTime
         }
         return partTime
     }
@@ -134,10 +137,10 @@ class TimerActivity : AppCompatActivity() {
     fun partVolume(partId : Int): Int {
         var partVolume = 0
         for (tmp in VarUtil.glob.work){
-            if (tmp.partId == partId){
-                for (pack in tmp.pack)
+            if (tmp.sectionId == partId){
+                for (pack in tmp.details!!)
                 {
-                    partVolume += pack.count * pack.weight
+                    partVolume += pack.repeatTime * pack.weight
                 }
             }
         }

@@ -32,7 +32,7 @@ interface AuthRetrofitInterface {
 
     @POST("/finish/{recordId}")
     fun detailRecord(
-        @Body work : ArrayList<WorkRecord>,
+        @Body work : ArrayList<SetDayDetailSecond>,
         @Path("recordId") recordId : Int
     ) : Call<String>
 //    상세 정보 등록

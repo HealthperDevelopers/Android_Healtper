@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.data.local.LocalDB
+import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.databinding.ItemWorkreadyWorkpartBinding
 import com.umc.healthper.util.VarUtil
 
 class DetailWorkRecordRvAdapter(): RecyclerView.Adapter<DetailWorkRecordRvAdapter.ViewHolder>() {
 
     interface Listener {
-        fun onClick(pos: Int)
+        fun onClick(pos: Int, partname: String)
     }
     lateinit var userListener: Listener
     fun setListener(data: Listener) {
@@ -29,24 +30,35 @@ class DetailWorkRecordRvAdapter(): RecyclerView.Adapter<DetailWorkRecordRvAdapte
     }
 
     override fun getItemCount(): Int {
-        return VarUtil.glob.recordList.size
+        return VarUtil.glob.recordPartList.size
     }
 
     class ViewHolder(val binding: ItemWorkreadyWorkpartBinding):RecyclerView.ViewHolder(binding.root) {
         val db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
         fun bind(pos: Int, userListener: Listener) {
-            val data = VarUtil.glob.recordList[pos]
-            binding.itemWorkreadyWorkpartPartTv.text = db.WorkPartDao().getWorkPartNamebyWorkPartId(data.sectionId)
-            binding.itemWorkreadyWorkpartTimeTv.text = data.exerciseTime.toString()
+            val data = ArrayList<GetDayDetailSecond>()
+            for (i in VarUtil.glob.recordList) {
+                if (VarUtil.glob.recordPartList[pos] == i.section) {
+                    data.add(i)
+                }
+            }
+            binding.itemWorkreadyWorkpartPartTv.text = VarUtil.glob.recordPartList[pos]
+            var totalTime = 0
+            for (i in data) {
+                totalTime += i.exerciseTime
+            }
+            binding.itemWorkreadyWorkpartTimeTv.text = totalTime.toString()
             var totalVol = 0
-            for (i in data.details!!) {
-                totalVol += i.repeatTime * i.weight
+            for (i in data) {
+                for (j in i.details!!) {
+                    totalVol = j.repeatTime * j.weight
+                }
             }
             binding.itemWorkreadyWorkpartVolTv.text = totalVol.toString()
 
 
             binding.root.setOnClickListener {
-                userListener.onClick(pos)
+                userListener.onClick(pos, binding.itemWorkreadyWorkpartPartTv.text.toString())
             }
         }
     }

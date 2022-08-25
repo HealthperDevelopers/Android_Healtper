@@ -1,14 +1,9 @@
 package com.umc.healthper.data.remote
 
-data class GetDayDetailSecond (
+data class SetDayDetailSecond (
     var exerciseName: String? = null,
-    var section: String,
+    var sectionId: Int,
     var exerciseTime : Int,
     var details: ArrayList<Detail>? = null
     )
 
-data class Detail (
-    var setNumber : Int,
-    var repeatTime : Int,
-    var weight : Int
-    )

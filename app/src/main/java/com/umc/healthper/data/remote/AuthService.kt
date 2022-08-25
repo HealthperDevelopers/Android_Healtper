@@ -126,7 +126,7 @@ class AuthService {
         })
     }
 
-    fun detailRecord(@Body work : ArrayList<WorkRecord>, @Path("recordId") recordId : Int){
+    fun detailRecord(@Body work : ArrayList<SetDayDetailSecond>, @Path("recordId") recordId : Int){
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
         authService.detailRecord(work, recordId).enqueue(object: Callback<String> {

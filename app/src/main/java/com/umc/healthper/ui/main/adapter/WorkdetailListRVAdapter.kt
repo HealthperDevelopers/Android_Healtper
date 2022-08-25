@@ -41,7 +41,7 @@ class WorkdetailListRVAdapter(val data: ArrayList<Work>): RecyclerView.Adapter<W
             binding.itemWorkdetailWorknameTv.text = data[pos].workName
             try {
                 for (work in VarUtil.glob.work){
-                    if (work.work == data[pos].workName) {
+                    if (work.exerciseName == data[pos].workName) {
 //                        val d = Log.d("workDetailRVAdapter", "color change")
                         binding.itemWorkdetailWorknameTv.setBackground(VarUtil.glob.mainContext.getResources().getDrawable(
                             R.drawable.workdetail_do_work))
