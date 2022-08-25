@@ -8,6 +8,11 @@ import retrofit2.http.*
 
 interface AuthRetrofitInterface {
 
+    @GET("/post/{postId}")
+    fun viewPost(
+        @Path("postId") postId : Int
+    ) : Call<APostResponse>
+
     @POST("/post")
     fun postPost(@Body post : Post) : Call<PostId>
 

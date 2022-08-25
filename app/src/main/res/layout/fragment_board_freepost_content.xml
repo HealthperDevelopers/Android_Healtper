@@ -85,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:text="요새 핸드그립 쓰는데 솔직히 스트랩 너무 귀찮음. 바가 좀 높이 있으면 점프 해야 하는데 점프하고 어케 스트랩 감음? 걍 자석 달린 핸드그랩 쓰지ㅇㅈ?"
+        android:text=""
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
