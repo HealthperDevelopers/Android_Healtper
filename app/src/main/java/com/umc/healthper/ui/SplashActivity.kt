@@ -59,7 +59,7 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
 
     }
     companion object {
-        private const val DURATION : Long = 1500
+        private const val DURATION : Long = 3000
     }
 
     override fun onBackPressed() {
@@ -151,6 +151,8 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
 
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 when {
                     error.toString() == AuthErrorCause.AccessDenied.toString() -> {
                         Toast.makeText(this, "접근이 거부 됨(동의 취소)", Toast.LENGTH_SHORT).show()
@@ -187,6 +189,8 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                 UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
                     if (error != null) {
                         Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     }
                     else if (tokenInfo != null) {
                         Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()

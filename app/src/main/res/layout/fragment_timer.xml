@@ -124,7 +124,7 @@
 
     <TextView
         android:id="@+id/timer_part_pack_set"
-        android:layout_width="280dp"
+        android:layout_width="250dp"
         android:layout_height="70dp"
         app:layout_constraintStart_toStartOf="@id/total_timer_info_iv"
         app:layout_constraintEnd_toEndOf="@id/total_timer_info_iv"
@@ -195,7 +195,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@id/timer_work_tv"
         app:layout_constraintEnd_toEndOf="@id/timer_sec_column"
-        app:layout_constraintStart_toStartOf="@id/total_timer_info_iv"
+        app:layout_constraintStart_toStartOf="@id/timer_part_pack_set"
         app:layout_constraintBottom_toBottomOf="@id/total_timer_info_iv"/>
 
     <View
@@ -203,7 +203,7 @@
         android:layout_width="1dp"
         android:layout_height="10dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="@id/total_timer_info_iv"
+        app:layout_constraintEnd_toEndOf="@id/timer_part_pack_set"
         app:layout_constraintStart_toStartOf="@id/timer_fir_column"
         app:layout_constraintTop_toBottomOf="@id/timer_work_tv"
         app:layout_constraintBottom_toBottomOf="@id/total_timer_info_iv"/>
@@ -217,7 +217,7 @@
         style="@style/Text.arialround.total"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="@id/timer_fir_column"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintTop_toTopOf="@id/timer_part_pack_set"
         app:layout_constraintBottom_toBottomOf="@id/timer_part_pack_set"/>
 
@@ -230,7 +230,9 @@
         android:hint="무게"
         android:inputType="number"
         android:textSize="20sp"
+        android:gravity="right"
         style="@style/Text.arialround.total"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="@id/timer_part_pack_set"
         app:layout_constraintEnd_toEndOf="@id/timer_sec_column"
         app:layout_constraintStart_toStartOf="@id/timer_fir_column"
@@ -239,7 +241,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         android:text="kg"
         android:textSize="20sp"
         style="@style/Text.arialround.total"
@@ -254,10 +255,11 @@
         android:background="@android:color/transparent"
         android:enabled="false"
         android:hint="횟수"
+        android:gravity="right"
         android:textSize="20sp"
         style="@style/Text.arialround.total"
         android:inputType="number"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="@id/timer_part_pack_set"
         app:layout_constraintStart_toStartOf="@id/timer_sec_column"
         app:layout_constraintTop_toTopOf="@id/timer_part_pack_set"/>
@@ -265,7 +267,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         android:text="회"
         android:textSize="20sp"
         style="@style/Text.arialround.total"
