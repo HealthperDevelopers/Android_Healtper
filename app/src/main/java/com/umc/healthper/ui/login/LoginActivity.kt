@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
@@ -21,6 +22,12 @@ import com.umc.healthper.util.saveAutoLogin
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding : ActivityLoginBinding
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("loginActivity", "destroy")
+        ActivityCompat.finishAffinity(this)
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
