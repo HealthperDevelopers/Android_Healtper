@@ -19,8 +19,8 @@ import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityMainBinding
+import com.umc.healthper.ui.board.MyboardBoardFragment
 import com.umc.healthper.ui.board.view.BoardFragment
-import com.umc.healthper.ui.board.view.MyboardBoardFragment
 import com.umc.healthper.ui.board.view.WriteBoardFragment
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment

@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.healthper.databinding.FragmentBoardBinding
 import com.umc.healthper.ui.MainActivity
+import com.umc.healthper.ui.board.adapter.BoardVPAdapter
 
 class BoardFragment : Fragment() {
     lateinit var binding: FragmentBoardBinding
@@ -24,6 +26,13 @@ class BoardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBoardBinding.inflate(inflater, container, false)
+
+        val boardVPAdapter = BoardVPAdapter(this)
+        binding.boardFreePostVp.adapter = boardVPAdapter
+//        TabLayoutMediator(binding.dotsIndicatorTb, binding.homePannelBackgroundVp)
+//        { tab, position ->
+//            information[position]
+//        }.attach()
 
         binding.boardMyboardIv.setOnClickListener {
             mainActivity!!.changeBoardFragment(0)
