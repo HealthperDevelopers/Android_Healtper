@@ -7,6 +7,16 @@ import retrofit2.http.*
 
 interface AuthRetrofitInterface {
 
+    /** 게시글 목록 조회
+     * @param sortType = {LATEST(최신순), LIKE(추천순), COMMENT(댓글순)}
+     * @return postsResponse = 게시글 목록 30개의 정보
+     * */
+    @GET("/posts")
+    fun getPosts(
+        @Query ("sort") sortType : String,
+        @Query ("page") page : Int
+    ) : Call<PostsResponse>
+
     @GET("/login")
     fun login(
         @Query ("kakaoId") kakaoId : String
