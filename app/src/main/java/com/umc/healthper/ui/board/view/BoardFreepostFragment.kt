@@ -64,13 +64,9 @@ class BoardFreepostFragment : Fragment() {
                                 // post 조회
                                 runBlocking {
                                     async {
-                                        for (tmp in 0..5)
-                                            Log.d("tmp", tmp.toString())
                                         VarUtil.glob.mainActivity.boardFreepostContentFragment = BoardFreepostContentFragment()
                                     }
                                     launch {
-                                        for (tmp in 6..10)
-                                            Log.d("tmp", tmp.toString())
                                         VarUtil.glob.mainActivity.boardFreepostContentFragment!!.postId = pos
                                         VarUtil.glob.mainActivity.changeBoardFragment(2)
                                     }
