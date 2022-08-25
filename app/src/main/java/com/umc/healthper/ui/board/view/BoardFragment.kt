@@ -18,7 +18,6 @@ import com.umc.healthper.util.VarUtil
 class BoardFragment : Fragment() {
     lateinit var binding: FragmentBoardBinding
     var mainActivity: MainActivity? = null
-    var boardFreepostFragment : BoardFreepostFragment? = null
     var boardQuestionpostFragment : BoardQuestionpostFragment? = null
 
     private val information = arrayListOf("자유 게시판", "질문 게시판")
@@ -51,15 +50,15 @@ class BoardFragment : Fragment() {
                 when (position) {
                     //최신순
                     0 -> {
-                        boardFreepostFragment?.getPosts("LATEST", 0)
+                        VarUtil.glob.boardFreepostFragment.getPosts("LATEST", 0)
                     }
                     //추천순
                     1 -> {
-                        boardFreepostFragment?.getPosts("LIKE", 0)
+                        VarUtil.glob.boardFreepostFragment.getPosts("LIKE", 0)
                     }
                     //댓글순
                     2 -> {
-                        boardFreepostFragment?.getPosts("COMMENT", 0)
+                        VarUtil.glob.boardFreepostFragment.getPosts("COMMENT", 0)
                     }
                 }
             }

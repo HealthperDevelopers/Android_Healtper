@@ -11,6 +11,7 @@ import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.ui.MainActivity
+import com.umc.healthper.ui.board.view.BoardFreepostFragment
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
 import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.mypage.adapter.ShowFavWorkRVAdapter
@@ -19,6 +20,7 @@ class GlobVar: Application() {
     lateinit var mainContext: Context
     lateinit var mainActivity: MainActivity
     lateinit var mainFragment: MainFragment
+    lateinit var boardFreepostFragment: BoardFreepostFragment
     lateinit var today: TextView
     lateinit var size: Point
     var restMinutes : Int = 60
