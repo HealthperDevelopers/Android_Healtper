@@ -4,33 +4,39 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import android.view.WindowManager
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.umc.healthper.R
+import com.umc.healthper.data.entity.ExerciseInfo
+import com.umc.healthper.data.entity.TotalData
+import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityMainBinding
 import com.umc.healthper.ui.board.view.BoardFragment
 import com.umc.healthper.ui.board.view.MyboardBoardFragment
 import com.umc.healthper.ui.board.view.WriteBoardFragment
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
-import com.umc.healthper.ui.main.view.MainFragment
-import com.umc.healthper.ui.main.view.WorkReadyFragment
-import com.umc.healthper.ui.main.view.WorkdetailFragment
+import com.umc.healthper.ui.main.view.*
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
+import com.umc.healthper.ui.timer.CommentActivity
 import com.umc.healthper.ui.timer.TimerActivity
 import com.umc.healthper.util.VarUtil
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+//    var work : ArrayList<Work> = arrayListOf()
     var mainFragment: MainFragment? = null
     var ChartFragment: ChartFragment? = null
     var mypageFragment: MypageFragment? = null
@@ -40,14 +46,38 @@ class MainActivity : AppCompatActivity() {
     var PartchartFragment: PartchartFragment? = null
     var workReadyFragment: WorkReadyFragment? = null
     var workdetailFragment: WorkdetailFragment? = null
+
+    // board page
     var MyboardBoardFragment: MyboardBoardFragment? = null
     var WriteBoardFragment: WriteBoardFragment? = null
+
+    var detailWorkRecordSecondFragment: DetailWorkRecordSecondFragment? = null
+    var detailWorkRecordFirstFragment: DetailWorkRecordFirstFragment? = null
+    var authService : AuthService = AuthService()
+    private var now: Calendar = Calendar.getInstance()
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("mainActivity", "destroy")
+        ActivityCompat.finishAffinity(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("mainActivity", "reStart")
+        if (VarUtil.glob.setMain) {
+            // authService.calenderInfo(2022, 8)
+            checkStack()
+            VarUtil.glob.setMain = false
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Log.d("mainActivity", "Create")
         VarUtil.glob.mainContext = applicationContext
         VarUtil.glob.mainActivity = this
         val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -102,12 +132,15 @@ class MainActivity : AppCompatActivity() {
                 "게시판" -> {
                     if (BoardFragment == null) {
                         BoardFragment = BoardFragment()
-                        supportFragmentManager.beginTransaction().replace(R.id.main_frm_fl, BoardFragment!!).commit()
+                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, BoardFragment!!).commit()
                     }
-                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+
+                    if (mainFragment != null) supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+                    if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+                    if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
+                    checkStack()
+
                     supportFragmentManager.beginTransaction().show(BoardFragment!!).commit()
-                    supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-                    supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
 
                     true
                 }
@@ -150,7 +183,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainDl.addDrawerListener(toggle)
     }
 
-    private fun checkStack() {
+    fun checkStack() {
         if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack(
             "favorites",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -169,6 +202,14 @@ class MainActivity : AppCompatActivity() {
         )
         if (workdetailFragment != null) supportFragmentManager.popBackStack(
             "workDetail",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (detailWorkRecordFirstFragment != null) supportFragmentManager.popBackStack(
+            "detailWorkRecordFirst",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        if (detailWorkRecordSecondFragment != null) supportFragmentManager.popBackStack(
+            "detailWorkRecordSecond",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
     }
@@ -221,13 +262,30 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 trans.replace(binding.mainFrmFl.id, workReadyFragment!!).addToBackStack("workReady")
+                Log.d("add2BackStack", "workReady")
             }
-            else -> {
+            4 -> {
+                if (detailWorkRecordSecondFragment == null) {
+                    detailWorkRecordSecondFragment = DetailWorkRecordSecondFragment()
+                }
+
+                trans.replace(binding.mainFrmFl.id, detailWorkRecordSecondFragment!!).addToBackStack("detailWorkRecordSecond")
+            }
+            2 -> {
                 if (workdetailFragment == null) {
                     workdetailFragment = WorkdetailFragment()
                 }
 
                 trans.replace(binding.mainFrmFl.id, workdetailFragment!!).addToBackStack("workDetail")
+                Log.d("add2BackStack", "workDetail")
+            }
+            else -> {
+                if (detailWorkRecordFirstFragment == null) {
+                    detailWorkRecordFirstFragment = DetailWorkRecordFirstFragment()
+                }
+
+                trans.replace(binding.mainFrmFl.id, detailWorkRecordFirstFragment!!).addToBackStack("detailWorkRecordFirst")
+
             }
         }
         trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -271,6 +329,29 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun change2Comment() {
+        for (tmp in VarUtil.glob.work){
+//            Log.d("total time", tmp.totalTime.toString())
+            Log.d("running time", tmp.runningTime.toString())
+            Log.d("partId", tmp.partId.toString())
+            Log.d("work", tmp.work)
+            for (temp in tmp.pack){
+                Log.d("pack set", temp.set.toString())
+                Log.d("pack weight", temp.weight.toString())
+                Log.d("pack count", temp.count.toString())
+                Log.d("------------", "done")
+            }
+            Log.d("work done", "_________________")
+        }
 
+        val intent = Intent(this, CommentActivity::class.java)
+        startActivity(intent)
+    }
 
+    fun resetWorkData(){
+        Log.d("reset", "Work")
+        VarUtil.glob.work = arrayListOf()
+        VarUtil.glob.totalData = TotalData("", ArrayList(), ExerciseInfo(0, 0))
+
+    }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+<font
+    android:font="@font/bmeuljirottf"
+    android:fontStyle="normal"
+    android:fontWeight="400">
+</font>
+    <font
+        android:font="@font/bmjua_ttf"
+        android:fontStyle="normal"
+        android:fontWeight="400">
+    </font>
+<font
+    android:font="@font/myanmar_text_bold"
+    android:fontStyle="normal"
+    android:fontWeight="400">
+</font>
+    <font
+        android:font="@font/vivald_italic"
+        android:fontStyle="normal"
+        android:fontWeight="400">
+    </font>
+    <font
+        android:font="@font/bahnschrift"
+        android:fontStyle="normal"
+        android:fontWeight="400">
+    </font>
+</font-family>

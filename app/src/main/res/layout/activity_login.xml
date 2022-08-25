@@ -3,17 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/timer_background">
 
     <ImageView
         android:id="@+id/login_logo_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_foreground"
+        android:layout_width="220dp"
+        android:layout_height="159dp"
+        android:src="@drawable/splash_logo"
+        android:layout_marginEnd="80dp"
+        android:layout_marginStart="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="150dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="410dp"
+        android:scaleType="fitXY"
+        android:layout_marginTop="230dp"/>
 
     <TextView
         android:id="@+id/login_auto_tv"
@@ -24,63 +30,69 @@
         app:layout_constraintBottom_toTopOf="@id/kakao_login_tv"
         android:layout_marginBottom="10dp"/>
 
-    <TextView
-        android:id="@+id/login_text1_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="헬스 시간 도우미"
-        android:textSize="15sp"
+    <ImageView
+        android:id="@+id/login_subtitle_tv"
+        android:layout_width="210dp"
+        android:layout_height="15dp"
+        android:src="@drawable/login_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_logo_iv"
+        app:layout_constraintBottom_toBottomOf="@id/login_logo_iv"
+        android:layout_marginStart="85dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="4dp"
         />
 
-    <TextView
-        android:id="@+id/login_text2_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HEALTHPER"
-        android:textStyle="bold"
-        android:textSize="20sp"
+    <ImageView
+        android:id="@+id/login_name_tv"
+        android:layout_width="46dp"
+        android:layout_height="26dp"
+        android:src="@drawable/login_app_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_text1_tv"
+        app:layout_constraintTop_toBottomOf="@id/login_subtitle_tv"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginStart="166dp"
         />
 
-    <TextView
+    <ImageView
         android:id="@+id/kakao_login_tv"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:background="@color/yellow"
-        android:text="카카오 로그인 -> 나중에 디자인 나오면 제대로 구현"
+        android:layout_width="220dp"
+        android:layout_height="71dp"
+        android:src="@drawable/kakao_login_large_narrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/google_login_tv"
-        app:layout_constraintTop_toBottomOf="@id/login_text2_tv"
-        android:layout_marginTop="300dp"
-        />
-
-    <TextView
-        android:id="@+id/google_login_tv"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:background = "#CACACACA"
-        android:text="google 로그인 -> 나중에 디자인 나오면 제대로 구현"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/kakao_login_tv"
+        app:layout_constraintTop_toBottomOf="@id/login_name_tv"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="122dp"
+        android:layout_marginBottom="185dp"
         />
 
-    <TextView
+<!--    <TextView-->
+<!--        android:id="@+id/google_login_tv"-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:background = "#CACACACA"-->
+<!--        android:text="google 로그인 -> 나중에 디자인 나오면 제대로 구현"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/kakao_login_tv"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:layout_marginBottom="100dp"-->
+<!--        />-->
+
+    <ImageView
         android:id="@+id/login_explain_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="로그인 약관 설명"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/google_login_tv"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:src="@drawable/login_explain"
+        app:layout_constraintEnd_toEndOf="@id/kakao_login_tv"
+        app:layout_constraintStart_toStartOf="@id/kakao_login_tv"
+        app:layout_constraintTop_toBottomOf="@id/kakao_login_tv"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginStart="104dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
