@@ -21,7 +21,7 @@
         android:id="@+id/item_board_post_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="렛풀 다운 스트랩 추천함"
+        android:text="null error"
         android:textSize="15sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"

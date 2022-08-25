@@ -29,7 +29,6 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Boa
             if (tmp.postType == "NORMAL")
                 FreeData.add(tmp)
         }
-
         return NameHolder(binding, FreeData)
     }
 
@@ -44,7 +43,7 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Boa
             if (tmp.postType != "NORMAL")
                 size--
         }
-
+        Log.d("Freesize", size.toString())
         return size
     }
 
