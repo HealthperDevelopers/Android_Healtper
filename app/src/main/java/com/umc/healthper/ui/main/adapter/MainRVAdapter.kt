@@ -224,6 +224,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
                 val conn = AuthService()
                 conn.dayDetailData = this
+                VarUtil.glob.comm = VarUtil.glob.detailFirstList[adapterPosition - 2].comment
                 conn.dayDetail(VarUtil.glob.recordId)
 
             }
