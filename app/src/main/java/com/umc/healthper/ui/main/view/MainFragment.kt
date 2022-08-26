@@ -31,6 +31,14 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
         val authService = AuthService()
         authService.calendarData = this
         authService.calenderInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
+
+        authService.dayInfoData = this
+        val y = now.get(Calendar.YEAR)
+        val m = now.get(Calendar.MONTH)
+        val d = now.get(Calendar.DATE)
+        val selectedDay = "$y-$m-$d"
+        authService.dayInfo(selectedDay)
+
         VarUtil.glob.mainFragment = this
         adapter = MainRVAdapter()
         binding.mainRv.adapter = adapter

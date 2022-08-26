@@ -88,6 +88,8 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             weekList = setCalWeekData()
 
             setCal(data, weekList)
+
+
         }
 
         private fun setListener() {
@@ -263,6 +265,15 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
                 binding.itemMainDetailCommTv.text =
                     VarUtil.glob.detailFirstList[adapterPosition - 2].comment
+
+                val tmp2 = FlexboxLayoutManager(VarUtil.glob.mainContext)
+                tmp2.flexDirection = FlexDirection.ROW
+                tmp2.justifyContent = JustifyContent.FLEX_START
+                tmp2.alignItems = AlignItems.FLEX_START
+                binding.itemMainDetailPartListRv.layoutManager = tmp2
+
+                val adapter = DetailItemPartListRvAdapter(VarUtil.glob.detailFirstList[adapterPosition - 2].sections)
+                binding.itemMainDetailPartListRv.adapter = adapter
             }
         }
 

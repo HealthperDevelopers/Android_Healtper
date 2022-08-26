@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/item_boarder"
     android:elevation="10dp"
     android:layout_marginVertical="20dp"
@@ -134,8 +135,7 @@
         android:background="@drawable/item_boarder"
         android:backgroundTint="#f4f4f4"
         android:layout_marginRight="13dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
+        tools:listitem="@layout/item_main_detail_list"
         app:layout_constrainedWidth="true">
     </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>
