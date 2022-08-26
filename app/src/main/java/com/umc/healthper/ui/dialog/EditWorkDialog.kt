@@ -87,6 +87,7 @@ class EditWorkDialog: DialogFragment() {
         val params = dialog?.window?.attributes
 
         params?.width = (VarUtil.glob.size.x * 0.9).toInt()
+        params?.height = (VarUtil.glob.size.y * 0.5).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
 
     }
