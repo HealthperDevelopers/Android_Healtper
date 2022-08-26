@@ -1,10 +1,14 @@
 package com.umc.healthper.ui.main.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.ItemEditWorkPartBinding
+import com.umc.healthper.util.VarUtil
 
 class EditWorkRvAdapter(var data: ArrayList<String>): RecyclerView.Adapter<EditWorkRvAdapter.EditWorkHolder>() {
 
@@ -33,7 +37,11 @@ class EditWorkRvAdapter(var data: ArrayList<String>): RecyclerView.Adapter<EditW
 
     class EditWorkHolder(val binding: ItemEditWorkPartBinding, var data: ArrayList<String>): RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int, listener: OnClickListener) {
+            var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
+
             binding.itemEditWorkPartTv.text = data[pos]
+            binding.itemEditWorkPartBackground.backgroundTintList = ColorStateList.valueOf(Color.parseColor(db.WorkPartDao().getColorbyPartName(data[pos])))
+
             binding.root.setOnClickListener {
                 listener.onClick(pos)
             }
