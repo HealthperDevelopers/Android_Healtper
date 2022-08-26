@@ -70,9 +70,9 @@ class BoardFragment : Fragment() {
 //            tab.text = information[position]
 //        }.attach()
 
-        binding.boardMyboardIv.setOnClickListener {
-            mainActivity!!.changeBoardFragment(0)
-        }
+//        binding.boardMyboardIv.setOnClickListener {
+//            mainActivity!!.changeBoardFragment(0)
+//        }
 
         binding.boardWritePostIv.setOnClickListener {
             mainActivity!!.changeBoardFragment(1)
