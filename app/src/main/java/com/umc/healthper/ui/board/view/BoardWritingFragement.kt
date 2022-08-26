@@ -23,6 +23,13 @@ class BoardWritingFragement : Fragment() {
     ): View? {
         binding = FragmentBoardWritingBinding.inflate(inflater, container, false)
 
+        binding.boardWritingCancelIv.setOnClickListener {
+            VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
+                "boardWrite",
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
+        }
+
         binding.boardWritingFreepostBtnIv.setOnClickListener{
             postType = "NORMAL"
             Toast.makeText(VarUtil.glob.mainActivity, "자유 게시판 작성", Toast.LENGTH_SHORT).show()
