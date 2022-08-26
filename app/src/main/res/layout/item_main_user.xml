@@ -30,7 +30,7 @@
         android:id="@+id/item_main_user_profile_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/item_main_user_img">
+        android:src="@mipmap/nav_mypage">
         </ImageView>
     </androidx.cardview.widget.CardView>
 <!--    프로필 사진-->
