@@ -3,19 +3,19 @@
     <item
         android:id="@+id/menu_main"
         android:title="메인"
-        android:icon="@mipmap/nav_cal"
+        android:icon="@mipmap/ic_launcher"
         android:enabled="true">
     </item>
     <item
         android:id="@+id/menu_chart"
         android:title="차트"
-        android:icon="@mipmap/nav_chart"
+        android:icon="@mipmap/ic_launcher"
         android:enabled="true">
     </item>
     <item
         android:id="@+id/menu_board"
         android:title="게시판"
-        android:icon="@mipmap/nav_board"
+        android:icon="@mipmap/ic_launcher"
         android:enabled="true">
     </item>
     <item

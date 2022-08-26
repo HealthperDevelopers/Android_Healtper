@@ -78,6 +78,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Log.d("mainActivity", "Create")
+        authService.coCalInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
+        Log.d("calData", (now.get(Calendar.MONTH) + 1).toString() + VarUtil.glob.calData.toString())
         VarUtil.glob.mainContext = applicationContext
         VarUtil.glob.mainActivity = this
         val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager

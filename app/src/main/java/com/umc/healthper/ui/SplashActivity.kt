@@ -2,6 +2,7 @@ package com.umc.healthper.ui
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
@@ -14,25 +15,30 @@ import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
+import com.kakao.sdk.user.model.AccessTokenInfo
 import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkPart
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.data.remote.AuthService
+import com.umc.healthper.data.remote.CalendarResponse
 import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.ui.login.LoginActivity
+import com.umc.healthper.ui.login.LoginView
 import com.umc.healthper.ui.main.view.DetailFirstView
 import java.io.InputStream
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getAutoLogin
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SplashActivity : AppCompatActivity(), DetailFirstView  {
+class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
     var isToken = false
-
+    var dataGet = false
     override fun onDestroy() {
         super.onDestroy()
         Log.d("splashActivity", "finish")
@@ -66,9 +72,6 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
         private const val DURATION : Long = 3000
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
     fun initDb(context: Context) {
         val db = LocalDB.getInstance(context)!!
         val manager: AssetManager = context.assets
@@ -127,6 +130,8 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
     override fun onDetailFirstGetFailure() {
     }
 
+
+
     fun splashlogin(){
         Log.d("autoLogin", getAutoLogin().toString())
         if (getAutoLogin()) {
@@ -145,8 +150,10 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
                     isToken = true
                     // api 들어갈 자리
                     val authService = AuthService()
-                    authService.login(tokenInfo.id.toString())
-                    finish()
+                    authService.loginData = this
+                    authService.login(tokenInfo!!.id.toString())
+                    val now = Calendar.getInstance()
+                    authService.coCalInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
                 }
             }
         }
@@ -155,66 +162,67 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
             startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             finish()
         }
-
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-            if (error != null) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
-                when {
-                    error.toString() == AuthErrorCause.AccessDenied.toString() -> {
-                        Toast.makeText(this, "접근이 거부 됨(동의 취소)", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.InvalidClient.toString() -> {
-                        Toast.makeText(this, "유효하지 않은 앱", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.InvalidGrant.toString() -> {
-                        Toast.makeText(this, "인증 수단이 유효하지 않아 인증할 수 없는 상태", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.InvalidRequest.toString() -> {
-                        Toast.makeText(this, "요청 파라미터 오류", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.InvalidScope.toString() -> {
-                        Toast.makeText(this, "유효하지 않은 scope ID", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.Misconfigured.toString() -> {
-                        Toast.makeText(this, "설정이 올바르지 않음(android key hash)", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.ServerError.toString() -> {
-                        Toast.makeText(this, "서버 내부 에러", Toast.LENGTH_SHORT).show()
-                    }
-                    error.toString() == AuthErrorCause.Unauthorized.toString() -> {
-                        Toast.makeText(this, "앱이 요청 권한이 없음", Toast.LENGTH_SHORT).show()
-                    }
-                    else -> { // Unknown
-                        Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
-                        Log.d("error", error.toString())
-                    }
-                }
-            }
-            else if (token != null) {
-                Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
-                    if (error != null) {
-                        Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                        finish()
-                    }
-                    else if (tokenInfo != null) {
-                        Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                        Log.d("ID tokeninfo no auto", tokenInfo.id.toString())
-                        isToken = true
-                        // api 들어갈 자리
-                        val authService = AuthService()
-                        authService.login(tokenInfo.id.toString())
-                        finish()
-                    }
-                }
-            }
-        }
+//
+//        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+//            if (error != null) {
+//                val intent = Intent(this, MainActivity::class.java)
+//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//                finish()
+//                when {
+//                    error.toString() == AuthErrorCause.AccessDenied.toString() -> {
+//                        Toast.makeText(this, "접근이 거부 됨(동의 취소)", Toast.LENGTH_SHORT).show()
+//                    }
+//                    error.toString() == AuthErrorCause.InvalidClient.toString() -> {
+//                        Toast.makeText(this, "유효하지 않은 앱", Toast.LENGTH_SHORT).show()
+//                    }
+//                    error.toString() == AuthErrorCause.InvalidGrant.toString() -> {
+//                        Toast.makeText(this, "인증 수단이 유효하지 않아 인증할 수 없는 상태", Toast.LENGTH_SHORT).show()
+//                    }
+//                    error.toString() == AuthErrorCause.InvalidRequest.toString() -> {
+//                        Toast.makeText(this, "요청 파라미터 오류", Toast.LENGTH_SHORT).show()
+//                    }
+//                    error.toString() == AuthErrorCause.InvalidScope.toString() -> {
+//                        Toast.makeText(this, "유효하지 않은 scope ID", Toast.LENGTH_SHORT).show()
+//                    }
+//                    error.toString() == AuthErrorCause.Misconfigured.toString() -> {
+//                        Toast.makeText(this, "설정이 올바르지 않음(android key hash)", Toast.LENGTH_SHORT).show()
+//                    }
+//                    error.toString() == AuthErrorCause.ServerError.toString() -> {
+//                        Toast.makeText(this, "서버 내부 에러", Toast.LENGTH_SHORT).show()
+//                    }
+//                    error.toString() == AuthErrorCause.Unauthorized.toString() -> {
+//                        Toast.makeText(this, "앱이 요청 권한이 없음", Toast.LENGTH_SHORT).show()
+//                    }
+//                    else -> { // Unknown
+//                        Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
+//                        Log.d("error", error.toString())
+//                    }
+//                }
+//            }
+//            else if (token != null) {
+//                Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+//                UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
+//                    if (error != null) {
+//                        Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+//                        val intent = Intent(this, MainActivity::class.java)
+//                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//                        finish()
+//                    }
+//                    else if (tokenInfo != null) {
+//                        Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
+//                        val intent = Intent(this, MainActivity::class.java)
+//                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//                        Log.d("ID tokeninfo no auto", tokenInfo.id.toString())
+//                        isToken = true
+//                        // api 들어갈 자리
+//                        val authService = AuthService()
+//                        authService.loginData = this
+//                        authService.login(tokenInfo.id.toString())
+//                        finish()
+//                    }
+//                }
+//            }
+//        }
 
 
 //        if(LoginClient.instance.isKakaoTalkLoginAvailable(this)){
@@ -228,5 +236,12 @@ class SplashActivity : AppCompatActivity(), DetailFirstView  {
 //            val intent = Intent(this, LoginActivity::class.java)
 //            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
 //        }
+    }
+
+    override fun onLoginSuccess(data: List<CalendarResponse>?) {
+        if (!data.isNullOrEmpty()) {
+            VarUtil.glob.calData = ArrayList(data)
+        }
+        finish()
     }
 }

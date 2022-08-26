@@ -10,8 +10,13 @@ import com.umc.healthper.data.entity.Post
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.ui.SplashActivity
+import com.umc.healthper.ui.login.LoginView
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,6 +28,7 @@ class AuthService {
     lateinit var dayInfoData: DetailFirstView
     lateinit var calendarData: CalendarDataView
     lateinit var dayDetailData: DetailSecondView
+    lateinit var loginData: LoginView
 
     fun dayInfo(theDay : String)
     {
@@ -32,13 +38,16 @@ class AuthService {
             override fun onResponse(call: Call<List<GetDayDetailFirst>>, response: Response<List<GetDayDetailFirst>>
             ) {
                 if (response.code() != 400) {
-                    if (!response.body().isNullOrEmpty()) {
                         Log.d("dayInfo/success", response.toString())
-                        val resp: List<GetDayDetailFirst> = response.body()!!
-                        val arrResp = ArrayList<GetDayDetailFirst>(resp)
+                        val resp: List<GetDayDetailFirst>? = response.body()
+                    val arrResp = if (resp.isNullOrEmpty()) {
+                        ArrayList()
+                    }
+                    else {
+                        ArrayList<GetDayDetailFirst>(resp)
+                    }
                         dayInfoData.onDetailFirstGetSuccess(arrResp)
                         Log.d("dayInfo/resp body", resp.toString())
-                    }
                 }
                 else {
 
@@ -59,14 +68,13 @@ class AuthService {
             override fun onResponse(call: Call<List<CalendarResponse>>, response: Response<List<CalendarResponse>>
             ) {
                 Log.d("login/success", response.toString())
-                val resp : List<CalendarResponse> = response.body()!!
+                val resp : List<CalendarResponse>? = response.body()
 //                if (resp.first() != null) {
 //                    Log.d("login/resp body", resp.first().day.toString())
 //                    Log.d("login/resp body", resp.first().sections.toString())
 //                }
 //                  Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
-                  val splashActivity =  SplashActivity()
-                  splashActivity.finish()
+                loginData.onLoginSuccess(resp)
             }
 
             override fun onFailure(call: Call<List<CalendarResponse>>, t: Throwable) {
@@ -86,6 +94,7 @@ class AuthService {
                     200 -> {
                         val resp: List<CalendarResponse>? = response.body()
                         if (resp.isNullOrEmpty()) {
+
                         }
                         else {
                             calendarData.calendarDataGetSuccess(ArrayList(resp))
@@ -192,5 +201,21 @@ class AuthService {
             }
 
         })
+    }
+
+
+    fun coCalInfo(year : Int, month: Int) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val resp = authService.coCalInfo(year, month)
+            withContext(Dispatchers.Main) {
+                if (resp.code() == 200) {
+                    if (!resp.body().isNullOrEmpty()) {
+                        VarUtil.glob.calData  = ArrayList(resp.body())
+                    }
+                }
+            }
+        }
     }
 }

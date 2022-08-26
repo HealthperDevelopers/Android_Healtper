@@ -27,6 +27,10 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
+        val now = Calendar.getInstance()
+        val authService = AuthService()
+        authService.calendarData = this
+        authService.calenderInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
         VarUtil.glob.mainFragment = this
         adapter = MainRVAdapter()
         binding.mainRv.adapter = adapter
@@ -65,6 +69,7 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
     }
 
     override fun calendarDataGetSuccess(data: ArrayList<CalendarResponse>) {
+        VarUtil.glob.calData = data
         Log.d("calData", data.toString())
 
     }

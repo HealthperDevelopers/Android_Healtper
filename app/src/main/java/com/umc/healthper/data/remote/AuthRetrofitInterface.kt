@@ -4,6 +4,7 @@ import com.umc.healthper.data.entity.Post
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.WorkRecord
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface AuthRetrofitInterface {
@@ -57,4 +58,10 @@ interface AuthRetrofitInterface {
         @Path("recordId") recordId : Int
     ): Call<List<GetDayDetailSecond>>
     //상세정보 가져오기
+
+    @GET("/record/calender")
+    suspend fun coCalInfo(
+        @Query ("year") year : Int,
+        @Query ("month") month: Int
+    ) : Response<List<CalendarResponse>>
 }

@@ -8,6 +8,7 @@ import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkRecord
+import com.umc.healthper.data.remote.CalendarResponse
 import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.data.remote.SetDayDetailSecond
@@ -36,6 +37,10 @@ class GlobVar: Application() {
     lateinit var workReadyAdapter: WorkReadyListAdapter
     var currentPart: String = ""
     var currentWork: String = ""
+
+    //한달의 달력데이터
+    var calData = ArrayList<CalendarResponse>()
+
 
     //사용자 즐겨찾기 페이지 데이터
     var favWorkList = ArrayList<Work>()

@@ -196,6 +196,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                     tmp2.flexDirection = FlexDirection.ROW
                     tmp2.justifyContent = JustifyContent.SPACE_AROUND
                     calRvLayoutList.add(tmp2)
+
                 }
             }
 
@@ -234,10 +235,34 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
             }
             else {
-                binding.itemMainDetailTotalTimeTv.text =
-                    VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseEntity!!.totalExerciseTime.toString()
+                val data = VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseEntity!!.totalExerciseTime
+                val tmph = data / 3600
+                val tmpm = (data - tmph * 3600)/ 60
+                val tmps = (data - tmph * 3600)% 60
+                val h = if (tmph < 10) {
+                    "0$tmph"
+                }
+                else {
+                    "$tmph"
+                }
+                val m = if (tmpm < 10) {
+                    "0$tmpm"
+                }
+                else {
+                    "$tmpm"
+                }
+                val s = if (tmps < 10) {
+                    "0$tmps"
+                }
+                else {
+                    "$tmps"
+                }
+                binding.itemMainDetailTotalTimeTv.text = "$h:$m:$s"
                 binding.itemMainDetailTotalWeightTv.text =
-                    VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseEntity!!.totalVolume.toString()
+                    VarUtil.glob.detailFirstList[adapterPosition - 2].exerciseEntity!!.totalVolume.toString() + "kg"
+
+                binding.itemMainDetailCommTv.text =
+                    VarUtil.glob.detailFirstList[adapterPosition - 2].comment
             }
         }
 

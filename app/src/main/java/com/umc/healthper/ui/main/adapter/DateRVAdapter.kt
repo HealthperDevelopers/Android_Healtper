@@ -1,11 +1,14 @@
 package com.umc.healthper.ui.main.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.ItemMainCalendarListBinding
 import com.umc.healthper.util.VarUtil
 import java.util.*
@@ -52,6 +55,7 @@ class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<
                 }
                 else {
                     binding.itemMainCalListDateTv.text = (pos - data[7] + 1).toString()
+                    setCol(pos - data[7] + 1)
                 }
             }
 
@@ -65,11 +69,13 @@ class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<
                 }
                 else {
                     binding.itemMainCalListDateTv.text = (pos + weekData[count- 1] - 1).toString()
+                    setCol(pos + weekData[count- 1] - 1)
                 }
             }
 
             else {
                 binding.itemMainCalListDateTv.text = (pos + weekData[count - 1] - 1).toString()
+                setCol(pos + weekData[count - 1] - 1)
             }
 
 
@@ -78,6 +84,39 @@ class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<
                 userListener.onClick(date)
             }
 
+        }
+
+        fun setCol(date: Int) {
+            var y = false
+            var count = 0
+            for (i in VarUtil.glob.calData) {
+                if (i.day == date) {
+                    y = true
+                    break
+                }
+                count++
+            }
+            if (y) {
+                val data = VarUtil.glob.calData[count].sections
+                val db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
+                if (data.isNotEmpty()) {
+                    binding.itemMainCalListPart1Tv.backgroundTintList =
+                        ColorStateList.valueOf(Color.parseColor(db.WorkPartDao().getColorbyPartName(data[0])))
+                }
+                if (data.size >= 2) {
+                    binding.itemMainCalListPart2Tv.backgroundTintList =
+                        ColorStateList.valueOf(Color.parseColor(db.WorkPartDao().getColorbyPartName(data[1])))
+                }
+                if (data.size >= 3) {
+                    binding.itemMainCalListPart3Tv.setBackgroundColor(
+                        Color.parseColor(db.WorkPartDao().getColorbyPartName(data[2])))
+                }
+                if (data.size >= 4) {
+                    binding.itemMainCalListPart4Tv.backgroundTintList =
+                        ColorStateList.valueOf(Color.parseColor(db.WorkPartDao().getColorbyPartName(data[3])))
+                }
+
+            }
         }
     }
 

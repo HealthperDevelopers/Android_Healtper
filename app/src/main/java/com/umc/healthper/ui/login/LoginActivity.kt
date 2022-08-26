@@ -16,6 +16,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.umc.healthper.data.remote.AuthService
+import com.umc.healthper.data.remote.CalendarResponse
 import com.umc.healthper.databinding.ActivityLoginBinding
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.util.VarUtil
@@ -25,8 +26,9 @@ import com.umc.healthper.util.saveAutoLogin
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), LoginView {
     lateinit var binding : ActivityLoginBinding
+    lateinit var inten: Intent
 
     override fun onDestroy() {
         super.onDestroy()
@@ -135,7 +137,7 @@ class LoginActivity : AppCompatActivity() {
             }
             else if (token != null) {
                 Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
+                inten = Intent(this, MainActivity::class.java)
 //                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
                     if (error != null) {
@@ -146,12 +148,11 @@ class LoginActivity : AppCompatActivity() {
                         Log.d("ID tokeninfo no auto", tokenInfo.id.toString())
                         // api 들어갈 자리
                         val authService = AuthService()
+                        authService.loginData = this
                         authService.login(tokenInfo.id.toString())
 //                        authService.isLogin()
                     }
                 }
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
             }
         }
 
@@ -182,6 +183,14 @@ class LoginActivity : AppCompatActivity() {
             binding.loginAutoTv.text = "auto login : yes"
         else
             binding.loginAutoTv.text = "auto login : no"
+    }
+
+    override fun onLoginSuccess(data: List<CalendarResponse>?) {
+        if (!data.isNullOrEmpty()) {
+            VarUtil.glob.calData = ArrayList(data)
+        }
+        startActivity(inten.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+        finish()
     }
 }
 

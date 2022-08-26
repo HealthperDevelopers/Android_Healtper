@@ -111,7 +111,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/item_main_detail_total_time_cl"
         app:layout_constraintLeft_toRightOf="@id/item_main_detail_total_time_cl"
-        android:src="@mipmap/ic_launcher">
+        android:src="@drawable/item_main_detail_more">
     </ImageView>
     <ImageView
         android:id="@+id/item_main_detail_del_iv"
@@ -120,7 +120,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/item_main_detail_part_list_rv"
-        android:src="@mipmap/ic_launcher">
+        android:src="@drawable/item_main_detail_del">
     </ImageView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_main_detail_part_list_rv"
