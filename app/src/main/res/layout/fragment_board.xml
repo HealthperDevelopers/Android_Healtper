@@ -113,6 +113,7 @@
             app:tabIndicatorColor="@android:color/transparent"
             app:tabIndicator="@drawable/tab_indicator"
             app:tabSelectedTextColor="#7a7a7a"
+            app:tabTextAppearance="@style/Text.uljiro.comment"
             app:tabTextColor="#7a7a7a"
             >
 

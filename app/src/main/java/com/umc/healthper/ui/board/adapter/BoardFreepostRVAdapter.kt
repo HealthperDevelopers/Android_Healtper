@@ -10,7 +10,7 @@ import com.umc.healthper.databinding.ItemBoardFreepostBinding
 class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<BoardFreepostRVAdapter.NameHolder>() {
 
     interface onClickListener {
-        fun onClick(pos: Int)
+        fun onClick(pos: Int, likeCount:Int, CommentCount : Int)
     }
     lateinit var onClick: onClickListener
 
@@ -57,7 +57,7 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Boa
                 binding.itemBoardPostCommentTv.text = data[pos].commentCount.toString()
             }
             binding.root.setOnClickListener {
-                onClick.onClick(data[pos].postId)
+                onClick.onClick(data[pos].postId, data[pos].likeCount, data[pos].commentCount)
             }
         }
     }

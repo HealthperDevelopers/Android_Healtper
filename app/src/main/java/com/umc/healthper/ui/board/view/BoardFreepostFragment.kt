@@ -12,6 +12,7 @@ import com.umc.healthper.ui.board.adapter.BoardFreepostRVAdapter
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import okhttp3.internal.notify
@@ -22,6 +23,7 @@ import retrofit2.Response
 
 class BoardFreepostFragment : Fragment() {
     lateinit var binding : FragmentBoardFreepostBinding
+    val bundle = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,15 +59,19 @@ class BoardFreepostFragment : Fragment() {
                         VarUtil.glob.boardFreepostFragment.binding.boardFreepostRv.adapter = adapter
 
                         adapter.setListener(object: BoardFreepostRVAdapter.onClickListener {
-                            override fun onClick(pos: Int) {
+                            override fun onClick(pos: Int, likeCount:Int, CommentCount : Int) {
                                 Log.d("pos", pos.toString())
                                 // post 조회
                                 runBlocking {
                                     async {
+                                        bundle.putIntegerArrayList("like&commentCount", arrayListOf(likeCount, CommentCount))
                                         VarUtil.glob.mainActivity.boardFreepostContentFragment = BoardFreepostContentFragment()
+                                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.arguments = bundle
                                     }
                                     launch {
                                         VarUtil.glob.mainActivity.boardFreepostContentFragment!!.postId = pos
+                                    }
+                                    launch {
                                         VarUtil.glob.mainActivity.changeBoardFragment(2)
                                     }
                                 }
