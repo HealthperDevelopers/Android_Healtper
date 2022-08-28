@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import com.umc.healthper.data.remote.APostResponse
 import com.umc.healthper.data.remote.AuthRetrofitInterface
 import com.umc.healthper.databinding.FragmentBoardFreepostContentBinding
+import com.umc.healthper.ui.board.adapter.CommentRVAdapter
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
@@ -18,6 +19,7 @@ import retrofit2.Response
 
 class BoardFreepostContentFragment : Fragment() {
     lateinit var binding : FragmentBoardFreepostContentBinding
+
     var postId = 0
 
     override fun onPause() {
@@ -64,6 +66,16 @@ class BoardFreepostContentFragment : Fragment() {
                         val comment = arguments!!.getIntegerArrayList("like&commentCount")!!.last()
                         binding.boardFreepostContentRecommendTv.text = like.toString()
                         binding.boardFreepostContentCommentTv.text = comment.toString()
+
+                        var adapter = CommentRVAdapter(resp.comments)
+                        binding.boardFreepostContentCommentRv.adapter = adapter
+
+                        adapter.setListener(object: CommentRVAdapter.onClickListener{
+                            override fun onClick(pos: Int) {
+                                Log.d("pos", pos.toString())
+                            }
+
+                        })
                     }
                     else -> {
                         Log.d("viewPost/fail", response.body().toString())
