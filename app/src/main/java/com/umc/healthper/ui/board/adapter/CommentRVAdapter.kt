@@ -1,9 +1,12 @@
 package com.umc.healthper.ui.board.adapter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.healthper.data.remote.AuthService
+import com.umc.healthper.data.remote.Children
 import com.umc.healthper.data.remote.Comments
 import com.umc.healthper.databinding.ItemBoardQuestionpostBinding
 import com.umc.healthper.databinding.ItemCommentBinding
@@ -22,8 +25,14 @@ class CommentRVAdapter(val data: List<Comments>): RecyclerView.Adapter<CommentRV
     lateinit var binding: ItemCommentBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
         val binding = ItemCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        var NormalData = ArrayList<Comments>()
 
-        return NameHolder(binding, data)
+        for (tmp in data)
+        {
+            if (tmp.status == "NORMAL")
+                NormalData.add(tmp)
+        }
+        return NameHolder(binding, NormalData)
     }
 
     override fun onBindViewHolder(holder: NameHolder, position: Int) {
@@ -31,11 +40,19 @@ class CommentRVAdapter(val data: List<Comments>): RecyclerView.Adapter<CommentRV
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        var size = data.size
+
+        for (tmp in data){
+            if (tmp.status != "NORMAL")
+                size--
+        }
+        Log.d("NormalSize", size.toString())
+        return size
     }
 
     class NameHolder(val binding: ItemCommentBinding, val data: List<Comments>): RecyclerView.ViewHolder(binding.root)
     {
+        @SuppressLint("NotifyDataSetChanged")
         fun bind(pos: Int, onClick: onClickListener) {
             /**대댓글 존재 시 어댑터 바인딩*/
             if (data[pos].children.isNotEmpty()) {
@@ -43,18 +60,21 @@ class CommentRVAdapter(val data: List<Comments>): RecyclerView.Adapter<CommentRV
                 binding.itemChildCommentRv.adapter = childRVAdapter
 
                 childRVAdapter.setListener(object: childCommentRVAdapter.onClickListener{
-                    override fun onClick(pos: Int) {
-                        Log.d("pos", pos.toString())
+                    override fun onClick(commentId: Int) {
+                        Log.d("commentId", commentId.toString())
+                        val authService = AuthService()
+                        authService.deleteComment(commentId)
                     }
                 })
+                childRVAdapter.notifyDataSetChanged()
             }
 
             binding.itemCommentNicknameTv.text = data[pos].writer.nickName
             binding.itemCommentTimeTv.text = data[pos].createdAt
             binding.itemCommentContentTv.text = data[pos].content
 
-            binding.root.setOnClickListener {
-                onClick.onClick(pos)
+            binding.itemCommentDeleteTv.setOnClickListener {
+                onClick.onClick(data[pos].commentId)
             }
         }
     }

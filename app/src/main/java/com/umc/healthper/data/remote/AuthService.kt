@@ -218,4 +218,29 @@ class AuthService {
             }
         }
     }
+
+    fun deleteComment(commentId : Int) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.deleteComment(commentId).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("deleteComment/success", response.body().toString())
+                    }
+                    else -> {
+                        Log.d("deleteComment/fail", response.body().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("deleteComment/onfailure", t.toString())
+            }
+
+        })
+    }
 }

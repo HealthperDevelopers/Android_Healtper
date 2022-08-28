@@ -9,6 +9,11 @@ import retrofit2.http.*
 
 interface AuthRetrofitInterface {
 
+    @DELETE ("/comment/{commentId}")
+    fun deleteComment(
+        @Path("commentId") commentId : Int
+    ) : Call<Void>
+
     @GET("/post/{postId}")
     fun viewPost(
         @Path("postId") postId : Int

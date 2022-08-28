@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.umc.healthper.data.remote.APostResponse
 import com.umc.healthper.data.remote.AuthRetrofitInterface
+import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.FragmentBoardFreepostContentBinding
 import com.umc.healthper.ui.board.adapter.CommentRVAdapter
 import com.umc.healthper.util.VarUtil
@@ -71,11 +72,13 @@ class BoardFreepostContentFragment : Fragment() {
                         binding.boardFreepostContentCommentRv.adapter = adapter
 
                         adapter.setListener(object: CommentRVAdapter.onClickListener{
-                            override fun onClick(pos: Int) {
-                                Log.d("pos", pos.toString())
+                            override fun onClick(commentId: Int) {
+                                Log.d("commentId", commentId.toString())
+                                val authService = AuthService()
+                                authService.deleteComment(commentId)
                             }
-
                         })
+                        adapter.notifyDataSetChanged()
                     }
                     else -> {
                         Log.d("viewPost/fail", response.body().toString())
