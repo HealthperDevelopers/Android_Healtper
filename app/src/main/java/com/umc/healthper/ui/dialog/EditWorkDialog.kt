@@ -1,6 +1,8 @@
 package com.umc.healthper.ui.dialog
 
+import android.graphics.Color
 import android.graphics.Point
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,11 +27,11 @@ class EditWorkDialog: DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DialogEditWorkBinding.inflate(inflater, container, false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
 
         adapterList.add(EditWorkRvAdapter(VarUtil.glob.selectedPart))
         adapterList.add(EditWorkRvAdapter(VarUtil.glob.unselectedPart))
-
 
         binding.dialogEditWorkNoRv.layoutManager = FlexboxLayoutManager(context)
         binding.dialogEditWorkYesRv.layoutManager = FlexboxLayoutManager(context)

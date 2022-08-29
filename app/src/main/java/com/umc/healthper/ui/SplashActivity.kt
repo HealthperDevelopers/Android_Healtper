@@ -31,6 +31,7 @@ import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getAutoLogin
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
@@ -144,17 +145,27 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
                 }
                 else if (tokenInfo != null) {
                     Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+
                     Log.d("ID tokeninfo", tokenInfo.id.toString())
                     isToken = true
-                    // api 들어갈 자리
                     val authService = AuthService()
                     authService.loginData = this
-                    authService.login(tokenInfo!!.id.toString())
-                    val now = Calendar.getInstance()
-                    authService.coCalInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
-                }
+                    // api 들어갈 자리
+                    runBlocking {
+                        launch {
+//                            for (tmp in 0..5) Log.d("tmp", tmp.toString())
+                            authService.login(tokenInfo!!.id.toString())
+                            val now = Calendar.getInstance()
+                            authService.coCalInfo(
+                                now.get(Calendar.YEAR),
+                                now.get(Calendar.MONTH) + 1
+                            )
+                        }
+                    }
+//                    for (tmp in 5..10) Log.d("tmp", tmp.toString())
+
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))}
             }
         }
         else {
