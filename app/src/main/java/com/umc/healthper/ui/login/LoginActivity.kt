@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -43,7 +44,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
         setContentView(binding.root)
         Log.d("LoginActivity", "create")
 
-
         var packageInfo: PackageInfo? = null
         try{
             packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
@@ -68,17 +68,21 @@ class LoginActivity : AppCompatActivity(), LoginView {
         var autoLogin = getAutoLogin()
         setAutoLogin(autoLogin)
 
-        binding.loginAutoTv.setOnClickListener {
-            Log.d("spf", spf!!.getBoolean("isAuto", false).toString())
+        binding.loginAutoCheckBoxIv.setOnClickListener {
+            Log.d("spf", getAutoLogin().toString())
             autoLogin = getAutoLogin()
 
             if (autoLogin) {
                 saveAutoLogin(false)
-                binding.loginAutoTv.text = "auto login : no"
+                Log.d("spf / if", getAutoLogin().toString())
+
+                binding.loginAutoCheckCheckIv.visibility = View.GONE
             }
             else {
                 saveAutoLogin(true)
-                binding.loginAutoTv.text = "auto login : yes"
+                Log.d("spf / else", getAutoLogin().toString())
+
+                binding.loginAutoCheckCheckIv.visibility = View.VISIBLE
             }
         }
 
@@ -180,9 +184,9 @@ class LoginActivity : AppCompatActivity(), LoginView {
         Log.d("spf", autoLogin.toString())
 
         if (autoLogin)
-            binding.loginAutoTv.text = "auto login : yes"
+            binding.loginAutoCheckCheckIv.visibility = View.VISIBLE
         else
-            binding.loginAutoTv.text = "auto login : no"
+            binding.loginAutoCheckCheckIv.visibility = View.GONE
     }
 
     override fun onLoginSuccess(data: List<CalendarResponse>?) {

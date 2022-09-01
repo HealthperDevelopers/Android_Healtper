@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/timer_background">
 
     <ImageView
@@ -31,11 +31,24 @@
         app:layout_constraintBottom_toTopOf="@id/kakao_login_tv"
         android:layout_marginBottom="10dp"/>
 
-    <CheckBox
-        android:id="@+id/login_auto_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/login_auto_check_box_iv"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/autologin_check_box"
         app:layout_constraintStart_toEndOf="@id/login_auto_text_tv"
+        app:layout_constraintBottom_toBottomOf="@id/login_auto_text_tv"
+        app:layout_constraintTop_toTopOf="@id/login_auto_text_tv"
+        />
+
+    <ImageView
+        android:id="@+id/login_auto_check_check_iv"
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/autologin_check"
+        app:layout_constraintStart_toStartOf="@id/login_auto_check_box_iv"
+        app:layout_constraintEnd_toEndOf="@id/login_auto_check_box_iv"
         app:layout_constraintBottom_toBottomOf="@id/login_auto_text_tv"
         app:layout_constraintTop_toTopOf="@id/login_auto_text_tv"
         />
