@@ -25,36 +25,36 @@ class ChartFragment : Fragment() {
     ): View? {
         binding = FragmentChartBinding.inflate(inflater, container, false)
 
-//        binding.chartBackTv.setOnClickListener{
-//            mainActivity!!.changeChartFragment("등")
-//        }
-//        binding.chartLegTv.setOnClickListener{
-//            mainActivity!!.changeChartFragment("하체")
-//        }
-//        binding.chartHipTv.setOnClickListener{
-//            mainActivity!!.changeChartFragment("엉덩이")
-//        }
-//        binding.chartChestTv.setOnClickListener{
-//            mainActivity!!.changeChartFragment("가슴")
-//        }
-//        binding.chartShoulderTv.setOnClickListener{
-//            mainActivity!!.changeChartFragment("어깨")
-//        }
-//        binding.chartAbsTv.setOnClickListener{
-//            mainActivity!!.changeChartFragment("복근")
-//        }
-//        binding.chartBicepsTv.setOnClickListener{
-//            mainActivity!!.changeChartFragment("이두")
-//        }
-//        binding.chartTricepsTv.setOnClickListener{
-//            mainActivity!!.changeChartFragment("삼두")
-//        }
-//        binding.chartAerobicTv.setOnClickListener{
-//            mainActivity!!.changeChartFragment("유산소")
-//        }
-//        binding.chartFullTv.setOnClickListener{
-//            mainActivity!!.changeChartFragment("전신")
-//        }
+        binding.chartBackTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("등")
+        }
+        binding.chartLegTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("하체")
+        }
+        binding.chartHipTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("엉덩이")
+        }
+        binding.chartChestTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("가슴")
+        }
+        binding.chartShoulderTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("어깨")
+        }
+        binding.chartAbsTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("복근")
+        }
+        binding.chartBicepsTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("이두")
+        }
+        binding.chartTricepsTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("삼두")
+        }
+        binding.chartAerobicTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("유산소")
+        }
+        binding.chartFullTv.setOnClickListener{
+            mainActivity!!.changeChartFragment("전신")
+        }
         return binding.root
     }
 }
