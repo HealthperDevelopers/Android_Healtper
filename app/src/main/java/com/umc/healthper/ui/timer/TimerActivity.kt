@@ -146,4 +146,14 @@ class TimerActivity : AppCompatActivity() {
         }
         return partVolume
     }
+
+    /** 운동 이름을 넣으면 운동별 시간을 알려주는 함수*/
+    fun workTime(workName : String): Int {
+        var time = 0
+        for (tmp in VarUtil.glob.work){
+            if (workName == tmp.exerciseName)
+                time += tmp.exerciseTime
+        }
+        return time
+    }
 }
