@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.data.remote.*
 import com.umc.healthper.databinding.FragmentBoardFreepostBinding
 import com.umc.healthper.ui.board.adapter.BoardFreepostRVAdapter
@@ -33,6 +34,17 @@ class BoardFreepostFragment : Fragment() {
         binding = FragmentBoardFreepostBinding.inflate(inflater, container, false)
         getPosts("LATEST", 0)
 
+        binding.boardFreepostRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                // 스크롤이 끝에 도달했는지 확인
+                if (!binding.boardFreepostRv.canScrollVertically(1)) {
+                    Log.d("end", "end")
+                }
+            }
+        })
+
         VarUtil.glob.boardFreepostFragment = this
         return binding.root
     }
@@ -56,7 +68,9 @@ class BoardFreepostFragment : Fragment() {
 
                         var post = response.body()!!
                         val adapter = BoardFreepostRVAdapter(post.content)
+                        adapter.setList()
                         VarUtil.glob.boardFreepostFragment.binding.boardFreepostRv.adapter = adapter
+
 
                         adapter.setListener(object: BoardFreepostRVAdapter.onClickListener {
                             override fun onClick(pos: Int, likeCount:Int, CommentCount : Int) {

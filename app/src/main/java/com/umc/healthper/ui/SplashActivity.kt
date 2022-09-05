@@ -60,10 +60,6 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
         conn.dayInfo("$y-$m-$d")
 
         Handler().postDelayed({
-//            val intent = Intent(this, LoginActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//            startActivity(intent)
-//            finish()
             splashlogin()
         },DURATION)
 

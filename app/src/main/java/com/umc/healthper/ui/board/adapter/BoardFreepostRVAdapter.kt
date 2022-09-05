@@ -5,9 +5,35 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.data.remote.Contents
+import com.umc.healthper.data.remote.WriterInfo
 import com.umc.healthper.databinding.ItemBoardFreepostBinding
+import com.umc.healthper.databinding.ItemLoadingBinding
 
-class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<BoardFreepostRVAdapter.NameHolder>() {
+class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val VIEW_TYPE_ITEM = 0
+    private val VIEW_TYPE_LOADING = 1
+    private val items = ArrayList<Contents>()
+
+    fun setList(){
+        for (tmp in data)
+        {
+            if (tmp.postType == "NORMAL")
+                items.add(tmp)
+        }
+        items.add(Contents(-1, " ", WriterInfo(0, "", ""), "", 0, 0, ""))
+    }
+    fun deleteLoading(){
+         items.removeAt(items.lastIndex) // 로딩이 완료되면 프로그레스바를 지움
+    }
+    override fun getItemViewType(position: Int): Int {
+        // 게시물과 프로그레스바 아이템뷰를 구분할 기준이 필요하다.
+        Log.d("position", position.toString())
+        Log.d("position / postType", items[position].postType)
+        return when (items[position].postType) {
+            " " -> VIEW_TYPE_LOADING
+            else -> VIEW_TYPE_ITEM
+        }
+    }
 
     interface onClickListener {
         fun onClick(pos: Int, likeCount:Int, CommentCount : Int)
@@ -19,32 +45,38 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Boa
     }
 
     lateinit var binding: ItemBoardFreepostBinding
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
-        val binding = ItemBoardFreepostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            VIEW_TYPE_ITEM -> {
+                val binding = ItemBoardFreepostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        var FreeData = ArrayList<Contents>()
-
-        for (tmp in data)
-        {
-            if (tmp.postType == "NORMAL")
-                FreeData.add(tmp)
+                NameHolder(binding, items)
+            }
+            else -> {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemLoadingBinding.inflate(layoutInflater, parent, false)
+                LoadingHolder(binding)
+            }
         }
-        return NameHolder(binding, FreeData)
     }
 
-    override fun onBindViewHolder(holder: NameHolder, position: Int) {
-        holder.bind(position, onClick)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is NameHolder) {
+            holder.bind(position, onClick)
+        }
+        else{
+
+        }
     }
 
     override fun getItemCount(): Int {
-        var size = data.size
+        var size = items.size
 
-        for (tmp in data){
-            if (tmp.postType != "NORMAL")
-                size--
-        }
-        Log.d("Freesize", size.toString())
         return size
+    }
+
+    class LoadingHolder(val binding : ItemLoadingBinding) : RecyclerView.ViewHolder(binding.root){
+
     }
 
     class NameHolder(val binding: ItemBoardFreepostBinding, val data: List<Contents>): RecyclerView.ViewHolder(binding.root) {
