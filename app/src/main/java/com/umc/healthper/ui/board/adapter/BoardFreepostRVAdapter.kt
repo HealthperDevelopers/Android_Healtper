@@ -9,12 +9,19 @@ import com.umc.healthper.data.remote.WriterInfo
 import com.umc.healthper.databinding.ItemBoardFreepostBinding
 import com.umc.healthper.databinding.ItemLoadingBinding
 
-class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_ITEM = 0
     private val VIEW_TYPE_LOADING = 1
     private val items = ArrayList<Contents>()
 
-    fun setList(){
+    fun setList(clear : Boolean)
+    {
+        if (clear)
+            items.clear()
+    }
+
+    fun setList(data: List<Contents>){
+
         for (tmp in data)
         {
             if (tmp.postType == "NORMAL")
@@ -23,7 +30,7 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Rec
         items.add(Contents(-1, " ", WriterInfo(0, "", ""), "", 0, 0, ""))
     }
     fun deleteLoading(){
-         items.removeAt(items.lastIndex) // 로딩이 완료되면 프로그레스바를 지움
+        items.removeAt(items.lastIndex) // 로딩이 완료되면 프로그레스바를 지움
     }
     override fun getItemViewType(position: Int): Int {
         // 게시물과 프로그레스바 아이템뷰를 구분할 기준이 필요하다.
@@ -61,8 +68,10 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Rec
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        var safePosition = holder.adapterPosition
+
         if (holder is NameHolder) {
-            holder.bind(position, onClick)
+            holder.bind(safePosition, onClick)
         }
         else{
 

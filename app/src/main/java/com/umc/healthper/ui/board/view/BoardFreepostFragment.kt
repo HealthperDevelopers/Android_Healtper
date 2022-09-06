@@ -1,11 +1,14 @@
 package com.umc.healthper.ui.board.view
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.data.remote.*
 import com.umc.healthper.databinding.FragmentBoardFreepostBinding
@@ -25,6 +28,8 @@ import retrofit2.Response
 class BoardFreepostFragment : Fragment() {
     lateinit var binding : FragmentBoardFreepostBinding
     val bundle = Bundle()
+    val adapter = BoardFreepostRVAdapter()
+    var page = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +37,9 @@ class BoardFreepostFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBoardFreepostBinding.inflate(inflater, container, false)
-        getPosts("LATEST", 0)
+        val linearLayoutManagerWrapepr = LinearLayoutManagerWrapper(VarUtil.glob.mainContext, LinearLayoutManager.VERTICAL, false) // 이걸 만들어서
+        binding.boardFreepostRv.layoutManager = linearLayoutManagerWrapepr // 이걸 넣는다.
+        binding.boardFreepostRv.adapter = adapter
 
         binding.boardFreepostRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -41,6 +48,34 @@ class BoardFreepostFragment : Fragment() {
                 // 스크롤이 끝에 도달했는지 확인
                 if (!binding.boardFreepostRv.canScrollVertically(1)) {
                     Log.d("end", "end")
+                    runBlocking {
+                        launch {
+                            adapter.deleteLoading()
+                        }
+                        launch {
+                            getPosts(bundle.getString("sortType", "LATEST"), page++)
+                        }
+                    }
+                }
+            }
+        })
+
+        adapter.setListener(object: BoardFreepostRVAdapter.onClickListener {
+            override fun onClick(pos: Int, likeCount:Int, CommentCount : Int) {
+                Log.d("pos", pos.toString())
+                // post 조회
+                runBlocking {
+                    async {
+                        bundle.putIntegerArrayList("like&commentCount", arrayListOf(likeCount, CommentCount))
+                        VarUtil.glob.mainActivity.boardFreepostContentFragment = BoardFreepostContentFragment()
+                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.arguments = bundle
+                    }
+                    launch {
+                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.postId = pos
+                    }
+                    launch {
+                        VarUtil.glob.mainActivity.changeBoardFragment(2)
+                    }
                 }
             }
         })
@@ -66,31 +101,20 @@ class BoardFreepostFragment : Fragment() {
                         Log.d("posts/SUCCESS", response.toString())
                         Log.d("posts/resp", response.body().toString())
 
+                        if (page == 0)
+                            adapter.setList(true)
+
                         var post = response.body()!!
-                        val adapter = BoardFreepostRVAdapter(post.content)
-                        adapter.setList()
-                        VarUtil.glob.boardFreepostFragment.binding.boardFreepostRv.adapter = adapter
 
-
-                        adapter.setListener(object: BoardFreepostRVAdapter.onClickListener {
-                            override fun onClick(pos: Int, likeCount:Int, CommentCount : Int) {
-                                Log.d("pos", pos.toString())
-                                // post 조회
-                                runBlocking {
-                                    async {
-                                        bundle.putIntegerArrayList("like&commentCount", arrayListOf(likeCount, CommentCount))
-                                        VarUtil.glob.mainActivity.boardFreepostContentFragment = BoardFreepostContentFragment()
-                                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.arguments = bundle
-                                    }
-                                    launch {
-                                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.postId = pos
-                                    }
-                                    launch {
-                                        VarUtil.glob.mainActivity.changeBoardFragment(2)
-                                    }
-                                }
-                            }
-                        })
+//                        val adapter = BoardFreepostRVAdapter()
+                        if (post.content.isNotEmpty()) {
+                            adapter.setList(post.content)
+                            adapter.notifyDataSetChanged()
+                        }
+                        else{
+                            Log.d("isEmpty", "isEmpty")
+                            adapter.deleteLoading()
+                        }
                     }
                     else -> {
                         Log.d("posts/FAILURE", response.toString())
@@ -103,4 +127,11 @@ class BoardFreepostFragment : Fragment() {
             }
         })
     }
+}
+
+class LinearLayoutManagerWrapper: LinearLayoutManager {
+    constructor(context: Context) : super(context) {}
+    constructor(context: Context, orientation: Int, reverseLayout: Boolean) : super(context, orientation, reverseLayout) {}
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {}
+    override fun supportsPredictiveItemAnimations(): Boolean { return false }
 }
