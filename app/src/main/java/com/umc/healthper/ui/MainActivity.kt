@@ -329,7 +329,7 @@ class MainActivity : AppCompatActivity() {
             }
             2->{
                 if (boardFreepostContentFragment == null) boardFreepostContentFragment = BoardFreepostContentFragment()
-                transition.replace(binding.mainFrmFl.id, boardFreepostContentFragment!!)
+                transition.add(binding.mainFrmFl.id, boardFreepostContentFragment!!)
                 transition.addToBackStack("boardFreeComment")
             }
         }

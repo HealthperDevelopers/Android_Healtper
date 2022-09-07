@@ -106,15 +106,15 @@ class BoardFreepostFragment : Fragment() {
 
                         var post = response.body()!!
 
-//                        val adapter = BoardFreepostRVAdapter()
-                        if (post.content.isNotEmpty()) {
+//                        if (post.content.isNotEmpty()) {
                             adapter.setList(post.content)
-                            adapter.notifyDataSetChanged()
-                        }
-                        else{
-                            Log.d("isEmpty", "isEmpty")
-                            adapter.deleteLoading()
-                        }
+//                            adapter.notifyDataSetChanged()
+                            adapter.notifyItemRangeInserted(30, post.content.size)
+//                        }
+//                        else{
+//                            Log.d("isEmpty", "isEmpty")
+//                            adapter.deleteLoading()
+//                        }
                     }
                     else -> {
                         Log.d("posts/FAILURE", response.toString())

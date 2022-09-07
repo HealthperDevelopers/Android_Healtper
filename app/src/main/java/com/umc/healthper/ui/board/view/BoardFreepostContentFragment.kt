@@ -14,6 +14,8 @@ import com.umc.healthper.databinding.FragmentBoardFreepostContentBinding
 import com.umc.healthper.ui.board.adapter.CommentRVAdapter
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -75,10 +77,16 @@ class BoardFreepostContentFragment : Fragment() {
                             override fun onClick(commentId: Int) {
                                 Log.d("commentId", commentId.toString())
                                 val authService = AuthService()
-                                authService.deleteComment(commentId)
+                                runBlocking {
+                                    launch{
+                                        authService.deleteComment(commentId)
+                                    }
+                                    launch { onResume() }
+                                }
+
                             }
                         })
-                        adapter.notifyDataSetChanged()
+
                     }
                     else -> {
                         Log.d("viewPost/fail", response.body().toString())
