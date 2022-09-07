@@ -52,16 +52,19 @@ class BoardFragment : Fragment() {
                     0 -> {
                         VarUtil.glob.boardFreepostFragment.getPosts("LATEST", 0)
                         VarUtil.glob.boardFreepostFragment.bundle.putString("sortType", "LATEST")
+                        VarUtil.glob.boardFreepostFragment.page = 1
                     }
                     //추천순
                     1 -> {
                         VarUtil.glob.boardFreepostFragment.getPosts("LIKE", 0)
                         VarUtil.glob.boardFreepostFragment.bundle.putString("sortType", "LIKE")
+                        VarUtil.glob.boardFreepostFragment.page = 1
                     }
                     //댓글순
                     2 -> {
                         VarUtil.glob.boardFreepostFragment.getPosts("COMMENT", 0)
                         VarUtil.glob.boardFreepostFragment.bundle.putString("sortType", "COMMENT")
+                        VarUtil.glob.boardFreepostFragment.page = 1
                     }
                 }
             }

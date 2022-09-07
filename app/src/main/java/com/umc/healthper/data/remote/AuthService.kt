@@ -1,15 +1,18 @@
 package com.umc.healthper.data.remote
 
+import android.content.Intent
 import android.util.Log
 import com.umc.healthper.ui.main.view.CalendarDataView
 import com.umc.healthper.ui.main.view.DetailFirstView
 import com.umc.healthper.ui.main.view.DetailSecondView
 
 import android.widget.Toast
+import com.kakao.sdk.user.UserApiClient
 import com.umc.healthper.data.entity.Post
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.ui.SplashActivity
+import com.umc.healthper.ui.login.LoginActivity
 import com.umc.healthper.ui.login.LoginView
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
@@ -67,14 +70,22 @@ class AuthService {
         authService.login(user).enqueue(object :Callback<List<CalendarResponse>> {
             override fun onResponse(call: Call<List<CalendarResponse>>, response: Response<List<CalendarResponse>>
             ) {
-                Log.d("login/success", response.toString())
-                val resp : List<CalendarResponse>? = response.body()
+                when (response.code()){
+                    200 -> {
+                        Log.d("login/success", response.toString())
+                        val resp: List<CalendarResponse>? = response.body()
 //                if (resp.first() != null) {
 //                    Log.d("login/resp body", resp.first().day.toString())
 //                    Log.d("login/resp body", resp.first().sections.toString())
 //                }
 //                  Toast.makeText(VarUtil.glob.mainContext, "자체 로그인 성공", Toast.LENGTH_SHORT).show()
-                loginData.onLoginSuccess(resp)
+                        loginData.onLoginSuccess(resp)
+                    }
+                    else -> {
+                        Log.d("login/failure", response.toString())
+                        loginData.onLoginFailure()
+                    }
+                }
             }
 
             override fun onFailure(call: Call<List<CalendarResponse>>, t: Throwable) {
@@ -205,6 +216,7 @@ class AuthService {
 
 
     fun coCalInfo(year : Int, month: Int) {
+        Log.d("coCalInfo", "coCalInfo")
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -239,6 +251,43 @@ class AuthService {
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.d("deleteComment/onfailure", t.toString())
+            }
+
+        })
+    }
+
+    fun logout(){
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.logout().enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("logout/success", response.body().toString())
+                        UserApiClient.instance.logout { error ->
+                            if (error != null) {
+                                Log.e("try logOut", "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+//                                val intent = Intent(mainActivity, LoginActivity::class.java)
+//                                startActivity(intent)
+                            }
+                            else {
+                                Log.i("try logOut", "로그아웃 성공. SDK에서 토큰 삭제됨")
+//                                val intent = Intent(mainActivity, LoginActivity::class.java)
+//                                startActivity(intent)
+                            }
+                        }
+                    }
+                    else -> {
+                        Log.d("logout/fail", response.body().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("logout/onfailure", t.toString())
             }
 
         })

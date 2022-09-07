@@ -44,25 +44,25 @@ class LoginActivity : AppCompatActivity(), LoginView {
         setContentView(binding.root)
         Log.d("LoginActivity", "create")
 
-        var packageInfo: PackageInfo? = null
-        try{
-            packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        }
-        if (packageInfo == null) {
-            Log.d("hashKey", "null")
-        }
-        packageInfo?.signatures?.forEach {
-            try {
-                val md = MessageDigest.getInstance("SHA")
-                md.update(it.toByteArray())
-                Log.d("hashKey", Base64.encodeToString(md.digest(), Base64.DEFAULT))
-            } catch (e: NoSuchAlgorithmException) {
-                e.printStackTrace()
-                Log.e("KeyHash", "Unable to get MessageDigest. signature=$it", e)
-            }
-        }
+//        var packageInfo: PackageInfo? = null
+//        try{
+//            packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+//        } catch (e: PackageManager.NameNotFoundException) {
+//            e.printStackTrace()
+//        }
+//        if (packageInfo == null) {
+//            Log.d("hashKey", "null")
+//        }
+//        packageInfo?.signatures?.forEach {
+//            try {
+//                val md = MessageDigest.getInstance("SHA")
+//                md.update(it.toByteArray())
+//                Log.d("hashKey", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+//            } catch (e: NoSuchAlgorithmException) {
+//                e.printStackTrace()
+//                Log.e("KeyHash", "Unable to get MessageDigest. signature=$it", e)
+//            }
+//        }
 
         var autoLogin = getAutoLogin()
         setAutoLogin(autoLogin)
@@ -163,10 +163,16 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun onLoginSuccess(data: List<CalendarResponse>?) {
+        Log.d("onLoginSuccess", "login made onLoginSuccess")
+
         if (!data.isNullOrEmpty()) {
             VarUtil.glob.calData = ArrayList(data)
         }
         startActivity(inten.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         finish()
+    }
+
+    override fun onLoginFailure() {
+        Log.d("onLoginFailure", "login made onLoginFailure")
     }
 }

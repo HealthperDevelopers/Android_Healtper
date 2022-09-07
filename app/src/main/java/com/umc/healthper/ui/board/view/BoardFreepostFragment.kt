@@ -31,6 +31,11 @@ class BoardFreepostFragment : Fragment() {
     val adapter = BoardFreepostRVAdapter()
     var page = 1
 
+    override fun onResume() {
+        super.onResume()
+        page = 1
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -106,15 +111,8 @@ class BoardFreepostFragment : Fragment() {
 
                         var post = response.body()!!
 
-//                        if (post.content.isNotEmpty()) {
                             adapter.setList(post.content)
-//                            adapter.notifyDataSetChanged()
-                            adapter.notifyItemRangeInserted(30, post.content.size)
-//                        }
-//                        else{
-//                            Log.d("isEmpty", "isEmpty")
-//                            adapter.deleteLoading()
-//                        }
+                            adapter.notifyItemRangeInserted(page * 30, post.content.size)
                     }
                     else -> {
                         Log.d("posts/FAILURE", response.toString())
