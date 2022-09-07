@@ -121,7 +121,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 }
             }
             else if (token != null) {
-                Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 inten = Intent(this, MainActivity::class.java)
 //                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
@@ -164,6 +163,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
     override fun onLoginSuccess(data: List<CalendarResponse>?) {
         Log.d("onLoginSuccess", "login made onLoginSuccess")
+        Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
 
         if (!data.isNullOrEmpty()) {
             VarUtil.glob.calData = ArrayList(data)
@@ -173,6 +173,8 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun onLoginFailure() {
+        Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+
         Log.d("onLoginFailure", "login made onLoginFailure")
     }
 }

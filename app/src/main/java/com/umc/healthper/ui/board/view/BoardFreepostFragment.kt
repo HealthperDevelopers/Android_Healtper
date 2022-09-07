@@ -15,10 +15,7 @@ import com.umc.healthper.databinding.FragmentBoardFreepostBinding
 import com.umc.healthper.ui.board.adapter.BoardFreepostRVAdapter
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import okhttp3.internal.notify
 import retrofit2.Call
 import retrofit2.Callback
@@ -53,13 +50,9 @@ class BoardFreepostFragment : Fragment() {
                 // 스크롤이 끝에 도달했는지 확인
                 if (!binding.boardFreepostRv.canScrollVertically(1)) {
                     Log.d("end", "end")
-                    runBlocking {
-                        launch {
-                            adapter.deleteLoading()
-                        }
-                        launch {
-                            getPosts(bundle.getString("sortType", "LATEST"), page++)
-                        }
+                    CoroutineScope(Dispatchers.IO).launch {
+                        adapter.deleteLoading()
+                        getPosts(bundle.getString("sortType", "LATEST"), page++)
                     }
                 }
             }
@@ -69,18 +62,12 @@ class BoardFreepostFragment : Fragment() {
             override fun onClick(pos: Int, likeCount:Int, CommentCount : Int) {
                 Log.d("pos", pos.toString())
                 // post 조회
-                runBlocking {
-                    async {
-                        bundle.putIntegerArrayList("like&commentCount", arrayListOf(likeCount, CommentCount))
-                        VarUtil.glob.mainActivity.boardFreepostContentFragment = BoardFreepostContentFragment()
-                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.arguments = bundle
-                    }
-                    launch {
-                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.postId = pos
-                    }
-                    launch {
-                        VarUtil.glob.mainActivity.changeBoardFragment(2)
-                    }
+                CoroutineScope(Dispatchers.IO).launch {
+                    bundle.putIntegerArrayList("like&commentCount", arrayListOf(likeCount, CommentCount))
+                    VarUtil.glob.mainActivity.boardFreepostContentFragment = BoardFreepostContentFragment()
+                    VarUtil.glob.mainActivity.boardFreepostContentFragment!!.arguments = bundle
+                    VarUtil.glob.mainActivity.boardFreepostContentFragment!!.postId = pos
+                    VarUtil.glob.mainActivity.changeBoardFragment(2)
                 }
             }
         })

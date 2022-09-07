@@ -216,7 +216,6 @@ class AuthService {
 
 
     fun coCalInfo(year : Int, month: Int) {
-        Log.d("coCalInfo", "coCalInfo")
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -270,13 +269,9 @@ class AuthService {
                         UserApiClient.instance.logout { error ->
                             if (error != null) {
                                 Log.e("try logOut", "로그아웃 실패. SDK에서 토큰 삭제됨", error)
-//                                val intent = Intent(mainActivity, LoginActivity::class.java)
-//                                startActivity(intent)
                             }
                             else {
                                 Log.i("try logOut", "로그아웃 성공. SDK에서 토큰 삭제됨")
-//                                val intent = Intent(mainActivity, LoginActivity::class.java)
-//                                startActivity(intent)
                             }
                         }
                     }
