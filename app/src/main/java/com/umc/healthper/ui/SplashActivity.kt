@@ -20,6 +20,7 @@ import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkPart
 import com.umc.healthper.data.local.LocalDB
+import com.umc.healthper.data.remote.AuthRetrofitInterface
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.data.remote.CalendarResponse
 import com.umc.healthper.data.remote.GetDayDetailFirst
@@ -29,6 +30,7 @@ import com.umc.healthper.ui.main.view.DetailFirstView
 import java.io.InputStream
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getAutoLogin
+import com.umc.healthper.util.getRetrofit
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
@@ -60,10 +62,6 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
         conn.dayInfo("$y-$m-$d")
 
         Handler().postDelayed({
-//            val intent = Intent(this, LoginActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//            startActivity(intent)
-//            finish()
             splashlogin()
         },DURATION)
 
@@ -144,16 +142,16 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
                 }
                 else if (tokenInfo != null) {
                     Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//                    val intent = Intent(this, MainActivity::class.java)
+//                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     Log.d("ID tokeninfo", tokenInfo.id.toString())
                     isToken = true
                     // api 들어갈 자리
                     val authService = AuthService()
                     authService.loginData = this
                     authService.login(tokenInfo!!.id.toString())
-                    val now = Calendar.getInstance()
-                    authService.coCalInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
+//                    val now = Calendar.getInstance()
+//                    authService.coCalInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
                 }
             }
         }
@@ -240,8 +238,21 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
 
     override fun onLoginSuccess(data: List<CalendarResponse>?) {
         if (!data.isNullOrEmpty()) {
+            Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+            Log.d("onLoginSuccess", "onLoginSuccess")
             VarUtil.glob.calData = ArrayList(data)
+            val authService = AuthService()
+            val now = Calendar.getInstance()
+            authService.coCalInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
         finish()
+    }
+
+    override fun onLoginFailure() {
+        Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 }

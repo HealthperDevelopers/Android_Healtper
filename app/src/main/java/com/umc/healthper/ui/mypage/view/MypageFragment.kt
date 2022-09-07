@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kakao.sdk.user.UserApiClient
+import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.FragmentMypageBinding
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.ui.login.LoginActivity
@@ -37,18 +38,20 @@ class MypageFragment : Fragment() {
 //        }
 
         binding.mypageLogoutBt.setOnClickListener {
-            UserApiClient.instance.logout { error ->
-                if (error != null) {
-                    Log.e("try logOut", "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+            var authService = AuthService()
+            authService.logout()
+//            UserApiClient.instance.logout { error ->
+//                if (error != null) {
+//                    Log.e("try logOut", "로그아웃 실패. SDK에서 토큰 삭제됨", error)
                     val intent = Intent(mainActivity, LoginActivity::class.java)
                     startActivity(intent)
-                }
-                else {
-                    Log.i("try logOut", "로그아웃 성공. SDK에서 토큰 삭제됨")
-                    val intent = Intent(mainActivity, LoginActivity::class.java)
-                    startActivity(intent)
-                }
-            }
+//                }
+//                else {
+//                    Log.i("try logOut", "로그아웃 성공. SDK에서 토큰 삭제됨")
+//                    val intent = Intent(mainActivity, LoginActivity::class.java)
+//                    startActivity(intent)
+//                }
+//            }
         }
         return binding.root
     }

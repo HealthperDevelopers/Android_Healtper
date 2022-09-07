@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
+import android.text.BoringLayout
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -23,6 +24,7 @@ import com.umc.healthper.ui.board.MyboardBoardFragment
 import com.umc.healthper.ui.board.view.*
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
+import com.umc.healthper.ui.login.LoginActivity
 import com.umc.healthper.ui.main.view.*
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
@@ -329,7 +331,7 @@ class MainActivity : AppCompatActivity() {
             }
             2->{
                 if (boardFreepostContentFragment == null) boardFreepostContentFragment = BoardFreepostContentFragment()
-                transition.replace(binding.mainFrmFl.id, boardFreepostContentFragment!!)
+                transition.add(binding.mainFrmFl.id, boardFreepostContentFragment!!)
                 transition.addToBackStack("boardFreeComment")
             }
         }
@@ -353,20 +355,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun change2Comment() {
-//        for (tmp in VarUtil.glob.work){
-////            Log.d("total time", tmp.totalTime.toString())
-//            Log.d("running time", tmp.runningTime.toString())
-//            Log.d("partId", tmp.partId.toString())
-//            Log.d("work", tmp.work)
-//            for (temp in tmp.pack){
-//                Log.d("pack set", temp.set.toString())
-//                Log.d("pack weight", temp.weight.toString())
-//                Log.d("pack count", temp.count.toString())
-//                Log.d("------------", "done")
-//            }
-//            Log.d("work done", "_________________")
-//        }
-
         val intent = Intent(this, CommentActivity::class.java)
         startActivity(intent)
     }

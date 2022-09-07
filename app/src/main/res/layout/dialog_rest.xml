@@ -19,7 +19,7 @@
         android:id="@+id/rest_minutes_et"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:text="01"
+        android:hint="01"
         android:textSize="30sp"
         android:inputType="number"
         app:layout_constraintTop_toTopOf="@id/rest_colon_tv"
@@ -40,10 +40,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     <EditText
-        android:id="@+id/rest_mills_et"
+        android:id="@+id/rest_second_et"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:text="00"
+        android:hint="00"
         android:textSize="30sp"
         android:inputType="number"
         app:layout_constraintTop_toTopOf="@id/rest_colon_tv"

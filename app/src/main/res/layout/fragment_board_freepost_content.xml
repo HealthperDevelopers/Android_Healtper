@@ -3,6 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <ImageView
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginStart="12dp"
-            android:text="짱짱맨"
+            android:text=""
             android:textSize ="20sp"
             android:textStyle="bold"
             android:inputType="textPersonName"
@@ -53,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:text="07/19 22:10"
+        android:text=""
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/board_freepost_content_writer_iv"
         app:layout_constraintTop_toBottomOf="@id/board_freepost_content_writer_tv" />
@@ -75,7 +76,7 @@
         android:layout_marginStart="30dp"
         android:textSize ="30sp"
         android:textColor="@color/black"
-        android:text="null error"
+        android:text=""
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/board_freepost_content_posting_time_tv" />
@@ -92,18 +93,76 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_title_tv" />
 
+    <ImageView
+        android:id="@+id/board_freepost_content_recommend_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_content_tv"
+        android:layout_marginStart="30dp"
+        />
+    <TextView
+        android:id="@+id/board_freepost_content_recommend_tv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@id/board_freepost_content_recommend_iv"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_content_tv"
+        />
+    <!--좋아요 이미지, 개수-->
+
+    <ImageView
+        android:id="@+id/board_freepost_content_comment_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintStart_toEndOf="@id/board_freepost_content_recommend_tv"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_content_tv"
+        android:layout_marginStart="30dp"
+        />
+    <TextView
+        android:id="@+id/board_freepost_content_comment_tv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@id/board_freepost_content_comment_iv"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_content_tv"
+        />
+    <!--댓글 이미지, 개수-->
+
+    <ImageView
+        android:id="@+id/board_freepost_content_recommend_bt_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_content_tv"
+        android:layout_marginEnd="30dp"
+        />
+    <!--공감 버튼-->
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
+        android:id="@+id/board_freepost_content_adv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_post_content_tv"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_recommend_iv"
         ads:adUnitId="YOUR_AD_UNIT_ID"
         ads:adSize="BANNER"/>
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/board_freepost_content_comment_rv"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/item_comment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_adv"
+        />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
