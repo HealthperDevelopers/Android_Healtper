@@ -34,9 +34,9 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
 
         authService.dayInfoData = this
         val y = now.get(Calendar.YEAR)
-        val m = now.get(Calendar.MONTH)
+        val m = now.get(Calendar.MONTH) + 1
         val d = now.get(Calendar.DATE)
-        val selectedDay = "$y-$m-$d"
+        val selectedDay = String.format("%04d-%02d-%02d", y, m, d)
         authService.dayInfo(selectedDay)
 
         VarUtil.glob.mainFragment = this

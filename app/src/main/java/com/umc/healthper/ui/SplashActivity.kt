@@ -53,13 +53,13 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
 
         initDb(applicationContext)
 
-        val conn = AuthService()
-        conn.dayInfoData = this
-        val now = Calendar.getInstance()
-        val y = now.get(Calendar.YEAR)
-        val m = now.get(Calendar.MONTH) + 1
-        val d = now.get(Calendar.DATE)
-        conn.dayInfo("$y-$m-$d")
+//        val conn = AuthService()
+//        conn.dayInfoData = this
+//        val now = Calendar.getInstance()
+//        val y = now.get(Calendar.YEAR)
+//        val m = now.get(Calendar.MONTH) + 1
+//        val d = now.get(Calendar.DATE)
+//        conn.dayInfo("$y-$m-$d")
 
         Handler().postDelayed({
             splashlogin()
@@ -243,6 +243,14 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
             VarUtil.glob.calData = ArrayList(data)
             val authService = AuthService()
             val now = Calendar.getInstance()
+
+            val conn = AuthService()
+            conn.dayInfoData = this
+            val y = now.get(Calendar.YEAR)
+            val m = now.get(Calendar.MONTH) + 1
+            val d = now.get(Calendar.DATE)
+            conn.dayInfo(String.format("%04d-%02d-%02d", y, m, d))
+
             authService.coCalInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -251,6 +259,7 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
     }
 
     override fun onLoginFailure() {
+        Log.d("onLoginFailure", "onLoginFailure")
         Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
