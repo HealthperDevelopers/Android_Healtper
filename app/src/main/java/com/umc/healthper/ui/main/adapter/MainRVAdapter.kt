@@ -187,7 +187,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                             else {
                                 m.toString()
                             }
-                            val selectedDay = "$y-$newM-$date"
+                            val selectedDay = String.format("%04d-%02d-%02d", y, newM, date.toInt())
                             authService.dayInfoData = VarUtil.glob.mainFragment
                             authService.dayInfo(selectedDay)
                         }

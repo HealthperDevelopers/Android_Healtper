@@ -249,7 +249,7 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
             val y = now.get(Calendar.YEAR)
             val m = now.get(Calendar.MONTH) + 1
             val d = now.get(Calendar.DATE)
-            conn.dayInfo("$y-$m-$d")
+            conn.dayInfo(String.format("%04d-%02d-%02d", y, m, d))
 
             authService.coCalInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
             val intent = Intent(this, MainActivity::class.java)
