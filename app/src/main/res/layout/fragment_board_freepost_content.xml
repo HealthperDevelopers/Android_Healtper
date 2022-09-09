@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/no_touch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:background="@color/white"/>
 
-        <ImageView
-            android:id="@+id/board_freepost_content_return_iv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_launcher_background"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_margin = "20dp"
-            />
+    <ImageView
+        android:id="@+id/board_freepost_content_return_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin = "20dp"
+        />
 
-        <TextView
-            android:id="@+id/board_freepost_content_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:text="자유게시판"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/board_freepost_content_return_iv"
-            app:layout_constraintTop_toTopOf="@id/board_freepost_content_return_iv" />
+    <TextView
+        android:id="@+id/board_freepost_content_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="자유게시판"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@id/board_freepost_content_return_iv"
+        app:layout_constraintTop_toTopOf="@id/board_freepost_content_return_iv" />
 
-        <ImageView
-            android:id="@+id/board_freepost_content_writer_iv"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/user"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/board_freepost_content_return_iv" />
+    <ImageView
+        android:id="@+id/board_freepost_content_writer_iv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/board_freepost_content_return_iv" />
 
     <TextView
             android:id="@+id/board_freepost_content_writer_tv"
@@ -163,6 +169,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/board_freepost_content_adv"
         />
+
+    <TextView
+        android:id="@+id/board_freepost_content_comment_comment_tv"
+        android:text="댓글 생성"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="right"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <EditText
+        android:id="@+id/board_freepost_content_comment_et"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

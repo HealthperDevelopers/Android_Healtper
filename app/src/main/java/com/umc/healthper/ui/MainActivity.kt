@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
-import android.text.BoringLayout
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -24,7 +24,6 @@ import com.umc.healthper.ui.board.MyboardBoardFragment
 import com.umc.healthper.ui.board.view.*
 import com.umc.healthper.ui.chart.view.ChartFragment
 import com.umc.healthper.ui.chart.view.PartchartFragment
-import com.umc.healthper.ui.login.LoginActivity
 import com.umc.healthper.ui.main.view.*
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
@@ -363,6 +362,9 @@ class MainActivity : AppCompatActivity() {
         Log.d("reset", "Work")
         VarUtil.glob.work = arrayListOf()
         VarUtil.glob.totalData = TotalData("", ArrayList(), ExerciseInfo(0, 0))
+    }
 
+    fun softkeyboardHide(): InputMethodManager {
+        return getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
     }
 }

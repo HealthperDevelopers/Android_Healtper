@@ -73,7 +73,6 @@ class AuthService {
                 when (response.code()){
                     200 -> {
                         Log.d("login/success", response.toString())
-                        val resp: List<CalendarResponse>? = response.body()
                         loginData.onLoginSuccess(response.body())
                     }
                     else -> {
@@ -226,7 +225,7 @@ class AuthService {
         }
     }
 
-    fun deleteComment(commentId : Int) {
+    fun deleteComment(commentId : Int, postId : Int) {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
         authService.deleteComment(commentId).enqueue(object: Callback<Void> {
@@ -237,6 +236,7 @@ class AuthService {
                 when (response.code()) {
                     200 -> {
                         Log.d("deleteComment/success", response.body().toString())
+                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.viewPost(postId)
                     }
                     else -> {
                         Log.d("deleteComment/fail", response.body().toString())

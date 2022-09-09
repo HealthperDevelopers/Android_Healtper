@@ -8,13 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.data.remote.Children
 import com.umc.healthper.data.remote.Comments
+import com.umc.healthper.data.remote.PostId
 import com.umc.healthper.databinding.ItemBoardQuestionpostBinding
 import com.umc.healthper.databinding.ItemCommentBinding
+import com.umc.healthper.util.VarUtil
 
-class CommentRVAdapter(val data: List<Comments>): RecyclerView.Adapter<CommentRVAdapter.NameHolder>() {
+class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.Adapter<CommentRVAdapter.NameHolder>() {
 
     interface onClickListener {
-        fun onClick(pos: Int)
+        fun onDeleteClick(pos: Int)
+        fun onChildClick(pos: Int)
     }
     lateinit var onClick: onClickListener
 
@@ -32,7 +35,7 @@ class CommentRVAdapter(val data: List<Comments>): RecyclerView.Adapter<CommentRV
             if (tmp.status == "NORMAL")
                 NormalData.add(tmp)
         }
-        return NameHolder(binding, NormalData)
+        return NameHolder(binding, NormalData, postId)
     }
 
     override fun onBindViewHolder(holder: NameHolder, position: Int) {
@@ -50,7 +53,7 @@ class CommentRVAdapter(val data: List<Comments>): RecyclerView.Adapter<CommentRV
         return size
     }
 
-    class NameHolder(val binding: ItemCommentBinding, val data: List<Comments>): RecyclerView.ViewHolder(binding.root)
+    class NameHolder(val binding: ItemCommentBinding, val data: List<Comments>, val postId: Int): RecyclerView.ViewHolder(binding.root)
     {
         @SuppressLint("NotifyDataSetChanged")
         fun bind(pos: Int, onClick: onClickListener) {
@@ -63,7 +66,7 @@ class CommentRVAdapter(val data: List<Comments>): RecyclerView.Adapter<CommentRV
                     override fun onClick(commentId: Int) {
                         Log.d("commentId", commentId.toString())
                         val authService = AuthService()
-                        authService.deleteComment(commentId)
+                        authService.deleteComment(commentId, postId)
                     }
                 })
                 childRVAdapter.notifyDataSetChanged()
@@ -74,7 +77,11 @@ class CommentRVAdapter(val data: List<Comments>): RecyclerView.Adapter<CommentRV
             binding.itemCommentContentTv.text = data[pos].content
 
             binding.itemCommentDeleteTv.setOnClickListener {
-                onClick.onClick(data[pos].commentId)
+                onClick.onDeleteClick(data[pos].commentId)
+            }
+
+            binding.itemCommentChildCommentTv.setOnClickListener{
+                onClick.onChildClick(data[pos].commentId)
             }
         }
     }
