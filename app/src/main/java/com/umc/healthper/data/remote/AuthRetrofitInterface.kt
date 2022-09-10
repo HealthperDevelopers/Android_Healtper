@@ -1,13 +1,25 @@
 package com.umc.healthper.data.remote
 
+import com.umc.healthper.data.entity.ChildComment
+import com.umc.healthper.data.entity.Comment
 import com.umc.healthper.data.entity.Post
 import com.umc.healthper.data.entity.TotalData
-import com.umc.healthper.data.entity.WorkRecord
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
 interface AuthRetrofitInterface {
+
+    @POST("/comment-nested")
+    fun childcomment(
+        @Body childcomment : ChildComment
+    ) : Call<Void>
+
+    /** 댓글 생성 */
+    @POST("/comment")
+    fun comment(
+        @Body comment : Comment
+    ) : Call<Void>
 
     @GET("/logout")
     fun logout() : Call<Void>
