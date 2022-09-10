@@ -1,15 +1,17 @@
 package com.umc.healthper.ui.board.view
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.umc.healthper.R
 import com.umc.healthper.data.entity.ChildComment
 import com.umc.healthper.data.entity.Comment
 import com.umc.healthper.data.remote.APostResponse
@@ -22,7 +24,6 @@ import com.umc.healthper.util.getRetrofit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,6 +57,49 @@ class BoardFreepostContentFragment : Fragment() {
         binding.boardFreepostContentCommentCommentTv.setOnClickListener{
             comment(Comment(postId, binding.boardFreepostContentCommentEt.text.toString()))
             VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.boardFreepostContentCommentEt.windowToken, 0)
+        }
+
+        binding.boardFreepostContentRecommendBtIv.setOnClickListener {
+            binding.boardFreepostContentRecommendTv.text = (binding.boardFreepostContentRecommendTv.text.toString().toInt() + 1).toString()
+        }
+
+        val spinner = binding.boardFreepostContentPostintSettingIv
+        spinner.adapter = ArrayAdapter.createFromResource(VarUtil.glob.mainContext, R.array.itemBoardFreePostList, android.R.layout.simple_spinner_item)
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    //새로고침
+                    0 -> {
+                        viewPost(postId)
+                    }
+                    //신고
+                    1 -> {
+                        val fragmentManager = activity!!.supportFragmentManager
+                        fragmentManager.popBackStack()
+                    }
+                    //삭제
+                    2 -> {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            var authService = AuthService()
+                            authService.deletePost(postId)
+                            VarUtil.glob.boardFreepostFragment.adapter.notifyItemRemoved(arguments!!.getIntegerArrayList("like&commentCount")!!.last())
+                            val fragmentManager = activity!!.supportFragmentManager
+                            fragmentManager.popBackStack()
+
+                            // 목록 새로고침을 넣어야할지 의문 -> 딜레이 때문에 삭제가 반영되지 않는다.
+                        }
+                    }
+                }
+            }
         }
 
         return binding.root
@@ -131,7 +175,7 @@ class BoardFreepostContentFragment : Fragment() {
                         binding.boardFreepostContentPostContentTv.text = resp.content
 
                         val like = arguments!!.getIntegerArrayList("like&commentCount")!!.first()
-                        val comment = arguments!!.getIntegerArrayList("like&commentCount")!!.last()
+                        val comment = arguments!!.getIntegerArrayList("like&commentCount")!!.get(1)
                         binding.boardFreepostContentRecommendTv.text = like.toString()
                         binding.boardFreepostContentCommentTv.text = comment.toString()
 

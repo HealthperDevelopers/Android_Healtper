@@ -43,7 +43,7 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     interface onClickListener {
-        fun onClick(pos: Int, likeCount:Int, CommentCount : Int)
+        fun onClick(postId: Int, likeCount:Int, CommentCount : Int, position: Int)
     }
     lateinit var onClick: onClickListener
 
@@ -98,7 +98,7 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 binding.itemBoardPostCommentTv.text = data[pos].commentCount.toString()
             }
             binding.root.setOnClickListener {
-                onClick.onClick(data[pos].postId, data[pos].likeCount, data[pos].commentCount)
+                onClick.onClick(data[pos].postId, data[pos].likeCount, data[pos].commentCount, pos)
             }
         }
     }

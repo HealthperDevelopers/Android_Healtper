@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="itemList">
+    <string-array name="itemBoardList">
         <item>최신순</item>
         <item>추천순</item>
         <item>댓글순</item>
+    </string-array>
+
+    <string-array name="itemBoardFreePostList">
+        <item>새로고침</item>
+        <item>신고</item>
+        <item>삭제</item>
     </string-array>
 
 </resources>
