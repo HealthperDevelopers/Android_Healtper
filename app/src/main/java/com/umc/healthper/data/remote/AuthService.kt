@@ -186,6 +186,7 @@ class AuthService {
     fun postPost(post: Post){
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
+        Log.d("postPost/post", post.toString())
         authService.postPost(post).enqueue(object: Callback<PostId> {
             override fun onResponse(
                 call: Call<PostId>,

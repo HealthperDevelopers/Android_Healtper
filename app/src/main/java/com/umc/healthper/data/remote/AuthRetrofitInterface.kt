@@ -10,33 +10,56 @@ import retrofit2.http.*
 
 interface AuthRetrofitInterface {
 
-    @POST("/comment-nested")
-    fun childcomment(
-        @Body childcomment : ChildComment
-    ) : Call<Void>
-
     /** 댓글 생성 */
     @POST("/comment")
     fun comment(
         @Body comment : Comment
     ) : Call<Void>
 
-    @GET("/logout")
-    fun logout() : Call<Void>
+    /** 대댓글 생성 */
+    @POST("/comment-nested")
+    fun childcomment(
+        @Body childcomment : ChildComment
+    ) : Call<Void>
 
+    /** 댓글 & 대댓글 삭제 */
     @DELETE ("/comment/{commentId}")
     fun deleteComment(
         @Path("commentId") commentId : Int
     ) : Call<Void>
 
+    @GET("/logout")
+    fun logout() : Call<Void>
+
+    /** 게시글 생성 */
+    @POST("/post")
+    fun postPost(@Body post : Post) : Call<PostId>
+
+    /** 게시글 조회 */
     @GET("/post/{postId}")
     fun viewPost(
         @Path("postId") postId : Int
     ) : Call<APostResponse>
 
-    @POST("/post")
-    fun postPost(@Body post : Post) : Call<PostId>
+    /** 게시글 삭제 */
+    @DELETE("/post/{postId}")
+    fun deletePost(
+        @Path("postId") postId : Int
+    ) : Call<Void>
 
+    /** 게시글 좋아요 추가 */
+    @POST("/post/{postId}/like")
+    fun RecommendPost(
+        @Path("postId") postId : Int
+    ) : Call<Void>
+
+    /** 게시글 좋아요 취소 */
+    @DELETE("/post/{postId}/like")
+    fun UnrecommendPost(
+        @Path("postId") postId : Int
+    ) : Call<Void>
+
+    /** 게시글 목록 조회 */
     @GET("/posts")
     fun getPosts(
         @Query ("sort") sortType : String,

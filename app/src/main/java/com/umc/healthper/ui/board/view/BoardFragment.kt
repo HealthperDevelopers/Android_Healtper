@@ -35,7 +35,7 @@ class BoardFragment : Fragment() {
         binding = FragmentBoardBinding.inflate(inflater, container, false)
 
         val spinner = binding.boardSortedSpinner
-        spinner.adapter = ArrayAdapter.createFromResource(VarUtil.glob.mainContext, R.array.itemList, android.R.layout.simple_spinner_item)
+        spinner.adapter = ArrayAdapter.createFromResource(VarUtil.glob.mainContext, R.array.itemBoardList, android.R.layout.simple_spinner_item)
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 

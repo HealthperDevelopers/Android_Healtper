@@ -8,11 +8,20 @@ import com.umc.healthper.data.remote.Contents
 import com.umc.healthper.data.remote.WriterInfo
 import com.umc.healthper.databinding.ItemBoardFreepostBinding
 import com.umc.healthper.databinding.ItemLoadingBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.concurrent.CountDownLatch
 
 class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_ITEM = 0
     private val VIEW_TYPE_LOADING = 1
     private val items = ArrayList<Contents>()
+
+    fun addRecommend(pos : Int){
+        items[pos].likeCount = items[pos].likeCount + 1
+        notifyItemChanged(pos)
+    }
 
     fun setList(clear : Boolean)
     {
@@ -43,7 +52,7 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     interface onClickListener {
-        fun onClick(pos: Int, likeCount:Int, CommentCount : Int)
+        fun onClick(postId: Int, likeCount:Int, CommentCount : Int, position: Int)
     }
     lateinit var onClick: onClickListener
 
@@ -93,12 +102,16 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             if (data[pos].postType == "NORMAL") {
                 binding.itemBoardPostTitleTv.text = data[pos].title
                 binding.itemBoardPostNicknameTv.text = data[pos].writer.nickName
-                binding.itemBoardPostTimeTv.text = data[pos].createdAt
+                CoroutineScope(Dispatchers.Main).launch {
+                    var yyyymmdd = data[pos].createdAt.substring(0 until 10)
+                    var hhss = data[pos].createdAt.substring(11 until 16)
+                    binding.itemBoardPostTimeTv.text = String.format("%s %s", yyyymmdd, hhss)
+                }
                 binding.itemBoardPostRecommendTv.text = data[pos].likeCount.toString()
                 binding.itemBoardPostCommentTv.text = data[pos].commentCount.toString()
             }
             binding.root.setOnClickListener {
-                onClick.onClick(data[pos].postId, data[pos].likeCount, data[pos].commentCount)
+                onClick.onClick(data[pos].postId, data[pos].likeCount, data[pos].commentCount, pos)
             }
         }
     }
