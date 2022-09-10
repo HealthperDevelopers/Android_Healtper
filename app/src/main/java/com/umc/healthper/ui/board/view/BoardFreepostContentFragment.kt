@@ -31,6 +31,7 @@ import retrofit2.Response
 class BoardFreepostContentFragment : Fragment() {
     lateinit var binding : FragmentBoardFreepostContentBinding
     lateinit var adapter : CommentRVAdapter
+    var authService = AuthService()
     var postId = 0
 
     override fun onPause() {
@@ -60,7 +61,7 @@ class BoardFreepostContentFragment : Fragment() {
         }
 
         binding.boardFreepostContentRecommendBtIv.setOnClickListener {
-            binding.boardFreepostContentRecommendTv.text = (binding.boardFreepostContentRecommendTv.text.toString().toInt() + 1).toString()
+            RecommendPost(postId)
         }
 
         val spinner = binding.boardFreepostContentPostintSettingIv
@@ -89,13 +90,10 @@ class BoardFreepostContentFragment : Fragment() {
                     //삭제
                     2 -> {
                         CoroutineScope(Dispatchers.Main).launch {
-                            var authService = AuthService()
                             authService.deletePost(postId)
                             VarUtil.glob.boardFreepostFragment.adapter.notifyItemRemoved(arguments!!.getIntegerArrayList("like&commentCount")!!.last())
                             val fragmentManager = activity!!.supportFragmentManager
                             fragmentManager.popBackStack()
-
-                            // 목록 새로고침을 넣어야할지 의문 -> 딜레이 때문에 삭제가 반영되지 않는다.
                         }
                     }
                 }
@@ -214,6 +212,56 @@ class BoardFreepostContentFragment : Fragment() {
                 Log.d("viewPost/fail onfailure", t.toString())
             }
 
+        })
+    }
+
+    fun RecommendPost(postId: Int)
+    {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.RecommendPost(postId).enqueue(object :Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>
+            ) {
+                when (response.code()){
+                    200 -> {
+                        Log.d("RecommendPost/success", response.toString())
+                        binding.boardFreepostContentRecommendTv.text = (binding.boardFreepostContentRecommendTv.text.toString().toInt() + 1).toString()
+                        VarUtil.glob.boardFreepostFragment.adapter.addRecommend(arguments?.getIntegerArrayList("like&commentCount")!!.last())
+//                        VarUtil.glob.boardFreepostFragment.adapter.notifyItemChanged(arguments?.getIntegerArrayList("like&commentCount")!!.last())
+                    }
+                    409 -> {
+                        Toast.makeText(VarUtil.glob.mainContext, "이미 추천한 게시글입니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        Log.d("RecommendPost/failure", "fail")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("RecommendPost/FAILURE", t.message.toString())
+            }
+        })
+    }
+
+    fun UnrecommendPost(postId: Int)
+    {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.UnrecommendPost(postId).enqueue(object :Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>
+            ) {
+                if (response.code() == 200) {
+                    Log.d("deletePost/success", response.toString())
+                }
+                else {
+                    Log.d("deletePost/failure", "fail")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("deletePost/FAILURE", t.message.toString())
+            }
         })
     }
 

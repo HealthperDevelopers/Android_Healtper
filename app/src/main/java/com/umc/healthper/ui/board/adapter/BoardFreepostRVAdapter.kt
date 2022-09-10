@@ -14,6 +14,11 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     private val VIEW_TYPE_LOADING = 1
     private val items = ArrayList<Contents>()
 
+    fun addRecommend(pos : Int){
+        items[pos].likeCount = items[pos].likeCount + 1
+        notifyItemChanged(pos)
+    }
+
     fun setList(clear : Boolean)
     {
         if (clear)

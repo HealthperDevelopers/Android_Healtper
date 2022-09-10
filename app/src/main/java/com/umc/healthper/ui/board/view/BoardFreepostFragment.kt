@@ -98,8 +98,8 @@ class BoardFreepostFragment : Fragment() {
 
                         var post = response.body()!!
 
-                            adapter.setList(post.content)
-                            adapter.notifyItemRangeInserted(page * 30, post.content.size)
+                        adapter.setList(post.content)
+                        adapter.notifyItemRangeInserted(page * 30, post.content.size)
                     }
                     else -> {
                         Log.d("posts/FAILURE", response.toString())

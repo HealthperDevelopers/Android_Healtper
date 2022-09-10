@@ -47,6 +47,18 @@ interface AuthRetrofitInterface {
         @Path("postId") postId : Int
     ) : Call<Void>
 
+    /** 게시글 좋아요 추가 */
+    @POST("/post/{postId}/like")
+    fun RecommendPost(
+        @Path("postId") postId : Int
+    ) : Call<Void>
+
+    /** 게시글 좋아요 취소 */
+    @DELETE("/post/{postId}/like")
+    fun UnrecommendPost(
+        @Path("postId") postId : Int
+    ) : Call<Void>
+
     /** 게시글 목록 조회 */
     @GET("/posts")
     fun getPosts(
