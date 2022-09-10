@@ -8,6 +8,7 @@ import com.umc.healthper.data.remote.Contents
 import com.umc.healthper.data.remote.WriterInfo
 import com.umc.healthper.databinding.ItemBoardFreepostBinding
 import com.umc.healthper.databinding.ItemLoadingBinding
+import com.umc.healthper.util.VarUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     private val VIEW_TYPE_ITEM = 0
     private val VIEW_TYPE_LOADING = 1
     private val items = ArrayList<Contents>()
+    lateinit var data : List<Contents>
 
     fun addRecommend(pos : Int){
         items[pos].likeCount = items[pos].likeCount + 1
@@ -30,7 +32,7 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     fun setList(data: List<Contents>){
-
+        this.data = data
         for (tmp in data)
         {
             if (tmp.postType == "NORMAL")
@@ -38,13 +40,18 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         }
         items.add(Contents(-1, " ", WriterInfo(0, "", ""), "", 0, 0, ""))
     }
-    fun deleteLoading(){
-        items.removeAt(items.lastIndex) // 로딩이 완료되면 프로그레스바를 지움
+
+    fun deleteLoading(sortType : String, page : Int){
+        if (this.data.isNotEmpty()) {
+            Log.d("end", "delete")
+
+            items.removeAt(items.lastIndex) // 로딩이 완료되면 프로그레스바를 지움
+            VarUtil.glob.boardFreepostFragment.getPosts(sortType, page)
+        }
     }
+
     override fun getItemViewType(position: Int): Int {
         // 게시물과 프로그레스바 아이템뷰를 구분할 기준이 필요하다.
-        Log.d("position", position.toString())
-        Log.d("position / postType", items[position].postType)
         return when (items[position].postType) {
             " " -> VIEW_TYPE_LOADING
             else -> VIEW_TYPE_ITEM

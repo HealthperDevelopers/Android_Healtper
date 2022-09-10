@@ -51,8 +51,8 @@ class BoardFreepostFragment : Fragment() {
                 if (!binding.boardFreepostRv.canScrollVertically(1)) {
                     Log.d("end", "end")
                     CoroutineScope(Dispatchers.IO).launch {
-                        adapter.deleteLoading()
-                        getPosts(bundle.getString("sortType", "LATEST"), page++)
+                        adapter.deleteLoading(bundle.getString("sortType", "LATEST"), page++)
+//                        getPosts(bundle.getString("sortType", "LATEST"), page++)
                     }
                 }
             }
