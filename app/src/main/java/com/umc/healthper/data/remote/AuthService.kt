@@ -33,27 +33,6 @@ class AuthService {
     lateinit var dayDetailData: DetailSecondView
     lateinit var loginData: LoginView
 
-    fun deletePost(postId: Int)
-    {
-        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
-
-        authService.deletePost(postId).enqueue(object :Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>
-            ) {
-                if (response.code() == 200) {
-                    Log.d("deletePost/success", response.toString())
-                }
-                else {
-                    Log.d("deletePost/failure", "fail")
-                }
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("deletePost/FAILURE", t.message.toString())
-            }
-        })
-    }
-
     fun dayInfo(theDay : String)
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)

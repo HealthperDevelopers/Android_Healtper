@@ -8,6 +8,10 @@ import com.umc.healthper.data.remote.Contents
 import com.umc.healthper.data.remote.WriterInfo
 import com.umc.healthper.databinding.ItemBoardFreepostBinding
 import com.umc.healthper.databinding.ItemLoadingBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.concurrent.CountDownLatch
 
 class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_ITEM = 0
@@ -98,7 +102,11 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             if (data[pos].postType == "NORMAL") {
                 binding.itemBoardPostTitleTv.text = data[pos].title
                 binding.itemBoardPostNicknameTv.text = data[pos].writer.nickName
-                binding.itemBoardPostTimeTv.text = data[pos].createdAt
+                CoroutineScope(Dispatchers.Main).launch {
+                    var yyyymmdd = data[pos].createdAt.substring(0 until 10)
+                    var hhss = data[pos].createdAt.substring(11 until 16)
+                    binding.itemBoardPostTimeTv.text = String.format("%s %s", yyyymmdd, hhss)
+                }
                 binding.itemBoardPostRecommendTv.text = data[pos].likeCount.toString()
                 binding.itemBoardPostCommentTv.text = data[pos].commentCount.toString()
             }

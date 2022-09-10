@@ -31,7 +31,6 @@ import retrofit2.Response
 class BoardFreepostContentFragment : Fragment() {
     lateinit var binding : FragmentBoardFreepostContentBinding
     lateinit var adapter : CommentRVAdapter
-    var authService = AuthService()
     var postId = 0
 
     override fun onPause() {
@@ -90,8 +89,8 @@ class BoardFreepostContentFragment : Fragment() {
                     //삭제
                     2 -> {
                         CoroutineScope(Dispatchers.Main).launch {
-                            authService.deletePost(postId)
-                            VarUtil.glob.boardFreepostFragment.adapter.notifyItemRemoved(arguments!!.getIntegerArrayList("like&commentCount")!!.last())
+                            deletePost(postId)
+
                             val fragmentManager = activity!!.supportFragmentManager
                             fragmentManager.popBackStack()
                         }
@@ -168,7 +167,11 @@ class BoardFreepostContentFragment : Fragment() {
                         Log.d("viewPost/success", response.body().toString())
                         var resp = response.body()
                         binding.boardFreepostContentWriterTv.text = resp!!.writer.nickName
-                        binding.boardFreepostContentPostingTimeTv.text = resp.createdAt
+                        CoroutineScope(Dispatchers.Main).launch {
+                            var yyyymmdd = resp.createdAt.substring(0 until 10)
+                            var hhss = resp.createdAt.substring(11 until 16)
+                            binding.boardFreepostContentPostingTimeTv.text = String.format("%s %s", yyyymmdd, hhss)
+                        }
                         binding.boardFreepostContentPostTitleTv.text = resp.title
                         binding.boardFreepostContentPostContentTv.text = resp.content
 
@@ -291,6 +294,38 @@ class BoardFreepostContentFragment : Fragment() {
                 Log.d("deleteComment/onfailure", t.toString())
             }
 
+        })
+    }
+
+    fun deletePost(postId: Int)
+    {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.deletePost(postId).enqueue(object :Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("deletePost/success", response.body().toString())
+                        VarUtil.glob.boardFreepostFragment.adapter.notifyItemRemoved(
+                            arguments!!.getIntegerArrayList(
+                                "like&commentCount"
+                            )!!.last()
+                        )
+                    }
+                    401 -> {
+                        Toast.makeText(
+                            VarUtil.glob.mainContext,
+                            "댓글을 수정/삭제할 수 있는 권한이 없습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("deletePost/FAILURE", t.message.toString())
+            }
         })
     }
 }
