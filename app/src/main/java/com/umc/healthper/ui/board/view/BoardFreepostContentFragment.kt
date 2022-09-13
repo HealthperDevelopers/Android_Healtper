@@ -54,6 +54,14 @@ class BoardFreepostContentFragment : Fragment() {
             Log.d("touch", "touch")
         }
 
+        binding.boardFreepostContentReturnIv.setOnClickListener {
+            // 뒤로 가기 구현
+            VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
+                "boardFreeComment",
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
+        }
+
         binding.boardFreepostContentCommentCommentTv.setOnClickListener{
             comment(Comment(postId, binding.boardFreepostContentCommentEt.text.toString()))
             VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.boardFreepostContentCommentEt.windowToken, 0)
