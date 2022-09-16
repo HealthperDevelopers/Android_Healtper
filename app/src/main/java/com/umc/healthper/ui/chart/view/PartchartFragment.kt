@@ -13,8 +13,9 @@ import com.umc.healthper.ui.chart.adapter.PartchartVPAdapter
 
 class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding
+    var partName : String = ""
 
-    private val information = arrayListOf("최근 일주일", "최근 한달", "최근 1년")
+    private val information = arrayListOf("최근 5회", "최근 10회", "전체")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,8 +26,10 @@ class PartchartFragment : Fragment() {
 
         binding = FragmentPartchartBinding.inflate(inflater, container, false)
 
-        binding.partchartPartTv.text = arguments?.getString("part").toString()
-        val partchartAdapter = PartchartVPAdapter(this)
+        partName = arguments?.getString("part").toString()
+        binding.partchartPartTv.text = partName
+
+        val partchartAdapter = PartchartVPAdapter(this, arguments?.getString("part").toString())
         binding.partchartContentVp.adapter = partchartAdapter
         TabLayoutMediator(binding.partchartContentTb, binding.partchartContentVp) {
             tab, position ->

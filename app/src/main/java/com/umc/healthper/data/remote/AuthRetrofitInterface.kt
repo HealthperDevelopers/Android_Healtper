@@ -1,14 +1,16 @@
 package com.umc.healthper.data.remote
 
-import com.umc.healthper.data.entity.ChildComment
-import com.umc.healthper.data.entity.Comment
-import com.umc.healthper.data.entity.Post
-import com.umc.healthper.data.entity.TotalData
+import com.umc.healthper.data.entity.*
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
 interface AuthRetrofitInterface {
+
+    @GET("/statistic")
+    fun statistic(
+        @Query ("exerciseName") exerciseName : String
+    ) : Call<ChartData>
 
     /** 댓글 생성 */
     @POST("/comment")
