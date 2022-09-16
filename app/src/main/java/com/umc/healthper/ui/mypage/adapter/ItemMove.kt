@@ -1,6 +1,8 @@
 package com.umc.healthper.ui.mypage.adapter
 
+import android.content.res.ColorStateList
 import android.graphics.Canvas
+import android.graphics.Color
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
@@ -9,6 +11,7 @@ class ItemMove(userAdapterData: ItemAdapter): ItemTouchHelper.Callback() {
     interface ItemAdapter {
         fun onItemMove(fromPos: Int, targetPos: Int)
         fun onItemDismiss(pos: Int)
+        fun getSelected(viewHolder: RecyclerView.ViewHolder)
     }
     var userAdapter = userAdapterData
 
@@ -40,6 +43,16 @@ class ItemMove(userAdapterData: ItemAdapter): ItemTouchHelper.Callback() {
         return true
     }
 
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+            userAdapter.getSelected(viewHolder!!)
+        }
+
+        else if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
+//            userAdapter.getSelected(false)
+        }
+    }
+
     override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,
@@ -50,6 +63,7 @@ class ItemMove(userAdapterData: ItemAdapter): ItemTouchHelper.Callback() {
         isCurrentlyActive: Boolean
     ) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+
     }
 
 }
