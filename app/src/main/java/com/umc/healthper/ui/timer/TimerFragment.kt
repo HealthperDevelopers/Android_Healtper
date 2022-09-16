@@ -25,7 +25,7 @@ class TimerFragment : Fragment() {
     lateinit var partTimer: PartTimer
     lateinit var totalTimer: TotalTimer
     var minutesEdit : String? = null
-    var millsEdit : String? = null
+    var secondEdit : String? = null
     var restTimer = RestTimer()
     var runningTimer = RunningTimer()
 
@@ -38,7 +38,7 @@ class TimerFragment : Fragment() {
         timerActivity = context as TimerActivity
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,9 +69,9 @@ class TimerFragment : Fragment() {
         binding.timerTableCountEt.setText(String.format("%02d", timerActivity!!.count))
 
         minutesEdit = LayoutInflater.from(timerActivity)
-            .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
-        millsEdit = LayoutInflater.from(timerActivity)
-            .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_mills_et).getText().toString()
+            .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_minutes_et).getHint().toString()
+        secondEdit = LayoutInflater.from(timerActivity)
+            .inflate(R.layout.dialog_rest, null).findViewById<EditText>(R.id.rest_minutes_et).getHint().toString()
 
         binding.timerClickListener.setOnClickListener {
             Log.d("isWorkTime", VarUtil.glob.isWorkTime.toString())
@@ -103,8 +103,8 @@ class TimerFragment : Fragment() {
             val mBuilder = AlertDialog.Builder(timerActivity!!)
                 .setView(mDialogView)
 
-            mDialogView.findViewById<EditText>(R.id.rest_minutes_et).setText(String.format("%02d", VarUtil.glob.restMinutes / 60))
-            mDialogView.findViewById<EditText>(R.id.rest_mills_et).setText(String.format("%02d", VarUtil.glob.restMinutes % 60))
+            mDialogView.findViewById<EditText>(R.id.rest_minutes_et).setHint(String.format("%02d", VarUtil.glob.restMinutes / 60))
+            mDialogView.findViewById<EditText>(R.id.rest_second_et).setHint(String.format("%02d", VarUtil.glob.restMinutes % 60))
 
             val  mAlertDialog = mBuilder.show()
             mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -114,16 +114,24 @@ class TimerFragment : Fragment() {
 
             doneButton.setOnClickListener {
                 minutesEdit = mDialogView.findViewById<EditText>(R.id.rest_minutes_et).getText().toString()
-                millsEdit = mDialogView.findViewById<EditText>(R.id.rest_mills_et).getText().toString()
+                secondEdit = mDialogView.findViewById<EditText>(R.id.rest_second_et).getText().toString()
 
-                if (minutesEdit!!.toInt() >= 0 && minutesEdit!!.toInt() <= 60 && millsEdit!!.toInt() < 60 && millsEdit!!.toInt() >= 0) {
-                    if (millsEdit!!.toInt() == 0 && minutesEdit!!.toInt() == 0) {
+                if (minutesEdit == "")
+                    minutesEdit = mDialogView.findViewById<EditText>(R.id.rest_minutes_et).getHint().toString()
+                if (secondEdit == "")
+                    secondEdit = mDialogView.findViewById<EditText>(R.id.rest_second_et).getHint().toString()
+
+                Log.d("minutes", minutesEdit!!)
+                Log.d("second", secondEdit!!)
+
+                if (minutesEdit!!.toInt() >= 0 && minutesEdit!!.toInt() <= 60 && secondEdit!!.toInt() < 60 && secondEdit!!.toInt() >= 0) {
+                    if (secondEdit!!.toInt() == 0 && minutesEdit!!.toInt() == 0) {
                         Toast.makeText(timerActivity!!, "None", Toast.LENGTH_SHORT).show()
                     }
                     else {
                         Toast.makeText(timerActivity!!, "Okay", Toast.LENGTH_SHORT).show()
-                        VarUtil.glob.restMinutes = minutesEdit!!.toInt() * 60 + millsEdit!!.toInt()
-                        binding.timerRestSettingTimeTv.text = String.format("%02d : %02d", minutesEdit!!.toInt(), millsEdit!!.toInt())
+                        VarUtil.glob.restMinutes = minutesEdit!!.toInt() * 60 + secondEdit!!.toInt()
+                        binding.timerRestSettingTimeTv.text = String.format("%02d : %02d", minutesEdit!!.toInt(), secondEdit!!.toInt())
                         mAlertDialog.dismiss()
                     }
                 }
@@ -269,6 +277,8 @@ class TimerFragment : Fragment() {
         private var mills: Float = 0f
 
         override fun run() {
+            second = timerActivity!!.workTime(VarUtil.glob.currentWork)
+            binding.timerRunningRestTimeTv.text = String.format("%02d : %02d : %02d", (second / 60) / 60, second / 60, second % 60)
             try {
                 while (true){
                     sleep(50)
@@ -293,8 +303,6 @@ class TimerFragment : Fragment() {
         private var hour: Int = 0
         private var minute: Int = 0
         private var second: Int = timerActivity!!.partTime(VarUtil.glob.currentPart) - 1
-//        private var second: Int = 0
-
         private var mills: Float = 0f
 
         override fun run() {
@@ -322,7 +330,7 @@ class TimerFragment : Fragment() {
     inner class RestTimer : Thread(){
         var second: Int = 0
         var mills: Float = 0f
-        var resttime : Int = 6
+        var limitTime : Int = 0
 
         override fun run() {
             try {
@@ -336,22 +344,22 @@ class TimerFragment : Fragment() {
                     if (mills % 1000 == 0f){
                         // second++
                         timerActivity!!.runOnUiThread {
-                            if ((second / 60 >= minutesEdit!!.toInt()) && (second % 60 >= millsEdit!!.toInt())) {
-                                if (resttime != 0) {
-                                    binding.timerRestTimeTv.setTextColor(Color.parseColor("#FEA621"))
-                                    binding.timerRestTimeYellowTv.visibility = View.VISIBLE
-                                    binding.timerRestTimeRedTv.visibility = View.INVISIBLE
-                                    resttime--
-                                }
-                                else {
-                                    binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF0000"))
-                                    binding.timerRestTimeRedTv.visibility = View.VISIBLE
-                                    binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
-                                }
-                            }
-                            else {
-                                binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF494949"))
+
+                            limitTime = minutesEdit!!.toInt() * 60 + secondEdit!!.toInt()
+
+                            if (second <= limitTime) {
+                                binding.timerRestTimeTv.setTextColor(Color.parseColor("#494949"))
                                 binding.timerRestTimeRedTv.visibility = View.INVISIBLE
+                                binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
+                            }
+                            else if (second <= limitTime + 5){
+                                binding.timerRestTimeTv.setTextColor(Color.parseColor("#FEA621"))
+                                binding.timerRestTimeYellowTv.visibility = View.VISIBLE
+                                binding.timerRestTimeRedTv.visibility = View.INVISIBLE
+                            }
+                            else{
+                                binding.timerRestTimeTv.setTextColor(Color.parseColor("#FF0000"))
+                                binding.timerRestTimeRedTv.visibility = View.VISIBLE
                                 binding.timerRestTimeYellowTv.visibility = View.INVISIBLE
                             }
 

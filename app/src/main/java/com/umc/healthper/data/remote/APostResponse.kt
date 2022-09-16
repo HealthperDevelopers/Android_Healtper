@@ -19,8 +19,16 @@ data class Comments (
     @SerializedName(value = "content") var content : String,
     @SerializedName(value = "status") var status : String,
     @SerializedName(value = "createdAt") var createdAt : String,
-    @SerializedName(value = "children") var children : Comments
+    @SerializedName(value = "children") var children : List<Children>
     )
+
+data class Children (
+    @SerializedName(value = "commentId") var commentId : Int,
+    @SerializedName(value = "writer") var writer : WriterInfo,
+    @SerializedName(value = "content") var content : String,
+    @SerializedName(value = "status") var status : String,
+    @SerializedName(value = "createdAt") var createdAt : String
+        )
 /**
 {
     "postId": 0,
@@ -52,7 +60,7 @@ data class Comments (
                     "memberId": 0,
                     "nickName": "string",
                     "status": "NORMAL"
-                },
+                    },
                 "content": "string",
                 "status": "NORMAL",
                 "createdAt": "2022-08-25T05:48:52.666Z"

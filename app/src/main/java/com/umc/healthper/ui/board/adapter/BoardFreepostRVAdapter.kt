@@ -5,12 +5,54 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.data.remote.Contents
+import com.umc.healthper.data.remote.WriterInfo
 import com.umc.healthper.databinding.ItemBoardFreepostBinding
+import com.umc.healthper.databinding.ItemLoadingBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.concurrent.CountDownLatch
 
-class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<BoardFreepostRVAdapter.NameHolder>() {
+class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val VIEW_TYPE_ITEM = 0
+    private val VIEW_TYPE_LOADING = 1
+    private val items = ArrayList<Contents>()
+
+    fun addRecommend(pos : Int){
+        items[pos].likeCount = items[pos].likeCount + 1
+        notifyItemChanged(pos)
+    }
+
+    fun setList(clear : Boolean)
+    {
+        if (clear)
+            items.clear()
+    }
+
+    fun setList(data: List<Contents>){
+
+        for (tmp in data)
+        {
+            if (tmp.postType == "NORMAL")
+                items.add(tmp)
+        }
+        items.add(Contents(-1, " ", WriterInfo(0, "", ""), "", 0, 0, ""))
+    }
+    fun deleteLoading(){
+        items.removeAt(items.lastIndex) // 로딩이 완료되면 프로그레스바를 지움
+    }
+    override fun getItemViewType(position: Int): Int {
+        // 게시물과 프로그레스바 아이템뷰를 구분할 기준이 필요하다.
+        Log.d("position", position.toString())
+        Log.d("position / postType", items[position].postType)
+        return when (items[position].postType) {
+            " " -> VIEW_TYPE_LOADING
+            else -> VIEW_TYPE_ITEM
+        }
+    }
 
     interface onClickListener {
-        fun onClick(pos: Int)
+        fun onClick(postId: Int, likeCount:Int, CommentCount : Int, position: Int)
     }
     lateinit var onClick: onClickListener
 
@@ -19,32 +61,40 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Boa
     }
 
     lateinit var binding: ItemBoardFreepostBinding
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameHolder {
-        val binding = ItemBoardFreepostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            VIEW_TYPE_ITEM -> {
+                val binding = ItemBoardFreepostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        var FreeData = ArrayList<Contents>()
-
-        for (tmp in data)
-        {
-            if (tmp.postType == "NORMAL")
-                FreeData.add(tmp)
+                NameHolder(binding, items)
+            }
+            else -> {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemLoadingBinding.inflate(layoutInflater, parent, false)
+                LoadingHolder(binding)
+            }
         }
-        return NameHolder(binding, FreeData)
     }
 
-    override fun onBindViewHolder(holder: NameHolder, position: Int) {
-        holder.bind(position, onClick)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        var safePosition = holder.adapterPosition
+
+        if (holder is NameHolder) {
+            holder.bind(safePosition, onClick)
+        }
+        else{
+
+        }
     }
 
     override fun getItemCount(): Int {
-        var size = data.size
+        var size = items.size
 
-        for (tmp in data){
-            if (tmp.postType != "NORMAL")
-                size--
-        }
-        Log.d("Freesize", size.toString())
         return size
+    }
+
+    class LoadingHolder(val binding : ItemLoadingBinding) : RecyclerView.ViewHolder(binding.root){
+
     }
 
     class NameHolder(val binding: ItemBoardFreepostBinding, val data: List<Contents>): RecyclerView.ViewHolder(binding.root) {
@@ -52,12 +102,16 @@ class BoardFreepostRVAdapter(val data: List<Contents>): RecyclerView.Adapter<Boa
             if (data[pos].postType == "NORMAL") {
                 binding.itemBoardPostTitleTv.text = data[pos].title
                 binding.itemBoardPostNicknameTv.text = data[pos].writer.nickName
-                binding.itemBoardPostTimeTv.text = data[pos].createdAt
+                CoroutineScope(Dispatchers.Main).launch {
+                    var yyyymmdd = data[pos].createdAt.substring(0 until 10)
+                    var hhss = data[pos].createdAt.substring(11 until 16)
+                    binding.itemBoardPostTimeTv.text = String.format("%s %s", yyyymmdd, hhss)
+                }
                 binding.itemBoardPostRecommendTv.text = data[pos].likeCount.toString()
                 binding.itemBoardPostCommentTv.text = data[pos].commentCount.toString()
             }
             binding.root.setOnClickListener {
-                onClick.onClick(data[pos].postId)
+                onClick.onClick(data[pos].postId, data[pos].likeCount, data[pos].commentCount, pos)
             }
         }
     }

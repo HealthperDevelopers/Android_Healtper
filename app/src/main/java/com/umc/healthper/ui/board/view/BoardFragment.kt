@@ -35,7 +35,7 @@ class BoardFragment : Fragment() {
         binding = FragmentBoardBinding.inflate(inflater, container, false)
 
         val spinner = binding.boardSortedSpinner
-        spinner.adapter = ArrayAdapter.createFromResource(VarUtil.glob.mainContext, R.array.itemList, android.R.layout.simple_spinner_item)
+        spinner.adapter = ArrayAdapter.createFromResource(VarUtil.glob.mainContext, R.array.itemBoardList, android.R.layout.simple_spinner_item)
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -51,28 +51,34 @@ class BoardFragment : Fragment() {
                     //최신순
                     0 -> {
                         VarUtil.glob.boardFreepostFragment.getPosts("LATEST", 0)
+                        VarUtil.glob.boardFreepostFragment.bundle.putString("sortType", "LATEST")
+                        VarUtil.glob.boardFreepostFragment.page = 1
                     }
                     //추천순
                     1 -> {
                         VarUtil.glob.boardFreepostFragment.getPosts("LIKE", 0)
+                        VarUtil.glob.boardFreepostFragment.bundle.putString("sortType", "LIKE")
+                        VarUtil.glob.boardFreepostFragment.page = 1
                     }
                     //댓글순
                     2 -> {
                         VarUtil.glob.boardFreepostFragment.getPosts("COMMENT", 0)
+                        VarUtil.glob.boardFreepostFragment.bundle.putString("sortType", "COMMENT")
+                        VarUtil.glob.boardFreepostFragment.page = 1
                     }
                 }
             }
         }
         val boardVPAdapter = BoardVPAdapter(this)
         binding.boardFreePostVp.adapter = boardVPAdapter
-//        TabLayoutMediator(binding.boardTb, binding.boardFreePostVp)
-//        { tab, position ->
-//            tab.text = information[position]
-//        }.attach()
+        TabLayoutMediator(binding.boardTb, binding.boardFreePostVp)
+        { tab, position ->
+            tab.text = information[position]
+        }.attach()
 
-//        binding.boardMyboardIv.setOnClickListener {
-//            mainActivity!!.changeBoardFragment(0)
-//        }
+        binding.boardMyboardIv.setOnClickListener {
+            mainActivity!!.changeBoardFragment(0)
+        }
 
         binding.boardWritePostIv.setOnClickListener {
             mainActivity!!.changeBoardFragment(1)

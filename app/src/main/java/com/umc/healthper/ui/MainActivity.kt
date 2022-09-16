@@ -11,6 +11,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -329,7 +330,7 @@ class MainActivity : AppCompatActivity() {
             }
             2->{
                 if (boardFreepostContentFragment == null) boardFreepostContentFragment = BoardFreepostContentFragment()
-                transition.replace(binding.mainFrmFl.id, boardFreepostContentFragment!!)
+                transition.add(binding.mainFrmFl.id, boardFreepostContentFragment!!)
                 transition.addToBackStack("boardFreeComment")
             }
         }
@@ -353,20 +354,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun change2Comment() {
-//        for (tmp in VarUtil.glob.work){
-////            Log.d("total time", tmp.totalTime.toString())
-//            Log.d("running time", tmp.runningTime.toString())
-//            Log.d("partId", tmp.partId.toString())
-//            Log.d("work", tmp.work)
-//            for (temp in tmp.pack){
-//                Log.d("pack set", temp.set.toString())
-//                Log.d("pack weight", temp.weight.toString())
-//                Log.d("pack count", temp.count.toString())
-//                Log.d("------------", "done")
-//            }
-//            Log.d("work done", "_________________")
-//        }
-
         val intent = Intent(this, CommentActivity::class.java)
         startActivity(intent)
     }
@@ -375,6 +362,9 @@ class MainActivity : AppCompatActivity() {
         Log.d("reset", "Work")
         VarUtil.glob.work = arrayListOf()
         VarUtil.glob.totalData = TotalData("", ArrayList(), ExerciseInfo(0, 0))
+    }
 
+    fun softkeyboardHide(): InputMethodManager {
+        return getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
     }
 }

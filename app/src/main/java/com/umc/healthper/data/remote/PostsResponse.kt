@@ -12,8 +12,8 @@ data class Contents (
     @SerializedName(value = "postType") val postType : String,
     @SerializedName(value = "writer") val writer : WriterInfo,
     @SerializedName(value = "title") val title : String,
-    @SerializedName(value = "likeCount") val likeCount : Int,
-    @SerializedName(value = "commentCount") val commentCount : Int,
+    @SerializedName(value = "likeCount") var likeCount : Int,
+    @SerializedName(value = "commentCount") var commentCount : Int,
     @SerializedName(value = "createdAt") val createdAt : String
         )
 

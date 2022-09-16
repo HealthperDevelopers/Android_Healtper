@@ -179,7 +179,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                     val tmp = DateRVAdapter(data, i, weekList)
                     tmp.customListener(object: DateRVAdapter.UserListener {
                         override fun onClick(date: String) {
-                            val y = now.get(Calendar.YEAR).toString()
+                            val y = now.get(Calendar.YEAR).toString().toInt()
                             val m = (now.get(Calendar.MONTH)+1)
                             val newM = if (m < 10) {
                                 "0$m"
@@ -187,7 +187,8 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                             else {
                                 m.toString()
                             }
-                            val selectedDay = "$y-$newM-$date"
+                            var newD = date.toInt()
+                            val selectedDay = String.format("%04d-%02d-%02d", y, m, newD)
                             authService.dayInfoData = VarUtil.glob.mainFragment
                             authService.dayInfo(selectedDay)
                         }

@@ -52,8 +52,16 @@ class SettimerFragment : Fragment() {
         var minute = second / 60
         var hour = minute / 60
         binding.setTimerTableSetEt.text = "${timerActivity!!.setCount}세트"
-        binding.setTimerWorkTv.text = VarUtil.glob.currentWork
+        binding.setTimerWorkNameTv.text = VarUtil.glob.currentWork
         binding.setTimerPickBt.text = VarUtil.glob.currentPart
+
+        var partTime = timerActivity!!.partTime(VarUtil.glob.currentPart)
+        binding.setTimerPartTimeTv.text = String.format("%02d : %02d : %02d", (partTime / 60) / 60, partTime / 60, partTime % 60)
+
+        var workTime = timerActivity!!.workTime(VarUtil.glob.currentWork)
+        binding.setTimerWorkTimeTv.text = String.format("%02d : %02d : %02d", (workTime / 60) / 60, workTime / 60, workTime % 60)
+
+
         binding.setTimerTotalTimeTv.text = String.format("%02d : %02d : %02d", hour, minute, second % 60)
         binding.setTimerTableWeightEt.setText(String.format("%02d", timerActivity!!.weight))
         binding.setTimerTableCountEt.setText(String.format("%02d", timerActivity!!.count))
@@ -78,14 +86,14 @@ class SettimerFragment : Fragment() {
     private fun setWorkTime() {
         if (!VarUtil.glob.isWorkTime) // 현재 진행시간이 아니라면 = 파트별 시간
         {
-            binding.setTimerRunningRestTv.visibility = View.INVISIBLE
-            binding.setTimerRunningRestTimeTv.visibility = View.INVISIBLE
+            binding.setTimerWorkTv.visibility = View.INVISIBLE
+            binding.setTimerWorkTimeTv.visibility = View.INVISIBLE
             binding.setTimerPartTv.visibility = View.VISIBLE
             binding.setTimerPartTimeTv.visibility = View.VISIBLE
         }
         else {
-            binding.setTimerRunningRestTv.visibility = View.VISIBLE
-            binding.setTimerRunningRestTimeTv.visibility = View.VISIBLE
+            binding.setTimerWorkTv.visibility = View.VISIBLE
+            binding.setTimerWorkTimeTv.visibility = View.VISIBLE
             binding.setTimerPartTv.visibility = View.INVISIBLE
             binding.setTimerPartTimeTv.visibility = View.INVISIBLE
         }
@@ -95,15 +103,15 @@ class SettimerFragment : Fragment() {
         if (VarUtil.glob.isWorkTime) // 현재 진행시간이라면 = 운동별 시간
         {
             VarUtil.glob.isWorkTime = false // change to partTime
-            binding.setTimerRunningRestTv.visibility = View.INVISIBLE
-            binding.setTimerRunningRestTimeTv.visibility = View.INVISIBLE
+            binding.setTimerWorkTv.visibility = View.INVISIBLE
+            binding.setTimerWorkTimeTv.visibility = View.INVISIBLE
             binding.setTimerPartTv.visibility = View.VISIBLE
             binding.setTimerPartTimeTv.visibility = View.VISIBLE
         }
         else {
             VarUtil.glob.isWorkTime = true // change to WorkTime = 운동별 시간
-            binding.setTimerRunningRestTv.visibility = View.VISIBLE
-            binding.setTimerRunningRestTimeTv.visibility = View.VISIBLE
+            binding.setTimerWorkTv.visibility = View.VISIBLE
+            binding.setTimerWorkTimeTv.visibility = View.VISIBLE
             binding.setTimerPartTv.visibility = View.INVISIBLE
             binding.setTimerPartTimeTv.visibility = View.INVISIBLE
         }
