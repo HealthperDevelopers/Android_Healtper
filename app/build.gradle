@@ -43,6 +43,7 @@ android {
     dataBinding {
         enabled = true
     }
+    namespace 'com.umc.healthper'
 }
 
 dependencies {
