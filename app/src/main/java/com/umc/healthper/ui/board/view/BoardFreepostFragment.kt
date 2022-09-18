@@ -31,6 +31,7 @@ class BoardFreepostFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         page = 1
+        VarUtil.glob.mainActivity.BoardFragment!!.tabPosition = "NORMAL"
     }
 
     override fun onCreateView(
@@ -52,7 +53,6 @@ class BoardFreepostFragment : Fragment() {
                     Log.d("end", "end")
                     CoroutineScope(Dispatchers.IO).launch {
                         adapter.deleteLoading(bundle.getString("sortType", "LATEST"), page++)
-//                        getPosts(bundle.getString("sortType", "LATEST"), page++)
                     }
                 }
             }
@@ -80,10 +80,10 @@ class BoardFreepostFragment : Fragment() {
      * @param sortType = {LATEST(최신순), LIKE(추천순), COMMENT(댓글순)}
      * @return postsResponse = 게시글 목록 30개의 정보
      * */
-    fun getPosts(sortType : String, page :Int) {
+    fun getPosts(type : String, sortType : String, page :Int) {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
-        authService.getPosts(sortType, page).enqueue(object : Callback<PostsResponse> {
+        authService.getPosts(type, sortType, page).enqueue(object : Callback<PostsResponse> {
             override fun onResponse(
                 call: Call<PostsResponse>,
                 response: Response<PostsResponse>
@@ -98,8 +98,11 @@ class BoardFreepostFragment : Fragment() {
 
                         var post = response.body()!!
 
-                        adapter.setList(post.content)
-                        adapter.notifyItemRangeInserted(page * 30, post.content.size)
+                        CoroutineScope(Dispatchers.Main).launch {
+                            adapter.setList(post.content)
+//                            if (post.content.isNotEmpty())
+                                adapter.notifyItemRangeInserted(page * 30, (post.content.size + 1))
+                        }
                     }
                     else -> {
                         Log.d("posts/FAILURE", response.toString())
