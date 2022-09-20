@@ -136,10 +136,8 @@ class BoardQuestionpostFragment : Fragment() {
 
                         var post = response.body()!!
                         CoroutineScope(Dispatchers.Main).launch {
-//                            if (post.content.isNotEmpty()) {
-                                adapter.setList(post.content)
-                                adapter.notifyItemRangeInserted(page * 30, (post.content.size + 1))
-//                            }
+                            adapter.setList(post.content)
+                            adapter.notifyItemRangeInserted(page * 30, (post.content.size + 1))
                         }
                     }
                     else -> {

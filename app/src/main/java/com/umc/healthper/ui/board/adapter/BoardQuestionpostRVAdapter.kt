@@ -40,7 +40,7 @@ class BoardQuestionpostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder
             Log.d("end", "delete")
 
             items.removeAt(items.lastIndex) // 로딩이 완료되면 프로그레스바를 지움
-            VarUtil.glob.boardQuestionpostFragment.getPosts("NORMAL", sortType, page)
+            VarUtil.glob.boardQuestionpostFragment.getPosts("QUESTION", sortType, page)
         }
     }
 
@@ -102,9 +102,9 @@ class BoardQuestionpostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder
         fun bind(pos: Int, onClick: onClickListener) {
             if (data[pos].postType == "QUESTION") {
                 binding.itemBoardQuestionpostTitleTv.text = data[pos].title
-                binding.itemBoardPostNicknameTv.text = data[pos].writer.nickName
-                binding.itemBoardPostTimeTv.text = String.format(" | %s %s", data[pos].createdAt.substring(0 until 10), data[pos].createdAt.substring(11 until 16))
-                binding.itemBoardQuestionpostTitleCommentnumTv.text = data[pos].commentCount.toString()
+                binding.itemBoardQuestionpostNicknameTv.text = data[pos].writer.nickName
+                binding.itemBoardQuestionpostTimeTv.text = String.format(" | %s %s", data[pos].createdAt.substring(0 until 10), data[pos].createdAt.substring(11 until 16))
+                binding.itemBoardQuestionpostTitleCommentnumTv.text = String.format("(%d)",data[pos].commentCount)
             }
             binding.root.setOnClickListener {
                 onClick.onClick(data[pos].postId)

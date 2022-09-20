@@ -1,104 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="7dp"
-    android:layout_marginTop="10dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:paddingBottom="10dp">
 
-
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/item_post_line"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/item_board_questionpost_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="15sp"
+        android:text="null error"
+        style="@style/Text.bmjua.total"
+        android:textSize="18sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="23dp"
         />
 
-    <TextView
-        android:id="@+id/item_board_questionpost_title_markfront_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/item_board_questionpost_title_tv"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="7dp"
-        />
     <TextView
         android:id="@+id/item_board_questionpost_title_commentnum_tv"
+        style="@style/Text.bmjua.total"
+        android:textColor="#707070"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/item_board_questionpost_title_markfront_tv"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="7dp"
-        />
-
-    <TextView
-        android:id="@+id/item_board_questionpost_title_markback_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/item_board_questionpost_title_commentnum_tv"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="7dp"
-        />
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="@id/item_board_questionpost_title_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_board_questionpost_title_tv"
+        app:layout_constraintStart_toEndOf="@id/item_board_questionpost_title_tv"
+        android:layout_marginStart="10dp"/>
 
 
     <TextView
-        android:id="@id/item_board_post_nickname_tv"
+        android:id="@id/item_board_questionpost_nickname_tv"
+        style="@style/Text.bmjua.total"
+        android:textColor="#707070"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="11sp"
+        android:text="짱짱맨"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_board_questionpost_title_tv"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="3dp"/>
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="13dp"/>
 
     <TextView
-        android:id="@+id/item_board_post_timebar_tv"
+        android:id="@+id/item_board_questionpost_timebar_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@+id/item_board_post_nickname_tv"
-        app:layout_constraintTop_toBottomOf="@id/item_board_questionpost_title_tv"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="3dp"/>
+        android:text="|"
+        android:textSize="10sp"
+        android:textColor="#707070"
+        app:layout_constraintStart_toEndOf="@+id/item_board_questionpost_nickname_tv"
+        app:layout_constraintTop_toTopOf="@id/item_board_questionpost_nickname_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_board_questionpost_nickname_tv"
+        android:layout_marginStart="7dp"/>
 
     <TextView
-        android:id="@+id/item_board_post_time_tv"
+        android:id="@+id/item_board_questionpost_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@id/item_board_post_nickname_tv"
-        app:layout_constraintTop_toBottomOf="@id/item_board_questionpost_title_tv"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="3dp"/>
+        android:text="01:10"
+        android:textSize="10sp"
+        style="@style/Text.bmjua.total"
+        android:textColor="#707070"
+        app:layout_constraintStart_toEndOf="@id/item_board_questionpost_nickname_tv"
+        app:layout_constraintTop_toTopOf="@id/item_board_questionpost_nickname_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_board_questionpost_nickname_tv"
+        android:layout_marginStart="15dp"/>
 
+    <ImageView
+        android:id="@+id/item_board_post_recommend_iv"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/board_freepost_like_iv"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-
-
-
-
-
+    <TextView
+        android:id="@+id/item_board_post_recommend_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Text.bmjua.total"
+        android:textColor="#707070"
+        android:text="10"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_board_post_recommend_iv"
+        app:layout_constraintBottom_toBottomOf="@id/item_board_post_recommend_iv"
+        android:layout_marginBottom="1dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="15dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
