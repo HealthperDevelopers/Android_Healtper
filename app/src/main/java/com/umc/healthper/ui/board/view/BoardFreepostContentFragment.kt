@@ -1,14 +1,15 @@
 package com.umc.healthper.ui.board.view
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.umc.healthper.R
@@ -192,8 +193,23 @@ class BoardFreepostContentFragment : Fragment() {
                         binding.boardFreepostContentCommentRv.adapter = adapter
                         adapter.setListener(object: CommentRVAdapter.onClickListener{
                             override fun onDeleteClick(commentId: Int) {
-                                Log.d("commentId", commentId.toString())
-                                deleteComment(commentId)
+                                Log.d("commentId", commentId.toString())// Dialog만들기
+                                val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.dialog_comment_delete, null)
+                                val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity)
+                                    .setView(mDialogView)
+
+                                val  mAlertDialog = mBuilder.show()
+                                mAlertDialog.window?.setLayout(800, 600)
+
+                                val doneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_delete_bt)
+                                val noneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_none_bt)
+                                doneButton.setOnClickListener {
+                                    mAlertDialog.dismiss()
+                                    deleteComment(commentId)
+                                }
+                                noneButton.setOnClickListener {
+                                    mAlertDialog.dismiss()
+                                }
                             }
 
                             override fun onChildClick(parentId: Int) {

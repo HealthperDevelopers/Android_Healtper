@@ -34,11 +34,9 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     fun setList(data: List<Contents>){
         this.data = data
         for (tmp in data)
-        {
-            if (tmp.postType == "NORMAL")
-                items.add(tmp)
-        }
-        items.add(Contents(-1, " ", WriterInfo(0, "", ""), "", 0, 0, ""))
+            items.add(tmp)
+        if (items[items.lastIndex].postId != -1)
+            items.add(Contents(-1, " ", WriterInfo(0, "", ""), "", 0, 0, ""))
     }
 
     fun deleteLoading(sortType : String, page : Int){
@@ -46,7 +44,7 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             Log.d("end", "delete")
 
             items.removeAt(items.lastIndex) // 로딩이 완료되면 프로그레스바를 지움
-            VarUtil.glob.boardFreepostFragment.getPosts(sortType, page)
+            VarUtil.glob.boardFreepostFragment.getPosts("NORMAL", sortType, page)
         }
     }
 
@@ -109,11 +107,7 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             if (data[pos].postType == "NORMAL") {
                 binding.itemBoardPostTitleTv.text = data[pos].title
                 binding.itemBoardPostNicknameTv.text = data[pos].writer.nickName
-                CoroutineScope(Dispatchers.Main).launch {
-                    var yyyymmdd = data[pos].createdAt.substring(0 until 10)
-                    var hhss = data[pos].createdAt.substring(11 until 16)
-                    binding.itemBoardPostTimeTv.text = String.format("%s %s", yyyymmdd, hhss)
-                }
+                binding.itemBoardPostTimeTv.text = String.format("%s %s", data[pos].createdAt.substring(0 until 10), data[pos].createdAt.substring(11 until 16))
                 binding.itemBoardPostRecommendTv.text = data[pos].likeCount.toString()
                 binding.itemBoardPostCommentTv.text = data[pos].commentCount.toString()
             }

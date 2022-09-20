@@ -64,6 +64,7 @@ interface AuthRetrofitInterface {
     /** 게시글 목록 조회 */
     @GET("/posts")
     fun getPosts(
+        @Query ("type") type : String,
         @Query ("sort") sortType : String,
         @Query ("page") page : Int
     ) : Call<PostsResponse>

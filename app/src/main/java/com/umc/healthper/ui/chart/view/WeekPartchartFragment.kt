@@ -39,8 +39,6 @@ class WeekPartchartFragment(var partName : String) : Fragment(){
 
         val spinner = binding.partchartWeekSp
 
-
-
         var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
         var partId = db.WorkPartDao().getWorkPartIdbyPartName(partName)
         Log.d("partId", partId.toString())

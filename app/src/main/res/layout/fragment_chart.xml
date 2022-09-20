@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -10,33 +10,73 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:layout_marginBottom="100dp">
+    app:layout_constraintTop_toTopOf="parent">
+    <ImageView
+        android:id="@+id/chart_user_iv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@mipmap/nav_mypage"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        />
+    <TextView
+        android:id="@+id/chart_user_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="user_name"
+        android:textSize="20dp"
+        style="@style/Text.uljiro.user"
+        app:layout_constraintTop_toTopOf="@id/chart_user_iv"
+        app:layout_constraintBottom_toBottomOf="@id/chart_user_iv"
+        app:layout_constraintStart_toEndOf="@id/chart_user_iv"
+        android:layout_marginStart="10dp"
+        />
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    android:overScrollMode="never"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/chart_user_iv"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="50dp"
+    android:scrollbars="vertical"
+    android:scrollbarFadeDuration="0"
+    android:fadeScrollbars="false"
+    android:scrollbarStyle="outsideInset"
+    android:scrollbarSize="10dp"
+    android:scrollbarThumbVertical="@drawable/scroll_thumb"
+    android:layout_marginEnd="10dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/chart_user_iv"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@mipmap/nav_mypage"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="80dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="20dp"
-            />
-        <TextView
-            android:id="@+id/chart_user_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="user_name"
-            android:textSize="20dp"
-            style="@style/Text.uljiro.user"
-            app:layout_constraintTop_toTopOf="@id/chart_user_iv"
-            app:layout_constraintBottom_toBottomOf="@id/chart_user_iv"
-            app:layout_constraintStart_toEndOf="@id/chart_user_iv"
-            android:layout_marginStart="10dp"
-            />
+<!--        <ImageView-->
+<!--            android:id="@+id/chart_user_iv"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:src="@mipmap/nav_mypage"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:layout_marginTop="80dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            />-->
+<!--        <TextView-->
+<!--            android:id="@+id/chart_user_name_tv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="user_name"-->
+<!--            android:textSize="20dp"-->
+<!--            style="@style/Text.uljiro.user"-->
+<!--            app:layout_constraintTop_toTopOf="@id/chart_user_iv"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/chart_user_iv"-->
+<!--            app:layout_constraintStart_toEndOf="@id/chart_user_iv"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            />-->
 
         <TextView
             android:id="@+id/chart_back_tv"
@@ -49,9 +89,8 @@
             android:textStyle="bold"
             android:background="@drawable/chart_rounding"
             android:backgroundTint="#c9ab97"
-            app:layout_constraintTop_toBottomOf="@id/chart_user_name_tv"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="100dp"
             app:layout_constraintEnd_toStartOf="@id/chart_leg_tv"
             />
 
@@ -66,10 +105,9 @@
             android:textStyle="bold"
             android:background="@drawable/chart_rounding"
             android:backgroundTint="#ca9175"
-            app:layout_constraintTop_toBottomOf="@id/chart_user_name_tv"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/chart_back_tv"
-            android:layout_marginTop="100dp"
             />
 
         <TextView
@@ -85,7 +123,7 @@
             android:backgroundTint="#e3b486"
             app:layout_constraintTop_toBottomOf="@id/chart_back_tv"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintEnd_toStartOf="@id/chart_chest_tv"
             />
 
@@ -103,7 +141,7 @@
             app:layout_constraintTop_toBottomOf="@id/chart_leg_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/chart_back_tv"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             />
 
         <TextView
@@ -120,7 +158,7 @@
             app:layout_constraintTop_toBottomOf="@id/chart_hip_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/chart_chest_tv"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             />
 
         <TextView
@@ -137,7 +175,7 @@
             app:layout_constraintTop_toBottomOf="@id/chart_chest_tv"
             app:layout_constraintStart_toEndOf="@id/chart_shoulder_tv"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             />
 
         <TextView
@@ -154,7 +192,7 @@
             app:layout_constraintTop_toBottomOf="@id/chart_shoulder_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/chart_full_tv"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             />
 
         <TextView
@@ -171,7 +209,7 @@
             app:layout_constraintTop_toBottomOf="@id/chart_abs_tv"
             app:layout_constraintStart_toEndOf="@id/chart_aerobic_tv"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             />
 
         <TextView
@@ -188,7 +226,7 @@
             app:layout_constraintTop_toBottomOf="@id/chart_biceps_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/chart_full_tv"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             />
 
         <TextView
@@ -205,7 +243,8 @@
             app:layout_constraintTop_toBottomOf="@id/chart_triceps_tv"
             app:layout_constraintStart_toEndOf="@id/chart_aerobic_tv"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
