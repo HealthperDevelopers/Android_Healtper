@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.healthper.R
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.data.remote.Children
 import com.umc.healthper.data.remote.Comments
@@ -65,8 +68,25 @@ class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.
                 childRVAdapter.setListener(object: childCommentRVAdapter.onClickListener{
                     override fun onClick(commentId: Int) {
                         Log.d("commentId", commentId.toString())
-                        val authService = AuthService()
-                        authService.deleteComment(commentId, postId)
+
+                        val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.dialog_comment_delete, null)
+                        val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity)
+                            .setView(mDialogView)
+
+                        val  mAlertDialog = mBuilder.show()
+                        mAlertDialog.window?.setLayout(800, 600)
+
+                        val doneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_delete_bt)
+                        val noneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_none_bt)
+
+                        doneButton.setOnClickListener {
+                            mAlertDialog.dismiss()
+                            val authService = AuthService()
+                            authService.deleteComment(commentId, postId)
+                        }
+                        noneButton.setOnClickListener {
+                            mAlertDialog.dismiss()
+                        }
                     }
                 })
                 childRVAdapter.notifyDataSetChanged()
