@@ -63,16 +63,16 @@ class BoardQuestionpostFragment : Fragment() {
             }
         })
         adapter.setListener(object: BoardQuestionpostRVAdapter.onClickListener {
-            override fun onClick(postId: Int) {
+            override fun onClick(postId: Int, likeCount:Int, CommentCount : Int, pos : Int) {
                 Log.d("postId/Question", postId.toString())
                 // post 조회
-//                CoroutineScope(Dispatchers.IO).launch {
-//                    bundle.putIntegerArrayList("like&commentCount", arrayListOf(likeCount, CommentCount, pos))
-//                    VarUtil.glob.mainActivity.boardFreepostContentFragment = BoardFreepostContentFragment()
-//                    VarUtil.glob.mainActivity.boardFreepostContentFragment!!.arguments = bundle
-//                    VarUtil.glob.mainActivity.boardFreepostContentFragment!!.postId = postId
-//                    VarUtil.glob.mainActivity.changeBoardFragment(2)
-//                }
+                CoroutineScope(Dispatchers.IO).launch {
+                    bundle.putIntegerArrayList("like&commentCount", arrayListOf(likeCount, CommentCount, pos))
+                    VarUtil.glob.mainActivity.boardFreepostContentFragment = BoardFreepostContentFragment()
+                    VarUtil.glob.mainActivity.boardFreepostContentFragment!!.arguments = bundle
+                    VarUtil.glob.mainActivity.boardFreepostContentFragment!!.postId = postId
+                    VarUtil.glob.mainActivity.changeBoardFragment(2)
+                }
             }
         })
 

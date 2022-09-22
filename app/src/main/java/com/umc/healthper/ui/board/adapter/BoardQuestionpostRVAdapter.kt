@@ -17,6 +17,7 @@ class BoardQuestionpostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder
     lateinit var data : List<Contents>
 
     fun addRecommend(pos : Int){
+        Log.d("likeCount", items[pos].likeCount.toString())
         items[pos].likeCount = items[pos].likeCount + 1
         notifyItemChanged(pos)
     }
@@ -53,7 +54,7 @@ class BoardQuestionpostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     interface onClickListener {
-        fun onClick(postId: Int)
+        fun onClick(postId: Int, likeCount:Int, CommentCount : Int, position: Int)
     }
     lateinit var onClick: onClickListener
 
@@ -104,10 +105,11 @@ class BoardQuestionpostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder
                 binding.itemBoardQuestionpostTitleTv.text = data[pos].title
                 binding.itemBoardQuestionpostNicknameTv.text = data[pos].writer.nickName
                 binding.itemBoardQuestionpostTimeTv.text = String.format(" | %s %s", data[pos].createdAt.substring(0 until 10), data[pos].createdAt.substring(11 until 16))
-                binding.itemBoardQuestionpostTitleCommentnumTv.text = String.format("(%d)",data[pos].commentCount)
+                binding.itemBoardQuestionpostTitleCommentnumTv.text = String.format("%d",data[pos].commentCount)
+                binding.itemBoardQuestionpostRecommendTv.text = data[pos].likeCount.toString()
             }
             binding.root.setOnClickListener {
-                onClick.onClick(data[pos].postId)
+                onClick.onClick(data[pos].postId, data[pos].likeCount, data[pos].commentCount, pos)
             }
         }
     }

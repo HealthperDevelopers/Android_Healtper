@@ -8,10 +8,8 @@ import com.umc.healthper.ui.main.view.DetailSecondView
 
 import android.widget.Toast
 import com.kakao.sdk.user.UserApiClient
-import com.umc.healthper.data.entity.ChartData
-import com.umc.healthper.data.entity.Post
-import com.umc.healthper.data.entity.TotalData
-import com.umc.healthper.data.entity.WorkRecord
+import com.umc.healthper.data.entity.*
+import com.umc.healthper.ui.Signup.SignupView
 import com.umc.healthper.ui.SplashActivity
 import com.umc.healthper.ui.login.LoginActivity
 import com.umc.healthper.ui.login.LoginView
@@ -33,6 +31,33 @@ class AuthService {
     lateinit var calendarData: CalendarDataView
     lateinit var dayDetailData: DetailSecondView
     lateinit var loginData: LoginView
+    lateinit var signupData: SignupView
+
+    fun signup(userInfo: User) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.signup(userInfo).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("signup/success", response.body().toString())
+                        signupData.onSignupSuccess()
+                    }
+                    else -> {
+                        Log.d("signup/fail", response.body().toString())
+                        signupData.onSignupFailure()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("signup/onfailure", t.toString())
+            }
+        })
+    }
 
     fun dayInfo(theDay : String)
     {
@@ -75,6 +100,10 @@ class AuthService {
                     200 -> {
                         Log.d("login/success", response.toString())
                         loginData.onLoginSuccess(response.body())
+                    }
+                    404 -> {
+                        Log.d("signup", "signup")
+                        loginData.onSignUp(user)
                     }
                     else -> {
                         Log.d("login/failure", response.toString())

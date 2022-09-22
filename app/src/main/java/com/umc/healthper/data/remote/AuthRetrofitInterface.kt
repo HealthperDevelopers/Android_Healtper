@@ -7,6 +7,11 @@ import retrofit2.http.*
 
 interface AuthRetrofitInterface {
 
+    @POST ("/member")
+    fun signup(
+        @Body userInfo : User
+    ) : Call<Void>
+
     @GET("/statistic")
     fun statistic(
         @Query ("exerciseName") exerciseName : String

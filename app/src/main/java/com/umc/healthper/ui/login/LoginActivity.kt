@@ -2,11 +2,7 @@ package com.umc.healthper.ui.login
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -20,12 +16,10 @@ import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.data.remote.CalendarResponse
 import com.umc.healthper.databinding.ActivityLoginBinding
 import com.umc.healthper.ui.MainActivity
+import com.umc.healthper.ui.Signup.SignupActivity
 import com.umc.healthper.util.VarUtil
-import com.umc.healthper.util.VarUtil.Companion.glob
 import com.umc.healthper.util.getAutoLogin
 import com.umc.healthper.util.saveAutoLogin
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 class LoginActivity : AppCompatActivity(), LoginView {
     lateinit var binding : ActivityLoginBinding
@@ -134,7 +128,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
                         val authService = AuthService()
                         authService.loginData = this
                         authService.login(tokenInfo.id.toString())
-//                        authService.isLogin()
                     }
                 }
             }
@@ -176,5 +169,12 @@ class LoginActivity : AppCompatActivity(), LoginView {
         Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
 
         Log.d("onLoginFailure", "login made onLoginFailure")
+    }
+
+    override fun onSignUp(user: String) {
+        val intent = Intent(this, SignupActivity::class.java)
+        startActivity(intent)
+
+        finish()
     }
 }
