@@ -12,6 +12,11 @@ interface AuthRetrofitInterface {
         @Body userInfo : User
     ) : Call<Void>
 
+    @GET ("/member")
+    fun getNickname(
+        @Query ("kakaoKey") kakaoKey : Long
+    ) : Call<MemberResponse>
+
     @GET("/statistic")
     fun statistic(
         @Query ("exerciseName") exerciseName : String

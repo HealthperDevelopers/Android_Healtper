@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.healthper.databinding.FragmentPartchartBinding
 import com.umc.healthper.ui.board.adapter.BoardVPAdapter
 import com.umc.healthper.ui.chart.adapter.PartchartVPAdapter
+import com.umc.healthper.util.VarUtil
 
 class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding
@@ -25,6 +26,7 @@ class PartchartFragment : Fragment() {
         Log.d("data : ", arguments?.getString("part").toString())
 
         binding = FragmentPartchartBinding.inflate(inflater, container, false)
+        binding.partchartUserNameTv.text = VarUtil.glob.Nickname
 
         partName = arguments?.getString("part").toString()
         binding.partchartPartTv.text = partName

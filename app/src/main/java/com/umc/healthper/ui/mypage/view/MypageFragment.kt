@@ -13,6 +13,7 @@ import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.FragmentMypageBinding
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.ui.login.LoginActivity
+import com.umc.healthper.util.VarUtil
 
 class MypageFragment : Fragment() {
 
@@ -29,7 +30,7 @@ class MypageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMypageBinding.inflate(inflater, container, false)
-
+        binding.mypageUserNameTv.text = VarUtil.glob.Nickname
         binding.mypageFavoritesTv.setOnClickListener{
             mainActivity!!.changeMypageFragment(0)
         }

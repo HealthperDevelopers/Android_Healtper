@@ -59,6 +59,32 @@ class AuthService {
         })
     }
 
+    fun getNickname(kakaoKey : Long){
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.getNickname(kakaoKey).enqueue(object: Callback<MemberResponse> {
+            override fun onResponse(
+                call: Call<MemberResponse>,
+                response: Response<MemberResponse>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("getNickname/success", response.body().toString())
+                        var resp = response.body()
+                        VarUtil.glob.Nickname = resp!!.nickname
+                    }
+                    else -> {
+                        Log.d("getNickname/fail", response.body().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MemberResponse>, t: Throwable) {
+                Log.d("getNickname/onfailure", t.toString())
+            }
+        })
+    }
+
     fun dayInfo(theDay : String)
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
@@ -99,6 +125,8 @@ class AuthService {
                 when (response.code()){
                     200 -> {
                         Log.d("login/success", response.toString())
+                        var memberService = AuthService()
+                        memberService.getNickname(user.toLong())
                         loginData.onLoginSuccess(response.body())
                     }
                     404 -> {

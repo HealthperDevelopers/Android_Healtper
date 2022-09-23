@@ -28,6 +28,7 @@ class GlobVar: Application() {
     lateinit var today: TextView
     lateinit var size: Point
     var restMinutes : Int = 60
+    var Nickname = ""
 
     var selectedPart = ArrayList<String>()
     var unselectedPart = ArrayList<String>()
