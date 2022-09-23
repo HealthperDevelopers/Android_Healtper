@@ -192,6 +192,10 @@ class MainActivity : AppCompatActivity() {
             "boardFreeComment",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
+        if (boardQuestionpostContentFragment != null) supportFragmentManager.popBackStack(
+            "boardQuestionContent",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
         if (MyboardBoardFragment != null) supportFragmentManager.popBackStack(
             "boardMypage",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -337,7 +341,7 @@ class MainActivity : AppCompatActivity() {
             3->{
                 if (boardQuestionpostContentFragment == null) boardQuestionpostContentFragment = BoardQuestionpostContentFragment()
                 transition.add(binding.mainFrmFl.id, boardQuestionpostContentFragment!!)
-                transition.addToBackStack("boardQuestionComment")
+                transition.addToBackStack("boardQuestionContent")
             }
         }
         transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

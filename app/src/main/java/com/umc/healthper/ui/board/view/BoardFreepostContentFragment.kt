@@ -87,21 +87,35 @@ class BoardFreepostContentFragment : Fragment() {
             ) {
                 when (position) {
                     //새로고침
-                    0 -> {
+                    1 -> {
                         viewPost(postId)
                     }
                     //신고
-                    1 -> {
+                    2 -> {
                         val fragmentManager = activity!!.supportFragmentManager
                         fragmentManager.popBackStack()
                     }
                     //삭제
-                    2 -> {
+                    3 -> {
                         CoroutineScope(Dispatchers.Main).launch {
-                            deletePost(postId)
+                            // dialog
+                            val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.dialog_comment_delete, null)
+                            val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity)
+                                .setView(mDialogView)
 
-                            val fragmentManager = activity!!.supportFragmentManager
-                            fragmentManager.popBackStack()
+                            val  mAlertDialog = mBuilder.show()
+                            mAlertDialog.window?.setLayout(800, 600)
+
+                            val doneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_delete_bt)
+                            val noneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_none_bt)
+                            doneButton.setOnClickListener {
+                                mAlertDialog.dismiss()
+                                deletePost(postId)
+                            }
+                            noneButton.setOnClickListener {
+                                mAlertDialog.dismiss()
+                            }
+                            spinner.setSelection(0)
                         }
                     }
                 }
@@ -336,6 +350,8 @@ class BoardFreepostContentFragment : Fragment() {
                                 "like&commentCount"
                             )!!.last()
                         )
+                        val fragmentManager = activity!!.supportFragmentManager
+                        fragmentManager.popBackStack()
                     }
                     401 -> {
                         Toast.makeText(

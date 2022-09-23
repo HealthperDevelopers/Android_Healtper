@@ -45,6 +45,13 @@ class BoardQuestionpostFragment : Fragment() {
         getPosts("QUESTION", "LATEST", 0)
 
         binding = FragmentBoardQuestionpostBinding.inflate(inflater, container, false)
+
+        var swipe = binding.boardQuestionpostSw
+        swipe.setOnRefreshListener {
+            getPosts("QUESTION", bundle.getString("sortType", "LATEST"), 0)
+            swipe.isRefreshing = false
+        }
+
         val linearLayoutManagerWrapepr = LinearLayoutManagerWrapper(VarUtil.glob.mainContext, LinearLayoutManager.VERTICAL, false) // 이걸 만들어서
         binding.boardQuestionpostRv.layoutManager = linearLayoutManagerWrapepr // 이걸 넣는다.
         binding.boardQuestionpostRv.adapter = adapter
