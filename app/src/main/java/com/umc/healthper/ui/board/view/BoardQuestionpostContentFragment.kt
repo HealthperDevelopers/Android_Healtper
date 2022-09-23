@@ -181,8 +181,8 @@ class BoardQuestionpostContentFragment : Fragment() {
                         binding.boardQuestionpostContentPostTitleTv.text = resp.title
                         binding.boardQuestionpostContentPostContentTv.text = resp.content
 
-                        val like = arguments!!.getIntegerArrayList("like&commentCount")!!.first()
-                        val comment = arguments!!.getIntegerArrayList("like&commentCount")!!.get(1)
+                        val like = arguments!!.getIntegerArrayList("like&commentCount_content")!!.first()
+                        val comment = arguments!!.getIntegerArrayList("like&commentCount_content")!!.get(1)
                         binding.boardQuestionpostContentRecommendTv.text = like.toString()
                         binding.boardQuestionpostContentCommentTv.text = comment.toString()
 
@@ -249,9 +249,8 @@ class BoardQuestionpostContentFragment : Fragment() {
                 when (response.code()){
                     200 -> {
                         Log.d("RecommendPost/success", response.toString())
-                        binding.boardQuestionpostContentRecommendTv.text = (binding.boardQuestionpostContentRecommendTv.text.toString().toInt() + 1).toString()
-                        VarUtil.glob.boardQuestionpostFragment.adapter.addRecommend(arguments?.getIntegerArrayList("like&commentCount")!!.last())
-//                        VarUtil.glob.boardQuestionpostFragment.adapter.notifyItemChanged(arguments?.getIntegerArrayList("like&commentCount")!!.last())
+                        Log.d("pos/QuestionContent", arguments?.getIntegerArrayList("like&commentCount_content")!!.last().toString())
+                        VarUtil.glob.boardQuestionpostFragment.adapter.addRecommend(arguments?.getIntegerArrayList("like&commentCount_content")!!.last())
                     }
                     409 -> {
                         Log.d("RecommendPost/409", response.toString())
@@ -331,7 +330,7 @@ class BoardQuestionpostContentFragment : Fragment() {
                         Log.d("deletePost/success", response.body().toString())
                         VarUtil.glob.boardQuestionpostFragment.adapter.notifyItemRemoved(
                             arguments!!.getIntegerArrayList(
-                                "like&commentCount"
+                                "like&commentCount_content"
                             )!!.last()
                         )
                     }

@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     var MyboardBoardFragment: MyboardBoardFragment? = null
     var boardWritingFragement: BoardWritingFragement? = null
     var boardFreepostContentFragment : BoardFreepostContentFragment? = null
+    var boardQuestionpostContentFragment : BoardQuestionpostContentFragment? = null
 
     var detailWorkRecordSecondFragment: DetailWorkRecordSecondFragment? = null
     var detailWorkRecordFirstFragment: DetailWorkRecordFirstFragment? = null
@@ -332,6 +333,11 @@ class MainActivity : AppCompatActivity() {
                 if (boardFreepostContentFragment == null) boardFreepostContentFragment = BoardFreepostContentFragment()
                 transition.add(binding.mainFrmFl.id, boardFreepostContentFragment!!)
                 transition.addToBackStack("boardFreeComment")
+            }
+            3->{
+                if (boardQuestionpostContentFragment == null) boardQuestionpostContentFragment = BoardQuestionpostContentFragment()
+                transition.add(binding.mainFrmFl.id, boardQuestionpostContentFragment!!)
+                transition.addToBackStack("boardQuestionComment")
             }
         }
         transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
