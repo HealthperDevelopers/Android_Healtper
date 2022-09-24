@@ -329,7 +329,7 @@ class MainActivity : AppCompatActivity() {
             }
             1->{
                 boardWritingFragement = BoardWritingFragement()
-                transition.replace(binding.mainFrmFl.id, boardWritingFragement!!)
+                transition.add(binding.mainFrmFl.id, boardWritingFragement!!)
                 transition.addToBackStack("boardWrite")
 
             }

@@ -29,6 +29,7 @@ import retrofit2.Response
 class BoardQuestionpostContentFragment : Fragment() {
     lateinit var binding : FragmentBoardQuestionpostContentBinding
     lateinit var adapter : CommentRVAdapter
+    val bundle = Bundle()
     var postId = 0
 
     override fun onPause() {
@@ -114,6 +115,18 @@ class BoardQuestionpostContentFragment : Fragment() {
                             }
                             spinner.setSelection(0)
                         }
+                    }
+                    // modify
+                    4->{
+                        CoroutineScope(Dispatchers.Main).launch {
+                            VarUtil.glob.mainActivity.changeBoardFragment(1)
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.modify = true
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.postId = postId
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.title = binding.boardQuestionpostContentPostTitleTv.text.toString()
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.content = binding.boardQuestionpostContentPostContentTv.text.toString()
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.postType = "QUESTION"
+                        }
+                        spinner.setSelection(0)
                     }
                 }
             }

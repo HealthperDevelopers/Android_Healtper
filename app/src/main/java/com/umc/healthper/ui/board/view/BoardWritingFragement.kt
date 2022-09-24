@@ -11,9 +11,16 @@ import com.umc.healthper.data.entity.Post
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.FragmentBoardWritingBinding
 import com.umc.healthper.util.VarUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BoardWritingFragement : Fragment() {
     lateinit var binding: FragmentBoardWritingBinding
+    var title = ""
+    var content = ""
+    var postId = 0
+    var modify = false
     var postType = "NORMAL"
 
     override fun onCreateView(
@@ -22,6 +29,14 @@ class BoardWritingFragement : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBoardWritingBinding.inflate(inflater, container, false)
+
+        if (title != "")
+        {
+            CoroutineScope(Dispatchers.Main).launch{
+                binding.boardWritingTitleEt.setText(title)
+                binding.boardWritingContentEt.setText(content)
+            }
+        }
 
         binding.boardWritingCancelIv.setOnClickListener {
             VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
@@ -43,11 +58,22 @@ class BoardWritingFragement : Fragment() {
         binding.boardMyboardWritingPostingBtnIv.setOnClickListener{
             val authService = AuthService()
 
-            authService.postPost(Post(postType, binding.boardWritingTitleEt.text.toString(), binding.boardWritingContentEt.text.toString()))
-            VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
-                "boardWrite",
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
-            )
+            if (!modify){
+                authService.postPost(
+                    Post(
+                        postType,
+                        binding.boardWritingTitleEt.text.toString(),
+                        binding.boardWritingContentEt.text.toString()
+                    )
+                )
+                VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
+                    "boardWrite",
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
+            }
+            else {
+                // modify api 연결
+            }
         }
 
         return binding.root

@@ -15,13 +15,9 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.FragmentPartchartBinding
-import com.umc.healthper.databinding.FragmentPartchartTmpBinding
-import com.umc.healthper.ui.board.adapter.BoardVPAdapter
-import com.umc.healthper.ui.chart.adapter.PartchartVPAdapter
 import com.umc.healthper.util.VarUtil
 
 class PartchartFragment : Fragment() {
