@@ -5,4 +5,5 @@ import com.umc.healthper.data.remote.CalendarResponse
 interface LoginView {
     fun onLoginSuccess(data: List<CalendarResponse>?)
     fun onLoginFailure()
+    fun onSignUp(user: String)
 }

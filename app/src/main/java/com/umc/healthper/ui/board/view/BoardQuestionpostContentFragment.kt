@@ -1,7 +1,5 @@
 package com.umc.healthper.ui.board.view
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,8 +15,7 @@ import com.umc.healthper.data.entity.ChildComment
 import com.umc.healthper.data.entity.Comment
 import com.umc.healthper.data.remote.APostResponse
 import com.umc.healthper.data.remote.AuthRetrofitInterface
-import com.umc.healthper.data.remote.AuthService
-import com.umc.healthper.databinding.FragmentBoardFreepostContentBinding
+import com.umc.healthper.databinding.FragmentBoardQuestionpostContentBinding
 import com.umc.healthper.ui.board.adapter.CommentRVAdapter
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
@@ -29,16 +26,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BoardFreepostContentFragment : Fragment() {
-    lateinit var binding : FragmentBoardFreepostContentBinding
+class BoardQuestionpostContentFragment : Fragment() {
+    lateinit var binding : FragmentBoardQuestionpostContentBinding
     lateinit var adapter : CommentRVAdapter
+    val bundle = Bundle()
     var postId = 0
 
     override fun onPause() {
         super.onPause()
         val trans = VarUtil.glob.mainActivity.supportFragmentManager
         trans.popBackStack(
-            "boardFreeContent",
+            "boardQuestionContent",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
     }
@@ -48,31 +46,31 @@ class BoardFreepostContentFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentBoardFreepostContentBinding.inflate(inflater, container, false)
+        binding = FragmentBoardQuestionpostContentBinding.inflate(inflater, container, false)
         viewPost(postId)
 
         binding.noTouch.setOnClickListener{
             Log.d("touch", "touch")
         }
 
-        binding.boardFreepostContentReturnIv.setOnClickListener {
+        binding.boardQuestionpostContentReturnIv.setOnClickListener {
             // 뒤로 가기 구현
             VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
-                "boardFreeComment",
+                "boardQuestionContent",
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
         }
 
-        binding.boardFreepostContentCommentCommentTv.setOnClickListener{
-            comment(Comment(postId, binding.boardFreepostContentCommentEt.text.toString()))
-            VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.boardFreepostContentCommentEt.windowToken, 0)
+        binding.boardQuestionpostContentCommentCommentTv.setOnClickListener{
+            comment(Comment(postId, binding.boardQuestionpostContentCommentEt.text.toString()))
+            VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.boardQuestionpostContentCommentEt.windowToken, 0)
         }
 
-        binding.boardFreepostContentRecommendBtIv.setOnClickListener {
+        binding.boardQuestionpostContentRecommendBtIv.setOnClickListener {
             RecommendPost(postId)
         }
 
-        val spinner = binding.boardFreepostContentPostintSettingIv
+        val spinner = binding.boardQuestionpostContentPostintSettingIv
         spinner.adapter = ArrayAdapter.createFromResource(VarUtil.glob.mainContext, R.array.itemBoardPostList, android.R.layout.simple_spinner_item)
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -118,14 +116,15 @@ class BoardFreepostContentFragment : Fragment() {
                             spinner.setSelection(0)
                         }
                     }
+                    // modify
                     4->{
                         CoroutineScope(Dispatchers.Main).launch {
                             VarUtil.glob.mainActivity.changeBoardFragment(1)
                             VarUtil.glob.mainActivity.boardWritingFragement!!.modify = true
                             VarUtil.glob.mainActivity.boardWritingFragement!!.postId = postId
-                            VarUtil.glob.mainActivity.boardWritingFragement!!.title = binding.boardFreepostContentPostTitleTv.text.toString()
-                            VarUtil.glob.mainActivity.boardWritingFragement!!.content = binding.boardFreepostContentPostContentTv.text.toString()
-                            VarUtil.glob.mainActivity.boardWritingFragement!!.postType = "NORMAL"
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.title = binding.boardQuestionpostContentPostTitleTv.text.toString()
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.content = binding.boardQuestionpostContentPostContentTv.text.toString()
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.postType = "QUESTION"
                         }
                         spinner.setSelection(0)
                     }
@@ -146,7 +145,7 @@ class BoardFreepostContentFragment : Fragment() {
                     Log.d("comment/success", response.toString())
                     CoroutineScope(Dispatchers.Main).launch{
                         viewPost(postId)
-                        binding.boardFreepostContentCommentEt.setText("")
+                        binding.boardQuestionpostContentCommentEt.setText("")
                     }
                 }
                 else {
@@ -171,7 +170,7 @@ class BoardFreepostContentFragment : Fragment() {
                     Log.d("comment/success", response.toString())
                     CoroutineScope(Dispatchers.Main).launch{
                         viewPost(postId)
-                        binding.boardFreepostContentCommentEt.setText("")
+                        binding.boardQuestionpostContentCommentEt.setText("")
                     }
                 }
                 else {
@@ -200,22 +199,22 @@ class BoardFreepostContentFragment : Fragment() {
                     200 -> {
                         Log.d("viewPost/success", response.body().toString())
                         var resp = response.body()
-                        binding.boardFreepostContentWriterTv.text = resp!!.writer.nickName
+                        binding.boardQuestionpostContentWriterTv.text = resp!!.writer.nickName
                         CoroutineScope(Dispatchers.Main).launch {
                             var yyyymmdd = resp.createdAt.substring(0 until 10)
                             var hhss = resp.createdAt.substring(11 until 16)
-                            binding.boardFreepostContentPostingTimeTv.text = String.format("%s %s", yyyymmdd, hhss)
+                            binding.boardQuestionpostContentPostingTimeTv.text = String.format("%s %s", yyyymmdd, hhss)
                         }
-                        binding.boardFreepostContentPostTitleTv.text = resp.title
-                        binding.boardFreepostContentPostContentTv.text = resp.content
+                        binding.boardQuestionpostContentPostTitleTv.text = resp.title
+                        binding.boardQuestionpostContentPostContentTv.text = resp.content
 
-                        val like = arguments!!.getIntegerArrayList("like&commentCount")!!.first()
-                        val comment = arguments!!.getIntegerArrayList("like&commentCount")!!.get(1)
-                        binding.boardFreepostContentRecommendTv.text = like.toString()
-                        binding.boardFreepostContentCommentTv.text = comment.toString()
+                        val like = arguments!!.getIntegerArrayList("like&commentCount_content")!!.first()
+                        val comment = arguments!!.getIntegerArrayList("like&commentCount_content")!!.get(1)
+                        binding.boardQuestionpostContentRecommendTv.text = like.toString()
+                        binding.boardQuestionpostContentCommentTv.text = comment.toString()
 
                         adapter = CommentRVAdapter(resp.comments, postId)
-                        binding.boardFreepostContentCommentRv.adapter = adapter
+                        binding.boardQuestionpostContentCommentRv.adapter = adapter
                         adapter.setListener(object: CommentRVAdapter.onClickListener{
                             override fun onDeleteClick(commentId: Int) {
                                 Log.d("commentId", commentId.toString())// Dialog만들기
@@ -241,20 +240,20 @@ class BoardFreepostContentFragment : Fragment() {
                                 Log.d("child", "child")
 
                                 VarUtil.glob.mainActivity.softkeyboardHide().toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-                                binding.boardFreepostContentCommentCommentTv.setOnClickListener {
+                                binding.boardQuestionpostContentCommentCommentTv.setOnClickListener {
                                     childcomment(
                                         ChildComment(
                                             postId,
                                             parentId,
-                                            binding.boardFreepostContentCommentEt.text.toString()
+                                            binding.boardQuestionpostContentCommentEt.text.toString()
                                         )
                                     )
-                                    VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.boardFreepostContentCommentEt.windowToken, 0)
+                                    VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.boardQuestionpostContentCommentEt.windowToken, 0)
                                 }
                             }
 
-                            override fun onRecommend(commendId: Int, pos : Int) {
-                                recommendComment(commendId, pos)
+                            override fun onRecommend(commendId: Int, pos: Int) {
+
                             }
                         })
                     }
@@ -281,11 +280,11 @@ class BoardFreepostContentFragment : Fragment() {
                 when (response.code()){
                     200 -> {
                         Log.d("RecommendPost/success", response.toString())
-                        binding.boardFreepostContentRecommendTv.text = (binding.boardFreepostContentRecommendTv.text.toString().toInt() + 1).toString()
-                        VarUtil.glob.boardFreepostFragment.adapter.addRecommend(arguments?.getIntegerArrayList("like&commentCount")!!.last())
-//                        VarUtil.glob.boardFreepostFragment.adapter.notifyItemChanged(arguments?.getIntegerArrayList("like&commentCount")!!.last())
+                        Log.d("pos/QuestionContent", arguments?.getIntegerArrayList("like&commentCount_content")!!.last().toString())
+                        VarUtil.glob.boardQuestionpostFragment.adapter.addRecommend(arguments?.getIntegerArrayList("like&commentCount_content")!!.last())
                     }
                     409 -> {
+                        Log.d("RecommendPost/409", response.toString())
                         Toast.makeText(VarUtil.glob.mainContext, "이미 추천한 게시글입니다.", Toast.LENGTH_SHORT).show()
                     }
                     else -> {
@@ -350,34 +349,6 @@ class BoardFreepostContentFragment : Fragment() {
         })
     }
 
-    fun recommendComment(commentId : Int, pos : Int) {
-        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
-
-        authService.recommendComment(commentId).enqueue(object: Callback<Void> {
-            override fun onResponse(
-                call: Call<Void>,
-                response: Response<Void>
-            ) {
-                when (response.code()) {
-                    200 -> {
-                        Log.d("recommend/success", response.body().toString())
-                        adapter.addRecommend(pos)
-                    }
-                    409 -> {
-                        Toast.makeText(VarUtil.glob.mainContext, "이미 추천한 댓글입니다.", Toast.LENGTH_SHORT).show()
-                    }
-                    else -> {
-                        Log.d("recommend/fail", response.body().toString())
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.d("recommend/onfailure", t.toString())
-            }
-        })
-    }
-
     fun deletePost(postId: Int)
     {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
@@ -388,9 +359,9 @@ class BoardFreepostContentFragment : Fragment() {
                 when (response.code()) {
                     200 -> {
                         Log.d("deletePost/success", response.body().toString())
-                        VarUtil.glob.boardFreepostFragment.adapter.notifyItemRemoved(
+                        VarUtil.glob.boardQuestionpostFragment.adapter.notifyItemRemoved(
                             arguments!!.getIntegerArrayList(
-                                "like&commentCount"
+                                "like&commentCount_content"
                             )!!.last()
                         )
                         val fragmentManager = activity!!.supportFragmentManager
@@ -399,7 +370,7 @@ class BoardFreepostContentFragment : Fragment() {
                     401 -> {
                         Toast.makeText(
                             VarUtil.glob.mainContext,
-                            "댓글을 수정/삭제할 수 있는 권한이 없습니다.",
+                            "게시글을 수정/삭제할 수 있는 권한이 없습니다.",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

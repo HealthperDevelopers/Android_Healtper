@@ -19,10 +19,16 @@ import com.umc.healthper.util.VarUtil
 class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.Adapter<CommentRVAdapter.NameHolder>() {
 
     interface onClickListener {
-        fun onDeleteClick(pos: Int)
-        fun onChildClick(pos: Int)
+        fun onDeleteClick(commendId: Int)
+        fun onChildClick(commendId: Int)
+        fun onRecommend(commendId: Int, pos: Int)
     }
     lateinit var onClick: onClickListener
+
+    fun addRecommend(pos : Int){
+        data[pos].likeCount = data[pos].likeCount + 1
+        notifyItemChanged(pos)
+    }
 
     fun setListener(set: onClickListener) {
         onClick = set
@@ -66,7 +72,7 @@ class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.
                 binding.itemChildCommentRv.adapter = childRVAdapter
 
                 childRVAdapter.setListener(object: childCommentRVAdapter.onClickListener{
-                    override fun onClick(commentId: Int) {
+                    override fun onDeleteClick(commentId: Int) {
                         Log.d("commentId", commentId.toString())
 
                         val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.dialog_comment_delete, null)
@@ -88,20 +94,37 @@ class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.
                             mAlertDialog.dismiss()
                         }
                     }
+
+                    override fun onRecommend(commendId: Int, pos: Int) {
+                        childRVAdapter.recommendComment(commendId, pos)
+                    }
                 })
                 childRVAdapter.notifyDataSetChanged()
             }
 
             binding.itemCommentNicknameTv.text = data[pos].writer.nickName
-            binding.itemCommentTimeTv.text = data[pos].createdAt
+
+            binding.itemCommentTimeTv.text = String.format(
+                "%s/%s %s:%s",
+                data[pos].createdAt.substring(5 until 7),
+                data[pos].createdAt.substring(8 until 10),
+                data[pos].createdAt.substring(11 until 13),
+                data[pos].createdAt.substring(14 until 16)
+            )
+
             binding.itemCommentContentTv.text = data[pos].content
+            binding.itemCommentRecommendTv.text = data[pos].likeCount.toString()
 
             binding.itemCommentDeleteTv.setOnClickListener {
                 onClick.onDeleteClick(data[pos].commentId)
             }
 
-            binding.itemCommentChildCommentTv.setOnClickListener{
+            binding.itemCommentChildCommentBtn.setOnClickListener{
                 onClick.onChildClick(data[pos].commentId)
+            }
+
+            binding.itemCommentRecommendBtn.setOnClickListener{
+                onClick.onRecommend(data[pos].commentId, pos)
             }
         }
     }

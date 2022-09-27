@@ -40,6 +40,13 @@ class BoardFreepostFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBoardFreepostBinding.inflate(inflater, container, false)
+
+        var swipe = binding.boardFreepostSw
+        swipe.setOnRefreshListener {
+            getPosts("NORMAL", bundle.getString("sortType", "LATEST"), 0)
+            swipe.isRefreshing = false
+        }
+
         val linearLayoutManagerWrapepr = LinearLayoutManagerWrapper(VarUtil.glob.mainContext, LinearLayoutManager.VERTICAL, false) // 이걸 만들어서
         binding.boardFreepostRv.layoutManager = linearLayoutManagerWrapepr // 이걸 넣는다.
         binding.boardFreepostRv.adapter = adapter
@@ -50,10 +57,9 @@ class BoardFreepostFragment : Fragment() {
 
                 // 스크롤이 끝에 도달했는지 확인
                 if (!binding.boardFreepostRv.canScrollVertically(1)) {
-                    Log.d("end", "end")
-                    CoroutineScope(Dispatchers.IO).launch {
+//                    CoroutineScope(Dispatchers.IO).launch {
                         adapter.deleteLoading(bundle.getString("sortType", "LATEST"), page++)
-                    }
+//                    }
                 }
             }
         })

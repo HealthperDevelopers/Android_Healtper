@@ -17,6 +17,7 @@ class BoardQuestionpostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder
     lateinit var data : List<Contents>
 
     fun addRecommend(pos : Int){
+        Log.d("likeCount", items[pos].likeCount.toString())
         items[pos].likeCount = items[pos].likeCount + 1
         notifyItemChanged(pos)
     }
@@ -40,7 +41,7 @@ class BoardQuestionpostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder
             Log.d("end", "delete")
 
             items.removeAt(items.lastIndex) // 로딩이 완료되면 프로그레스바를 지움
-            VarUtil.glob.boardQuestionpostFragment.getPosts("NORMAL", sortType, page)
+            VarUtil.glob.boardQuestionpostFragment.getPosts("QUESTION", sortType, page)
         }
     }
 
@@ -53,7 +54,7 @@ class BoardQuestionpostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     interface onClickListener {
-        fun onClick(postId: Int)
+        fun onClick(postId: Int, likeCount:Int, CommentCount : Int, position: Int)
     }
     lateinit var onClick: onClickListener
 
@@ -102,12 +103,13 @@ class BoardQuestionpostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder
         fun bind(pos: Int, onClick: onClickListener) {
             if (data[pos].postType == "QUESTION") {
                 binding.itemBoardQuestionpostTitleTv.text = data[pos].title
-                binding.itemBoardPostNicknameTv.text = data[pos].writer.nickName
-                binding.itemBoardPostTimeTv.text = String.format(" | %s %s", data[pos].createdAt.substring(0 until 10), data[pos].createdAt.substring(11 until 16))
-                binding.itemBoardQuestionpostTitleCommentnumTv.text = data[pos].commentCount.toString()
+                binding.itemBoardQuestionpostNicknameTv.text = data[pos].writer.nickName
+                binding.itemBoardQuestionpostTimeTv.text = String.format(" | %s %s", data[pos].createdAt.substring(0 until 10), data[pos].createdAt.substring(11 until 16))
+                binding.itemBoardQuestionpostTitleCommentnumTv.text = String.format("%d",data[pos].commentCount)
+                binding.itemBoardQuestionpostRecommendTv.text = data[pos].likeCount.toString()
             }
             binding.root.setOnClickListener {
-                onClick.onClick(data[pos].postId)
+                onClick.onClick(data[pos].postId, data[pos].likeCount, data[pos].commentCount, pos)
             }
         }
     }

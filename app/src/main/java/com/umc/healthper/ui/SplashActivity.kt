@@ -2,39 +2,27 @@ package com.umc.healthper.ui
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Base64
 import android.util.Log
 import android.widget.Toast
-import com.kakao.sdk.auth.LoginClient
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
-import com.kakao.sdk.user.model.AccessTokenInfo
 import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.entity.WorkPart
 import com.umc.healthper.data.local.LocalDB
-import com.umc.healthper.data.remote.AuthRetrofitInterface
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.data.remote.CalendarResponse
 import com.umc.healthper.data.remote.GetDayDetailFirst
+import com.umc.healthper.ui.Signup.SignupActivity
 import com.umc.healthper.ui.login.LoginActivity
 import com.umc.healthper.ui.login.LoginView
 import com.umc.healthper.ui.main.view.DetailFirstView
 import java.io.InputStream
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getAutoLogin
-import com.umc.healthper.util.getRetrofit
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -263,5 +251,12 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
         Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onSignUp(user: String) {
+        val intent = Intent(this, SignupActivity::class.java)
+        startActivity(intent)
+
+        finish()
     }
 }
