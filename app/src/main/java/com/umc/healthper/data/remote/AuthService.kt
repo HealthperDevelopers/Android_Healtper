@@ -8,10 +8,8 @@ import com.umc.healthper.ui.main.view.DetailSecondView
 
 import android.widget.Toast
 import com.kakao.sdk.user.UserApiClient
-import com.umc.healthper.data.entity.ChartData
-import com.umc.healthper.data.entity.Post
-import com.umc.healthper.data.entity.TotalData
-import com.umc.healthper.data.entity.WorkRecord
+import com.umc.healthper.data.entity.*
+import com.umc.healthper.ui.Signup.SignupView
 import com.umc.healthper.ui.SplashActivity
 import com.umc.healthper.ui.login.LoginActivity
 import com.umc.healthper.ui.login.LoginView
@@ -33,6 +31,88 @@ class AuthService {
     lateinit var calendarData: CalendarDataView
     lateinit var dayDetailData: DetailSecondView
     lateinit var loginData: LoginView
+    lateinit var signupData: SignupView
+
+    fun signup(userInfo: User) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.signup(userInfo).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("signup/success", response.body().toString())
+                        signupData.onSignupSuccess()
+                    }
+                    else -> {
+                        Log.d("signup/fail", response.body().toString())
+                        signupData.onSignupFailure()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("signup/onfailure", t.toString())
+            }
+        })
+    }
+
+    fun modifyPost(postId : Int, modiPost: modiPost) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.modifyPost(postId, modiPost).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("modifyPost/success", response.body().toString())
+                        VarUtil.glob.mainActivity.boardQuestionpostContentFragment?.viewPost(postId)
+                        VarUtil.glob.mainActivity.boardFreepostContentFragment?.viewPost(postId)
+                    }
+                    401 -> {
+                        Toast.makeText(VarUtil.glob.mainContext, "수정할 수 있는 권한이 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        Log.d("modifyPost/fail", response.body().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("modifyPost/onfailure", t.toString())
+            }
+        })
+    }
+
+    fun getNickname(kakaoKey : Long){
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.getNickname(kakaoKey).enqueue(object: Callback<MemberResponse> {
+            override fun onResponse(
+                call: Call<MemberResponse>,
+                response: Response<MemberResponse>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("getNickname/success", response.body().toString())
+                        var resp = response.body()
+                        VarUtil.glob.Nickname = resp!!.nickname
+                    }
+                    else -> {
+                        Log.d("getNickname/fail", response.body().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MemberResponse>, t: Throwable) {
+                Log.d("getNickname/onfailure", t.toString())
+            }
+        })
+    }
 
     fun dayInfo(theDay : String)
     {
@@ -74,7 +154,13 @@ class AuthService {
                 when (response.code()){
                     200 -> {
                         Log.d("login/success", response.toString())
+                        var memberService = AuthService()
+                        memberService.getNickname(user.toLong())
                         loginData.onLoginSuccess(response.body())
+                    }
+                    404 -> {
+                        Log.d("signup", "signup")
+                        loginData.onSignUp(user)
                     }
                     else -> {
                         Log.d("login/failure", response.toString())

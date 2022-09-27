@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.umc.healthper.databinding.FragmentChartBinding
 import com.umc.healthper.ui.MainActivity
+import com.umc.healthper.util.VarUtil
 
 class ChartFragment : Fragment() {
     lateinit var binding : FragmentChartBinding
@@ -24,6 +25,8 @@ class ChartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentChartBinding.inflate(inflater, container, false)
+
+        binding.chartUserNameTv.text = VarUtil.glob.Nickname
 
         binding.chartBackTv.setOnClickListener{
             mainActivity!!.changeChartFragment("등")

@@ -16,7 +16,9 @@ data class APostResponse(
 data class Comments (
     @SerializedName(value = "commentId") var commentId : Int,
     @SerializedName(value = "writer") var writer : WriterInfo,
+    @SerializedName(value = "block") var block : Boolean,
     @SerializedName(value = "content") var content : String,
+    @SerializedName(value = "likeCount") var likeCount : Int,
     @SerializedName(value = "status") var status : String,
     @SerializedName(value = "createdAt") var createdAt : String,
     @SerializedName(value = "children") var children : List<Children>
@@ -25,7 +27,9 @@ data class Comments (
 data class Children (
     @SerializedName(value = "commentId") var commentId : Int,
     @SerializedName(value = "writer") var writer : WriterInfo,
+    @SerializedName(value = "block") var block : Boolean,
     @SerializedName(value = "content") var content : String,
+    @SerializedName(value = "likeCount") var likeCount : Int,
     @SerializedName(value = "status") var status : String,
     @SerializedName(value = "createdAt") var createdAt : String
         )
@@ -46,11 +50,13 @@ data class Children (
             {
                 "commentId": 0,
                 "writer": {
-                "memberId": 0,
-                "nickName": "string",
-                "status": "NORMAL"
+                    "memberId": 0,
+                    "nickName": "string",
+                    "status": "NORMAL"
                 },
+            "block": true,
             "content": "string",
+            "likeCount": 0,
             "status": "NORMAL",
             "createdAt": "2022-08-25T05:48:52.666Z",
             "children": [

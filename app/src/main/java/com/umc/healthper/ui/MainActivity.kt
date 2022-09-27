@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     var MyboardBoardFragment: MyboardBoardFragment? = null
     var boardWritingFragement: BoardWritingFragement? = null
     var boardFreepostContentFragment : BoardFreepostContentFragment? = null
+    var boardQuestionpostContentFragment : BoardQuestionpostContentFragment? = null
 
     var detailWorkRecordSecondFragment: DetailWorkRecordSecondFragment? = null
     var detailWorkRecordFirstFragment: DetailWorkRecordFirstFragment? = null
@@ -191,6 +192,10 @@ class MainActivity : AppCompatActivity() {
             "boardFreeComment",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
+        if (boardQuestionpostContentFragment != null) supportFragmentManager.popBackStack(
+            "boardQuestionContent",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
         if (MyboardBoardFragment != null) supportFragmentManager.popBackStack(
             "boardMypage",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -324,7 +329,7 @@ class MainActivity : AppCompatActivity() {
             }
             1->{
                 boardWritingFragement = BoardWritingFragement()
-                transition.replace(binding.mainFrmFl.id, boardWritingFragement!!)
+                transition.add(binding.mainFrmFl.id, boardWritingFragement!!)
                 transition.addToBackStack("boardWrite")
 
             }
@@ -332,6 +337,11 @@ class MainActivity : AppCompatActivity() {
                 if (boardFreepostContentFragment == null) boardFreepostContentFragment = BoardFreepostContentFragment()
                 transition.add(binding.mainFrmFl.id, boardFreepostContentFragment!!)
                 transition.addToBackStack("boardFreeComment")
+            }
+            3->{
+                if (boardQuestionpostContentFragment == null) boardQuestionpostContentFragment = BoardQuestionpostContentFragment()
+                transition.add(binding.mainFrmFl.id, boardQuestionpostContentFragment!!)
+                transition.addToBackStack("boardQuestionContent")
             }
         }
         transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

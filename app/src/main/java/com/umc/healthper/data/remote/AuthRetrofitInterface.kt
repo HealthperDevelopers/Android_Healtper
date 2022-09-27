@@ -7,6 +7,16 @@ import retrofit2.http.*
 
 interface AuthRetrofitInterface {
 
+    @POST ("/member")
+    fun signup(
+        @Body userInfo : User
+    ) : Call<Void>
+
+    @GET ("/member")
+    fun getNickname(
+        @Query ("kakaoKey") kakaoKey : Long
+    ) : Call<MemberResponse>
+
     @GET("/statistic")
     fun statistic(
         @Query ("exerciseName") exerciseName : String
@@ -16,6 +26,12 @@ interface AuthRetrofitInterface {
     @POST("/comment")
     fun comment(
         @Body comment : Comment
+    ) : Call<Void>
+
+    /** 댓글 좋아요 */
+    @POST("/comment/{commentId}/like")
+    fun recommendComment(
+        @Path("commentId") commentId : Int
     ) : Call<Void>
 
     /** 대댓글 생성 */
@@ -47,6 +63,13 @@ interface AuthRetrofitInterface {
     @DELETE("/post/{postId}")
     fun deletePost(
         @Path("postId") postId : Int
+    ) : Call<Void>
+
+    /** 게시글 수정 */
+    @PATCH("/post/{postId}")
+    fun modifyPost(
+        @Path("postId") postId : Int,
+        @Body post : modiPost
     ) : Call<Void>
 
     /** 게시글 좋아요 추가 */
