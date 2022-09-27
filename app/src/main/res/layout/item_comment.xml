@@ -61,16 +61,25 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/item_comment_delete_tv"
+        app:layout_constraintEnd_toStartOf="@id/item_comment_more_btn"
         android:layout_marginEnd="15dp"
         />
-    <TextView
-        android:id="@+id/item_comment_delete_tv"
-        android:text="삭제    "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/item_comment_more_btn"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="15dp"
+        />
+<!--    <TextView-->
+<!--        android:id="@+id/item_comment_delete_tv"-->
+<!--        android:text="삭제    "-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"/>-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_child_comment_rv"
         android:layout_width="match_parent"

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
+        android:id="@+id/comment_modify_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="수정하시겠습니까?"
@@ -14,13 +15,26 @@
         android:layout_marginTop="20dp"
         />
     <TextView
+        android:id="@+id/comment_modify_ok_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="확인"
         android:textColor="@color/red"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/comment_modify_none_tv"
+        android:layout_marginTop="50dp"
+        />
+
+    <TextView
+        android:id="@+id/comment_modify_none_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="취소"
+        android:textColor="@color/red"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/comment_modify_ok_tv"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50dp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

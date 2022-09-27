@@ -19,7 +19,6 @@ import com.umc.healthper.util.VarUtil
 class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.Adapter<CommentRVAdapter.NameHolder>() {
 
     interface onClickListener {
-        fun onDeleteClick(commendId: Int)
         fun onChildClick(commendId: Int)
         fun onRecommend(commendId: Int, pos: Int)
     }
@@ -115,8 +114,71 @@ class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.
             binding.itemCommentContentTv.text = data[pos].content
             binding.itemCommentRecommendTv.text = data[pos].likeCount.toString()
 
-            binding.itemCommentDeleteTv.setOnClickListener {
-                onClick.onDeleteClick(data[pos].commentId)
+            binding.itemCommentMoreBtn.setOnClickListener {
+                val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.dialog_comment_more, null)
+                val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity!!)
+                    .setView(mDialogView)
+
+                val  mAlertDialog = mBuilder.show()
+                mAlertDialog.window?.setLayout(800, 600)
+
+                val firbt = mDialogView.findViewById<TextView>(R.id.comment_more_fir_bt)
+                val secbt = mDialogView.findViewById<TextView>(R.id.comment_more_sec_bt)
+
+                if (VarUtil.glob.Nickname == data[pos].writer.nickName) {
+                    firbt.text = "수정하기"
+                    secbt.text = "삭제하기"
+
+                    firbt.setOnClickListener {
+                        mAlertDialog.dismiss()
+                        val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.dialog_comment_modify, null)
+                        val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity)
+                            .setView(mDialogView)
+
+                        val  mModifyDialog = mBuilder.show()
+                        mModifyDialog.window?.setLayout(800, 600)
+
+                        val okButton = mDialogView.findViewById<TextView>(R.id.comment_modify_ok_tv)
+                        val noneButton = mDialogView.findViewById<TextView>(R.id.comment_modify_none_tv)
+                        okButton.setOnClickListener {
+                            mModifyDialog.dismiss()
+                            // 키보드..?
+                        }
+                        noneButton.setOnClickListener {
+                            mModifyDialog.dismiss()
+                        }
+                    }
+                    secbt.setOnClickListener {
+                        mAlertDialog.dismiss()
+                        val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.dialog_comment_delete, null)
+                        val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity)
+                            .setView(mDialogView)
+
+                        val  mDeleteDialog = mBuilder.show()
+                        mDeleteDialog.window?.setLayout(800, 600)
+
+                        val doneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_delete_bt)
+                        val noneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_none_bt)
+                        doneButton.setOnClickListener {
+                            mDeleteDialog.dismiss()
+                            VarUtil.glob.mainActivity.boardFreepostContentFragment?.deleteComment(data[pos].commentId)
+                            VarUtil.glob.mainActivity.boardQuestionpostContentFragment?.deleteComment(data[pos].commentId)
+                        }
+                        noneButton.setOnClickListener {
+                            mDeleteDialog.dismiss()
+                        }
+                    }
+                }
+                else {
+                    firbt.text = "신고하기"
+                    secbt.text = "차단하기"
+                    firbt.setOnClickListener {
+
+                    }
+                    secbt.setOnClickListener {
+
+                    }
+                }
             }
 
             binding.itemCommentChildCommentBtn.setOnClickListener{

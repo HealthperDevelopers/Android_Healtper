@@ -217,26 +217,6 @@ class BoardFreepostContentFragment : Fragment() {
                         adapter = CommentRVAdapter(resp.comments, postId)
                         binding.boardFreepostContentCommentRv.adapter = adapter
                         adapter.setListener(object: CommentRVAdapter.onClickListener{
-                            override fun onDeleteClick(commentId: Int) {
-                                Log.d("commentId", commentId.toString())// Dialog만들기
-                                val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.dialog_comment_delete, null)
-                                val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity)
-                                    .setView(mDialogView)
-
-                                val  mAlertDialog = mBuilder.show()
-                                mAlertDialog.window?.setLayout(800, 600)
-
-                                val doneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_delete_bt)
-                                val noneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_none_bt)
-                                doneButton.setOnClickListener {
-                                    mAlertDialog.dismiss()
-                                    deleteComment(commentId)
-                                }
-                                noneButton.setOnClickListener {
-                                    mAlertDialog.dismiss()
-                                }
-                            }
-
                             override fun onChildClick(parentId: Int) {
                                 Log.d("child", "child")
 
@@ -283,7 +263,6 @@ class BoardFreepostContentFragment : Fragment() {
                         Log.d("RecommendPost/success", response.toString())
                         binding.boardFreepostContentRecommendTv.text = (binding.boardFreepostContentRecommendTv.text.toString().toInt() + 1).toString()
                         VarUtil.glob.boardFreepostFragment.adapter.addRecommend(arguments?.getIntegerArrayList("like&commentCount")!!.last())
-//                        VarUtil.glob.boardFreepostFragment.adapter.notifyItemChanged(arguments?.getIntegerArrayList("like&commentCount")!!.last())
                     }
                     409 -> {
                         Toast.makeText(VarUtil.glob.mainContext, "이미 추천한 게시글입니다.", Toast.LENGTH_SHORT).show()
