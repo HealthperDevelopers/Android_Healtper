@@ -237,7 +237,6 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
     }
 
     override fun onLoginSuccess(data: List<CalendarResponse>?) {
-        if (!data.isNullOrEmpty()) {
             Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
             Log.d("onLoginSuccess", "onLoginSuccess")
             VarUtil.glob.calData = ArrayList(data)
@@ -254,8 +253,7 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
             authService.coCalInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-        }
-        finish()
+
     }
 
     override fun onLoginFailure() {
