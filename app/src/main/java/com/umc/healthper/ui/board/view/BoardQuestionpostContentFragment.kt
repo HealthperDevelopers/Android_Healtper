@@ -251,6 +251,10 @@ class BoardQuestionpostContentFragment : Fragment() {
                                     VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.boardQuestionpostContentCommentEt.windowToken, 0)
                                 }
                             }
+
+                            override fun onRecommend(commendId: Int, pos: Int) {
+
+                            }
                         })
                     }
                     else -> {

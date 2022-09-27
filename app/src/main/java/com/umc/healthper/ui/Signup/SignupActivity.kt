@@ -1,5 +1,6 @@
 package com.umc.healthper.ui.Signup
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import com.umc.healthper.data.entity.User
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.data.remote.CalendarResponse
 import com.umc.healthper.databinding.ActivitySignupBinding
+import com.umc.healthper.ui.login.LoginActivity
 import com.umc.healthper.util.VarUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +21,12 @@ class SignupActivity : AppCompatActivity(), SignupView {
 
     lateinit var binding : ActivitySignupBinding
     var userId = 0L
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

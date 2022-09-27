@@ -63,6 +63,20 @@
         app:layout_constraintTop_toTopOf="@+id/board_writing_background" />
 
     <ImageView
+        android:id="@+id/board_writing_freepost_redbtn_iv"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/board_writing_freebt"
+        android:scaleType="fitXY"
+        android:tintMode="add"
+        android:tint="@color/red"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/board_writing_background" />
+
+    <ImageView
         android:id="@+id/board_writing_questionpost_btn_iv"
         android:layout_width="70dp"
         android:layout_height="40dp"
@@ -70,6 +84,19 @@
         android:layout_marginTop="25dp"
         android:src="@drawable/board_writing_qbt"
         android:scaleType="fitXY"
+        app:layout_constraintStart_toEndOf="@id/board_writing_freepost_btn_iv"
+        app:layout_constraintTop_toTopOf="@+id/board_writing_background" />
+    <ImageView
+        android:id="@+id/board_writing_questionpost_redbtn_iv"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/board_writing_qbt"
+        android:scaleType="fitXY"
+        android:tintMode="add"
+        android:tint="@color/red"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@id/board_writing_freepost_btn_iv"
         app:layout_constraintTop_toTopOf="@+id/board_writing_background" />
 

@@ -59,6 +59,35 @@ class AuthService {
         })
     }
 
+    fun modifyPost(postId : Int, modiPost: modiPost) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.modifyPost(postId, modiPost).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("modifyPost/success", response.body().toString())
+                        VarUtil.glob.mainActivity.boardQuestionpostContentFragment?.viewPost(postId)
+                        VarUtil.glob.mainActivity.boardFreepostContentFragment?.viewPost(postId)
+                    }
+                    401 -> {
+                        Toast.makeText(VarUtil.glob.mainContext, "수정할 수 있는 권한이 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        Log.d("modifyPost/fail", response.body().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("modifyPost/onfailure", t.toString())
+            }
+        })
+    }
+
     fun getNickname(kakaoKey : Long){
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 

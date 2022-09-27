@@ -118,6 +118,17 @@ class BoardFreepostContentFragment : Fragment() {
                             spinner.setSelection(0)
                         }
                     }
+                    4->{
+                        CoroutineScope(Dispatchers.Main).launch {
+                            VarUtil.glob.mainActivity.changeBoardFragment(1)
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.modify = true
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.postId = postId
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.title = binding.boardFreepostContentPostTitleTv.text.toString()
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.content = binding.boardFreepostContentPostContentTv.text.toString()
+                            VarUtil.glob.mainActivity.boardWritingFragement!!.postType = "NORMAL"
+                        }
+                        spinner.setSelection(0)
+                    }
                 }
             }
         }
@@ -241,6 +252,10 @@ class BoardFreepostContentFragment : Fragment() {
                                     VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.boardFreepostContentCommentEt.windowToken, 0)
                                 }
                             }
+
+                            override fun onRecommend(commendId: Int, pos : Int) {
+                                recommendComment(commendId, pos)
+                            }
                         })
                     }
                     else -> {
@@ -332,6 +347,34 @@ class BoardFreepostContentFragment : Fragment() {
                 Log.d("deleteComment/onfailure", t.toString())
             }
 
+        })
+    }
+
+    fun recommendComment(commentId : Int, pos : Int) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.recommendComment(commentId).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("recommend/success", response.body().toString())
+                        adapter.addRecommend(pos)
+                    }
+                    409 -> {
+                        Toast.makeText(VarUtil.glob.mainContext, "이미 추천한 댓글입니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        Log.d("recommend/fail", response.body().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("recommend/onfailure", t.toString())
+            }
         })
     }
 

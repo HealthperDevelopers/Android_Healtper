@@ -8,6 +8,11 @@ data class Post(
     @SerializedName(value = "content") var content : String
 )
 
+data class modiPost(
+    @SerializedName(value = "title") var title : String,
+    @SerializedName(value = "content") var content : String
+)
+
 /** {
     "type": "string",
     "title": "string",

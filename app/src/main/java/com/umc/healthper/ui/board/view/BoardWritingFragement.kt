@@ -1,6 +1,7 @@
 package com.umc.healthper.ui.board.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.umc.healthper.data.entity.Post
+import com.umc.healthper.data.entity.modiPost
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.FragmentBoardWritingBinding
 import com.umc.healthper.util.VarUtil
@@ -29,6 +31,7 @@ class BoardWritingFragement : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBoardWritingBinding.inflate(inflater, container, false)
+        setTypeView(postType)
 
         if (title != "")
         {
@@ -45,14 +48,16 @@ class BoardWritingFragement : Fragment() {
             )
         }
 
-        binding.boardWritingFreepostBtnIv.setOnClickListener{
-            postType = "NORMAL"
-            Toast.makeText(VarUtil.glob.mainActivity, "자유 게시판 작성", Toast.LENGTH_SHORT).show()
-        }
+        if (!modify) {
+            binding.boardWritingFreepostBtnIv.setOnClickListener {
+                postType = "NORMAL"
+                setTypeView("NORMAL")
+            }
 
-        binding.boardWritingQuestionpostBtnIv.setOnClickListener{
-            postType = "QUESTION"
-            Toast.makeText(VarUtil.glob.mainActivity, "질문 게시판 작성", Toast.LENGTH_SHORT).show()
+            binding.boardWritingQuestionpostBtnIv.setOnClickListener {
+                postType = "QUESTION"
+                setTypeView("QUESTION")
+            }
         }
 
         binding.boardMyboardWritingPostingBtnIv.setOnClickListener{
@@ -72,11 +77,28 @@ class BoardWritingFragement : Fragment() {
                 )
             }
             else {
-                // modify api 연결
+                Log.d("postId", postId.toString())
+                authService.modifyPost(postId, modiPost(binding.boardWritingTitleEt.text.toString(),
+                    binding.boardWritingContentEt.text.toString()))
+                VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
+                    "boardWrite",
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
             }
         }
 
         return binding.root
     }
 
+
+    fun setTypeView(postType:String){
+        if (postType == "NORMAL"){
+            binding.boardWritingFreepostRedbtnIv.visibility = View.VISIBLE
+            binding.boardWritingQuestionpostRedbtnIv.visibility = View.INVISIBLE
+        }
+        else {
+            binding.boardWritingFreepostRedbtnIv.visibility = View.INVISIBLE
+            binding.boardWritingQuestionpostRedbtnIv.visibility = View.VISIBLE
+        }
+    }
 }
