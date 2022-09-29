@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f6f6f6"
     tools:context=".ui.Signup.SignupActivity">
 
     <TextView
         android:id="@+id/signup_kakao_nickname_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/signup_nickname_tv"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/signup_explain_tv"
+        app:layout_constraintStart_toStartOf="@id/signup_explain_tv"
+        android:layout_marginBottom="14dp"
+        android:text="카카오 별명"
+        android:textSize="34sp"
+        style="@style/Text.uljiro.user"
         />
     <TextView
         android:id="@+id/signup_nickname_tv"
@@ -22,31 +25,43 @@
         android:text="님"
         app:layout_constraintBottom_toBottomOf="@id/signup_kakao_nickname_tv"
         app:layout_constraintStart_toEndOf="@id/signup_kakao_nickname_tv"
+        android:textColor="#989898"
+        android:textSize="20sp"
+        style="@style/Text.uljiro.user"
         />
     <TextView
         android:id="@+id/signup_explain_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="헬퍼에서 사용하실 닉네임을 설정해주세요."
-        app:layout_constraintTop_toBottomOf="@id/signup_kakao_nickname_tv"
-        app:layout_constraintStart_toStartOf="@id/signup_kakao_nickname_tv"
+        android:text="헬퍼에서 사용하실 닉네임을\n설정해주세요."
+        app:layout_constraintStart_toStartOf="@id/signup_nickname_et"
+        app:layout_constraintEnd_toEndOf="@id/signup_nickname_et"
+        app:layout_constraintBottom_toTopOf="@id/signup_nickname_et"
+        android:layout_marginBottom="50dp"
+        android:textColor="#989898"
+        android:textSize="20sp"
+        style="@style/Text.uljiro.user"
         />
 
     <EditText
         android:id="@+id/signup_nickname_et"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toBottomOf="@id/signup_explain_tv"
+        android:layout_width="250dp"
+        android:layout_height="62dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/signup_et"
+        />
 
-    <TextView
+    <ImageView
         android:id="@+id/signup_done_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="확인"
-        android:background="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/signup_nickname_et"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:src="@drawable/signup_done"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

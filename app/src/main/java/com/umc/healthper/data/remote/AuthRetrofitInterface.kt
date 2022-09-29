@@ -7,7 +7,7 @@ import retrofit2.http.*
 
 interface AuthRetrofitInterface {
 
-    @POST ("/member")
+    @POST ("/signup")
     fun signup(
         @Body userInfo : User
     ) : Call<Void>
