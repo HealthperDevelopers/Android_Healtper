@@ -173,10 +173,10 @@ class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.
                     firbt.text = "신고하기"
                     secbt.text = "차단하기"
                     firbt.setOnClickListener {
-
+                        // 신고하기 기능 구현
                     }
                     secbt.setOnClickListener {
-
+                        // 차단하기 기능 구현
                     }
                 }
             }
