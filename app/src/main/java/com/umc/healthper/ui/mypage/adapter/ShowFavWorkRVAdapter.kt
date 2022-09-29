@@ -1,9 +1,12 @@
 package com.umc.healthper.ui.mypage.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.healthper.R
 import com.umc.healthper.data.entity.Work
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.ItemMypageFavWorkBinding
@@ -27,9 +30,26 @@ class ShowFavWorkRVAdapter(): RecyclerView.Adapter<ShowFavWorkRVAdapter.ListHold
         return VarUtil.glob.favWorkList.size
     }
 
+    override fun getSelected(viewHolder: RecyclerView.ViewHolder) {
+        val custom = viewHolder as ListHolder
+        custom.setback()
+//            onBindViewHolder(custom , viewHolder.adapterPosition)
+//        }
+//        else {
+//            binding.itemMypagefavWorkTv.backgroundTintList =
+//                ColorStateList.valueOf(Color.parseColor("#FFFFFF"))
+//        }
+    }
+
     class ListHolder(val binding: ItemMypageFavWorkBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
             binding.itemMypagefavWorkTv.text = VarUtil.glob.favWorkList[pos].workName
+        }
+
+        fun setback() {
+
+            binding.itemMypagefavWorkTv.backgroundTintList =
+                ColorStateList.valueOf(Color.parseColor("#99D9EA"))
         }
     }
 

@@ -40,7 +40,8 @@ class FavoritesMypageFragment : Fragment() {
         binding.mypagefavSelectPartTv.backgroundTintList = ColorStateList.valueOf(
             Color.parseColor(db.WorkPartDao().getColorbyPartName(currentPart)))
         binding.mypagefavSelectPartTv.text = currentPart
-        val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(0)
+        var tmpFav = db.WorkFavDao().getAllFavWorkByPartId(0)
+        tmpFav = tmpFav.sortedWith(kotlin.Comparator {o1, o2 -> o1.order - o2.order})
         val tmpAll = db.WorkDao().findWorkbyPartId(0)
         VarUtil.glob.favWorkList.clear()
                 for (i in tmpFav) {
@@ -76,11 +77,13 @@ class FavoritesMypageFragment : Fragment() {
                 currentPart = str
                 val partId = db.WorkPartDao().getWorkPartIdbyPartName(str)
                 val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(partId)
+                tmpFav.sortedWith(compareBy { it.order })
                 VarUtil.glob.favWorkList.clear()
                 for (i in 0..tmpFav.size - 1) {
                     for (j in tmpFav) {
                         if (j.order == i) {
                             VarUtil.glob.favWorkList.add(db.WorkDao().findWorkbyId(j.workId))
+                            break
                         }
                     }
                 }

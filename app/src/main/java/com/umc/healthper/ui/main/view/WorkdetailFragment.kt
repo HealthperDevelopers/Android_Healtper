@@ -49,7 +49,8 @@ class WorkdetailFragment: Fragment() {
 
         var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
         var partId = db.WorkPartDao().getWorkPartIdbyPartName(currentPart)
-        val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(partId)
+        var tmpFav = db.WorkFavDao().getAllFavWorkByPartId(partId)
+        tmpFav = tmpFav.sortedWith(kotlin.Comparator {o1, o2 -> o1.order - o2.order})
         val tmpAll = db.WorkDao().findWorkbyPartId(partId)
         workList.clear()
         for (i in tmpFav) {

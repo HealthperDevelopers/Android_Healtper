@@ -54,6 +54,10 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
 
         val siz = data.size
         val originSiz = VarUtil.glob.mainCompList.size - 3
+
+
+        adapter.notifyItemRangeRemoved(2, originSiz)
+
         if (siz != originSiz) {
             if (siz > originSiz) {
                 for (i in originSiz until siz) {
@@ -69,7 +73,7 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
             }
         }
 
-        adapter.notifyDataSetChanged()
+        adapter.notifyItemRangeInserted(2, siz)
     }
 
     override fun onDetailFirstGetFailure() {
