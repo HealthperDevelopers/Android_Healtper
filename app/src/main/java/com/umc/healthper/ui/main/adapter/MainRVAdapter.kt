@@ -105,7 +105,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         }
 
         fun update(add: Int) {
-            now.set(data[0], data[1] + add, data[2])
+            now.set(data[0], data[1] + add, 1)
             data = setCalData()
             weekList = setCalWeekData()
 
@@ -127,8 +127,8 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             val year = now.get(Calendar.YEAR)
             val month = now.get(Calendar.MONTH) + 1
             val day = now.get(Calendar.DATE)
-            val doy = now.get(Calendar.DAY_OF_WEEK)
-            val maxDay = now.getActualMaximum(Calendar.DATE)
+            val doy = now.get(Calendar.DAY_OF_WEEK)//
+            val maxDay = now.getActualMaximum(Calendar.DATE)//그 달이 며칠인지
             val dow = now.get(Calendar.WEEK_OF_MONTH)
             var line:Int = ((maxDay - day - (7 - doy))/ 7 )+ dow
             if ((maxDay - day - (7 - doy))% 7 != 0) {
