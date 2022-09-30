@@ -43,7 +43,20 @@
         android:text="contents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_comment_nickname_tv"/>
+    <EditText
+        android:id="@+id/item_comment_content_et"
+        android:text="contents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="13sp"
+        android:visibility="gone"
+        android:background="@android:color/transparent"
+        android:textCursorDrawable="@drawable/text_cursor"
         app:layout_constraintTop_toBottomOf="@id/item_comment_nickname_tv"/>
 
     <ImageView

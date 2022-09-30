@@ -2,16 +2,17 @@ package com.umc.healthper.ui.board.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.healthper.R
-import com.umc.healthper.data.remote.AuthRetrofitInterface
-import com.umc.healthper.data.remote.Children
-import com.umc.healthper.data.remote.Comments
-import com.umc.healthper.data.remote.Contents
+import com.umc.healthper.data.entity.Content
+import com.umc.healthper.data.remote.*
 import com.umc.healthper.databinding.ItemChildCommentBinding
 import com.umc.healthper.databinding.ItemCommentBinding
 import com.umc.healthper.util.VarUtil
@@ -112,7 +113,34 @@ class childCommentRVAdapter(val data: List<Children>): RecyclerView.Adapter<chil
                         val noneButton = mDialogView.findViewById<TextView>(R.id.comment_modify_none_tv)
                         okButton.setOnClickListener {
                             mModifyDialog.dismiss()
-                            // 키보드..?
+                            Log.d("modi/child", "comment")
+                            binding.itemChildCommentContentEt.visibility = View.VISIBLE
+                            binding.itemChildCommentContentEt.setText(binding.itemChildCommentContentTv.text.toString() + " hello")
+
+
+                            var edit = binding.itemChildCommentContentEt
+                            edit.isFocusableInTouchMode = true
+                            edit.requestFocus()
+
+                            binding.itemChildCommentContentTv.visibility = View.INVISIBLE
+
+                            VarUtil.glob.mainActivity.softkeyboardHide().toggleSoftInput(
+                                InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+                            VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentCommentTv?.text = "댓글 수정"
+                            VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentEt?.isEnabled = false
+                            VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentCommentTv?.setOnClickListener {
+                                // 댓글 수정 api 연결
+                                var authService = AuthService()
+                                authService.modifyComment(data[pos].commentId, Content(binding.itemChildCommentContentEt.text.toString()))
+
+                                VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.itemChildCommentContentEt.windowToken, 0)
+                                binding.itemChildCommentContentEt.isEnabled = false
+                                binding.itemChildCommentContentEt.visibility = View.INVISIBLE
+                                binding.itemChildCommentContentTv.text = binding.itemChildCommentContentEt.text
+                                binding.itemChildCommentContentTv.visibility = View.VISIBLE
+                                VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentCommentTv?.text = "댓글 생성"
+                                VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentEt?.isEnabled = true
+                            }
                         }
                         noneButton.setOnClickListener {
                             mModifyDialog.dismiss()

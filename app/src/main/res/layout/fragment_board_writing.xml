@@ -55,7 +55,7 @@
         android:id="@+id/board_writing_freepost_btn_iv"
         android:layout_width="53dp"
         android:layout_height="27dp"
-        android:layout_marginStart="23dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:src="@drawable/board_writing_freebt"
         android:scaleType="fitXY"

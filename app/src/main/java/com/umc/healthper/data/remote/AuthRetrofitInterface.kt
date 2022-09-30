@@ -46,6 +46,12 @@ interface AuthRetrofitInterface {
         @Path("commentId") commentId : Int
     ) : Call<Void>
 
+    @PATCH ("/comment/{commentId}")
+    fun modifyComment(
+        @Path("commentId") commentId : Int,
+        @Body content : Content
+    ) : Call<Void>
+
     @GET("/logout")
     fun logout() : Call<Void>
 

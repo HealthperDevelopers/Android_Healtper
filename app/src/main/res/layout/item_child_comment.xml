@@ -54,18 +54,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="15dp"
         />
-<!--    <TextView-->
-<!--        android:id="@+id/item_child_comment_delete_tv"-->
-<!--        android:text="삭제    "-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"/>-->
     <TextView
         android:id="@+id/item_child_comment_content_tv"
         android:text="contents"
+        android:textSize="13sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_child_comment_nickname_tv"/>
+    <EditText
+        android:id="@+id/item_child_comment_content_et"
+        android:text="contents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textColor="@color/red"
+        android:visibility="invisible"
+        android:background="@android:color/transparent"
+        android:textCursorDrawable="@drawable/text_cursor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_child_comment_nickname_tv"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
