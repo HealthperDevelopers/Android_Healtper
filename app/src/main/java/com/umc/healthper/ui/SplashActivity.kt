@@ -151,6 +151,7 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
     }
 
     override fun onLoginSuccess(data: List<CalendarResponse>?) {
+        if (!data.isNullOrEmpty()) {
             Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
             Log.d("onLoginSuccess", "onLoginSuccess")
             VarUtil.glob.calData = ArrayList(data)
