@@ -313,6 +313,31 @@ class AuthService {
         }
     }
 
+    fun modifyComment(commentId : Int, content : Content) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.modifyComment(commentId, content).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("modifyComment/success", response.body().toString())
+                    }
+                    else -> {
+                        Log.d("modifyComment/fail", response.body().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("modifyComment/onfailure", t.toString())
+            }
+
+        })
+    }
+
     fun deleteComment(commentId : Int, postId : Int) {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
