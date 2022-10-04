@@ -37,6 +37,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 //    var work : ArrayList<Work> = arrayListOf()
+    var tutorialFragment : TutorialFragment? = null
     var mainFragment: MainFragment? = null
     var ChartFragment: ChartFragment? = null
     var mypageFragment: MypageFragment? = null
@@ -92,6 +93,22 @@ class MainActivity : AppCompatActivity() {
 
         if (mainFragment == null) {
             mainFragment = MainFragment()
+        }
+
+        if (VarUtil.glob.tutorial)
+        {
+            val trans = supportFragmentManager.beginTransaction()
+            if (tutorialFragment == null){
+                tutorialFragment = TutorialFragment()
+            }
+            trans.replace(R.id.main_dl, tutorialFragment!!).addToBackStack("tutorial")
+            Log.d("add2BackStack", "tutorial")
+
+            trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            trans.isAddToBackStackAllowed
+            trans.commit()
+
+            VarUtil.glob.tutorial = false
         }
 
         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mainFragment!!).commit()

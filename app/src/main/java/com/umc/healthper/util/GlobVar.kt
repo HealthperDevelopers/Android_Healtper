@@ -13,6 +13,7 @@ import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.data.remote.SetDayDetailSecond
 import com.umc.healthper.ui.MainActivity
+import com.umc.healthper.ui.TutorialFragment
 import com.umc.healthper.ui.board.view.BoardFreepostFragment
 import com.umc.healthper.ui.board.view.BoardQuestionpostFragment
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
@@ -29,6 +30,7 @@ class GlobVar: Application() {
     lateinit var size: Point
     var restMinutes : Int = 60
     var Nickname = ""
+    var tutorial = false
 
     var selectedPart = ArrayList<String>()
     var unselectedPart = ArrayList<String>()
