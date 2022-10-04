@@ -117,6 +117,8 @@ class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.
             binding.itemCommentContentTv.text = data[pos].content
             binding.itemCommentRecommendTv.text = data[pos].likeCount.toString()
 
+
+
             binding.itemCommentMoreBtn.setOnClickListener {
                 val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.dialog_comment_more, null)
                 val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity!!)
@@ -199,9 +201,91 @@ class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.
                     secbt.text = "차단하기"
                     firbt.setOnClickListener {
                         // 신고하기 기능 구현
+                        firbt.setOnClickListener {
+                            mAlertDialog.dismiss()
+                            val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.popup_window_report_user, null)
+                            val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity)
+                                .setView(mDialogView)
+
+                            val  mReportPopup = mBuilder.show()
+                            mReportPopup.window?.setLayout(800, 600)
+
+                            val commerceBtn = mDialogView.findViewById<TextView>(R.id.popup_window_report_commerce_tv)
+                            val condemnBtn = mDialogView.findViewById<TextView>(R.id.popup_window_report_condemn_tv)
+                            val propertyBtn = mDialogView.findViewById<TextView>(R.id.popup_window_report_property_tv)
+                            val fraudBtn = mDialogView.findViewById<TextView>(R.id.popup_window_report_fraud_tv)
+                            val repeatBtn = mDialogView.findViewById<TextView>(R.id.popup_window_report_repeat_tv)
+                            val adultBtn = mDialogView.findViewById<TextView>(R.id.popup_window_report_19_tv)
+                            val politicBtn = mDialogView.findViewById<TextView>(R.id.popup_window_report_politic_tv)
+                            commerceBtn.setOnClickListener {
+                                mReportPopup.dismiss()
+                                binding.itemCommentContentEt.visibility = View.VISIBLE
+                                binding.itemCommentContentEt.setText(binding.itemCommentContentTv.text)
+                                binding.itemCommentContentTv.visibility = View.INVISIBLE
+                                binding.itemCommentContentEt.requestFocus()
+                                binding.itemCommentContentEt.isEnabled = true
+
+                                VarUtil.glob.mainActivity.softkeyboardHide().toggleSoftInput(
+                                    InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+                                VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentCommentTv?.text = "댓글 수정"
+                                VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentEt?.isEnabled = false
+                                VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentCommentTv?.setOnClickListener {
+                                    // 댓글 수정 api 연결
+                                    var authService = AuthService()
+                                    authService.modifyComment(data[pos].commentId, Content(binding.itemCommentContentEt.text.toString()))
+
+                                    VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.itemCommentContentEt.windowToken, 0)
+                                    binding.itemCommentContentEt.isEnabled = false
+                                    binding.itemCommentContentEt.visibility = View.INVISIBLE
+                                    binding.itemCommentContentTv.text = binding.itemCommentContentEt.text
+                                    binding.itemCommentContentTv.visibility = View.VISIBLE
+                                    VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentCommentTv?.text = "댓글 생성"
+                                    VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentEt?.isEnabled = true
+                                }
+                                condemnBtn.setOnClickListener {
+                                    mReportPopup.dismiss()
+                                    //클릭 시 popup report_detail 확인
+                                }
+                                }
+                                propertyBtn.setOnClickListener {
+                                    mReportPopup.dismiss()
+                                }
+                                fraudBtn.setOnClickListener {
+                                    mReportPopup.dismiss()
+                                }
+                                repeatBtn.setOnClickListener {
+                                    mReportPopup.dismiss()
+                                }
+                                adultBtn.setOnClickListener {
+                                    mReportPopup.dismiss()
+                                }
+                                politicBtn.setOnClickListener {
+                                    mReportPopup.dismiss()
+                                }
+
                     }
                     secbt.setOnClickListener {
                         // 차단하기 기능 구현
+                        mAlertDialog.dismiss()
+                        val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.popup_window_block_user, null)
+                        val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity)
+                            .setView(mDialogView)
+
+                        val  mBlockPopup = mBuilder.show()
+                        mBlockPopup.window?.setLayout(800, 600)
+
+                        val okButton = mDialogView.findViewById<TextView>(R.id.popup_window_block_user_blockBtn_tv)
+                        val noneButton = mDialogView.findViewById<TextView>(R.id.popup_window_block_user_cancelBtn_tv)
+                        okButton.setOnClickListener{
+                            mBlockPopup.dismiss()
+                            //타 유저데이터 안 보이게 차단 api연결
+                            VarUtil.glob.mainActivity.boardFreepostContentFragment?.blockUser(data[pos].commentId)
+                            VarUtil.glob.mainActivity.boardQuestionpostContentFragment?.blockUser(data[pos].commentId)
+                        }
+                        noneButton.setOnClickListener {
+                            mBlockPopup.dismiss()
+                        }
+                    }
                     }
                 }
             }

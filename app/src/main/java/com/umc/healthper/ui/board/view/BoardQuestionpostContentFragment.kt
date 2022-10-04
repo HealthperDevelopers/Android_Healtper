@@ -128,6 +128,30 @@ class BoardQuestionpostContentFragment : Fragment() {
                         }
                         spinner.setSelection(0)
                     }
+                    //차단하기
+                    5-> {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            // popup
+                            val mDialogView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.popup_window_block_user, null)
+                            val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity)
+                                .setView(mDialogView)
+
+                            val  mAlertDialog = mBuilder.show()
+                            mAlertDialog.window?.setLayout(800, 600)
+
+                            val doneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_delete_bt)
+                            val noneButton = mDialogView.findViewById<TextView>(R.id.dialog_comment_delete_none_bt)
+                            doneButton.setOnClickListener {
+                                mAlertDialog.dismiss()
+                                deletePost(postId)
+                            }
+                            noneButton.setOnClickListener {
+                                mAlertDialog.dismiss()
+                            }
+                            spinner.setSelection(0)
+                        }
+                    }
+
                 }
             }
         }

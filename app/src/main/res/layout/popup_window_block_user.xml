@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/popup_window_block_user_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="차단"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/popup_window_block_user_q_user_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/nav_mypage"
+        android:layout_marginStart="40dp"
+        app:layout_constraintTop_toBottomOf="@id/popup_window_block_user_title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/popup_window_block_user_q_user_tv"
+        app:layout_constraintBottom_toTopOf="@id/popup_window_block_user_content_tv" />
+
+
+    <TextView
+        android:id="@+id/popup_window_block_user_q_user_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="nickname"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toBottomOf="@id/popup_window_block_user_title_tv"
+        app:layout_constraintStart_toEndOf="@+id/popup_window_block_user_q_user_iv"
+        app:layout_constraintBottom_toTopOf="@id/popup_window_block_user_content_tv"/>
+
+
+    <TextView
+        android:id="@+id/popup_window_block_user_q_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="님을 차단하시겠습니까?"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginEnd = "30dp"
+        app:layout_constraintTop_toBottomOf="@id/popup_window_block_user_title_tv"
+        app:layout_constraintStart_toEndOf="@id/popup_window_block_user_q_user_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/popup_window_block_user_content_tv"/>
+
+    <TextView
+        android:id="@+id/popup_window_block_user_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="차단하면 차단한 사용자의 게시글 및 댓글을 확인하실 수 없습니다.(상대방은 차단여부를 알 수 없습니다.)"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_margin="40dp"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/popup_window_block_user_q_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/popup_window_block_user_cancelBtn_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="취소하기"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/popup_window_block_user_content_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/popup_window_block_user_blockBtn_tv" />
+
+    <TextView
+        android:id="@+id/popup_window_block_user_blockBtn_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="차단하기"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/popup_window_block_user_content_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/popup_window_block_user_cancelBtn_tv"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

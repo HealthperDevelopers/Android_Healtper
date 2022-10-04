@@ -4,4 +4,7 @@
     <string name="drawer_close">close</string>
     <dimen name="popup_width">310dp</dimen>
     <dimen name="popup_height">405dp</dimen>
+    <string name="block">차단하기</string>
+    <string name="report">신고하기</string>
+
 </resources>

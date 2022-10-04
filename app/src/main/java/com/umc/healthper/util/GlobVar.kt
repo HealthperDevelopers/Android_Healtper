@@ -49,7 +49,6 @@ class GlobVar: Application() {
     var favWorkList = ArrayList<Work>()
     lateinit var favPageWorkListAdapter: ShowFavWorkRVAdapter
 
-
     //달력각날짜의상세데이터
     var detailFirstList = ArrayList<GetDayDetailFirst>()
     var mainCompList = mutableListOf(1, 2, 4)
