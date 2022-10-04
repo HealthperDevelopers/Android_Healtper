@@ -6,5 +6,7 @@
     <dimen name="popup_height">405dp</dimen>
     <string name="block">차단하기</string>
     <string name="report">신고하기</string>
+    <string name="board_rule">커뮤니티 이용규칙 안내</string>
+    <string name="board_content"></string>
 
 </resources>

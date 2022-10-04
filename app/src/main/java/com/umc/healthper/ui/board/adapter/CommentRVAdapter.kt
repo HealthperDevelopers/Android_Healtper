@@ -218,34 +218,10 @@ class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.
                             val adultBtn = mDialogView.findViewById<TextView>(R.id.popup_window_report_19_tv)
                             val politicBtn = mDialogView.findViewById<TextView>(R.id.popup_window_report_politic_tv)
                             commerceBtn.setOnClickListener {
-                                mReportPopup.dismiss()
-                                binding.itemCommentContentEt.visibility = View.VISIBLE
-                                binding.itemCommentContentEt.setText(binding.itemCommentContentTv.text)
-                                binding.itemCommentContentTv.visibility = View.INVISIBLE
-                                binding.itemCommentContentEt.requestFocus()
-                                binding.itemCommentContentEt.isEnabled = true
-
-                                VarUtil.glob.mainActivity.softkeyboardHide().toggleSoftInput(
-                                    InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-                                VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentCommentTv?.text = "댓글 수정"
-                                VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentEt?.isEnabled = false
-                                VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentCommentTv?.setOnClickListener {
-                                    // 댓글 수정 api 연결
-                                    var authService = AuthService()
-                                    authService.modifyComment(data[pos].commentId, Content(binding.itemCommentContentEt.text.toString()))
-
-                                    VarUtil.glob.mainActivity.softkeyboardHide().hideSoftInputFromWindow(binding.itemCommentContentEt.windowToken, 0)
-                                    binding.itemCommentContentEt.isEnabled = false
-                                    binding.itemCommentContentEt.visibility = View.INVISIBLE
-                                    binding.itemCommentContentTv.text = binding.itemCommentContentEt.text
-                                    binding.itemCommentContentTv.visibility = View.VISIBLE
-                                    VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentCommentTv?.text = "댓글 생성"
-                                    VarUtil.glob.mainActivity.boardFreepostContentFragment?.binding?.boardFreepostContentCommentEt?.isEnabled = true
-                                }
+                                mReportPopup.dismiss() }
                                 condemnBtn.setOnClickListener {
                                     mReportPopup.dismiss()
-                                    //클릭 시 popup report_detail 확인
-                                }
+                                    //클릭 시 popup report_detail 확인 }
                                 }
                                 propertyBtn.setOnClickListener {
                                     mReportPopup.dismiss()
