@@ -106,7 +106,7 @@
 <!--        />-->
 
     <ImageView
-        android:id="@+id/login_explain_tv"
+        android:id="@+id/login_privacy_info_iv"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:src="@drawable/login_explain"

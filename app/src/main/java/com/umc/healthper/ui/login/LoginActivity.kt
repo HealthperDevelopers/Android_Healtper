@@ -142,7 +142,14 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
+
+        val login_privacy_info = binding.loginPrivacyInfoIv //개인정봅 보호
+
+        login_privacy_info.setOnClickListener{
+
+        }
     }
+
 
     @SuppressLint("SetTextI18n")
     private fun setAutoLogin(autoLogin : Boolean) {
