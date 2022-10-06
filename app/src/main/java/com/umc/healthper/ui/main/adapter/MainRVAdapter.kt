@@ -17,7 +17,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class MainRVAdapter(var now: Calendar):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
 
     override fun getItemViewType(position: Int): Int {
@@ -35,7 +35,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             }
             2 -> {
                     val binding = ItemMainCalendarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                    CalendarHolder(binding)
+                    CalendarHolder(binding, now)
             }
             3 -> {
                 val binding = ItemMainDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -74,16 +74,14 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         }
     }
 
-    class CalendarHolder(private val binding: ItemMainCalendarBinding): RecyclerView.ViewHolder(binding.root) {
+    class CalendarHolder(private val binding: ItemMainCalendarBinding, var now: Calendar): RecyclerView.ViewHolder(binding.root) {
         private lateinit var data: List<Int>
         private lateinit var weekList: ArrayList<Int>
-        private lateinit var now: Calendar
         private lateinit var calRvAdapList: ArrayList<DateRVAdapter>
         private lateinit var calRvLayoutList: ArrayList<FlexboxLayoutManager>
         private var authService = AuthService()
 
         fun bind() {
-            now = Calendar.getInstance()
             setListener()
             data = setCalData()
             weekList = setCalWeekData()

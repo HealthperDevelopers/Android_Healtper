@@ -40,7 +40,7 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
         authService.dayInfo(selectedDay)
 
         VarUtil.glob.mainFragment = this
-        adapter = MainRVAdapter()
+        adapter = MainRVAdapter(now)
         binding.mainRv.adapter = adapter
         return binding.root
     }
