@@ -7,7 +7,6 @@ import android.widget.TextView
 import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.Work
-import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.data.remote.CalendarResponse
 import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.data.remote.GetDayDetailSecond
@@ -29,6 +28,7 @@ class GlobVar: Application() {
     lateinit var size: Point
     var restMinutes : Int = 60
     var Nickname = ""
+    var tutorial = false
 
     var selectedPart = ArrayList<String>()
     var unselectedPart = ArrayList<String>()

@@ -70,6 +70,9 @@ class MainRVAdapter(var now: Calendar):RecyclerView.Adapter<RecyclerView.ViewHol
             binding.itemMainUserSettingIv.setOnClickListener {
                 VarUtil.glob.mainActivity.openNav()
             }
+            binding.itemMainUserNameTv.setOnClickListener {
+                VarUtil.glob.mainActivity.Mypage()
+            }
             binding.itemMainUserNameTv.text = VarUtil.glob.Nickname
         }
     }

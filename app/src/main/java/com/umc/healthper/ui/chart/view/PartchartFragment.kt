@@ -34,6 +34,9 @@ class PartchartFragment : Fragment() {
 
         binding = FragmentPartchartBinding.inflate(inflater, container, false)
         binding.partchartUserNameTv.text = VarUtil.glob.Nickname
+        binding.partchartUserNameTv.setOnClickListener {
+            VarUtil.glob.mainActivity.Mypage()
+        }
 
         partName = arguments?.getString("part").toString()
         binding.partchartPartTv.text = partName
@@ -50,12 +53,9 @@ class PartchartFragment : Fragment() {
         val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(partId)
         val tmpAll = db.WorkDao().findWorkbyPartId(partId)
         itemList.clear()
-        for (i in tmpFav) {
-            for (j in tmpAll) {
-                if (i.workId == j.id) {
-                    itemList.add(db.WorkDao().findWorkbyId(j.id).workName)
-                }
-            }
+        Log.d("WorkALL", tmpAll.toString())
+        for (i in tmpAll) {
+            itemList.add(i.workName)
         }
 
         val adapter = ArrayAdapter(VarUtil.glob.mainContext, R.layout.simple_spinner_item, itemList)

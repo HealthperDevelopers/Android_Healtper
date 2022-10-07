@@ -23,8 +23,20 @@ class SettimerFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         Log.d("pause", "fragment")
-        timerActivity!!.weight = binding.setTimerTableWeightEt.text.toString().toInt()
-        timerActivity!!.count = binding.setTimerTableCountEt.text.toString().toInt()
+//        timerActivity!!.weight = binding.setTimerTableWeightEt.text.toString().toInt()
+//        timerActivity!!.count = binding.setTimerTableCountEt.text.toString().toInt()
+        if (binding.setTimerTableWeightEt.getText().toString() == ""){
+            timerActivity!!.weight = binding.setTimerTableWeightEt.hint.toString().toInt()
+        }
+        else {
+            timerActivity!!.weight = binding.setTimerTableWeightEt.text.toString().toInt()
+        }
+        if (binding.setTimerTableCountEt.getText().toString() == ""){
+            timerActivity!!.weight = binding.setTimerTableCountEt.hint.toString().toInt()
+        }
+        else {
+            timerActivity!!.weight = binding.setTimerTableCountEt.text.toString().toInt()
+        }
         timerActivity!!.addPack()
     }
 
@@ -34,8 +46,8 @@ class SettimerFragment : Fragment() {
         var minute = second / 60
         var hour = minute / 60
         binding.setTimerTotalTimeTv.text = String.format("%02d : %02d : %02d", hour, minute, second % 60)
-        binding.setTimerTableWeightEt.setText(String.format("%02d", timerActivity!!.weight))
-        binding.setTimerTableCountEt.setText(String.format("%02d", timerActivity!!.count))
+        binding.setTimerTableWeightEt.setHint(String.format("%02d", timerActivity!!.weight))
+        binding.setTimerTableCountEt.setHint(String.format("%02d", timerActivity!!.count))
     }
 
     @SuppressLint("SetTextI18n")
@@ -63,10 +75,21 @@ class SettimerFragment : Fragment() {
 
 
         binding.setTimerTotalTimeTv.text = String.format("%02d : %02d : %02d", hour, minute, second % 60)
-        binding.setTimerTableWeightEt.setText(String.format("%02d", timerActivity!!.weight))
-        binding.setTimerTableCountEt.setText(String.format("%02d", timerActivity!!.count))
-        timerActivity!!.weight = binding.setTimerTableWeightEt.text.toString().toInt()
-        timerActivity!!.count = binding.setTimerTableCountEt.text.toString().toInt()
+        binding.setTimerTableWeightEt.setHint(String.format("%02d", timerActivity!!.weight))
+        binding.setTimerTableCountEt.setHint(String.format("%02d", timerActivity!!.count))
+        if (binding.setTimerTableWeightEt.getText().toString() == ""){
+            timerActivity!!.weight = binding.setTimerTableWeightEt.hint.toString().toInt()
+        }
+        else {
+            timerActivity!!.weight = binding.setTimerTableWeightEt.text.toString().toInt()
+        }
+        if (binding.setTimerTableCountEt.getText().toString() == ""){
+            timerActivity!!.weight = binding.setTimerTableCountEt.hint.toString().toInt()
+        }
+        else {
+            timerActivity!!.weight = binding.setTimerTableCountEt.text.toString().toInt()
+        }
+//        timerActivity!!.count = binding.setTimerTableCountEt.text.toString().toInt()
 
         binding.setTimerStartBt.setOnClickListener{
             timerActivity!!.changeTimerFragment()

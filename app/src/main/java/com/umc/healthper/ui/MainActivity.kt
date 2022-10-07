@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -30,13 +31,18 @@ import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
 import com.umc.healthper.ui.timer.CommentActivity
 import com.umc.healthper.ui.timer.TimerActivity
+import com.umc.healthper.ui.tutorial.view.TutorialFragment
 import com.umc.healthper.util.VarUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 //    var work : ArrayList<Work> = arrayListOf()
+    var tutorialFragment : TutorialFragment? = null
     var mainFragment: MainFragment? = null
     var ChartFragment: ChartFragment? = null
     var mypageFragment: MypageFragment? = null
@@ -94,6 +100,33 @@ class MainActivity : AppCompatActivity() {
             mainFragment = MainFragment()
         }
 
+        if (VarUtil.glob.tutorial)
+        {
+            if (tutorialFragment == null){
+                tutorialFragment = TutorialFragment()
+            }
+            CoroutineScope(Dispatchers.Main).launch {
+                val trans = supportFragmentManager.beginTransaction()
+                changeMypageFragment(0)
+                trans.replace(R.id.main_dl, tutorialFragment!!).addToBackStack("tutorial")
+                Log.d("add2BackStack", "tutorial")
+                trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                trans.isAddToBackStackAllowed
+                trans.commit()
+            }
+            binding.mainNavBnv.selectedItemId = R.id.menu_mypage
+            if (mypageFragment == null) {
+                mypageFragment = MypageFragment()
+                supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mypageFragment!!).commit()
+            }
+            if (mainFragment != null) supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+            if (BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
+            supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
+            if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
+
+            VarUtil.glob.tutorial = false
+        }
+
         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mainFragment!!).commit()
 
         setListener(binding)
@@ -101,6 +134,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListener(binding: ActivityMainBinding) {
+
+        binding.mainSidMenuNv.setNavigationItemSelectedListener{
+            val authService = AuthService()
+            when (it.itemId) {
+                R.id.setting_ad -> {
+                    Toast.makeText(this, "ad", Toast.LENGTH_SHORT).show()
+                }
+                R.id.setting_signout -> {
+                    // 탈퇴하기 기능 구현
+                    authService.signout()
+                }
+                // 세팅 구현
+            }
+            true
+       }
 
         binding.mainNavBnv.setOnItemSelectedListener {
             when(it.title) {
@@ -165,23 +213,23 @@ class MainActivity : AppCompatActivity() {
         }
         val toggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
             this, binding.mainDl, R.string.drawer_open, R.string.drawer_close)
-         {
-            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                super.onDrawerSlide(drawerView, slideOffset)
-            }
+            {
+                override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                    super.onDrawerSlide(drawerView, slideOffset)
+                }
 
-            override fun onDrawerOpened(drawerView: View) {
-                super.onDrawerOpened(drawerView)
-            }
+                override fun onDrawerOpened(drawerView: View) {
+                    super.onDrawerOpened(drawerView)
+                }
 
-            override fun onDrawerClosed(drawerView: View) {
-                super.onDrawerClosed(drawerView)
-                binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            }
+                override fun onDrawerClosed(drawerView: View) {
+                    super.onDrawerClosed(drawerView)
+                    binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                }
 
-            override fun onDrawerStateChanged(newState: Int) {
-                super.onDrawerStateChanged(newState)
-            }
+                override fun onDrawerStateChanged(newState: Int) {
+                    super.onDrawerStateChanged(newState)
+                }
         }
 
         binding.mainDl.addDrawerListener(toggle)
@@ -376,5 +424,15 @@ class MainActivity : AppCompatActivity() {
 
     fun softkeyboardHide(): InputMethodManager {
         return getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+    }
+
+    fun Mypage(){
+        binding.mainNavBnv.selectedItemId = R.id.menu_mypage
+        if (mypageFragment == null) {
+            mypageFragment = MypageFragment()
+            supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mypageFragment!!).commit()
+        }
+        setListener(binding)
+        initNav()
     }
 }

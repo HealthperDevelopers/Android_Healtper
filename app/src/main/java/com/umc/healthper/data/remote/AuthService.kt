@@ -33,6 +33,30 @@ class AuthService {
     lateinit var loginData: LoginView
     lateinit var signupData: SignupView
 
+    fun signout(){
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.signout().enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("signout/success", response.body().toString())
+                    }
+                    else -> {
+                        Log.d("signout/fail", response.body().toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("signout/onfailure", t.toString())
+            }
+        })
+    }
+
     fun signup(userInfo: User) {
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 
