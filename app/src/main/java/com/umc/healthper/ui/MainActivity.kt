@@ -31,6 +31,7 @@ import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
 import com.umc.healthper.ui.timer.CommentActivity
 import com.umc.healthper.ui.timer.TimerActivity
+import com.umc.healthper.ui.tutorial.view.TutorialFragment
 import com.umc.healthper.util.VarUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -101,7 +102,6 @@ class MainActivity : AppCompatActivity() {
 
         if (VarUtil.glob.tutorial)
         {
-
             if (tutorialFragment == null){
                 tutorialFragment = TutorialFragment()
             }
@@ -424,5 +424,15 @@ class MainActivity : AppCompatActivity() {
 
     fun softkeyboardHide(): InputMethodManager {
         return getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+    }
+
+    fun Mypage(){
+        binding.mainNavBnv.selectedItemId = R.id.menu_mypage
+        if (mypageFragment == null) {
+            mypageFragment = MypageFragment()
+            supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mypageFragment!!).commit()
+        }
+        setListener(binding)
+        initNav()
     }
 }

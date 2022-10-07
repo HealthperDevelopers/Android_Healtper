@@ -7,13 +7,11 @@ import android.widget.TextView
 import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.entity.Work
-import com.umc.healthper.data.entity.WorkRecord
 import com.umc.healthper.data.remote.CalendarResponse
 import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.data.remote.SetDayDetailSecond
 import com.umc.healthper.ui.MainActivity
-import com.umc.healthper.ui.TutorialFragment
 import com.umc.healthper.ui.board.view.BoardFreepostFragment
 import com.umc.healthper.ui.board.view.BoardQuestionpostFragment
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter

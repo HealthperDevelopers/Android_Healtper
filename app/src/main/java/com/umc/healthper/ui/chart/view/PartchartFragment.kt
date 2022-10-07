@@ -34,6 +34,9 @@ class PartchartFragment : Fragment() {
 
         binding = FragmentPartchartBinding.inflate(inflater, container, false)
         binding.partchartUserNameTv.text = VarUtil.glob.Nickname
+        binding.partchartUserNameTv.setOnClickListener {
+            VarUtil.glob.mainActivity.Mypage()
+        }
 
         partName = arguments?.getString("part").toString()
         binding.partchartPartTv.text = partName

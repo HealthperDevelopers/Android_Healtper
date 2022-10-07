@@ -70,6 +70,9 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             binding.itemMainUserSettingIv.setOnClickListener {
                 VarUtil.glob.mainActivity.openNav()
             }
+            binding.itemMainUserNameTv.setOnClickListener {
+                VarUtil.glob.mainActivity.Mypage()
+            }
             binding.itemMainUserNameTv.text = VarUtil.glob.Nickname
         }
     }
