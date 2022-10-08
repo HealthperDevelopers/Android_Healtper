@@ -12,6 +12,9 @@ interface AuthRetrofitInterface {
         @Body userInfo : User
     ) : Call<Void>
 
+    @DELETE ("/member")
+    fun signout() : Call<Void>
+
     @GET ("/member")
     fun getNickname(
         @Query ("kakaoKey") kakaoKey : Long

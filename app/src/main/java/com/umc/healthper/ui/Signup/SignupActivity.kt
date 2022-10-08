@@ -75,6 +75,7 @@ class SignupActivity : AppCompatActivity(), SignupView, DetailFirstView, LoginVi
                 val authService = AuthService()
                 authService.loginData = this
                 authService.login(tokenInfo!!.id.toString())
+                VarUtil.glob.tutorial = true
             }
         }
     }
