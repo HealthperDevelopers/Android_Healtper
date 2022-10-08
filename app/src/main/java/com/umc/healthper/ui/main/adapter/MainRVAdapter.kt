@@ -112,6 +112,7 @@ class MainRVAdapter(var now: Calendar):RecyclerView.Adapter<RecyclerView.ViewHol
             VarUtil.glob.mainFragment.setAuth(authService)
             authService.calenderInfo(data[0], data[1])
             VarUtil.glob.today.background = null
+            VarUtil.glob.selectedDay.background = null
             for (i in 0..5) {
                 calRvAdapList[i].data = data
                 calRvAdapList[i].weekData = weekList
@@ -188,6 +189,9 @@ class MainRVAdapter(var now: Calendar):RecyclerView.Adapter<RecyclerView.ViewHol
                             }
                             var newD = date.toInt()
                             val selectedDay = String.format("%04d-%02d-%02d", y, m, newD)
+
+                            VarUtil.glob.selectedDate
+
                             authService.dayInfoData = VarUtil.glob.mainFragment
                             authService.dayInfo(selectedDay)
                         }

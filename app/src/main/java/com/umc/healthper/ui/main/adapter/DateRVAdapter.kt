@@ -44,9 +44,10 @@ class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<
             val month = now.get(Calendar.MONTH) + 1
 
             if (count == data[5] && data[3] == pos) {
-                if (year == data[0] && month == data[1]) {
+                if (year == data[0] && month == data[1]) {//당일일경우
                     binding.itemMainCalListTodayTv.visibility = View.VISIBLE
                     VarUtil.glob.today = binding.itemMainCalListTodayTv
+
                 }
             }
             if (count == 1) {
@@ -81,6 +82,8 @@ class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<
 
             binding.root.setOnClickListener {
                 val date = binding.itemMainCalListDateTv.text.toString()
+                binding.itemMainCalListSelectTv.visibility = View.VISIBLE
+                VarUtil.glob.selectedDate = date
                 userListener.onClick(date)
             }
 

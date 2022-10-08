@@ -19,7 +19,18 @@
         android:visibility="invisible">
     </TextView>
 <!--    선택했을때 동그랗게 처리되는 뒷배경-->
-
+    <TextView
+        android:id="@+id/item_main_cal_list_select_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="@id/item_main_cal_list_date_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_main_cal_list_date_tv"
+        app:layout_constraintLeft_toLeftOf="@id/item_main_cal_list_date_tv"
+        app:layout_constraintRight_toRightOf="@id/item_main_cal_list_date_tv"
+        android:background="@drawable/item_shape_boarder"
+        android:elevation="-1dp"
+        android:visibility="invisible">
+    </TextView>
 
     <TextView
         android:id="@+id/item_main_cal_list_date_tv"

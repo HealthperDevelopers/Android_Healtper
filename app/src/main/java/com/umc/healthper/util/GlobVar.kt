@@ -18,6 +18,7 @@ import com.umc.healthper.ui.board.view.BoardQuestionpostFragment
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
 import com.umc.healthper.ui.main.view.MainFragment
 import com.umc.healthper.ui.mypage.adapter.ShowFavWorkRVAdapter
+import java.util.Calendar
 
 class GlobVar: Application() {
     lateinit var mainContext: Context
@@ -26,6 +27,7 @@ class GlobVar: Application() {
     lateinit var boardFreepostFragment: BoardFreepostFragment
     lateinit var boardQuestionpostFragment : BoardQuestionpostFragment
     lateinit var today: TextView
+    lateinit var selectedDay: TextView
     lateinit var size: Point
     var restMinutes : Int = 60
     var Nickname = ""
@@ -53,6 +55,7 @@ class GlobVar: Application() {
     //달력각날짜의상세데이터
     var detailFirstList = ArrayList<GetDayDetailFirst>()
     var mainCompList = mutableListOf(1, 2, 4)
+    var selectedDate = "1"
 
     //현재 열람중인 운동정보
     var recordId: Int = 0
