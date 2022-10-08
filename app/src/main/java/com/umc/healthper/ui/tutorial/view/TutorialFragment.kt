@@ -35,7 +35,11 @@ class TutorialFragment : Fragment() {
     private fun getTutorialIMG(): ArrayList<Int> {
         return arrayListOf(
             R.drawable.tutorial_1,
-            R.drawable.tutorial_2
+            R.drawable.tutorial_2,
+            R.drawable.tutorial_3,
+            R.drawable.tutorial_4,
+            R.drawable.tutorial_5,
+            R.drawable.tutorial_6
         )
     }
 }
