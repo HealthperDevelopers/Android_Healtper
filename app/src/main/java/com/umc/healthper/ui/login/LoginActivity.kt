@@ -61,6 +61,10 @@ class LoginActivity : AppCompatActivity(), LoginView {
         var autoLogin = getAutoLogin()
         setAutoLogin(autoLogin)
 
+        binding.loginPrivacyInfoIv.setOnClickListener {
+
+        }
+
         binding.loginAutoCheckBoxIv.setOnClickListener {
             Log.d("spf", getAutoLogin().toString())
             autoLogin = getAutoLogin()

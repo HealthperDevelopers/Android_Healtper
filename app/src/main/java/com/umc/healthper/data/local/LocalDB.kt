@@ -4,17 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.umc.healthper.data.entity.FavWork
-import com.umc.healthper.data.entity.Work
-import com.umc.healthper.data.entity.WorkFav
-import com.umc.healthper.data.entity.WorkPart
+import com.umc.healthper.data.entity.*
 
 
-@Database(entities = [Work::class, WorkPart::class, WorkFav::class], version = 5)
+@Database(entities = [Work::class, WorkPart::class, WorkFav::class, PrivacyInfo::class], version = 5)
 abstract class LocalDB: RoomDatabase() {
     abstract fun WorkDao(): WorkDao
     abstract fun WorkPartDao(): WorkPartDao
     abstract fun WorkFavDao(): WorkFavDao
+    abstract fun privacyInfoDao():PrivacyInfoDao
 
     companion object {
         private var instance: LocalDB? = null

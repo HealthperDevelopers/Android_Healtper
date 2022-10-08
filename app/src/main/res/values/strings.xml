@@ -8,5 +8,7 @@
     <string name="report">신고하기</string>
     <string name="board_rule">커뮤니티 이용규칙 안내</string>
     <string name="board_content"></string>
+    <string name="title">타이틀</string>
+    <string name="content">컨텐트</string>
 
 </resources>

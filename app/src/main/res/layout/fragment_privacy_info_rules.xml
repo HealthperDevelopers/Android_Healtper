@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/privacy_info_rules">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/privacy_info_background_tv"
@@ -47,7 +46,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:overScrollMode="never"
-        tools:listitem="@layout/item_board_rules_communityguide_content"
+        tools:listitem="@layout/item_privacy_info_rules_content"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"

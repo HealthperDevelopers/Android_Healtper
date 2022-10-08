@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     var workReadyFragment: WorkReadyFragment? = null
     var workdetailFragment: WorkdetailFragment? = null
 
+
     // board page
     var MyboardBoardFragment: MyboardBoardFragment? = null
     var boardWritingFragement: BoardWritingFragement? = null
@@ -188,6 +189,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun checkStack() {
+
         if (boardFreepostContentFragment != null) supportFragmentManager.popBackStack(
             "boardFreeComment",
             FragmentManager.POP_BACK_STACK_INCLUSIVE

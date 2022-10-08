@@ -185,4 +185,5 @@ class SplashActivity : AppCompatActivity(), DetailFirstView, LoginView  {
 
         finish()
     }
+
 }
