@@ -47,7 +47,7 @@ class DateRVAdapter(var data: List<Int>, val count:Int, var weekData: ArrayList<
                 if (year == data[0] && month == data[1]) {//당일일경우
                     binding.itemMainCalListTodayTv.visibility = View.VISIBLE
                     VarUtil.glob.today = binding.itemMainCalListTodayTv
-
+                    VarUtil.glob.selectedDay = binding.itemMainCalListTodayTv
                 }
             }
             if (count == 1) {
