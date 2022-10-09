@@ -10,6 +10,7 @@ android {
     compileSdk 33
 
     defaultConfig {
+        manifestPlaceholders
         applicationId "com.umc.Healthper"
         minSdk 21
         targetSdk 33
@@ -18,7 +19,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        manifestPlaceholders["KAKAO_API_KEY"] = properties['kakao_api_key']
+        manifestPlaceholders["KAKAO_API_KEY"] = properties
         buildConfigField ("String", "KAKAO_API_KEY", "\"${properties['kakao_api_key']}\"")
     }
 
@@ -82,7 +83,6 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.4.3'
     implementation 'androidx.room:room-ktx:2.4.3'
     kapt 'androidx.room:room-compiler:2.4.3'
-
     //roomdb보기
     implementation 'com.amitshekhar.android:debug-db:1.0.6'
 }

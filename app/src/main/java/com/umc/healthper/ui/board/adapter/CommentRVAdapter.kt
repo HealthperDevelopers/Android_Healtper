@@ -255,8 +255,8 @@ class CommentRVAdapter(val data: List<Comments>, val postId: Int): RecyclerView.
                         okButton.setOnClickListener{
                             mBlockPopup.dismiss()
                             //타 유저데이터 안 보이게 차단 api연결
-                            VarUtil.glob.mainActivity.boardFreepostContentFragment?.blockUser(data[pos].commentId)
-                            VarUtil.glob.mainActivity.boardQuestionpostContentFragment?.blockUser(data[pos].commentId)
+//                            VarUtil.glob.mainActivity.boardFreepostContentFragment?.blockUser(data[pos].commentId)
+//                            VarUtil.glob.mainActivity.boardQuestionpostContentFragment?.blockUser(data[pos].commentId)
                         }
                         noneButton.setOnClickListener {
                             mBlockPopup.dismiss()
