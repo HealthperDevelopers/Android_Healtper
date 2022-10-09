@@ -21,10 +21,10 @@ import com.umc.healthper.data.entity.ExerciseInfo
 import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityMainBinding
-import com.umc.healthper.ui.board.MyboardBoardFragment
+//import com.umc.healthper.ui.board.MyboardBoardFragment
 import com.umc.healthper.ui.board.view.*
-import com.umc.healthper.ui.chart.view.ChartFragment
-import com.umc.healthper.ui.chart.view.PartchartFragment
+//import com.umc.healthper.ui.chart.view.ChartFragment
+//import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.*
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
@@ -44,21 +44,21 @@ class MainActivity : AppCompatActivity() {
 //    var work : ArrayList<Work> = arrayListOf()
     var tutorialFragment : TutorialFragment? = null
     var mainFragment: MainFragment? = null
-    var ChartFragment: ChartFragment? = null
+//    var ChartFragment: ChartFragment? = null
     var mypageFragment: MypageFragment? = null
-    var BoardFragment: BoardFragment? = null
+//    var BoardFragment: BoardFragment? = null
     var FavoritesMypageFragment: FavoritesMypageFragment? = null
     // var MusicMypageFragment: MusicMypageFragment? = null
-    var PartchartFragment: PartchartFragment? = null
+//    var PartchartFragment: PartchartFragment? = null
     var workReadyFragment: WorkReadyFragment? = null
     var workdetailFragment: WorkdetailFragment? = null
 
 
     // board page
-    var MyboardBoardFragment: MyboardBoardFragment? = null
-    var boardWritingFragement: BoardWritingFragement? = null
-    var boardFreepostContentFragment : BoardFreepostContentFragment? = null
-    var boardQuestionpostContentFragment : BoardQuestionpostContentFragment? = null
+//    var MyboardBoardFragment: MyboardBoardFragment? = null
+//    var boardWritingFragement: BoardWritingFragement? = null
+//    var boardFreepostContentFragment : BoardFreepostContentFragment? = null
+//    var boardQuestionpostContentFragment : BoardQuestionpostContentFragment? = null
 
     var detailWorkRecordSecondFragment: DetailWorkRecordSecondFragment? = null
     var detailWorkRecordFirstFragment: DetailWorkRecordFirstFragment? = null
@@ -121,9 +121,9 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mypageFragment!!).commit()
             }
             if (mainFragment != null) supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-            if (BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
+//            if (BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
             supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
-            if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
+//            if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
 
             VarUtil.glob.tutorial = false
         }
@@ -159,53 +159,53 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mainFragment!!).commit()
                     }
                     supportFragmentManager.beginTransaction().show(mainFragment!!).commit()
-                    if(BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
+//                    if(BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
                     if (mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-                    if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
+//                    if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
                     checkStack()
 
                     true
                 }
-                "차트" -> {
-                    if (ChartFragment == null) {
-                        ChartFragment = ChartFragment()
-                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, ChartFragment!!).commit()
-                    }
-                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-                    if(BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
-                    if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-                    checkStack()
+//                "차트" -> {
+//                    if (ChartFragment == null) {
+//                        ChartFragment = ChartFragment()
+//                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, ChartFragment!!).commit()
+//                    }
+//                    supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+//                    if(BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
+//                    if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+//                    checkStack()
+//
+//                    supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
+//
+//                    true
+//
+//                }
 
-                    supportFragmentManager.beginTransaction().show(ChartFragment!!).commit()
-
-                    true
-
-                }
-
-                "게시판" -> {
-                    if (BoardFragment == null) {
-                        BoardFragment = BoardFragment()
-                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, BoardFragment!!).commit()
-                    }
-
-                    if (mainFragment != null) supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-                    if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
-                    if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
-                    checkStack()
-
-                    supportFragmentManager.beginTransaction().show(BoardFragment!!).commit()
-
-                    true
-                }
+//                "게시판" -> {
+//                    if (BoardFragment == null) {
+//                        BoardFragment = BoardFragment()
+//                        supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, BoardFragment!!).commit()
+//                    }
+//
+//                    if (mainFragment != null) supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
+//                    if (mypageFragment != null)supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+//                    if (ChartFragment != null)supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
+//                    checkStack()
+//
+//                    supportFragmentManager.beginTransaction().show(BoardFragment!!).commit()
+//
+//                    true
+//                }
                 else -> {
                     if (mypageFragment == null) {
                         mypageFragment = MypageFragment()
                         supportFragmentManager.beginTransaction().add(R.id.main_frm_fl, mypageFragment!!).commit()
                     }
                     if (mainFragment != null) supportFragmentManager.beginTransaction().hide(mainFragment!!).commit()
-                    if (BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
+//                    if (BoardFragment != null)supportFragmentManager.beginTransaction().hide(BoardFragment!!).commit()
                     supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
-                    if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
+//                    if (ChartFragment != null) supportFragmentManager.beginTransaction().hide(ChartFragment!!).commit()
                     checkStack()
 
                     true
@@ -237,23 +237,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun checkStack() {
-
-        if (boardFreepostContentFragment != null) supportFragmentManager.popBackStack(
-            "boardFreeComment",
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
-        if (boardQuestionpostContentFragment != null) supportFragmentManager.popBackStack(
-            "boardQuestionContent",
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
-        if (MyboardBoardFragment != null) supportFragmentManager.popBackStack(
-            "boardMypage",
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
-        if (boardWritingFragement != null) supportFragmentManager.popBackStack(
-            "boardWrite",
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
+//
+//        if (boardFreepostContentFragment != null) supportFragmentManager.popBackStack(
+//            "boardFreeComment",
+//            FragmentManager.POP_BACK_STACK_INCLUSIVE
+//        )
+//        if (boardQuestionpostContentFragment != null) supportFragmentManager.popBackStack(
+//            "boardQuestionContent",
+//            FragmentManager.POP_BACK_STACK_INCLUSIVE
+//        )
+//        if (MyboardBoardFragment != null) supportFragmentManager.popBackStack(
+//            "boardMypage",
+//            FragmentManager.POP_BACK_STACK_INCLUSIVE
+//        )
+//        if (boardWritingFragement != null) supportFragmentManager.popBackStack(
+//            "boardWrite",
+//            FragmentManager.POP_BACK_STACK_INCLUSIVE
+//        )
         if (FavoritesMypageFragment != null) supportFragmentManager.popBackStack(
             "favorites",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -266,10 +266,10 @@ class MainActivity : AppCompatActivity() {
 //            "music",
 //            FragmentManager.POP_BACK_STACK_INCLUSIVE
 //        )
-        if (PartchartFragment != null) supportFragmentManager.popBackStack(
-            "part_chart",
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
+//        if (PartchartFragment != null) supportFragmentManager.popBackStack(
+//            "part_chart",
+//            FragmentManager.POP_BACK_STACK_INCLUSIVE
+//        )
         if (workReadyFragment != null) supportFragmentManager.popBackStack(
             "workReady",
             FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -307,25 +307,25 @@ class MainActivity : AppCompatActivity() {
         transition.commit()
     }
 
-    fun changeChartFragment(part : String){
-        val transition = supportFragmentManager.beginTransaction()
-        PartchartFragment = PartchartFragment()
-
-        // activity2fragment using intent -> impossible, use bundle
-
-        transition.replace(binding.mainFrmFl.id,
-            PartchartFragment().apply {
-                arguments = Bundle().apply {
-                    putString("part", part)
-                }
-            }
-        )
-        transition.addToBackStack("part_chart")
-
-        transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        transition.isAddToBackStackAllowed
-        transition.commit()
-    }
+//    fun changeChartFragment(part : String){
+//        val transition = supportFragmentManager.beginTransaction()
+//        PartchartFragment = PartchartFragment()
+//
+//        // activity2fragment using intent -> impossible, use bundle
+//
+//        transition.replace(binding.mainFrmFl.id,
+//            PartchartFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString("part", part)
+//                }
+//            }
+//        )
+//        transition.addToBackStack("part_chart")
+//
+//        transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//        transition.isAddToBackStackAllowed
+//        transition.commit()
+//    }
 
     fun changeMainFragment(page: Int) {
         val trans = supportFragmentManager.beginTransaction()
@@ -372,27 +372,27 @@ class MainActivity : AppCompatActivity() {
     fun changeBoardFragment(int : Int){
         val transition = supportFragmentManager.beginTransaction()
         when (int){
-            0 -> {
-                MyboardBoardFragment = MyboardBoardFragment()
-                transition.replace(binding.mainFrmFl.id, MyboardBoardFragment!!)
-                transition.addToBackStack("boardMypage")
-            }
-            1->{
-                boardWritingFragement = BoardWritingFragement()
-                transition.add(binding.mainFrmFl.id, boardWritingFragement!!)
-                transition.addToBackStack("boardWrite")
-
-            }
-            2->{
-                if (boardFreepostContentFragment == null) boardFreepostContentFragment = BoardFreepostContentFragment()
-                transition.add(binding.mainFrmFl.id, boardFreepostContentFragment!!)
-                transition.addToBackStack("boardFreeComment")
-            }
-            3->{
-                if (boardQuestionpostContentFragment == null) boardQuestionpostContentFragment = BoardQuestionpostContentFragment()
-                transition.add(binding.mainFrmFl.id, boardQuestionpostContentFragment!!)
-                transition.addToBackStack("boardQuestionContent")
-            }
+//            0 -> {
+//                MyboardBoardFragment = MyboardBoardFragment()
+//                transition.replace(binding.mainFrmFl.id, MyboardBoardFragment!!)
+//                transition.addToBackStack("boardMypage")
+//            }
+//            1->{
+//                boardWritingFragement = BoardWritingFragement()
+//                transition.add(binding.mainFrmFl.id, boardWritingFragement!!)
+//                transition.addToBackStack("boardWrite")
+//
+//            }
+//            2->{
+//                if (boardFreepostContentFragment == null) boardFreepostContentFragment = BoardFreepostContentFragment()
+//                transition.add(binding.mainFrmFl.id, boardFreepostContentFragment!!)
+//                transition.addToBackStack("boardFreeComment")
+//            }
+//            3->{
+//                if (boardQuestionpostContentFragment == null) boardQuestionpostContentFragment = BoardQuestionpostContentFragment()
+//                transition.add(binding.mainFrmFl.id, boardQuestionpostContentFragment!!)
+//                transition.addToBackStack("boardQuestionContent")
+//            }
         }
         transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transition.isAddToBackStackAllowed
