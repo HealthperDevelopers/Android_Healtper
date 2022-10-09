@@ -94,8 +94,8 @@ class AuthService {
                 when (response.code()) {
                     200 -> {
                         Log.d("modifyPost/success", response.body().toString())
-                        VarUtil.glob.mainActivity.boardQuestionpostContentFragment?.viewPost(postId)
-                        VarUtil.glob.mainActivity.boardFreepostContentFragment?.viewPost(postId)
+//                        VarUtil.glob.mainActivity.boardQuestionpostContentFragment?.viewPost(postId)
+//                        VarUtil.glob.mainActivity.boardFreepostContentFragment?.viewPost(postId)
                     }
                     401 -> {
                         Toast.makeText(VarUtil.glob.mainContext, "수정할 수 있는 권한이 없습니다.", Toast.LENGTH_SHORT).show()
@@ -373,7 +373,7 @@ class AuthService {
                 when (response.code()) {
                     200 -> {
                         Log.d("deleteComment/success", response.body().toString())
-                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.viewPost(postId)
+//                        VarUtil.glob.mainActivity.boardFreepostContentFragment!!.viewPost(postId)
                     }
                     else -> {
                         Log.d("deleteComment/fail", response.body().toString())

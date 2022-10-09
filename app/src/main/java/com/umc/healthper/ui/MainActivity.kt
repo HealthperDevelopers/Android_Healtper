@@ -22,7 +22,7 @@ import com.umc.healthper.data.entity.TotalData
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.ActivityMainBinding
 //import com.umc.healthper.ui.board.MyboardBoardFragment
-import com.umc.healthper.ui.board.view.*
+//import com.umc.healthper.ui.board.view.*
 //import com.umc.healthper.ui.chart.view.ChartFragment
 //import com.umc.healthper.ui.chart.view.PartchartFragment
 import com.umc.healthper.ui.main.view.*
