@@ -4,6 +4,7 @@
     <string name="drawer_close">close</string>
     <dimen name="popup_width">310dp</dimen>
     <dimen name="popup_height">405dp</dimen>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="block">차단하기</string>
     <string name="report">신고하기</string>
     <string name="board_rule">커뮤니티 이용규칙 안내</string>

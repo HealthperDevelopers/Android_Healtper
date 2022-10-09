@@ -27,6 +27,9 @@ class ChartFragment : Fragment() {
         binding = FragmentChartBinding.inflate(inflater, container, false)
 
         binding.chartUserNameTv.text = VarUtil.glob.Nickname
+        binding.chartUserNameTv.setOnClickListener {
+            VarUtil.glob.mainActivity.Mypage()
+        }
 
         binding.chartBackTv.setOnClickListener{
             mainActivity!!.changeChartFragment("등")

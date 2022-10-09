@@ -17,7 +17,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class MainRVAdapter(var now: Calendar):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
 
     override fun getItemViewType(position: Int): Int {
@@ -35,7 +35,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             }
             2 -> {
                     val binding = ItemMainCalendarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                    CalendarHolder(binding)
+                    CalendarHolder(binding, now)
             }
             3 -> {
                 val binding = ItemMainDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -70,20 +70,21 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             binding.itemMainUserSettingIv.setOnClickListener {
                 VarUtil.glob.mainActivity.openNav()
             }
+            binding.itemMainUserNameTv.setOnClickListener {
+                VarUtil.glob.mainActivity.Mypage()
+            }
             binding.itemMainUserNameTv.text = VarUtil.glob.Nickname
         }
     }
 
-    class CalendarHolder(private val binding: ItemMainCalendarBinding): RecyclerView.ViewHolder(binding.root) {
+    class CalendarHolder(private val binding: ItemMainCalendarBinding, var now: Calendar): RecyclerView.ViewHolder(binding.root) {
         private lateinit var data: List<Int>
         private lateinit var weekList: ArrayList<Int>
-        private lateinit var now: Calendar
         private lateinit var calRvAdapList: ArrayList<DateRVAdapter>
         private lateinit var calRvLayoutList: ArrayList<FlexboxLayoutManager>
         private var authService = AuthService()
 
         fun bind() {
-            now = Calendar.getInstance()
             setListener()
             data = setCalData()
             weekList = setCalWeekData()
@@ -114,6 +115,7 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             VarUtil.glob.mainFragment.setAuth(authService)
             authService.calenderInfo(data[0], data[1])
             VarUtil.glob.today.background = null
+            VarUtil.glob.selectedDay.background = null
             for (i in 0..5) {
                 calRvAdapList[i].data = data
                 calRvAdapList[i].weekData = weekList
@@ -190,6 +192,9 @@ class MainRVAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                             }
                             var newD = date.toInt()
                             val selectedDay = String.format("%04d-%02d-%02d", y, m, newD)
+
+                            VarUtil.glob.selectedDate
+
                             authService.dayInfoData = VarUtil.glob.mainFragment
                             authService.dayInfo(selectedDay)
                         }

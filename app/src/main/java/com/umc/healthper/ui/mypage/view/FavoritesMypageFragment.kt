@@ -34,6 +34,10 @@ class FavoritesMypageFragment : Fragment() {
         binding = FragmentMypageFavoritesBinding.inflate(inflater, container, false)
         setListener()
 
+        binding.mypagefavUserNameTv.text = VarUtil.glob.Nickname
+        binding.mypagefavUserNameTv.setOnClickListener {
+            VarUtil.glob.mainActivity.Mypage()
+        }
 
         //초기 dp
         currentPart = db.WorkPartDao().getFirst().workPart

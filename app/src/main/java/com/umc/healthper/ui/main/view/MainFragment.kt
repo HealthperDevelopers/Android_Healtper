@@ -12,6 +12,7 @@ import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.databinding.FragmentMainBinding
 import com.umc.healthper.ui.main.adapter.MainRVAdapter
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
+import com.umc.healthper.util.GlobVar
 import com.umc.healthper.util.VarUtil
 import java.util.*
 import kotlin.collections.ArrayList
@@ -28,6 +29,7 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
         val now = Calendar.getInstance()
+        VarUtil.glob.selectedDate = now.get(Calendar.DATE).toString()
         val authService = AuthService()
         authService.calendarData = this
         authService.calenderInfo(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1)
@@ -40,7 +42,7 @@ class MainFragment: Fragment(), DetailFirstView, CalendarDataView {
         authService.dayInfo(selectedDay)
 
         VarUtil.glob.mainFragment = this
-        adapter = MainRVAdapter()
+        adapter = MainRVAdapter(now)
         binding.mainRv.adapter = adapter
         return binding.root
     }
