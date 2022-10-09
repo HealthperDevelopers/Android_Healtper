@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
@@ -17,6 +19,9 @@ import com.umc.healthper.data.remote.CalendarResponse
 import com.umc.healthper.databinding.ActivityLoginBinding
 import com.umc.healthper.ui.MainActivity
 import com.umc.healthper.ui.Signup.SignupActivity
+import com.umc.healthper.ui.main.view.PrivacyInfoRulesFragment
+import com.umc.healthper.ui.main.view.WorkReadyFragment
+import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getAutoLogin
 import com.umc.healthper.util.saveAutoLogin
@@ -24,6 +29,7 @@ import com.umc.healthper.util.saveAutoLogin
 class LoginActivity : AppCompatActivity(), LoginView {
     lateinit var binding : ActivityLoginBinding
     lateinit var inten: Intent
+    var privacyInfoRulesFragment: PrivacyInfoRulesFragment? = null
 
     override fun onDestroy() {
         super.onDestroy()
@@ -61,8 +67,17 @@ class LoginActivity : AppCompatActivity(), LoginView {
         var autoLogin = getAutoLogin()
         setAutoLogin(autoLogin)
 
-        binding.loginPrivacyInfoIv.setOnClickListener {
+        binding.loginPrivacyInfoClick.setOnClickListener {
+            val transition = supportFragmentManager.beginTransaction()
 
+            privacyInfoRulesFragment = PrivacyInfoRulesFragment(this)
+
+            Log.d("transition", "privacy")
+            transition.add(binding.loginCl.id, privacyInfoRulesFragment!!)
+            transition.addToBackStack("privacyInfo")
+            transition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            transition.isAddToBackStackAllowed
+            transition.commit()
         }
 
         binding.loginAutoCheckBoxIv.setOnClickListener {
@@ -147,11 +162,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
             }
         }
 
-        val login_privacy_info = binding.loginPrivacyInfoIv //개인정봅 보호
-
-        login_privacy_info.setOnClickListener{
-
-        }
+        VarUtil.glob.loginActivity = this
     }
 
 
@@ -187,5 +198,12 @@ class LoginActivity : AppCompatActivity(), LoginView {
         startActivity(intent)
 
         finish()
+    }
+
+    fun back(){
+        if (privacyInfoRulesFragment != null) supportFragmentManager.popBackStack(
+            "privacyInfo",
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
     }
 }

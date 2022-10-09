@@ -12,6 +12,7 @@ import com.umc.healthper.data.remote.GetDayDetailFirst
 import com.umc.healthper.data.remote.GetDayDetailSecond
 import com.umc.healthper.data.remote.SetDayDetailSecond
 import com.umc.healthper.ui.MainActivity
+import com.umc.healthper.ui.login.LoginActivity
 //import com.umc.healthper.ui.board.view.BoardFreepostFragment
 //import com.umc.healthper.ui.board.view.BoardQuestionpostFragment
 import com.umc.healthper.ui.main.adapter.WorkReadyListAdapter
@@ -20,6 +21,7 @@ import com.umc.healthper.ui.mypage.adapter.ShowFavWorkRVAdapter
 import java.util.Calendar
 
 class GlobVar: Application() {
+    var loginActivity: LoginActivity? = null
     lateinit var mainContext: Context
     lateinit var mainActivity: MainActivity
     lateinit var mainFragment: MainFragment

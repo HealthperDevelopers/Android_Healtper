@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.umc.healthper.data.entity.*
 
 
-@Database(entities = [Work::class, WorkPart::class, WorkFav::class, PrivacyInfo::class], version = 5)
+@Database(entities = [Work::class, WorkPart::class, WorkFav::class, PrivacyInfo::class], version = 6)
 abstract class LocalDB: RoomDatabase() {
     abstract fun WorkDao(): WorkDao
     abstract fun WorkPartDao(): WorkPartDao

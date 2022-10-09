@@ -1,5 +1,6 @@
 package com.umc.healthper.ui.main.view
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,10 +13,11 @@ import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.databinding.FragmentBoardWritingBinding
 import com.umc.healthper.databinding.FragmentPrivacyInfoRulesBinding
 import com.umc.healthper.ui.MainActivity
+import com.umc.healthper.ui.login.LoginActivity
 import com.umc.healthper.ui.main.adapter.PrivacyInfoRVAdapter
 import com.umc.healthper.util.VarUtil
 
-class PrivacyInfoRulesFragment: Fragment() {
+class PrivacyInfoRulesFragment(val loginContext : Context): Fragment() {
     lateinit var binding: FragmentPrivacyInfoRulesBinding
     private lateinit var privacyInfoRVAdapter: PrivacyInfoRVAdapter
     lateinit var privacyInfoList: ArrayList<PrivacyInfo>
@@ -28,10 +30,8 @@ class PrivacyInfoRulesFragment: Fragment() {
     ): View? {
         binding = FragmentPrivacyInfoRulesBinding.inflate(inflater, container, false)
         binding.privacyInfoCancelIv.setOnClickListener {
-            VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
-                "privacyInfo",
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
-            )
+            VarUtil.glob.loginActivity?.back()
+            Log.d("cancle", "cancle")
         }
         initViewPager()
         initRecyclerView()
@@ -39,7 +39,7 @@ class PrivacyInfoRulesFragment: Fragment() {
     }
 
     private fun initViewPager() {
-        database = LocalDB.getInstance(VarUtil.glob.mainContext)!!
+        database = LocalDB.getInstance(loginContext)!!
         privacyInfoList = database.privacyInfoDao().getPrivacyInfo() as ArrayList
         Log.d(tag, "initPrivacyInformation()/privacyInformationList.size: ${privacyInfoList.size}")
 

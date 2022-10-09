@@ -6,6 +6,9 @@ plugins {
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
+//buildConfigField "String", "KAKAO_API_KEY", properties['kakao_api_key']
+//manifestPlaceholders = [KAKAO_API_KEY: properties['kakao_api_key']]
+
 android {
     compileSdk 33
 
@@ -18,9 +21,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        manifestPlaceholders["KAKAO_API_KEY"] = properties
         buildConfigField ("String", "KAKAO_API_KEY", "\"${properties['kakao_api_key']}\"")
+        manifestPlaceholders = [KAKAO_API_KEY: properties['kakao_api_key']]
+//        manifestPlaceholders["KAKAO_API_KEY"] = properties
+//        buildConfigField ("String", "KAKAO_API_KEY", "\"${properties['kakao_api_key']}\"")
     }
 
     viewBinding {
