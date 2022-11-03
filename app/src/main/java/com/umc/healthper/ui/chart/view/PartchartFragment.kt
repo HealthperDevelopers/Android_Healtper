@@ -17,9 +17,9 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.umc.healthper.data.entity.ChartData
+import com.umc.healthper.data.entity.InChart
 import com.umc.healthper.data.local.LocalDB
 import com.umc.healthper.data.remote.AuthRetrofitInterface
-import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.FragmentPartchartBinding
 import com.umc.healthper.util.VarUtil
 import com.umc.healthper.util.getRetrofit
@@ -31,8 +31,18 @@ class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding
     var partName : String = ""
     val worknameList = arrayListOf<String>()
-    var chartDataXY : ChartData? = null
+    var totalChartDataXY : List<InChart>? = null
+    var last5ChartDataXY : List<InChart>? = null
+    var last10ChartDataXY : List<InChart>? = null
+    var totalVolume : Int = 0
+    var totalTime : Int = 0
+    private var LAST_N = 5
 
+    /**
+     * 기능 구현
+     * 1. 차트 위에 5, 10, 전체 클릭 시 LAST_N 변경
+     * 2. setLineChartData에 ChartDataXY를 x, y축으로 파싱해서 arraylist로 만들어주는 함수 만들어 넣어주기.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,7 +60,7 @@ class PartchartFragment : Fragment() {
         partName = arguments?.getString("part").toString()
         binding.partchartPartTv.text = partName
 
-        setLineChartData()
+        setLineChartData(LAST_N)
         getSpinnerWorkNameData()
         setSpinner(binding.partchartSp)
 
@@ -76,7 +86,7 @@ class PartchartFragment : Fragment() {
         }
     }
 
-    fun setLineChartData()
+    fun setLineChartData(LAST_N: Int)
     {
         val Yvalue = ArrayList<Int>()
         Yvalue.add(1)
@@ -134,6 +144,22 @@ class PartchartFragment : Fragment() {
         rightAxis.setDrawGridLines(false)
     }
 
+    private fun setLastNChartDataXY(totalData : List<InChart>){
+        totalChartDataXY = totalData
+
+        if (totalChartDataXY!!.size > 5) {
+            last5ChartDataXY = totalChartDataXY!!.subList(0, 5)
+        } else {
+            last5ChartDataXY = totalChartDataXY
+        }
+
+        if (totalChartDataXY!!.size > 10) {
+            last10ChartDataXY = totalChartDataXY!!.subList(0, 10)
+        } else {
+            last10ChartDataXY = totalChartDataXY
+        }
+    }
+
     private fun getSpinnerWorkNameData(){
         var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
         var partId = db.WorkPartDao().getWorkPartIdbyPartName(partName)
@@ -154,7 +180,9 @@ class PartchartFragment : Fragment() {
             ) {
                 if (response.code() == 200) {
                     Log.d("statistic/success", response.body()!!.toString())
-                    chartDataXY = response.body()
+                    setLastNChartDataXY(response.body()!!.chart)
+                    totalVolume = response.body()!!.totalVolume
+                    totalTime = response.body()!!.totalTime
                 }
                 else {
                     Log.d("statistic/failure", "fail")
