@@ -140,7 +140,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 LoginClient.instance.loginWithKakaoTalk(this, callback = callback)
             }else{
                 LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
-            }
+           }
         }
     }
 
