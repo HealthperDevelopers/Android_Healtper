@@ -9,21 +9,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.umc.healthper.data.entity.ChartData
 import com.umc.healthper.data.local.LocalDB
+import com.umc.healthper.data.remote.AuthRetrofitInterface
 import com.umc.healthper.data.remote.AuthService
 import com.umc.healthper.databinding.FragmentPartchartBinding
 import com.umc.healthper.util.VarUtil
+import com.umc.healthper.util.getRetrofit
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding
     var partName : String = ""
-    private val itemList = arrayListOf<String>()
+    val worknameList = arrayListOf<String>()
+    var chartDataXY : ChartData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,27 +46,19 @@ class PartchartFragment : Fragment() {
             VarUtil.glob.mainActivity.Mypage()
         }
 
+        // 파트 이름 가져와서 파트 Text에 초기화
         partName = arguments?.getString("part").toString()
         binding.partchartPartTv.text = partName
 
         setLineChartData()
+        getSpinnerWorkNameData()
+        setSpinner(binding.partchartSp)
 
-        Log.d("Week", "create")
+        return binding.root
+    }
 
-        val spinner = binding.partchartSp
-
-        var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
-        var partId = db.WorkPartDao().getWorkPartIdbyPartName(partName)
-        Log.d("partId", partId.toString())
-        val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(partId)
-        val tmpAll = db.WorkDao().findWorkbyPartId(partId)
-        itemList.clear()
-        Log.d("WorkALL", tmpAll.toString())
-        for (i in tmpAll) {
-            itemList.add(i.workName)
-        }
-
-        val adapter = ArrayAdapter(VarUtil.glob.mainContext, R.layout.simple_spinner_item, itemList)
+    fun setSpinner(spinner: Spinner){
+        val adapter = ArrayAdapter(VarUtil.glob.mainContext, R.layout.simple_spinner_item, worknameList)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -71,11 +71,9 @@ class PartchartFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                var authService = AuthService()
-                authService.statistic(itemList[position])
+                statistic(worknameList[position])
             }
         }
-        return binding.root
     }
 
     fun setLineChartData()
@@ -134,5 +132,38 @@ class PartchartFragment : Fragment() {
     //        rightAxis.textColor = Color.RED
         rightAxis.setDrawAxisLine(false)
         rightAxis.setDrawGridLines(false)
+    }
+
+    private fun getSpinnerWorkNameData(){
+        var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
+        var partId = db.WorkPartDao().getWorkPartIdbyPartName(partName)
+        Log.d("partId", partId.toString())
+        val tmpAll = db.WorkDao().findWorkbyPartId(partId)
+        worknameList.clear()
+        Log.d("WorkALL", tmpAll.toString())
+        for (i in tmpAll) {
+            worknameList.add(i.workName)
+        }
+    }
+
+    fun statistic(partName : String) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.statistic(partName).enqueue(object : Callback<ChartData> {
+            override fun onResponse(call: Call<ChartData>, response: Response<ChartData>
+            ) {
+                if (response.code() == 200) {
+                    Log.d("statistic/success", response.body()!!.toString())
+                    chartDataXY = response.body()
+                }
+                else {
+                    Log.d("statistic/failure", "fail")
+                }
+            }
+
+            override fun onFailure(call: Call<ChartData>, t: Throwable) {
+                Log.d("statistic/FAILURE", t.message.toString())
+            }
+        })
     }
 }

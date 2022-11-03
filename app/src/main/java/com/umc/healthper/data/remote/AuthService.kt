@@ -422,24 +422,4 @@ class AuthService {
 
         })
     }
-
-    fun statistic(partName : String) {
-        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
-
-        authService.statistic(partName).enqueue(object :Callback<ChartData> {
-            override fun onResponse(call: Call<ChartData>, response: Response<ChartData>
-            ) {
-                if (response.code() == 200) {
-                    Log.d("statistic/success", response.body()!!.toString())
-                }
-                else {
-                    Log.d("statistic/failure", "fail")
-                }
-            }
-
-            override fun onFailure(call: Call<ChartData>, t: Throwable) {
-                Log.d("statistic/FAILURE", t.message.toString())
-            }
-        })
-    }
 }
