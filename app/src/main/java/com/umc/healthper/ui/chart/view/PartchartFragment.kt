@@ -16,6 +16,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.umc.healthper.data.entity.ChartData
 import com.umc.healthper.data.entity.InChart
 import com.umc.healthper.data.local.LocalDB
@@ -55,12 +56,20 @@ class PartchartFragment : Fragment() {
         binding.partchartUserNameTv.setOnClickListener {
             VarUtil.glob.mainActivity.Mypage()
         }
+        binding.partchartContentFiveTv.setOnClickListener {
+            setLineChartData(5)
+        }
+        binding.partchartContentFiveTv.setOnClickListener {
+            setLineChartData(10)
+        }
+        binding.partchartContentFiveTv.setOnClickListener {
+            setLineChartData(-1)
+        }
 
         // 파트 이름 가져와서 파트 Text에 초기화
         partName = arguments?.getString("part").toString()
         binding.partchartPartTv.text = partName
 
-        setLineChartData(LAST_N)
         getSpinnerWorkNameData()
         setSpinner(binding.partchartSp)
 
@@ -88,17 +97,27 @@ class PartchartFragment : Fragment() {
 
     fun setLineChartData(LAST_N: Int)
     {
-        val Yvalue = ArrayList<Int>()
-        Yvalue.add(1)
-        Yvalue.add(4)
-        Yvalue.add(3)
-        Yvalue.add(9)
-        Yvalue.add(5)
-        Yvalue.add(1)
-        Yvalue.add(4)
-        Yvalue.add(3)
-        Yvalue.add(9)
-        Yvalue.add(5)
+        var Yvalue = ArrayList<Int>()
+        var Xvalue = ArrayList<String>()
+
+        for (inchart in totalChartDataXY!!){
+            Yvalue.add(inchart.volume)
+            Xvalue.add(inchart.date)
+        }
+//        if (LAST_N == -1){
+//            for (inchart in totalChartDataXY!!){
+//                Yvalue.add(inchart.volume)
+//                Xvalue.add(inchart.date)
+//            }
+//        } else {
+//            for (i in 0..(LAST_N - 1)){
+//                if (i < totalChartDataXY!!.size){
+//                    Yvalue.add(totalChartDataXY?.get(i)!!.volume)
+//                    Xvalue.add(totalChartDataXY?.get(i)!!.date)
+//                }
+//            }
+//        }
+
 
         val lineentry = ArrayList<Entry>()
 
@@ -121,7 +140,8 @@ class PartchartFragment : Fragment() {
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         //set the horizontal distance of the grid line
         xAxis.granularity = 1f
-        xAxis.textColor = Color.WHITE // 없애거나, 투명화하는 방법은 없을지
+        xAxis.valueFormatter = IndexAxisValueFormatter(Xvalue)
+//        xAxis.textColor = Color.WHITE // 없애거나, 투명화하는 방법은 없을지
         //hiding the x-axis line, default true if not set
         xAxis.setDrawAxisLine(false)
         //hiding the vertical grid lines, default true if not set
@@ -158,6 +178,8 @@ class PartchartFragment : Fragment() {
         } else {
             last10ChartDataXY = totalChartDataXY
         }
+
+        setLineChartData(0)
     }
 
     private fun getSpinnerWorkNameData(){
