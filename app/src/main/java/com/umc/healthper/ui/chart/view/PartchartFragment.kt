@@ -35,9 +35,6 @@ class PartchartFragment : Fragment() {
     var totalChartDataXY : List<InChart>? = null
     var last5ChartDataXY : List<InChart>? = null
     var last10ChartDataXY : List<InChart>? = null
-    var totalVolume : Int = 0
-    var totalTime : Int = 0
-    private var LAST_N = 5
 
     /**
      * 기능 구현
@@ -104,27 +101,13 @@ class PartchartFragment : Fragment() {
             Yvalue.add(inchart.volume)
             Xvalue.add(inchart.date)
         }
-//        if (LAST_N == -1){
-//            for (inchart in totalChartDataXY!!){
-//                Yvalue.add(inchart.volume)
-//                Xvalue.add(inchart.date)
-//            }
-//        } else {
-//            for (i in 0..(LAST_N - 1)){
-//                if (i < totalChartDataXY!!.size){
-//                    Yvalue.add(totalChartDataXY?.get(i)!!.volume)
-//                    Xvalue.add(totalChartDataXY?.get(i)!!.date)
-//                }
-//            }
-//        }
 
-
-        val lineentry = ArrayList<Entry>()
+        val lineEntry = ArrayList<Entry>()
 
         for (i in 0 until Yvalue.size)
-            lineentry.add(Entry(i.toFloat(), Yvalue[i].toFloat()))
+            lineEntry.add(Entry(i.toFloat(), Yvalue[i].toFloat()))
 
-        val lineDataSet = LineDataSet(lineentry, "first")
+        val lineDataSet = LineDataSet(lineEntry, "first")
         val data = LineData(lineDataSet)
 
         binding.partchartCt.data = data
@@ -203,8 +186,7 @@ class PartchartFragment : Fragment() {
                 if (response.code() == 200) {
                     Log.d("statistic/success", response.body()!!.toString())
                     setLastNChartDataXY(response.body()!!.chart)
-                    totalVolume = response.body()!!.totalVolume
-                    totalTime = response.body()!!.totalTime
+                    setTotalDatas(response.body()!!.chart, response.body()!!.totalVolume, response.body()!!.totalTime)
                 }
                 else {
                     Log.d("statistic/failure", "fail")
@@ -215,5 +197,15 @@ class PartchartFragment : Fragment() {
                 Log.d("statistic/FAILURE", t.message.toString())
             }
         })
+    }
+
+    fun setTotalDatas(totalData : List<InChart>, totalVolume : Int, totalTime : Int){
+        val timeBox = binding.partchartWorktimeBoxTv
+        val countBox = binding.partchartWorkcountBoxTv
+        val volumeBox = binding.partchartWorkvolumeBoxTv
+
+        timeBox.text = totalTime.toString()
+        countBox.text = totalData.size.toString()
+        volumeBox.text = totalVolume.toString()
     }
 }

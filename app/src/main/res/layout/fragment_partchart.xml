@@ -81,7 +81,8 @@
         app:layout_constraintStart_toStartOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="100dp">
             <Spinner
                 android:id="@+id/partchart_sp"
                 android:layout_width="200dp"
@@ -114,6 +115,14 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginStart="50dp"/>
             <TextView
+                android:id="@+id/partchart_worktime_box_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/partchart_worktime_tv"
+                app:layout_constraintEnd_toStartOf="@id/partchart_workcount_tv"
+                app:layout_constraintStart_toStartOf="@id/partchart_ct"
+                android:layout_marginStart="50dp"/>
+            <TextView
                 android:id="@+id/partchart_workcount_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,6 +131,16 @@
                 app:layout_constraintStart_toEndOf="@id/partchart_worktime_tv"
                 app:layout_constraintEnd_toEndOf="@id/partchart_ct"
                 android:layout_marginTop="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="50dp"/>
+            <TextView
+                android:id="@+id/partchart_workcount_box_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/partchart_worktime_box_tv"
+                app:layout_constraintBottom_toBottomOf="@id/partchart_worktime_box_tv"
+                app:layout_constraintStart_toEndOf="@id/partchart_worktime_tv"
+                app:layout_constraintEnd_toEndOf="@id/partchart_ct"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="50dp"/>
 
@@ -134,6 +153,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="50dp"
+                />
+            <TextView
+                android:id="@+id/partchart_workvolume_box_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/partchart_workvolume_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
