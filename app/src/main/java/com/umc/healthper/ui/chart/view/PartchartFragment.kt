@@ -56,10 +56,10 @@ class PartchartFragment : Fragment() {
         binding.partchartContentFiveTv.setOnClickListener {
             setLineChartData(5)
         }
-        binding.partchartContentFiveTv.setOnClickListener {
+        binding.partchartContentTenTv.setOnClickListener {
             setLineChartData(10)
         }
-        binding.partchartContentFiveTv.setOnClickListener {
+        binding.partchartContentAllTv.setOnClickListener {
             setLineChartData(-1)
         }
 
@@ -96,8 +96,21 @@ class PartchartFragment : Fragment() {
     {
         var Yvalue = ArrayList<Int>()
         var Xvalue = ArrayList<String>()
+        var chartDataXY : List<InChart>? = null
 
-        for (inchart in totalChartDataXY!!){
+        when (LAST_N) {
+            5 -> {
+                chartDataXY = last5ChartDataXY
+            }
+            10 -> {
+                chartDataXY = last10ChartDataXY
+            }
+            -1 -> {
+                chartDataXY = totalChartDataXY
+            }
+        }
+
+        for (inchart in chartDataXY!!){
             Yvalue.add(inchart.volume)
             Xvalue.add(inchart.date)
         }
@@ -162,7 +175,7 @@ class PartchartFragment : Fragment() {
             last10ChartDataXY = totalChartDataXY
         }
 
-        setLineChartData(0)
+        setLineChartData(5)
     }
 
     private fun getSpinnerWorkNameData(){
