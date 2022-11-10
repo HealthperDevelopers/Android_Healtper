@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ui.sidemenu.SignoutFragment"
     android:clickable="true"
     android:focusable="true">
-    <!--    versionUpdate xml 구현해서 signout에 복사해넣기.-->
+
+<!--    versionUpdate xml 구현해서 복사해넣기.-->
 
     <TextView
-        android:id="@+id/version_update_back_btn"
+        android:id="@+id/signout_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
@@ -18,6 +20,5 @@
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/version_update_back_btn"
         android:layout_marginStart="20dp"
-        android:text="버젼 업데이트" />
-
-</RelativeLayout>
+        android:text="회원 탈퇴하기" />
+</FrameLayout>
