@@ -217,7 +217,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.setting_signout -> {
                     // 탈퇴하기 기능 구현
                     viewSignout()
-//                    authService.signout()
+//                    authService.signout() -> 다시 회원가입이 안되고 있음. ㅠㅠ
                 }
                 R.id.setting_update -> {
                     viewVersionUpdate()
