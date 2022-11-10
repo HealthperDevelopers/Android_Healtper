@@ -103,7 +103,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="40dp"
                 android:background="@color/gray"
-                /><!--일단 데이터가 없어서 색칠만 해놓음-->
+                />
             <TextView
                 android:id="@+id/partchart_worktime_tv"
                 android:layout_width="wrap_content"
