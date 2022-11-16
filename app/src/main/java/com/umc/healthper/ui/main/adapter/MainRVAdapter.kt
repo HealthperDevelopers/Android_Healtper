@@ -195,6 +195,7 @@ class MainRVAdapter(var now: Calendar):RecyclerView.Adapter<RecyclerView.ViewHol
 
                             VarUtil.glob.selectedDate
 
+
                             authService.dayInfoData = VarUtil.glob.mainFragment
                             authService.dayInfo(selectedDay)
                         }

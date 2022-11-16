@@ -9,22 +9,38 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.umc.healthper.data.entity.ChartData
+import com.umc.healthper.data.entity.InChart
 import com.umc.healthper.data.local.LocalDB
-import com.umc.healthper.data.remote.AuthService
+import com.umc.healthper.data.remote.AuthRetrofitInterface
 import com.umc.healthper.databinding.FragmentPartchartBinding
 import com.umc.healthper.util.VarUtil
+import com.umc.healthper.util.getRetrofit
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding
     var partName : String = ""
-    private val itemList = arrayListOf<String>()
+    val worknameList = arrayListOf<String>()
+    var totalChartDataXY : List<InChart>? = null
+    var last5ChartDataXY : List<InChart>? = null
+    var last10ChartDataXY : List<InChart>? = null
 
+    /**
+     * 기능 구현
+     * 1. 차트 위에 5, 10, 전체 클릭 시 LAST_N 변경
+     * 2. setLineChartData에 ChartDataXY를 x, y축으로 파싱해서 arraylist로 만들어주는 함수 만들어 넣어주기.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,28 +53,28 @@ class PartchartFragment : Fragment() {
         binding.partchartUserNameTv.setOnClickListener {
             VarUtil.glob.mainActivity.Mypage()
         }
+        binding.partchartContentFiveTv.setOnClickListener {
+            setLineChartData(5)
+        }
+        binding.partchartContentTenTv.setOnClickListener {
+            setLineChartData(10)
+        }
+        binding.partchartContentAllTv.setOnClickListener {
+            setLineChartData(-1)
+        }
 
+        // 파트 이름 가져와서 파트 Text에 초기화
         partName = arguments?.getString("part").toString()
         binding.partchartPartTv.text = partName
 
-        setLineChartData()
+        getSpinnerWorkNameData()
+        setSpinner(binding.partchartSp)
 
-        Log.d("Week", "create")
+        return binding.root
+    }
 
-        val spinner = binding.partchartSp
-
-        var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
-        var partId = db.WorkPartDao().getWorkPartIdbyPartName(partName)
-        Log.d("partId", partId.toString())
-        val tmpFav = db.WorkFavDao().getAllFavWorkByPartId(partId)
-        val tmpAll = db.WorkDao().findWorkbyPartId(partId)
-        itemList.clear()
-        Log.d("WorkALL", tmpAll.toString())
-        for (i in tmpAll) {
-            itemList.add(i.workName)
-        }
-
-        val adapter = ArrayAdapter(VarUtil.glob.mainContext, R.layout.simple_spinner_item, itemList)
+    fun setSpinner(spinner: Spinner){
+        val adapter = ArrayAdapter(VarUtil.glob.mainContext, R.layout.simple_spinner_item, worknameList)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -71,33 +87,40 @@ class PartchartFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                var authService = AuthService()
-                authService.statistic(itemList[position])
+                statistic(worknameList[position])
             }
         }
-        return binding.root
     }
 
-    fun setLineChartData()
+    fun setLineChartData(LAST_N: Int)
     {
-        val Yvalue = ArrayList<Int>()
-        Yvalue.add(1)
-        Yvalue.add(4)
-        Yvalue.add(3)
-        Yvalue.add(9)
-        Yvalue.add(5)
-        Yvalue.add(1)
-        Yvalue.add(4)
-        Yvalue.add(3)
-        Yvalue.add(9)
-        Yvalue.add(5)
+        var Yvalue = ArrayList<Int>()
+        var Xvalue = ArrayList<String>()
+        var chartDataXY : List<InChart>? = null
 
-        val lineentry = ArrayList<Entry>()
+        when (LAST_N) {
+            5 -> {
+                chartDataXY = last5ChartDataXY
+            }
+            10 -> {
+                chartDataXY = last10ChartDataXY
+            }
+            -1 -> {
+                chartDataXY = totalChartDataXY
+            }
+        }
+
+        for (inchart in chartDataXY!!){
+            Yvalue.add(inchart.volume)
+            Xvalue.add(inchart.date)
+        }
+
+        val lineEntry = ArrayList<Entry>()
 
         for (i in 0 until Yvalue.size)
-            lineentry.add(Entry(i.toFloat(), Yvalue[i].toFloat()))
+            lineEntry.add(Entry(i.toFloat(), Yvalue[i].toFloat()))
 
-        val lineDataSet = LineDataSet(lineentry, "first")
+        val lineDataSet = LineDataSet(lineEntry, "first")
         val data = LineData(lineDataSet)
 
         binding.partchartCt.data = data
@@ -113,7 +136,8 @@ class PartchartFragment : Fragment() {
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         //set the horizontal distance of the grid line
         xAxis.granularity = 1f
-        xAxis.textColor = Color.WHITE // 없애거나, 투명화하는 방법은 없을지
+        xAxis.valueFormatter = IndexAxisValueFormatter(Xvalue)
+//        xAxis.textColor = Color.WHITE // 없애거나, 투명화하는 방법은 없을지
         //hiding the x-axis line, default true if not set
         xAxis.setDrawAxisLine(false)
         //hiding the vertical grid lines, default true if not set
@@ -134,5 +158,67 @@ class PartchartFragment : Fragment() {
     //        rightAxis.textColor = Color.RED
         rightAxis.setDrawAxisLine(false)
         rightAxis.setDrawGridLines(false)
+    }
+
+    private fun setLastNChartDataXY(totalData : List<InChart>){
+        totalChartDataXY = totalData
+
+        if (totalChartDataXY!!.size > 5) {
+            last5ChartDataXY = totalChartDataXY!!.subList(0, 5)
+        } else {
+            last5ChartDataXY = totalChartDataXY
+        }
+
+        if (totalChartDataXY!!.size > 10) {
+            last10ChartDataXY = totalChartDataXY!!.subList(0, 10)
+        } else {
+            last10ChartDataXY = totalChartDataXY
+        }
+
+        setLineChartData(5)
+    }
+
+    private fun getSpinnerWorkNameData(){
+        var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
+        var partId = db.WorkPartDao().getWorkPartIdbyPartName(partName)
+        Log.d("partId", partId.toString())
+        val tmpAll = db.WorkDao().findWorkbyPartId(partId)
+        worknameList.clear()
+        Log.d("WorkALL", tmpAll.toString())
+        for (i in tmpAll) {
+            worknameList.add(i.workName)
+        }
+    }
+
+    fun statistic(partName : String) {
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.statistic(partName).enqueue(object : Callback<ChartData> {
+            override fun onResponse(call: Call<ChartData>, response: Response<ChartData>
+            ) {
+                if (response.code() == 200) {
+                    Log.d("statistic/success", response.body()!!.toString())
+                    setLastNChartDataXY(response.body()!!.chart)
+                    setTotalDatas(response.body()!!.chart, response.body()!!.totalVolume, response.body()!!.totalTime)
+                }
+                else {
+                    Log.d("statistic/failure", "fail")
+                }
+            }
+
+            override fun onFailure(call: Call<ChartData>, t: Throwable) {
+                Log.d("statistic/FAILURE", t.message.toString())
+            }
+        })
+    }
+
+    fun setTotalDatas(totalData : List<InChart>, totalVolume : Int, totalTime : Int){
+        val timeBox = binding.partchartWorktimeBoxTv
+        val countBox = binding.partchartWorkcountBoxTv
+        val volumeBox = binding.partchartWorkvolumeBoxTv
+
+        timeBox.text = totalTime.toString()
+        countBox.text = totalData.size.toString()
+        volumeBox.text = totalVolume.toString()
     }
 }

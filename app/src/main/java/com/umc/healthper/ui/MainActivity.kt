@@ -135,21 +135,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListener(binding: ActivityMainBinding) {
-
-        binding.mainSidMenuNv.setNavigationItemSelectedListener{
-            val authService = AuthService()
-            when (it.itemId) {
-                R.id.setting_ad -> {
-                    Toast.makeText(this, "ad", Toast.LENGTH_SHORT).show()
-                }
-                R.id.setting_signout -> {
-                    // 탈퇴하기 기능 구현
-                    authService.signout()
-                }
-                // 세팅 구현
-            }
-            true
-       }
+        setSidebarListener()
 
         binding.mainNavBnv.setOnItemSelectedListener {
             when(it.title) {
@@ -212,28 +198,65 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        val toggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
-            this, binding.mainDl, R.string.drawer_open, R.string.drawer_close)
-            {
-                override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                    super.onDrawerSlide(drawerView, slideOffset)
-                }
+    }
 
-                override fun onDrawerOpened(drawerView: View) {
-                    super.onDrawerOpened(drawerView)
-                }
+    private fun setSidebarListener() {
+        var sideMenu = binding.mainSidMenuNv
+        val drawerToggle = setDrawerToggle()
 
-                override fun onDrawerClosed(drawerView: View) {
-                    super.onDrawerClosed(drawerView)
-                    binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        sideMenu.setNavigationItemSelectedListener{
+            val authService = AuthService()
+            when (it.itemId) {
+                R.id.setting_help -> {
+                    viewTutorial()
+                    drawerToggle.closeDrawer(sideMenu)
                 }
+                R.id.setting_ad -> {
+                    Toast.makeText(this, "ad", Toast.LENGTH_SHORT).show()
+                }
+                R.id.setting_signout -> {
+                    // 탈퇴하기 기능 구현
+                    authService.signout()
+                }
+                // 세팅 구현
+            }
+        true
+        }
+    }
 
-                override fun onDrawerStateChanged(newState: Int) {
-                    super.onDrawerStateChanged(newState)
-                }
+    private fun viewTutorial() {
+        val transition = supportFragmentManager.beginTransaction()
+        var tutorialFragment = TutorialFragment()
+        transition.add(binding.mainDl.id, tutorialFragment)
+                .addToBackStack("tutorial")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .isAddToBackStackAllowed
+        transition.commit()
+    }
+
+    private fun setDrawerToggle() : DrawerLayout {
+        val toggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(this, binding.mainDl, R.string.drawer_open, R.string.drawer_close)
+        {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                super.onDrawerSlide(drawerView, slideOffset)
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                super.onDrawerClosed(drawerView)
+                binding.mainDl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+                super.onDrawerStateChanged(newState)
+            }
         }
 
         binding.mainDl.addDrawerListener(toggle)
+        return binding.mainDl
     }
 
     fun checkStack() {

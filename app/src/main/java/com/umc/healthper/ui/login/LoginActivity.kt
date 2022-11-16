@@ -144,7 +144,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 LoginClient.instance.loginWithKakaoTalk(this, callback = callback)
             }else{
                 LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
-            }
+           }
         }
 
         val login_privacy_info = binding.loginPrivacyInfoIv //개인정봅 보호
