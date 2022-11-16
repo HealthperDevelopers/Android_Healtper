@@ -53,6 +53,19 @@ class PartchartFragment : Fragment() {
         binding.partchartUserNameTv.setOnClickListener {
             VarUtil.glob.mainActivity.Mypage()
         }
+
+        // 파트 이름 가져와서 파트 Text에 초기화
+        partName = arguments?.getString("part").toString()
+        binding.partchartPartTv.text = partName
+
+        clickChartBar()
+        getSpinnerWorkNameData()
+        setSpinner(binding.partchartSp)
+
+        return binding.root
+    }
+
+    private fun clickChartBar() {
         binding.partchartContentFiveTv.setOnClickListener {
             setLineChartData(5)
         }
@@ -62,15 +75,6 @@ class PartchartFragment : Fragment() {
         binding.partchartContentAllTv.setOnClickListener {
             setLineChartData(-1)
         }
-
-        // 파트 이름 가져와서 파트 Text에 초기화
-        partName = arguments?.getString("part").toString()
-        binding.partchartPartTv.text = partName
-
-        getSpinnerWorkNameData()
-        setSpinner(binding.partchartSp)
-
-        return binding.root
     }
 
     fun setSpinner(spinner: Spinner){

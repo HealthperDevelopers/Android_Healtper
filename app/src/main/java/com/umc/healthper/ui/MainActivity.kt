@@ -29,6 +29,8 @@ import com.umc.healthper.ui.main.view.*
 import com.umc.healthper.ui.mypage.view.FavoritesMypageFragment
 // import com.umc.healthper.ui.mypage.view.MusicMypageFragment
 import com.umc.healthper.ui.mypage.view.MypageFragment
+import com.umc.healthper.ui.sidemenu.SignoutFragment
+import com.umc.healthper.ui.sidemenu.VersionUpdateFragment
 import com.umc.healthper.ui.timer.CommentActivity
 import com.umc.healthper.ui.timer.TimerActivity
 import com.umc.healthper.ui.tutorial.view.TutorialFragment
@@ -208,28 +210,51 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.setting_help -> {
                     viewTutorial()
-                    drawerToggle.closeDrawer(sideMenu)
                 }
                 R.id.setting_ad -> {
                     Toast.makeText(this, "ad", Toast.LENGTH_SHORT).show()
                 }
                 R.id.setting_signout -> {
                     // 탈퇴하기 기능 구현
-                    authService.signout()
+                    viewSignout()
+//                    authService.signout() -> 다시 회원가입이 안되고 있음. ㅠㅠ
                 }
-                // 세팅 구현
+                R.id.setting_update -> {
+                    viewVersionUpdate()
+                }
             }
-        true
+            drawerToggle.closeDrawer(sideMenu)
+            true
         }
+    }
+
+    private fun viewVersionUpdate() {
+        val transition = supportFragmentManager.beginTransaction()
+        val versionUpdateFragment = VersionUpdateFragment()
+        transition.replace(binding.mainDl.id, versionUpdateFragment)
+            .addToBackStack("versionUpdate")
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .isAddToBackStackAllowed
+        transition.commit()
     }
 
     private fun viewTutorial() {
         val transition = supportFragmentManager.beginTransaction()
-        var tutorialFragment = TutorialFragment()
-        transition.add(binding.mainDl.id, tutorialFragment)
+        val tutorialFragment = TutorialFragment()
+        transition.replace(binding.mainDl.id, tutorialFragment)
                 .addToBackStack("tutorial")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .isAddToBackStackAllowed
+        transition.commit()
+    }
+
+    private fun viewSignout() {
+        val transition = supportFragmentManager.beginTransaction()
+        val signoutFragment = SignoutFragment()
+        transition.replace(binding.mainDl.id, signoutFragment)
+            .addToBackStack("signout")
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .isAddToBackStackAllowed
         transition.commit()
     }
 
