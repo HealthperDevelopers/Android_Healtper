@@ -105,11 +105,47 @@
                 android:background="@color/gray"
                 />
             <TextView
+                android:id="@+id/partchart_low_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최저 무게"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/partchart_high_weight"
+                app:layout_constraintTop_toBottomOf="@id/partchart_ct"
+                />
+            <TextView
+                android:id="@+id/partchart_high_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최고 무게"
+                app:layout_constraintStart_toEndOf="@id/partchart_low_weight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/partchart_ct"
+                />
+
+            <TextView
+                android:id="@+id/partchart_low_weight_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/partchart_high_weight"
+                app:layout_constraintTop_toBottomOf="@id/partchart_low_weight"
+                />
+            <TextView
+                android:id="@+id/partchart_high_weight_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/partchart_low_weight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/partchart_high_weight"
+                />
+
+            <TextView
                 android:id="@+id/partchart_worktime_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="총 운동 시간"
-                app:layout_constraintTop_toBottomOf="@id/partchart_ct"
+                app:layout_constraintTop_toBottomOf="@id/partchart_low_weight_tv"
                 app:layout_constraintEnd_toStartOf="@id/partchart_workcount_tv"
                 app:layout_constraintStart_toStartOf="@id/partchart_ct"
                 android:layout_marginTop="50dp"
@@ -127,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="총 운동 횟수"
-                app:layout_constraintTop_toBottomOf="@id/partchart_ct"
+                app:layout_constraintTop_toBottomOf="@id/partchart_low_weight_tv"
                 app:layout_constraintStart_toEndOf="@id/partchart_worktime_tv"
                 app:layout_constraintEnd_toEndOf="@id/partchart_ct"
                 android:layout_marginTop="50dp"

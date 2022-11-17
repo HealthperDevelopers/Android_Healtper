@@ -27,6 +27,8 @@ import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Collections
+import kotlin.math.min
 
 class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding
@@ -204,6 +206,7 @@ class PartchartFragment : Fragment() {
                     Log.d("statistic/success", response.body()!!.toString())
                     setLastNChartDataXY(response.body()!!.chart)
                     setTotalDatas(response.body()!!.chart, response.body()!!.totalVolume, response.body()!!.totalTime)
+                    setLowHighDatas(response.body()!!.chart)
                 }
                 else {
                     Log.d("statistic/failure", "fail")
@@ -224,5 +227,25 @@ class PartchartFragment : Fragment() {
         timeBox.text = totalTime.toString()
         countBox.text = totalData.size.toString()
         volumeBox.text = totalVolume.toString()
+    }
+
+    private fun setLowHighDatas(totalData : List<InChart>) {
+        var volumes : ArrayList<Int> = ArrayList()
+        for (i in totalData.indices) {
+            volumes.add(totalData[i].volume)
+        }
+
+        var high : Int = 0
+        var low : Int = 0
+
+        try {
+            high = Collections.max(volumes)
+            low = Collections.min(volumes)
+        } catch (exception : NoSuchElementException) {
+
+        }
+
+        binding.partchartHighWeightTv.text = high.toString()
+        binding.partchartLowWeightTv.text = low.toString()
     }
 }
