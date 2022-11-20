@@ -1,6 +1,7 @@
 package com.umc.healthper.ui.chart.view
 
 import android.R
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -27,6 +29,8 @@ import com.umc.healthper.util.getRetrofit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Collections
+import kotlin.math.min
 
 class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding
@@ -53,10 +57,19 @@ class PartchartFragment : Fragment() {
         binding.partchartUserNameTv.setOnClickListener {
             VarUtil.glob.mainActivity.Mypage()
         }
+        binding.partchartBackBt.setOnClickListener {
+            VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
+                "part_chart",
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
+        }
 
         // 파트 이름 가져와서 파트 Text에 초기화
+        var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
         partName = arguments?.getString("part").toString()
         binding.partchartPartTv.text = partName
+        binding.partchartPartTv.backgroundTintList = ColorStateList.valueOf(
+            Color.parseColor(db.WorkPartDao().getColorbyPartName(partName)))
 
         clickChartBar()
         getSpinnerWorkNameData()
@@ -204,6 +217,7 @@ class PartchartFragment : Fragment() {
                     Log.d("statistic/success", response.body()!!.toString())
                     setLastNChartDataXY(response.body()!!.chart)
                     setTotalDatas(response.body()!!.chart, response.body()!!.totalVolume, response.body()!!.totalTime)
+                    setLowHighDatas(response.body()!!.chart)
                 }
                 else {
                     Log.d("statistic/failure", "fail")
@@ -224,5 +238,25 @@ class PartchartFragment : Fragment() {
         timeBox.text = totalTime.toString()
         countBox.text = totalData.size.toString()
         volumeBox.text = totalVolume.toString()
+    }
+
+    private fun setLowHighDatas(totalData : List<InChart>) {
+        var volumes : ArrayList<Int> = ArrayList()
+        for (i in totalData.indices) {
+            volumes.add(totalData[i].volume)
+        }
+
+        var high : Int = 0
+        var low : Int = 0
+
+        try {
+            high = Collections.max(volumes)
+            low = Collections.min(volumes)
+        } catch (exception : NoSuchElementException) {
+
+        }
+
+        binding.partchartHighWeightTv.text = high.toString()
+        binding.partchartLowWeightTv.text = low.toString()
     }
 }
