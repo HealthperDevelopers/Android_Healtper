@@ -171,10 +171,11 @@ class childCommentRVAdapter(val data: List<Children>): RecyclerView.Adapter<chil
                     firbt.text = "신고하기"
                     secbt.text = "차단하기"
                     firbt.setOnClickListener {
-                        // 신고하기 기능 구현
-                    }
+
+
+                        }
                     secbt.setOnClickListener {
-                        // 차단하기 기능 구현
+
                     }
                 }
             }

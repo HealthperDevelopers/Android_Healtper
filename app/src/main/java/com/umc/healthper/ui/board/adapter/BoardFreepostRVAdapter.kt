@@ -25,6 +25,8 @@ class BoardFreepostRVAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         notifyItemChanged(pos)
     }
 
+
+
     fun setList(clear : Boolean)
     {
         if (clear)

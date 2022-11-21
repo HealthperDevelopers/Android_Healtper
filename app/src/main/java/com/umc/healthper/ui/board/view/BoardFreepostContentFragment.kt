@@ -92,8 +92,118 @@ class BoardFreepostContentFragment : Fragment() {
                     }
                     //신고
                     2 -> {
-                        val fragmentManager = activity!!.supportFragmentManager
-                        fragmentManager.popBackStack()
+
+                        /*val fragmentManager = activity!!.supportFragmentManager
+                        fragmentManager.popBackStack()*/
+                        val mPopupView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.popup_window_report_user, null)
+                        val mPopupContentView = LayoutInflater.from(VarUtil.glob.mainActivity).inflate(R.layout.popup_window_report_detail, null)
+                        val mBuilder = AlertDialog.Builder(VarUtil.glob.mainActivity) .setView(mPopupView)
+                        val mBuilderContent=AlertDialog.Builder(VarUtil.glob.mainActivity) .setView(mPopupContentView)
+
+                        val mAlertDialog = mBuilder.show()
+                        val mAlertContentPopup=mBuilderContent.show()
+
+                        mAlertDialog.window?.setLayout(800,1200)
+                        val nineteenButton = mPopupView.findViewById<TextView>(R.id.popup_window_report_19_tv)
+                        val commerceButton = mPopupView.findViewById<TextView>(R.id.popup_window_report_commerce_tv)
+                        val condemnButton = mPopupView.findViewById<TextView>(R.id.popup_window_report_condemn_tv)
+                        val fraudButton = mPopupView.findViewById<TextView>(R.id.popup_window_report_fraud_tv)
+                        val repeatButton = mPopupView.findViewById<TextView>(R.id.popup_window_report_repeat_tv)
+                        val politicButton = mPopupView.findViewById<TextView>(R.id.popup_window_report_politic_tv)
+                        val propertyButton = mPopupView.findViewById<TextView>(R.id.popup_window_report_property_tv)
+
+                        nineteenButton.setOnClickListener {
+                            mAlertDialog.dismiss()
+                            mAlertContentPopup.window?.setLayout(800,600)
+                            val doneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_reportBtn_tv)
+                            val noneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_cancelBtn_tv)
+                            doneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                                reportPost(postId)
+                            }
+                            noneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                            }
+                        }
+                         commerceButton.setOnClickListener {
+                             mAlertDialog.dismiss()
+                             mAlertContentPopup.window?.setLayout(800,600)
+                             val doneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_reportBtn_tv)
+                             val noneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_cancelBtn_tv)
+                             doneButton.setOnClickListener {
+                                 mAlertContentPopup.dismiss()
+                                 reportPost(postId)
+                             }
+                             noneButton.setOnClickListener {
+                                 mAlertContentPopup.dismiss()
+                             }
+                        }
+                        condemnButton.setOnClickListener {
+                            mAlertDialog.dismiss()
+                            mAlertContentPopup.window?.setLayout(800,600)
+                            val doneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_reportBtn_tv)
+                            val noneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_cancelBtn_tv)
+                            doneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                                reportPost(postId)
+                            }
+                            noneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                            }
+                        }
+                        fraudButton.setOnClickListener {
+                            mAlertDialog.dismiss()
+                            mAlertContentPopup.window?.setLayout(800,600)
+                            val doneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_reportBtn_tv)
+                            val noneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_cancelBtn_tv)
+                            doneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                                reportPost(postId)
+                            }
+                            noneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                            }
+                        }
+                        repeatButton.setOnClickListener {
+                            mAlertDialog.dismiss()
+                            mAlertContentPopup.window?.setLayout(800,600)
+                            val doneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_reportBtn_tv)
+                            val noneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_cancelBtn_tv)
+                            doneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                                reportPost(postId)
+                            }
+                            noneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                            }
+                        }
+                        politicButton.setOnClickListener {
+                            mAlertDialog.dismiss()
+                            mAlertContentPopup.window?.setLayout(800,600)
+                            val doneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_reportBtn_tv)
+                            val noneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_cancelBtn_tv)
+                            doneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                                reportPost(postId)
+                            }
+                            noneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                            }
+                        }
+                        propertyButton.setOnClickListener {
+                            mAlertDialog.dismiss()
+                            mAlertContentPopup.window?.setLayout(800,600)
+                            val doneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_reportBtn_tv)
+                            val noneButton = mPopupContentView.findViewById<TextView>(R.id.popup_window_report_detail_cancelBtn_tv)
+                            doneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                                reportPost(postId)
+                            }
+                            noneButton.setOnClickListener {
+                                mAlertContentPopup.dismiss()
+                            }
+                        }
+
                     }
                     //삭제
                     3 -> {
@@ -378,7 +488,7 @@ class BoardFreepostContentFragment : Fragment() {
                     401 -> {
                         Toast.makeText(
                             VarUtil.glob.mainContext,
-                            "댓글을 수정/삭제할 수 있는 권한이 없습니다.",
+                            "게시글을 수정/삭제할 수 있는 권한이 없습니다.",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -389,5 +499,51 @@ class BoardFreepostContentFragment : Fragment() {
                 Log.d("deletePost/FAILURE", t.message.toString())
             }
         })
+    }
+
+    fun reportPost(postId : Int){
+        val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
+
+        authService.reportPost(postId).enqueue(object :Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        Log.d("reportPost/success", response.body().toString())
+                        VarUtil.glob.boardFreepostFragment.adapter.notifyItemRemoved(
+                            arguments!!.getIntegerArrayList(
+                                "report&blockCount"
+                            )!!.last()
+                        )
+                        val fragmentManager = activity!!.supportFragmentManager
+                        fragmentManager.popBackStack()
+                        /*용도?*/
+                    }
+                    401 -> {
+                        Toast.makeText(
+                            VarUtil.glob.mainContext,
+                            "게시글을 신고할 수 있는 권한이 없습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    404 -> {
+                        Log.d("reportPost/success", response.body().toString())
+                        VarUtil.glob.boardFreepostFragment.adapter.notifyItemReported(
+                            arguments!!.getIntegerArrayList(
+                                "report&blockCount"
+                            )!!.last()
+                        )
+                        val fragmentManager = activity!!.supportFragmentManager
+                        fragmentManager.popBackStack()
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("deletePost/FAILURE", t.message.toString())
+            }
+        })
+    }
     }
 }

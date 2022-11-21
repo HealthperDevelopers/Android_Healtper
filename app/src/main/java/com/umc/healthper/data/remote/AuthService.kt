@@ -390,6 +390,8 @@ class AuthService {
         })
     }
 
+
+
     fun logout(){
         val authService = getRetrofit().create(AuthRetrofitInterface::class.java)
 

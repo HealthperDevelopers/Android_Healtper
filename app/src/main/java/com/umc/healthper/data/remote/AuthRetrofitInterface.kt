@@ -55,6 +55,14 @@ interface AuthRetrofitInterface {
         @Body content : Content
     ) : Call<Void>
 
+
+    /** 댓글 & 대댓글 신고 */
+    @POST("/report/comment/{commentId}")
+    fun reportComment(
+        @Path("postId") commentId : Int
+    ) : Call<Void>
+
+
     @GET("/logout")
     fun logout() : Call<Void>
 
@@ -101,6 +109,12 @@ interface AuthRetrofitInterface {
         @Query ("page") page : Int
     ) : Call<PostsResponse>
 
+    /**게시글 신고*/
+    @POST("/report/post/{postId}")
+    fun reportPost(
+        @Path("postId") postId : Int
+    ) : Call<Void>
+
     @GET("/login")
     fun login(
         @Query ("kakaoId") kakaoId : String
@@ -142,4 +156,5 @@ interface AuthRetrofitInterface {
         @Query ("year") year : Int,
         @Query ("month") month: Int
     ) : Response<List<CalendarResponse>>
+
 }

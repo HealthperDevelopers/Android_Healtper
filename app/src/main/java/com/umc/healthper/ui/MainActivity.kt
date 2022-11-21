@@ -101,6 +101,8 @@ class MainActivity : AppCompatActivity() {
             mainFragment = MainFragment()
         }
 
+
+
         if (VarUtil.glob.tutorial)
         {
             if (tutorialFragment == null){
