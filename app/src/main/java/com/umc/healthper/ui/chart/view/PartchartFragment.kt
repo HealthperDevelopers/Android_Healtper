@@ -40,6 +40,7 @@ class PartchartFragment : Fragment() {
     var totalChartDataXY : List<InChart>? = null
     var last5ChartDataXY : List<InChart>? = null
     var last10ChartDataXY : List<InChart>? = null
+    var viewModel : PartChartViewModel? = null
 
     /**
      * 기능 구현
@@ -53,7 +54,13 @@ class PartchartFragment : Fragment() {
     ): View? {
         Log.d("data : ", arguments?.getString("part").toString())
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_partchart, container, false)
+//        binding = FragmentPartchartBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(PartChartViewModel::class.java)
+        binding.viewModel = viewModel
         binding.partchartUserNameTv.text = VarUtil.glob.Nickname
+        binding.partchartUserNameTv.setOnClickListener {
+            VarUtil.glob.mainActivity.Mypage()
+        }
         binding.partchartBackBt.setOnClickListener {
             VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
                 "part_chart",
@@ -65,21 +72,16 @@ class PartchartFragment : Fragment() {
         var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
         partName = arguments?.getString("part").toString()
         binding.partchartPartTv.text = partName
-        binding.partchartPartTv.backgroundTintList = ColorStateList.valueOf(
-            Color.parseColor(db.WorkPartDao().getColorbyPartName(partName)))
+        viewModel!!.partName = partName
+        binding.partchartPartTv.backgroundTintList = viewModel!!.setPartColor()
+//        binding.partchartPartTv.backgroundTintList = ColorStateList.valueOf(
+//            Color.parseColor(db.WorkPartDao().getColorbyPartName(partName)))
 
         clickChartBar()
         getSpinnerWorkNameData()
         setSpinner(binding.partchartSp)
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val viewModel = ViewModelProvider(this).get(PartChartViewModel::class.java)
-        binding.viewModel = viewModel
     }
 
     private fun clickChartBar() {
