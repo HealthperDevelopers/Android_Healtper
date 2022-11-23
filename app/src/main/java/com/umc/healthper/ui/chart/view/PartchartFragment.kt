@@ -68,14 +68,8 @@ class PartchartFragment : Fragment() {
             )
         }
 
-        // 파트 이름 가져와서 파트 Text에 초기화
-        var db = LocalDB.getInstance(VarUtil.glob.mainContext)!!
         partName = arguments?.getString("part").toString()
-        binding.partchartPartTv.text = partName
         viewModel!!.partName = partName
-//        binding.partchartPartTv.backgroundTintList = viewModel!!.setPartColor()
-//        binding.partchartPartTv.backgroundTintList = ColorStateList.valueOf(
-//            Color.parseColor(db.WorkPartDao().getColorbyPartName(partName)))
 
         clickChartBar()
         getSpinnerWorkNameData()
