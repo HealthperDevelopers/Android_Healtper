@@ -1,6 +1,5 @@
 package com.umc.healthper.ui.chart.view
 
-import android.R
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -11,14 +10,17 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.umc.healthper.R
 import com.umc.healthper.data.entity.ChartData
 import com.umc.healthper.data.entity.InChart
 import com.umc.healthper.data.local.LocalDB
@@ -30,7 +32,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.Collections
-import kotlin.math.min
 
 class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding
@@ -51,12 +52,8 @@ class PartchartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d("data : ", arguments?.getString("part").toString())
-
-        binding = FragmentPartchartBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_partchart, container, false)
         binding.partchartUserNameTv.text = VarUtil.glob.Nickname
-        binding.partchartUserNameTv.setOnClickListener {
-            VarUtil.glob.mainActivity.Mypage()
-        }
         binding.partchartBackBt.setOnClickListener {
             VarUtil.glob.mainActivity.supportFragmentManager.popBackStack(
                 "part_chart",
@@ -76,6 +73,13 @@ class PartchartFragment : Fragment() {
         setSpinner(binding.partchartSp)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val viewModel = ViewModelProvider(this).get(PartChartViewModel::class.java)
+        binding.viewModel = viewModel
     }
 
     private fun clickChartBar() {

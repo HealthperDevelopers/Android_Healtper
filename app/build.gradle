@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 Properties properties = new Properties()
@@ -85,4 +86,6 @@ dependencies {
 
     //roomdb보기
     implementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+    kapt 'com.android.databinding:compiler:3.5.3'
 }
