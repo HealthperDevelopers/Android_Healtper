@@ -73,7 +73,7 @@ class PartchartFragment : Fragment() {
         partName = arguments?.getString("part").toString()
         binding.partchartPartTv.text = partName
         viewModel!!.partName = partName
-        binding.partchartPartTv.backgroundTintList = viewModel!!.setPartColor()
+//        binding.partchartPartTv.backgroundTintList = viewModel!!.setPartColor()
 //        binding.partchartPartTv.backgroundTintList = ColorStateList.valueOf(
 //            Color.parseColor(db.WorkPartDao().getColorbyPartName(partName)))
 
