@@ -37,7 +37,7 @@ class PartchartFragment : Fragment() {
     lateinit var binding : FragmentPartchartBinding
     var partName : String = ""
     val worknameList = arrayListOf<String>()
-    var totalChartDataXY : List<InChart>? = null
+    var totalData : List<InChart>? = null
     var last5ChartDataXY : List<InChart>? = null
     var last10ChartDataXY : List<InChart>? = null
     var viewModel : PartChartViewModel? = null
@@ -117,13 +117,13 @@ class PartchartFragment : Fragment() {
 
         when (LAST_N) {
             5 -> {
-                chartDataXY = last5ChartDataXY
+                chartDataXY = totalData?.let { subChartList(it, 5) }
             }
             10 -> {
-                chartDataXY = last10ChartDataXY
+                chartDataXY = totalData?.let { subChartList(it, 10) }
             }
             -1 -> {
-                chartDataXY = totalChartDataXY
+                chartDataXY = totalData
             }
         }
 
@@ -178,21 +178,16 @@ class PartchartFragment : Fragment() {
     }
 
     private fun setLastNChartDataXY(totalData : List<InChart>){
-        totalChartDataXY = totalData
+        this.totalData = totalData
+    }
 
-        if (totalChartDataXY!!.size > 5) {
-            last5ChartDataXY = totalChartDataXY!!.subList(0, 5)
-        } else {
-            last5ChartDataXY = totalChartDataXY
+    private fun subChartList(totalData: List<InChart>, endIndex : Int) : List<InChart> {
+        var result : List<InChart> = totalData
+
+        if (totalData.size > endIndex) {
+            result = totalData.subList(0, endIndex)
         }
-
-        if (totalChartDataXY!!.size > 10) {
-            last10ChartDataXY = totalChartDataXY!!.subList(0, 10)
-        } else {
-            last10ChartDataXY = totalChartDataXY
-        }
-
-        setLineChartData(5)
+        return result
     }
 
     private fun getSpinnerWorkNameData(){
@@ -214,10 +209,14 @@ class PartchartFragment : Fragment() {
             override fun onResponse(call: Call<ChartData>, response: Response<ChartData>
             ) {
                 if (response.code() == 200) {
-                    Log.d("statistic/success", response.body()!!.toString())
-                    setLastNChartDataXY(response.body()!!.chart)
-                    setTotalDatas(response.body()!!.chart, response.body()!!.totalVolume, response.body()!!.totalTime)
-                    setLowHighDatas(response.body()!!.chart)
+                    var chart = response.body()!!.chart
+                    var totalVolume = response.body()!!.totalVolume
+                    var totalTime = response.body()!!.totalTime
+
+                    setLastNChartDataXY(chart)
+                    setLineChartData(5)
+                    setTotalDatas(chart.size, totalVolume, totalTime)
+                    setLowHighDatas(chart)
                 }
                 else {
                     Log.d("statistic/failure", "fail")
@@ -230,13 +229,13 @@ class PartchartFragment : Fragment() {
         })
     }
 
-    fun setTotalDatas(totalData : List<InChart>, totalVolume : Int, totalTime : Int){
+    fun setTotalDatas(totalCount : Int, totalVolume : Int, totalTime : Int){
         val timeBox = binding.partchartWorktimeBoxTv
         val countBox = binding.partchartWorkcountBoxTv
         val volumeBox = binding.partchartWorkvolumeBoxTv
 
         timeBox.text = totalTime.toString()
-        countBox.text = totalData.size.toString()
+        countBox.text = totalCount.toString()
         volumeBox.text = totalVolume.toString()
     }
 
