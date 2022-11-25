@@ -177,7 +177,7 @@ class PartchartFragment : Fragment() {
         rightAxis.setDrawGridLines(false)
     }
 
-    private fun setLastNChartDataXY(totalData : List<InChart>){
+    private fun setInChart(totalData : List<InChart>){
         this.totalData = totalData
     }
 
@@ -213,7 +213,7 @@ class PartchartFragment : Fragment() {
                     var totalVolume = response.body()!!.totalVolume
                     var totalTime = response.body()!!.totalTime
 
-                    setLastNChartDataXY(chart)
+                    setInChart(chart)
                     setLineChartData(5)
                     setTotalDatas(chart.size, totalVolume, totalTime)
                     setLowHighDatas(chart)
