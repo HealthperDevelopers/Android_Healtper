@@ -38,15 +38,8 @@ class PartchartFragment : Fragment() {
     var partName : String = ""
     val worknameList = arrayListOf<String>()
     var totalData : List<InChart>? = null
-    var last5ChartDataXY : List<InChart>? = null
-    var last10ChartDataXY : List<InChart>? = null
     var viewModel : PartChartViewModel? = null
 
-    /**
-     * 기능 구현
-     * 1. 차트 위에 5, 10, 전체 클릭 시 LAST_N 변경
-     * 2. setLineChartData에 ChartDataXY를 x, y축으로 파싱해서 arraylist로 만들어주는 함수 만들어 넣어주기.
-     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,7 +47,6 @@ class PartchartFragment : Fragment() {
     ): View? {
         Log.d("data : ", arguments?.getString("part").toString())
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_partchart, container, false)
-//        binding = FragmentPartchartBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(PartChartViewModel::class.java)
         binding.viewModel = viewModel
         binding.partchartUserNameTv.text = VarUtil.glob.Nickname
@@ -113,19 +105,7 @@ class PartchartFragment : Fragment() {
     {
         var Yvalue = ArrayList<Int>()
         var Xvalue = ArrayList<String>()
-        var chartDataXY : List<InChart>? = null
-
-        when (LAST_N) {
-            5 -> {
-                chartDataXY = totalData?.let { subChartList(it, 5) }
-            }
-            10 -> {
-                chartDataXY = totalData?.let { subChartList(it, 10) }
-            }
-            -1 -> {
-                chartDataXY = totalData
-            }
-        }
+        var chartDataXY = totalData?.let { subChartList(it, LAST_N) }
 
         for (inchart in chartDataXY!!){
             Yvalue.add(inchart.volume)
@@ -177,14 +157,14 @@ class PartchartFragment : Fragment() {
         rightAxis.setDrawGridLines(false)
     }
 
-    private fun setInChart(totalData : List<InChart>){
+    private fun setTotalInChart(totalData : List<InChart>){
         this.totalData = totalData
     }
 
     private fun subChartList(totalData: List<InChart>, endIndex : Int) : List<InChart> {
         var result : List<InChart> = totalData
 
-        if (totalData.size > endIndex) {
+        if (totalData.size > endIndex && endIndex != -1) {
             result = totalData.subList(0, endIndex)
         }
         return result
@@ -213,7 +193,7 @@ class PartchartFragment : Fragment() {
                     var totalVolume = response.body()!!.totalVolume
                     var totalTime = response.body()!!.totalTime
 
-                    setInChart(chart)
+                    setTotalInChart(chart)
                     setLineChartData(5)
                     setTotalDatas(chart.size, totalVolume, totalTime)
                     setLowHighDatas(chart)
